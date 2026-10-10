@@ -9,8 +9,9 @@ import { deleteChildAction, revokeDeviceAction } from "../../actions";
 import { requireParentPage } from "../../page-guard";
 import styles from "../../parent.module.css";
 
-export default async function ChildDetail({ params }: { params: Promise<{ id: string }> }) {
+export default async function ChildDetail({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ setup?: string }> }) {
   const { id } = await params;
+  const { setup } = await searchParams;
   const parent = await requireParentPage(`/children/${id}`, { gate: "area", needHousehold: true });
   const child = await getChildInHousehold(parent.householdId!, id);
   if (!child) notFound();
@@ -25,6 +26,7 @@ export default async function ChildDetail({ params }: { params: Promise<{ id: st
         <div className={styles.stack}>
           <h1 className={styles.h1}>{name}</h1>
           <p className={styles.muted}>{ta(child.ageBand)}</p>
+          <a href={`/children/${child.id}/settings`}>{t("changeSettings")}</a>
         </div>
       </Card>
 
@@ -51,6 +53,7 @@ export default async function ChildDetail({ params }: { params: Promise<{ id: st
             ))}
           </ul>
           <form method="post" action="/api/parent/devices" className={styles.stack}>
+            {setup ? <p className={styles.notice}>{t("stepOf", { n: 4 })}: {t("handOver", { name })}</p> : null}
             <p className={styles.muted}>{t("setUpHint")}</p>
             <input type="hidden" name="childId" value={child.id} />
             <Field label={t("deviceLabel")} name="label" maxLength={32} defaultValue="Tablet" />

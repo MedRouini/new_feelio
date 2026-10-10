@@ -143,3 +143,29 @@ export async function deleteChild(p: { userId: string; householdId: string; chil
 export async function deleteAccount(userId: string) {
   await db.batch([db.delete(apikey).where(eq(apikey.referenceId, userId)), db.delete(user).where(eq(user.id, userId))]);
 }
+
+export type SettingsInput = { talk: boolean; stories: boolean; dailyMinutes: 15 | 30 | 45; sound: boolean };
+
+export async function getSettings(householdId: string, childId: string) {
+  if (!(await getChildInHousehold(householdId, childId))) return null;
+  const [row] = await db.select().from(childSettings).where(eq(childSettings.childId, childId)).limit(1);
+  return row ?? null;
+}
+
+/** Parent settings for one child. Enforced on the server wherever a feature is used (CR-2). */
+export async function updateSettings(p: { userId: string; householdId: string; childId: string; s: SettingsInput }) {
+  const current = await getSettings(p.householdId, p.childId);
+  if (!current) throw new Error("Child not found in household");
+  await db.batch([
+    db
+      .update(childSettings)
+      .set({
+        features: { ...current.features, talk: p.s.talk, stories: p.s.stories },
+        dailyMinutes: p.s.dailyMinutes,
+        sound: p.s.sound,
+        updatedAt: new Date(),
+      })
+      .where(eq(childSettings.childId, p.childId)),
+    db.insert(auditLog).values({ householdId: p.householdId, userId: p.userId, action: "settings.updated", detail: { childId: p.childId, ...p.s } }),
+  ]);
+}

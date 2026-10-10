@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "reviewStatus": "draft_needs_review",
+    "note": "Fun nicknames a child can pick in onboarding (ONBOARDING.md stop 2). Friendly words, not real-person names, no religious terms. Stored as keys only. Arabic needs native review."
+  },
+  "names": [
+    { "key": "pip", "en": "Pip", "ar": "بِيب" },
+    { "key": "sunny", "en": "Sunny", "ar": "شمسة" },
+    { "key": "star", "en": "Starry", "ar": "نجمة" },
+    { "key": "moon", "en": "Moony", "ar": "قمر" },
+    { "key": "cloud", "en": "Cloudy", "ar": "غيمة" },
+    { "key": "pebble", "en": "Pebble", "ar": "حصاة" },
+    { "key": "bubbles", "en": "Bubbles", "ar": "فقاعة" },
+    { "key": "flower", "en": "Blossom", "ar": "زهرة" },
+    { "key": "butterfly", "en": "Flutter", "ar": "فراشة" },
+    { "key": "apricot", "en": "Peachy", "ar": "مشمشة" }
+  ]
+}

@@ -67,10 +67,19 @@ export const childProfile = pgTable(
     nicknameEnc: text("nickname_enc"),
     ageBand: ageBand("age_band").notNull(),
     locale: locale("locale").notNull(),
+    // Onboarding (docs/ONBOARDING.md §6). All child-scope, fixed vocabularies, deleted with the profile.
+    avatar: jsonb("avatar").$type<AvatarChoice>(),
+    /** Key into content/nicknames.<locale>.json; null when the parent's nickname is used. */
+    nicknameKey: text("nickname_key"),
+    interests: text("interests").array().notNull().default([]),
+    onboarding: jsonb("onboarding").$type<OnboardingState>().notNull().default({ step: 0 }),
     createdAt: createdAt(),
   },
   (t) => [index("child_household_idx").on(t.householdId)],
 );
+
+export type AvatarChoice = { v: 1; shape: "bun" | "bean" | "puff"; colour: "amber" | "rose" | "lilac" | "sky"; companion: "heart" | "cloud" | "star" };
+export type OnboardingState = { step: number; completedAt?: string; skipped?: boolean };
 
 export type ScheduleWindow = { days: number[]; start: string; end: string };
 export type FeatureFlags = { talk: boolean; stories: boolean; scenarios: boolean };
@@ -91,6 +100,7 @@ export const childSettings = pgTable("child_settings", {
     .notNull()
     .default([{ days: [0, 1, 2, 3, 4, 5, 6], start: "07:00", end: "20:00" }]),
   textScale: integer("text_scale").notNull().default(100),
+  sound: boolean("sound").notNull().default(true),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

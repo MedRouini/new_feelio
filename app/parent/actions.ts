@@ -14,6 +14,7 @@ import {
   deleteChild,
   recordConsentAndCreateHousehold,
   revokeDevice,
+  updateSettings,
 } from "@/parent/operations";
 import { dashboardRedirect as redirect } from "./page-guard";
 
@@ -133,7 +134,36 @@ export async function createChildAction(formData: FormData) {
     ageBand: parsed.data.ageBand,
     locale: parsed.data.locale,
   });
-  redirect(`/children/${id}`);
+  redirect(`/children/${id}/settings?setup=1`);
+}
+
+const settingsSchema = z.object({
+  childId: z.string().min(1),
+  talk: z.literal("on").optional(),
+  stories: z.literal("on").optional(),
+  sound: z.literal("on").optional(),
+  dailyMinutes: z.enum(["15", "30", "45"]),
+  setup: z.literal("1").optional(),
+});
+
+export async function updateSettingsAction(formData: FormData) {
+  const parsed = settingsSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) redirect("/");
+  const { childId, setup } = parsed.data;
+  const check = await checkParent({ gate: "area", needHousehold: true });
+  if (!check.ok) bounce(check, `/children/${childId}/settings`);
+  await updateSettings({
+    userId: check.parent.userId,
+    householdId: check.parent.householdId!,
+    childId,
+    s: {
+      talk: parsed.data.talk === "on",
+      stories: parsed.data.stories === "on",
+      sound: parsed.data.sound === "on",
+      dailyMinutes: Number(parsed.data.dailyMinutes) as 15 | 30 | 45,
+    },
+  });
+  redirect(setup ? `/children/${childId}?setup=1` : `/children/${childId}`);
 }
 
 export async function deleteChildAction(formData: FormData) {
