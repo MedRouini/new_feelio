@@ -6,6 +6,30 @@
 | 0 Discovery and plan | Done; owner said "go" (2026-10-10) |
 | **1 Foundation** | **Done (2026-10-10)**, see below |
 | **1b Map, mascot shell, character onboarding** | **Code-complete (2026-10-10). Done when the 38 visible placeholder assets are delivered** (docs/PLACEHOLDERS.md) |
+| **1c Level flow and loading** (owner request) | **Code-complete (2026-10-11).** Place maps, level states, progress and unlocking, artifact architecture, loading system. Done when the Batch 3 P1 assets are delivered and Home's stones are measured (docs/LEVEL_FLOW.md) |
+
+## Milestone 1c (level flow and loading, D-056, D-057): result
+**Built** (details in `docs/LEVEL_FLOW.md`):
+- World map → place map → level → celebration → next level, with the server deciding every state.
+- Four level states: locked, available, in progress, completed.
+- Artifacts plug into levels through a catalog. None exist yet, so levels say "still being made". A labelled developer test stands in, in development only.
+- One loading system (scene, transition, route loading, timing, retry) used by every new screen and route.
+- Asset slots: art references are configuration. Batch 3 has 43 asset requests (11 are P1).
+
+### Verified by running it (2026-10-11)
+- Lint, typecheck, and 67 unit and integration tests, including progress on Neon with synthetic data.
+- **End to end:**
+  - the full Home journey in English (landscape)
+  - Arabic portrait
+  - refusals by address and by API
+  - the earlier map, dock and onboarding tests
+- Screenshots reviewed: loading iris, place map (EN landscape, AR portrait), developer test, celebration (EN landscape, AR portrait).
+- Migration `0002_progress_status` applied to the dev database.
+
+### Only written, not run
+- The place maps with real art (not delivered). The stones' layout is provisional.
+- The slow and problem phases in a real slow network (the problem screen was seen once, when the dev server served a stale module).
+- A production build with this milestone.
 
 ## Milestone 1b (map + mascot shell + character onboarding): result
 **Built (all in the DESIGN_SYSTEM direction: scenes, objects, mascot-led, no panels or shadows):**

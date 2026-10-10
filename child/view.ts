@@ -2,10 +2,10 @@ import "server-only";
 import { eq } from "drizzle-orm";
 import type { ChildContext } from "@/auth/guards";
 import { db } from "@/platform/db/client";
-import { childProfile, childSettings, progress } from "@/platform/db/schema";
+import { childProfile, childSettings } from "@/platform/db/schema";
 import { decryptField } from "@/platform/crypto";
-import { loadWorld } from "@/world/load";
-import { computeWorldState, type WorldState } from "@/world/unlock";
+import type { WorldState } from "@/world/unlock";
+import { getWorldState } from "./progress";
 import { isTimeUp } from "./usage";
 import {
   DEFAULT_AVATAR,
@@ -43,7 +43,6 @@ export async function getChildView(child: ChildContext): Promise<ChildView | nul
   const [p] = await db.select().from(childProfile).where(eq(childProfile.id, child.childId)).limit(1);
   if (!p) return null;
   const [s] = await db.select().from(childSettings).where(eq(childSettings.childId, child.childId)).limit(1);
-  const done = await db.select({ level: progress.levelId }).from(progress).where(eq(progress.childId, child.childId));
   const parentNick = p.nicknameEnc ? decryptField(p.nicknameEnc) : null;
   const avatar = avatarSchema.safeParse(p.avatar);
   const name = p.nicknameKey === "parent" ? parentNick : nicknameWord(p.nicknameKey, p.locale) ?? null;
@@ -63,7 +62,7 @@ export async function getChildView(child: ChildContext): Promise<ChildView | nul
     features: s?.features ?? { talk: false, stories: false, scenarios: false },
     sound: s?.sound ?? true,
     timeUp: await isTimeUp(child.childId),
-    world: computeWorldState(loadWorld("base"), done.map((d) => d.level)),
+    world: await getWorldState(child.childId),
   };
 }
 

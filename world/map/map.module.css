@@ -105,59 +105,6 @@
 @keyframes hop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12%); } }
 @media (prefers-reduced-motion: reduce) { .hopping { animation: none; } }
 
-/* ---------- Place view: zoomed-in place with level stones on the map, no panel ---------- */
-.placeView {
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  justify-items: center;
-  padding-block: max(16px, env(safe-area-inset-top)) calc(var(--dock-space) + 12px);
-  padding-inline: 16px;
-}
-.placeView > * { pointer-events: auto; }
-.placeSign { inline-size: min(56vw, 360px); }
-.stones {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(6px, 2vw, 20px);
-  flex-wrap: wrap;
-}
-/* the stones sit on a gentle arc, like steps along a path */
-.stones > :nth-child(2), .stones > :nth-child(4) { margin-block-end: 3vmin; }
-.stones > :nth-child(3) { margin-block-end: 5vmin; }
-.stone { inline-size: clamp(76px, 13vmin, 120px); position: relative; }
-.stoneNum {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding-block-end: 18%;
-  font-size: var(--fs-big);
-  font-weight: 700;
-  color: var(--navy-900);
-  pointer-events: none;
-}
-.stoneBadge { position: absolute; inline-size: 44%; inset-block-start: -10%; inset-inline-end: -8%; pointer-events: none; }
-.close {
-  position: fixed;
-  inset-block-start: max(12px, env(safe-area-inset-top));
-  inset-inline-start: max(12px, env(safe-area-inset-left));
-  z-index: 11;
-  inline-size: 72px;
-  block-size: 72px;
-  display: grid;
-  place-items: center;
-  border: var(--outline);
-  border-radius: 50%;
-  background: var(--white);
-  color: var(--navy-900);
-  cursor: pointer;
-}
-
 .sayWrap {
   position: fixed;
   inset-block-start: max(12px, env(safe-area-inset-top));
@@ -168,4 +115,3 @@
   pointer-events: none;
 }
 .sayWrap > * { pointer-events: auto; }
-.placeView ~ .sayWrap { inset-block-start: auto; inset-block-end: calc(var(--dock-space) + 26vmin); }

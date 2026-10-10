@@ -1,0 +1,82 @@
+/* Level screens (D-056): the player, the "still being made" screen and the celebration.
+   One main action per screen, flat colours, no shadows, big targets. */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: max(96px, env(safe-area-inset-top)) 16px 24px;
+  background: var(--lilac-100);
+  color: var(--navy-900);
+  overflow: auto;
+}
+.stage { inline-size: 100%; display: grid; place-items: center; }
+
+.leave {
+  position: fixed;
+  inset-block-start: max(12px, env(safe-area-inset-top));
+  inset-inline-start: max(12px, env(safe-area-inset-left));
+  z-index: 20;
+  inline-size: 72px;
+  block-size: 72px;
+  display: grid;
+  place-items: center;
+  border: var(--outline);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--navy-900);
+  cursor: pointer;
+}
+.leave:focus-visible { outline: 5px solid var(--focus); outline-offset: 4px; }
+
+.notReady { display: grid; justify-items: center; gap: clamp(12px, 3vmin, 28px); text-align: center; }
+.bigMascot { inline-size: min(34vmin, 260px); }
+.backThing { inline-size: clamp(110px, 18vmin, 150px); }
+
+/* Celebration */
+.celebrate, .hero, .side {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: clamp(8px, 2vmin, 20px);
+  text-align: center;
+}
+/* Landscape: the star and Feelio on one side, the words, progress and the button on the other */
+@media (orientation: landscape) {
+  .celebrate { grid-template-columns: auto auto; gap: clamp(24px, 6vw, 96px); }
+}
+.starWrap { position: relative; display: grid; place-items: center; }
+.burst { position: absolute; inline-size: min(50vmin, 380px); animation: spin 18s linear infinite; }
+.star { position: relative; inline-size: min(24vmin, 200px); animation: starPop 700ms var(--ease-spring) both; }
+@keyframes starPop { 0% { transform: scale(0.2) rotate(-25deg); opacity: 0; } 70% { transform: scale(1.12) rotate(6deg); opacity: 1; } 100% { transform: none; } }
+@keyframes spin { to { rotate: 360deg; } }
+.cheerMascot { inline-size: min(24vmin, 180px); margin-block-start: -4vmin; animation: cheer 900ms var(--ease-spring) 300ms both; }
+@keyframes cheer { 0% { transform: translateY(20%) scale(0.9); opacity: 0; } 60% { transform: translateY(-6%); opacity: 1; } 100% { transform: none; } }
+.lines p { margin: 0; font-size: var(--fs-say); font-weight: 700; line-height: 1.25; }
+.lines p:first-child { font-size: var(--fs-big); }
+
+/* The place's progress: its level stones in a row, the one just finished pops */
+.progressRow {
+  display: flex;
+  gap: clamp(4px, 1.5vmin, 14px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.progressRow li { position: relative; inline-size: clamp(44px, 8vmin, 72px); }
+.progressRow li > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-block-end: 16%;
+  font-weight: 800;
+  font-size: clamp(16px, 2.4vmin, 24px);
+}
+.justDone { animation: justDone 800ms var(--ease-spring) 500ms both; }
+@keyframes justDone { 0% { transform: scale(0.6); } 60% { transform: scale(1.25); } 100% { transform: scale(1); } }
+.nextThing { inline-size: clamp(110px, 18vmin, 150px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .burst, .star, .cheerMascot, .justDone { animation: none; }
+}

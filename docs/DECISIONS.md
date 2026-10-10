@@ -517,3 +517,24 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Responsive sizes** come from `--dock-*` tokens in `globals.css` with three screen classes (phone, tablet ≥ 600 px, desktop ≥ 1200 px) plus short screens (height ≤ 500 px). Phones and short screens show icons only (the words stay as accessible names).
   - Known limit: on 360 px-wide phones each side button is about 65 px wide, below the 72 px target; from 390 px wide they are 72 px or more.
 - **Map choice:** the vertical map is used only for phones held upright (portrait and narrower than 768 px). From tablet width up, and in any landscape view, the horizontal map is used, fitted whole.
+
+## D-056 Place maps, level states and the artifact architecture (Milestone 1c)
+**Status:** accepted (owner request, 2026-10-11). Details: `docs/LEVEL_FLOW.md`.
+- **Scope change:** each place now opens its **own map** with its level stones, instead of the zoomed-in stones on the world map. This brings forward part of `WORLD_PLAN.md`, which was "future work", because the owner asked for it. Only the global map art exists, so place maps are placeholders until Batch 3 arrives.
+- **Four level states:** locked, available, in progress, completed. "In progress" needs a record that a level was started, so `progress` gains a `status` column (`started` or `completed`).
+  - The migration is additive; old rows default to `completed`.
+  - The data kept is the same kind (ids and times only), with the same retention: with the profile.
+- **A level is a list of artifacts.** Artifacts are authored and reviewed activities, built in Milestone 4. It is completed when all of them are. Only ids in a code catalog can be played or completed, so unreviewed content can't be served.
+  - The catalog is empty today. A level without artifacts honestly says it is still being made.
+- **Developer test stand-in:** in development and test runs only, a clearly labelled developer test stands in for missing artifacts, so the whole flow can be exercised end to end. Production never registers it, and the server refuses it (unit-tested). It is listed in PLACEHOLDERS.md.
+- **All checks on the server** (`child/progress.ts`, CR-2): the level exists and is reachable, the artifact belongs to it, the parent allows scenarios (the existing `features.scenarios` flag, now enforced), and today's time isn't used up. The celebration is built from the server's answer only.
+- **Asset references are configuration:** screens ask for slots (`design/asset-slots.ts`), and per-place and per-level art ids live in `world.json`. A delivered asset replaces its stand-in with no code change.
+- **Stone positions are provisional** (`map.provisional`) until the art exists. Then they are measured from the art, as for the world map (D-054).
+
+## D-057 One loading system for the child app
+**Status:** accepted (owner request, 2026-10-11). Details: `docs/LEVEL_FLOW.md` §3.
+- **One scene everywhere:** flat backdrop, Feelio hopping, and the three brand companions bouncing in turn, plus a big caption. The context (place, level, generic) changes only the pose, an optional arrival picture, the caption and the colour.
+- **One transition:** an iris from the tapped thing, then navigation. Route loading and the screen's own image gate show the same scene, so the child sees one continuous moment.
+- **Shared timing:** at least 650 ms on screen (no flicker); "Almost there…" after 5 s; failures become a calm retry with the confused Feelio, never an error or the child's fault.
+- **Reduced motion:** fades only. The scene is a polite live region.
+- Uses only approved art and motion. The new pictures (arrival pictures, celebration burst, `mascot_making`) are requested in Batch 3, and the screens leave them out or use stand-ins until then.

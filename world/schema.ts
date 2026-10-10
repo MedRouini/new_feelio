@@ -63,8 +63,30 @@ const level = z.object({
   title: localized,
   unlock: unlockRule,
   ageBands: z.array(z.enum(["5-6", "7-9", "10-12"])).min(1),
-  /** Authored, reviewed scenarios (Milestone 4). Empty means the level has no content yet. */
+  /** The level's activities ("artifacts", world/artifacts): authored, reviewed scenarios or games
+   *  (Milestone 4). Played in order; the level is completed when all are. Empty: not made yet. */
   scenarioIds: z.array(z.string()),
+  /** Optional picture of the level's theme on the place map (an asset id, D-056). Shown once delivered. */
+  icon: z.string().optional(),
+});
+
+/** One orientation of a place's own map (D-056): the art and where each level's stone is on it. */
+const placeMapOrientation = z.object({
+  /** Asset id of the art (no words in it, so one image serves every language). */
+  asset: z.string(),
+  size: z.tuple([z.number().int().positive(), z.number().int().positive()]),
+  backdrop: z.string().regex(/^#[0-9a-f]{6}$/),
+  /** Walking path through the stones, in map fractions. */
+  path: z.array(point).min(2),
+  /** Level id → its stone (centre and oval in map fractions) and its index in `path`. */
+  stones: z.record(z.string(), z.object({ x: frac, y: frac, rx: z.number().min(0.01).max(0.5), ry: z.number().min(0.01).max(0.5), pathIndex: z.number().int().min(0) })),
+});
+
+const placeMap = z.object({
+  /** true while the stone positions are a temporary layout, before the art exists to measure them. */
+  provisional: z.boolean(),
+  horizontal: placeMapOrientation,
+  vertical: placeMapOrientation,
 });
 
 const place = z.object({
@@ -75,6 +97,8 @@ const place = z.object({
   unlock: unlockRule,
   levels: z.array(level).min(1),
   voiceContext: localized,
+  /** The place's own map with its level stones (D-056). */
+  map: placeMap,
 });
 
 export const worldSchema = z
@@ -107,6 +131,19 @@ export const worldSchema = z
       }
       if (m.rtlMirror === "mirror" && m.labelMode !== "blank_signs") {
         ctx.addIssue({ code: "custom", message: `maps.${o}: a map with painted words must never be mirrored (D-021)` });
+      }
+    }
+    for (const p of w.places) {
+      for (const o of ["horizontal", "vertical"] as const) {
+        const pm = p.map[o];
+        const stones = Object.keys(pm.stones);
+        for (const l of p.levels) {
+          if (!pm.stones[l.id]) ctx.addIssue({ code: "custom", message: `places.${p.id}.map.${o} has no stone for level "${l.id}"` });
+        }
+        for (const id of stones) {
+          if (!p.levels.some((l) => l.id === id)) ctx.addIssue({ code: "custom", message: `places.${p.id}.map.${o}.stones.${id} is not a level of ${p.id}` });
+          if (pm.stones[id].pathIndex >= pm.path.length) ctx.addIssue({ code: "custom", message: `places.${p.id}.map.${o}.stones.${id}.pathIndex out of range` });
+        }
       }
     }
     const levelIds = w.places.flatMap((p) => p.levels.map((l) => l.id));

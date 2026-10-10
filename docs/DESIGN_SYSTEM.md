@@ -154,3 +154,15 @@ Found:
 Fixed: 1 (the bar's row height is fixed; the Map button rises above it). 2 waits for `dock_calm`.
 
 Checked against §2 with the owner's override: glass is now allowed for the dock only. Still no shadows, pills or dots; the active state is a bold label.
+
+**2026-10-11, level flow and loading (D-056, D-057).** Screenshots: loading iris (EN landscape), place map (EN landscape, AR portrait), developer test, celebration (EN landscape, AR portrait).
+
+Found:
+1. The characters stood on the next level's stone and blocked the tap.
+2. In landscape the celebration's "keep going" button fell off the bottom.
+
+Fixed:
+1. The characters stand beside the stone and ignore taps.
+2. Landscape uses two columns: star and Feelio, then the words, progress and button.
+
+Checked against §2: one main action per screen, big type, no panels or shadows, motion on delivered art only. The developer test box deliberately looks like a dev tool. To revisit when the place maps arrive: the stones' positions and the name sign over the art.

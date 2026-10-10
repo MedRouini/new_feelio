@@ -19,7 +19,7 @@
 | Consent record (policy version, method, scopes, time) | Evidence of parental consent | Neon | Account lifetime; any legal hold to be set by counsel | Cascades with the account (counsel to confirm whether a hold is required) |
 | Child profile: **optional nickname (AES-256-GCM encrypted)**, age band, language | Personalise in the child's language and age | Neon | Until the parent deletes it | `deleteChild`; account deletion; key rotation crypto-shreds nicknames |
 | Child settings (features, limits, schedule, text size) | Server-side enforcement of parental controls | Neon | With the profile | Cascades |
-| Progress, collection | Unlock the world; show collected moments | Neon | With the profile | Cascades |
+| Progress (per level activity: ids, started or completed, a time), collection | Unlock the world; show which levels are in progress or done; show collected moments. No answers or choices are stored (D-056) | Neon | With the profile | Cascades |
 | Usage ledger (minutes, tokens, credit estimates per day and feature) | Daily caps and budget meter (CR-11) | Neon | 90 days (*proposed*) | Daily retention job |
 | Child device keys (Better Auth API keys: **SHA-256 hash**, first 7 characters, expiry, last use) | Child device sign-in without credentials | Neon | 30 days, or until revoked | Revoke; child or account deletion (explicit, no FK); daily sweep of expired keys |
 | Audit log (parent setting changes) | Accountability, parent support | Neon | 1 year (*proposed*) | Daily retention job; cascades with the account |

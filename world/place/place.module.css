@@ -1,0 +1,82 @@
+/* A place's own map (D-056). Same rules as the world map: the art is the interface, the whole map is
+   always visible, flat colours, no shadows. */
+.area {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #9ccd5a;
+}
+.stage { position: absolute; }
+.art {
+  display: block;
+  inline-size: 100% !important;
+  block-size: 100% !important;
+  max-width: none !important;
+}
+
+/* A level stone: the delivered stone art for its state, its number, and a lock or star badge */
+.stone {
+  position: absolute;
+  translate: -50% -50%;
+  min-inline-size: 72px;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--m-pop) var(--ease-spring);
+}
+.stone:active { transform: scale(0.92, 1.06); }
+.stone:focus-visible { outline: 5px solid var(--focus); outline-offset: 4px; border-radius: 50%; }
+.node { display: block; inline-size: 100%; }
+.num {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-block-end: 16%;
+  font-size: clamp(22px, 3.4vmin + 8px, 40px);
+  font-weight: 800;
+  color: var(--navy-900);
+  pointer-events: none;
+}
+.stone[data-state="locked"] .num { opacity: 0.55; }
+.badge { position: absolute; inline-size: 42%; inset-block-start: -12%; inset-inline-end: -10%; pointer-events: none; }
+/* the level's theme picture stands just above its stone (only once delivered) */
+.icon { position: absolute; inline-size: 90%; inset-inline-start: 5%; inset-block-end: 78%; pointer-events: none; }
+.stone[data-state="locked"] .icon { opacity: 0.6; }
+
+/* Top row: back to the world map (functional icon) and the place's name on its sign */
+.top {
+  position: fixed;
+  inset-block-start: max(12px, env(safe-area-inset-top));
+  inset-inline: max(12px, env(safe-area-inset-left)) 96px;
+  z-index: 12;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  pointer-events: none;
+}
+.top > * { pointer-events: auto; }
+.back {
+  flex: none;
+  inline-size: 72px;
+  block-size: 72px;
+  display: grid;
+  place-items: center;
+  border: var(--outline);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--navy-900);
+  cursor: pointer;
+}
+.back:focus-visible { outline: 5px solid var(--focus); outline-offset: 4px; }
+.sign { inline-size: min(44vw, 300px); margin-inline: auto; }
+
+@media (prefers-reduced-motion: reduce) { .stone { transition: none; } .stone:active { transform: none; } }
+
+/* The characters on a place map: beside the stone to play next (art space, so a physical offset), and
+   never in the way of a tap */
+.marker { translate: calc(-1 * var(--beside, 0px)) 8%; z-index: 1; }
+.marker, .marker * { pointer-events: none !important; }

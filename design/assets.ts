@@ -37,3 +37,8 @@ export function assetRatio(id: AssetId): number {
 export function missingAssets(): AssetId[] {
   return (Object.keys(EXPECTED_ASSETS) as AssetId[]).filter((id) => !isDelivered(id));
 }
+
+/** Narrows a string from data (world.json) to an expected asset id, or null if it isn't one. */
+export function expectedAsset(id: string | undefined | null): AssetId | null {
+  return id && id in EXPECTED_ASSETS ? (id as AssetId) : null;
+}

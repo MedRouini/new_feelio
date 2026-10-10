@@ -104,7 +104,8 @@ export const childSettings = pgTable("child_settings", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
-// World progress per child (SPEC §4.1). Checked by the server's unlock engine.
+// World progress per child (SPEC §4.1), one row per level activity (artifact). Checked by the
+// server's unlock engine. Retention: with the profile (PRIVACY.md).
 export const progress = pgTable(
   "progress",
   {
@@ -115,6 +116,9 @@ export const progress = pgTable(
     packId: text("pack_id").notNull(),
     levelId: text("level_id").notNull(),
     scenarioId: text("scenario_id").notNull().default(""),
+    /** "started": the child opened this activity; "completed": finished it (D-056). */
+    status: text("status", { enum: ["started", "completed"] }).notNull().default("completed"),
+    /** When the row reached its current status. */
     completedAt: createdAt(),
   },
   (t) => [uniqueIndex("progress_unique").on(t.childId, t.packId, t.levelId, t.scenarioId)],

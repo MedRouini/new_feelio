@@ -1,13 +1,30 @@
 import type { UnlockRule, World } from "./schema";
 
-// The unlock engine (SPEC §4.1). Pure: given the world and the set of completed level ids, it decides
-// every place's and level's state. The server runs it; the client only displays the result.
+// The unlock engine (SPEC §4.1). Pure: given the world, the completed level ids and the started ones,
+// it decides every place's and level's state. The server runs it; the client only displays the result.
 
 export type PlaceState = "locked" | "unlocked" | "current" | "completed";
-export type LevelState = "locked" | "current" | "completed" | "open";
+/**
+ * Level states (D-056):
+ * - locked: not reachable yet (its unlock rule isn't met, or its place is locked)
+ * - available: reachable, not started
+ * - in_progress: started (an activity opened or finished) but not all of its activities completed
+ * - completed: every activity of the level is completed; it can be replayed
+ */
+export type LevelState = "locked" | "available" | "in_progress" | "completed";
+export const LEVEL_STATES: readonly LevelState[] = ["locked", "available", "in_progress", "completed"];
+
+export type PlaceProgress = {
+  state: PlaceState;
+  levels: Record<string, LevelState>;
+  /** The level to play next: the first reachable one that isn't completed (null when all are done). */
+  currentLevelId: string | null;
+  completedCount: number;
+  total: number;
+};
 
 export type WorldState = {
-  places: Record<string, { state: PlaceState; levels: Record<string, LevelState>; completedCount: number }>;
+  places: Record<string, PlaceProgress>;
   currentPlaceId: string;
 };
 
@@ -36,8 +53,9 @@ function evaluate(rule: UnlockRule, ctx: Ctx): boolean {
   }
 }
 
-export function computeWorldState(world: World, completedLevelIds: Iterable<string>): WorldState {
+export function computeWorldState(world: World, completedLevelIds: Iterable<string>, startedLevelIds: Iterable<string> = []): WorldState {
   const done = new Set(completedLevelIds);
+  const started = new Set(startedLevelIds);
   const places = [...world.places].sort((a, b) => a.order - b.order);
   const result: WorldState = { places: {}, currentPlaceId: places[0].id };
   let current: string | null = null;
@@ -46,14 +64,14 @@ export function computeWorldState(world: World, completedLevelIds: Iterable<stri
     const placeOpen = evaluate(place.unlock, { done, world, previousLevelId: null });
     const levels: Record<string, LevelState> = {};
     const sorted = [...place.levels].sort((a, b) => a.order - b.order);
-    let currentLevelGiven = false;
+    let currentLevelId: string | null = null;
     sorted.forEach((lvl, i) => {
       const prev = i === 0 ? null : sorted[i - 1].id;
       if (!placeOpen) levels[lvl.id] = "locked";
       else if (done.has(lvl.id)) levels[lvl.id] = "completed";
       else if (evaluate(lvl.unlock, { done, world, previousLevelId: prev })) {
-        levels[lvl.id] = currentLevelGiven ? "open" : "current";
-        currentLevelGiven = true;
+        levels[lvl.id] = started.has(lvl.id) ? "in_progress" : "available";
+        currentLevelId ??= lvl.id;
       } else levels[lvl.id] = "locked";
     });
     const completedCount = sorted.filter((l) => done.has(l.id)).length;
@@ -62,11 +80,22 @@ export function computeWorldState(world: World, completedLevelIds: Iterable<stri
       state = "current";
       current = place.id;
     }
-    result.places[place.id] = { state, levels, completedCount };
+    result.places[place.id] = { state, levels, currentLevelId, completedCount, total: sorted.length };
   }
 
   // Everything finished: the marker rests on the last unlocked place.
   result.currentPlaceId =
     current ?? [...places].reverse().find((p) => result.places[p.id].state !== "locked")?.id ?? places[0].id;
   return result;
+}
+
+/** What a completion changed, for the celebration screen: the next level and any newly opened places. */
+export function diffUnlocks(world: World, before: WorldState, after: WorldState, placeId: string) {
+  const place = world.places.find((p) => p.id === placeId);
+  const nextLevelId = after.places[placeId]?.currentLevelId ?? null;
+  const nextLevelOpened = !!nextLevelId && before.places[placeId]?.levels[nextLevelId] === "locked";
+  const openedPlaceIds = world.places
+    .filter((p) => before.places[p.id].state === "locked" && after.places[p.id].state !== "locked")
+    .map((p) => p.id);
+  return { placeCompleted: !!place && after.places[placeId].state === "completed", nextLevelId, nextLevelOpened, openedPlaceIds };
 }

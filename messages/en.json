@@ -53,9 +53,6 @@
       "placeCurrent": "{name}: you are here",
       "placeDone": "{name}: finished",
       "notYet": "Not yet! Let's finish {place} first.",
-      "levelsComing": "The adventures here are still being made. Come back soon!",
-      "level": "Level {n}: {title}",
-      "levelLocked": "Level {n}: not yet",
       "close": "Close",
       "mapLabel": "Feelio's world map",
       "you": "You"
@@ -85,7 +82,39 @@
     "offline": {
       "line": "I'm resting. Let's play again when we're back online!"
     },
-    "timeUp": "That's all for today! Feelio is going to rest now. See you tomorrow!"
+    "timeUp": "That's all for today! Feelio is going to rest now. See you tomorrow!",
+    "loading": {
+      "place": "Off we go!",
+      "level": "Getting your adventure ready…",
+      "generic": "Just a moment…",
+      "slow": "Almost there…",
+      "problem": "Hmm, that didn't come. Let's try again!",
+      "retry": "Try again",
+      "saving": "Saving your star…"
+    },
+    "place": {
+      "back": "Back to the world map",
+      "mapLabel": "Map of {place}",
+      "level": "Level {n}: {title}",
+      "levelLocked": "Level {n}: not yet",
+      "levelStarted": "Level {n}: {title}. You started this one",
+      "levelDone": "Level {n}: {title}. Finished",
+      "notYet": "Not yet! Let's finish level {n} first.",
+      "off": "Your grown-up has turned these adventures off for now."
+    },
+    "level": {
+      "notReady": "This adventure is still being made. Come back soon!",
+      "back": "Back to {place}",
+      "leave": "Leave"
+    },
+    "done": {
+      "level": "You finished level {n}!",
+      "nextOpen": "Level {n} is open now!",
+      "place": "You finished {place}!",
+      "placeOpen": "Now you can visit {place}!",
+      "next": "Keep going",
+      "progress": "{done} of {total} finished"
+    }
   },
   "parent": {
     "title": "Feelio for parents",

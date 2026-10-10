@@ -11,13 +11,16 @@ type Props = {
   className?: string;
   style?: CSSProperties;
   priority?: boolean;
+  /** Called when the delivered image has loaded (never for a placeholder). */
+  onLoad?: () => void;
+  onError?: () => void;
 };
 
 /**
  * Renders an approved, pre-built asset, or a grey TODO(PLACEHOLDER) box of the same shape when the
  * asset has not been delivered yet. Never mirrors anything (the mascot must never be flipped).
  */
-export function AssetImage({ id, alt, sizes, className, style, priority }: Props) {
+export function AssetImage({ id, alt, sizes, className, style, priority, onLoad, onError }: Props) {
   const a = asset(id);
   if (!a) {
     return <Placeholder assetId={id} ratio={assetRatio(id)} className={className} style={style} label={alt} />;
@@ -35,6 +38,8 @@ export function AssetImage({ id, alt, sizes, className, style, priority }: Props
       loading={priority ? "eager" : "lazy"}
       decoding="async"
       draggable={false}
+      onLoad={onLoad}
+      onError={onError}
       style={{ height: "auto", maxWidth: "100%", ...style }}
     />
   );

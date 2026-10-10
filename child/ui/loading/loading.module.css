@@ -1,0 +1,73 @@
+/* The child app's loading scene (D-056). One look everywhere; motion is calm and bouncy, and collapses
+   to gentle fades under reduced motion. Flat colours only, no shadows (D-042). */
+.scene {
+  --beat: 1200ms;
+  --beat-offset: 0ms;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: clamp(8px, 2vmin, 20px);
+  padding: 24px;
+  background: var(--loading-bg, var(--lilac-100));
+  color: var(--navy-900);
+  text-align: center;
+}
+
+/* Entering from the tapped thing: a circle grows from that point to fill the screen */
+.iris { animation: iris 520ms var(--ease-out) both; }
+@keyframes iris {
+  from { clip-path: circle(0 at var(--ix, 50%) var(--iy, 50%)); }
+  to { clip-path: circle(150vmax at var(--ix, 50%) var(--iy, 50%)); }
+}
+/* Leaving: the scene fades away over what has loaded */
+.leaving { animation: leave 320ms var(--ease-out) both; pointer-events: none; }
+@keyframes leave { to { opacity: 0; } }
+
+.arrival { inline-size: min(40vmin, 320px); animation: settle var(--m-settle) var(--ease-spring) both; }
+@keyframes settle { from { transform: scale(0.85); opacity: 0; } }
+
+.mascot, .mascotStill { inline-size: min(30vmin, 220px); }
+.mascot { animation: hop var(--beat) var(--ease-out) var(--beat-offset) infinite; transform-origin: 50% 100%; }
+@keyframes hop {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  12% { transform: translateY(0) scale(1.06, 0.94); }
+  40% { transform: translateY(-9%) scale(0.97, 1.03); }
+  70% { transform: translateY(0) scale(1.03, 0.97); }
+}
+
+/* The beat: heart, cloud, star bounce one after another */
+.beat { display: flex; gap: clamp(10px, 2.5vmin, 22px); }
+.beatItem { inline-size: clamp(36px, 7vmin, 64px); animation: bounce var(--beat) var(--ease-out) infinite; }
+.beatItem:nth-child(1) { animation-delay: var(--beat-offset); }
+.beatItem:nth-child(2) { animation-delay: calc(var(--beat-offset) + var(--beat) / 6); }
+.beatItem:nth-child(3) { animation-delay: calc(var(--beat-offset) + var(--beat) / 3); }
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-40%); }
+}
+
+.caption { margin: 0; max-inline-size: 22ch; font-size: var(--fs-say); font-weight: 700; line-height: 1.25; }
+
+.retry {
+  inline-size: 88px;
+  block-size: 88px;
+  display: grid;
+  place-items: center;
+  border: var(--outline);
+  border-radius: 50%;
+  background: var(--amber-500);
+  color: var(--navy-900);
+  cursor: pointer;
+}
+.retry:focus-visible { outline: 5px solid var(--focus); outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .iris { animation: fadeIn 200ms linear both; }
+  .mascot, .arrival { animation: none; }
+  .beatItem { animation: pulse var(--beat) linear infinite; }
+}
+@keyframes fadeIn { from { opacity: 0; } }
+@keyframes pulse { 0%, 100% { opacity: 0.45; } 30% { opacity: 1; } }

@@ -19,7 +19,22 @@ const square = [
   "like_animals", "like_space", "like_music", "like_drawing", "like_ballgames", "like_nature", "like_blocks", "like_sea",
   // brand companions (exported from the official SVGs)
   "companion_heart", "companion_cloud", "companion_star",
+  // level flow and loading (Batch 3, D-056, docs/LEVEL_FLOW.md)
+  "node_in_progress", "ui_celebrate_burst", "mascot_making",
 ] as const;
+
+// Per-place assets (Batch 3, D-056): place ids of the base world. world.json refers to these by id;
+// a unit test checks that every id it uses is expected here.
+export const WORLD_PLACE_IDS = ["home", "park", "school", "club", "market"] as const;
+export type WorldPlaceId = (typeof WORLD_PLACE_IDS)[number];
+const LEVELS_PER_PLACE = [1, 2, 3, 4, 5] as const;
+type PlaceSquareId = `loading_place_${WorldPlaceId}` | `level_${WorldPlaceId}_${(typeof LEVELS_PER_PLACE)[number]}`;
+const placeSquare = WORLD_PLACE_IDS.flatMap((p) => [
+  `loading_place_${p}` as PlaceSquareId,
+  ...LEVELS_PER_PLACE.map((n) => `level_${p}_${n}` as PlaceSquareId),
+]);
+const placeLandscape = WORLD_PLACE_IDS.map((p) => `place_${p}_map_h` as const);
+const placePortrait = WORLD_PLACE_IDS.map((p) => `place_${p}_map_v` as const);
 
 const wide = ["ui_sign_plate", "ui_say_bubble"] as const;
 const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open"] as const;
@@ -44,7 +59,10 @@ export type AssetId =
   | (typeof wide)[number]
   | (typeof landscape)[number]
   | (typeof portrait)[number]
-  | AvatarAssetId;
+  | AvatarAssetId
+  | PlaceSquareId
+  | (typeof placeLandscape)[number]
+  | (typeof placePortrait)[number];
 
 export const EXPECTED_ASSETS: Record<AssetId, AssetShape> = Object.fromEntries([
   ...square.map((id) => [id, "square"]),
@@ -52,6 +70,9 @@ export const EXPECTED_ASSETS: Record<AssetId, AssetShape> = Object.fromEntries([
   ...landscape.map((id) => [id, "landscape"]),
   ...portrait.map((id) => [id, "portrait"]),
   ...avatars.map((id) => [id, "square"]),
+  ...placeSquare.map((id) => [id, "square"]),
+  ...placeLandscape.map((id) => [id, "landscape"]),
+  ...placePortrait.map((id) => [id, "portrait"]),
 ]) as Record<AssetId, AssetShape>;
 
 export const SHAPE_RATIO: Record<AssetShape, number> = { square: 1, wide: 1.5, landscape: 1.5, portrait: 2 / 3 };

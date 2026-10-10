@@ -17,6 +17,8 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 | "What do you like?" (Batch 2, group 5) | `like_animals`, `like_space`, `like_music`, `like_drawing`, `like_ballgames`, `like_nature`, `like_blocks`, `like_sea` | Yes (onboarding stop 3) |
 | Mascot poses | `mascot_pointing` (Batch 2), `mascot_listening` (Batch 1 P3) | Yes (onboarding stops 2–4) |
 | Dock (D-055) | `dock_calm` | **Yes, on every child screen** (the dock's 5th button) |
+| Level flow, P1 (Batch 3, D-056) | `place_home_map_h`, `place_home_map_v`, `node_in_progress`, `ui_celebrate_burst`, `loading_place_home`, `level_home_1`…`level_home_5`, `mascot_making` | **Yes.** Home's map is a grey box; the others show stand-ins or are left out (LEVEL_FLOW.md §6) |
+| Level flow, P2 (Batch 3) | Park, School, Club and Market maps, arrival pictures and level icons (32) | When those places open |
 | Mascot poses, optional | `mascot_excited` | No: the map uses `mascot_feel_excited` until it exists |
 | Mascot voice poses (Milestone 5) | `mascot_thinking`, `mascot_speaking_half/closed/open` | No |
 
@@ -28,7 +30,9 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 | Talk shows "coming soon" | `app/child/talk/page.tsx` (`TODO(PLACEHOLDER)`) | The voice companion is Milestone 5 | Milestone 5 |
 | Calm shows "coming soon" | `app/child/calm/page.tsx` (`TODO(PLACEHOLDER)`) | The calm corner (slow breathing with Feelio, static audio only) is not scheduled yet (D-055) | When you schedule it |
 | Stories shows "coming soon" | `app/child/stories/page.tsx` (`TODO(PLACEHOLDER)`) | The storybook generator is Milestone 6 | Milestone 6 |
-| Level stones say "adventures are being made" | `world/map/MapView.tsx` | No reviewed scenarios yet (`scenarioIds: []`) | Milestone 4 |
+| Levels say "This adventure is still being made" | `world/level/LevelPlayer.tsx` | No artifacts built yet; the catalog is empty (`world/artifacts/catalog.ts`) | Milestone 4 |
+| Developer test artifact (dev and test runs only) | `world/artifacts/dev/DevTestArtifact.tsx` | Lets the level flow run end to end before real artifacts exist. Never in production (unit-tested) | Removed or kept as a dev tool when Milestone 4 adds real artifacts |
+| Place-map stone positions are provisional | `content/worlds/base/world.json` (`map.provisional: true`) | No place-map art to measure yet | When each place map is delivered |
 | Fixed voice lines are captions only | `safety/voice-lines/` | Waiting for you to choose voices and allow the run (D-037). Dry run: 36 lines, 1,672 chars ≈ 836–1,672 credits | When you pick the voices |
 | Parent email verification is off | `auth/server.ts` | No email provider chosen | When you pick a provider |
 | Screen-time days are counted in UTC | `child/usage.ts` | Household timezone and schedule settings come in Milestone 3 | Milestone 3 |

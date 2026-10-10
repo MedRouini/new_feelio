@@ -345,3 +345,6 @@ Also tracked: secret leakage (CR-3, server-only env, CI secret scan); webhook sp
 | Vercel deploy | **Blocked:** no project or token (your account; local dev works meanwhile) |
 | ElevenLabs webhook secret, proxy Bearer secret | Generated when the agent is created (M4) |
 | Email provider (OTP, magic link, safety notices) | **Not chosen.** It's a new third-party service, so I'll ask in M1 |
+
+## Level flow and loading (Milestone 1c)
+Place maps, level states, artifacts, progress API and the loading system: see `docs/LEVEL_FLOW.md` (D-056, D-057).

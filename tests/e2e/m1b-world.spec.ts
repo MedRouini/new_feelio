@@ -105,15 +105,16 @@ test("map: places, locked 'not yet', place view, rotation, RTL dock order", asyn
   await page.locator('[data-place="park"]').click();
   await expect(page.getByText("ليس بعد! لننهِ البيت أولًا.")).toBeVisible();
 
-  // An open place: zoom in, five level stones, level 1 is the current one.
+  // An open place: it opens its own map (D-056) through the loading scene; the back button returns.
   await page.locator('[data-place="home"]').click();
-  await expect(page.getByTestId("place-view")).toBeVisible();
+  await expect(page).toHaveURL(/\/place\/home$/);
+  await expect(page.getByTestId("place-sign")).toContainText("البيت");
   await expect(page.locator('[data-testid^="level-home-"]')).toHaveCount(5);
+  await expect(page.getByTestId("loading")).toHaveCount(0);
   await page.screenshot({ path: `${SHOTS}/ar-landscape-place.png` });
-  await page.getByTestId("level-home-1").click();
-  await expect(page.getByText("مغامرات هذا المكان ما زالت قيد الإعداد. عُد قريبًا!")).toBeVisible();
-  await page.getByTestId("place-close").click();
-  await expect(page.getByTestId("place-view")).toHaveCount(0);
+  await page.getByTestId("place-back").click();
+  await expect(page).toHaveURL(/localhost:3000\/$/);
+  await expect(page.getByTestId("loading")).toHaveCount(0);
 
   // Dock follows the reading direction: in Arabic the Map item is on the right.
   const mapBox = await page.getByTestId("dock-map").boundingBox();
@@ -198,6 +199,8 @@ test("child APIs refuse bad input and other origins", async ({ page }) => {
   const f = fixture({ locale: "en" });
   await asChild(page, f);
   await page.goto(APP);
+  // Not onboarded: the loading scene streams first, then the redirect to onboarding (D-057).
+  await page.waitForURL(/\/hello$/);
   const bad = await page.evaluate(async () =>
     (await fetch("/api/child/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ step: 2, nickname: "Real Name" }) })).status,
   );

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import raw from "@/content/worlds/base/world.json";
 import { clampPan, centreOn, containSize, facingAt, pointAt, subPath, type Pt } from "@/world/geometry";
 import { worldSchema } from "@/world/schema";
-import { computeWorldState } from "@/world/unlock";
+import { computeWorldState, diffUnlocks } from "@/world/unlock";
 
 const world = worldSchema.parse(raw);
 const levels = (place: string, n: number) => Array.from({ length: n }, (_, i) => `${place}-${i + 1}`);
@@ -38,19 +38,36 @@ describe("world.json (base pack)", () => {
 });
 
 describe("unlock engine", () => {
-  it("a new child: Home is current, everything else locked, level 1 current", () => {
+  it("a new child: Home is current, everything else locked, level 1 available", () => {
     const s = computeWorldState(world, []);
     expect(s.currentPlaceId).toBe("home");
     expect(s.places.home.state).toBe("current");
     expect(s.places.park.state).toBe("locked");
-    expect(s.places.home.levels["home-1"]).toBe("current");
+    expect(s.places.home.levels["home-1"]).toBe("available");
     expect(s.places.home.levels["home-2"]).toBe("locked");
+    expect(s.places.home.currentLevelId).toBe("home-1");
+    expect(s.places.home.total).toBe(5);
+  });
+
+  it("a started level is in progress; starting a locked level changes nothing", () => {
+    const s = computeWorldState(world, [], ["home-1", "home-3"]);
+    expect(s.places.home.levels["home-1"]).toBe("in_progress");
+    expect(s.places.home.levels["home-3"]).toBe("locked");
+  });
+
+  it("completing a level reports the next level and newly opened places", () => {
+    const before = computeWorldState(world, levels("home", 2));
+    const after = computeWorldState(world, levels("home", 3));
+    expect(diffUnlocks(world, before, after, "home")).toEqual({ placeCompleted: false, nextLevelId: "home-4", nextLevelOpened: true, openedPlaceIds: ["park"] });
+    const last = diffUnlocks(world, computeWorldState(world, levels("home", 4)), computeWorldState(world, levels("home", 5)), "home");
+    expect(last).toMatchObject({ placeCompleted: true, nextLevelId: null, openedPlaceIds: [] });
   });
 
   it("levels unlock one by one", () => {
     const s = computeWorldState(world, ["home-1"]);
     expect(s.places.home.levels["home-1"]).toBe("completed");
-    expect(s.places.home.levels["home-2"]).toBe("current");
+    expect(s.places.home.levels["home-2"]).toBe("available");
+    expect(s.places.home.currentLevelId).toBe("home-2");
   });
 
   it("3 Home levels unlock the Park, which becomes the current place only after Home is finished", () => {

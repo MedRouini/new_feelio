@@ -1,0 +1,1 @@
+ALTER TABLE "progress" ADD COLUMN "status" text DEFAULT 'completed' NOT NULL;

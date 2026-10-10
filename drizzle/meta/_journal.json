@@ -15,6 +15,13 @@
       "when": 1791661938462,
       "tag": "0001_onboarding",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791669814792,
+      "tag": "0002_progress_status",
+      "breakpoints": true
     }
   ]
 }

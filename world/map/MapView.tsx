@@ -3,13 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
 import { useGesture } from "@use-gesture/react";
-import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Avatar } from "@/child/ui/Avatar";
 import { Mascot, type MascotPose } from "@/child/ui/Mascot";
-import { NameSign } from "@/child/ui/NameSign";
 import { SayBubble } from "@/child/ui/SayBubble";
-import { ThingButton } from "@/child/ui/ThingButton";
 import { play } from "@/child/ui/sound";
 import uiStyles from "@/child/ui/ui.module.css";
 import type { Avatar as AvatarChoice } from "@/child/options";
@@ -17,16 +14,15 @@ import { AssetImage } from "@/design/components/AssetImage";
 import { isDelivered, type AssetId } from "@/design/assets";
 import { centreOn, clampPan, containSize, facingAt, pointAt, subPath, toPixels, type Pt } from "@/world/geometry";
 import type { World, WorldPlace } from "@/world/schema";
-import type { LevelState, WorldState } from "@/world/unlock";
+import type { WorldState } from "@/world/unlock";
+import { centreOf, useTransitionTo } from "@/child/ui/loading/useTransitionTo";
+import { ringStyle } from "@/world/ring";
 import { useElementSize, useOrientation, useViewportSize } from "./useOrientation";
 import styles from "./map.module.css";
 
 const MAX_ZOOM = 2.5;
 const PLACE_ZOOM = 1.8;
 const WALK_PX_PER_S = 120;
-/** Where the ring's tube runs in ring_current's art (fractions of the image, measured from the file):
- *  half-width, half-height and the centre's height. Used to lay the ring exactly on a pad's rim. */
-const RING_ART = { rx: 0.4222, ry: 0.1705, cy: 0.513 };
 const LAST_PLACE_KEY = "feelio.map.lastPlace"; // per-device convenience only (never needed for correctness)
 
 type Props = {
@@ -37,13 +33,6 @@ type Props = {
   /** First map moment after onboarding: the characters walk in from the start of the path. */
   arriveFromStart?: boolean;
   onMascotTap?: () => void;
-};
-
-const LEVEL_NODE: Record<LevelState, AssetId> = {
-  locked: "node_locked",
-  current: "node_current",
-  open: "node_current",
-  completed: "node_completed",
 };
 
 function readLastPlace(): string | null {
@@ -88,7 +77,7 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
   const s = useMotionValue(1);
   const inv = useTransform(s, (v) => 1 / v);
 
-  const [openPlace, setOpenPlace] = useState<WorldPlace | null>(null);
+  const [go, transition] = useTransitionTo();
   const [say, setSay] = useState<{ text: string; key: number } | null>(null);
   const [wobbleId, setWobbleId] = useState<{ id: string; n: number } | null>(null);
   const [pose, setPose] = useState<MascotPose>("mascot_marker");
@@ -253,19 +242,11 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
       sayLine(t("notYet", { place: prev ? placeName(prev) : placeName(places[0]) }));
       return;
     }
+    // Open place: the camera leans in, and the place's own map opens through the loading scene (D-056).
     play("pick");
     const h = map.places[p.id].hotspot;
     zoomTo(h.x * stage.w, h.y * stage.h, PLACE_ZOOM);
-    setOpenPlace(p);
-  };
-
-  const closePlace = () => {
-    play("whoosh");
-    if (openPlace) {
-      const h = map.places[openPlace.id].hotspot;
-      zoomTo(h.x * stage.w, h.y * stage.h, 1);
-    }
-    setOpenPlace(null);
+    go(`/place/${p.id}`, { context: "place", placeId: p.id, from: centreOf(document.querySelector(`[data-place="${p.id}"]`)) });
   };
 
   const currentPad = map.places[current].pad;
@@ -298,13 +279,7 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
           <span
             className={styles.ring}
             data-testid="map-ring"
-            style={{
-              left: `${currentPad.x * 100}%`,
-              top: `${currentPad.y * 100}%`,
-              width: `${(currentPad.rx / RING_ART.rx) * 100}%`,
-              height: `${(currentPad.ry / RING_ART.ry) * 100}%`,
-              translate: `-50% -${RING_ART.cy * 100}%`,
-            }}
+            style={ringStyle(currentPad)}
           >
             <AssetImage id="ring_current" alt="" sizes="20vw" className={styles.ringImg} />
           </span>
@@ -349,40 +324,7 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
         </motion.div>
       </div>
 
-      {openPlace ? (
-        <div className={styles.placeView} data-testid="place-view" data-place={openPlace.id}>
-          <NameSign text={placeName(openPlace)} className={styles.placeSign} />
-          <span />
-          <div className={styles.stones}>
-            {[...openPlace.levels]
-              .sort((a, b) => a.order - b.order)
-              .map((lvl) => {
-                const ls = state.places[openPlace.id].levels[lvl.id];
-                return (
-                  <ThingButton
-                    key={lvl.id}
-                    className={styles.stone}
-                    art={LEVEL_NODE[ls]}
-                    sizes="120px"
-                    sound={ls === "locked" ? "pop" : "pick"}
-                    label={ls === "locked" ? t("levelLocked", { n: lvl.order }) : t("level", { n: lvl.order, title: lvl.title[locale] })}
-                    testId={`level-${lvl.id}`}
-                    onPress={() => sayLine(ls === "locked" ? t("levelLocked", { n: lvl.order }) : t("levelsComing"))}
-                  >
-                    <span className={styles.stoneNum} aria-hidden>
-                      {new Intl.NumberFormat(locale === "ar" ? "ar-EG" : "en").format(lvl.order)}
-                    </span>
-                    {ls === "locked" ? <AssetImage id="badge_lock" alt="" sizes="48px" className={styles.stoneBadge} /> : null}
-                    {ls === "completed" ? <AssetImage id="badge_star" alt="" sizes="48px" className={styles.stoneBadge} /> : null}
-                  </ThingButton>
-                );
-              })}
-          </div>
-          <button type="button" className={styles.close} aria-label={t("close")} onClick={closePlace} data-testid="place-close">
-            <X size={36} strokeWidth={3} aria-hidden />
-          </button>
-        </div>
-      ) : null}
+      {transition}
 
       {say ? (
         <div className={styles.sayWrap} key={say.key}>
