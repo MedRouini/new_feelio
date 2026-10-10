@@ -15,17 +15,18 @@ import uiStyles from "@/child/ui/ui.module.css";
 import type { Avatar as AvatarChoice } from "@/child/options";
 import { AssetImage } from "@/design/components/AssetImage";
 import { isDelivered, type AssetId } from "@/design/assets";
-import { centreOn, clampPan, facingAt, pointAt, subPath, toPixels, type Pt } from "@/world/geometry";
+import { centreOn, clampPan, containSize, facingAt, pointAt, subPath, toPixels, type Pt } from "@/world/geometry";
 import type { World, WorldPlace } from "@/world/schema";
 import type { LevelState, WorldState } from "@/world/unlock";
-import { useOrientation, useViewportSize } from "./useOrientation";
+import { useElementSize, useOrientation, useViewportSize } from "./useOrientation";
 import styles from "./map.module.css";
 
 const MAX_ZOOM = 2.5;
 const PLACE_ZOOM = 1.8;
 const WALK_PX_PER_S = 120;
-/** Height of the dock at the bottom: the camera treats only the area above it as the visible map. */
-const DOCK_H = 132;
+/** Where the ring's tube runs in ring_current's art (fractions of the image, measured from the file):
+ *  half-width, half-height and the centre's height. Used to lay the ring exactly on a pad's rim. */
+const RING_ART = { rx: 0.4222, ry: 0.1705, cy: 0.513 };
 const LAST_PLACE_KEY = "feelio.map.lastPlace"; // per-device convenience only (never needed for correctness)
 
 type Props = {
@@ -64,8 +65,8 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
   const t = useTranslations("child.map");
   const orientation = useOrientation();
   const screen = useViewportSize();
-  // The part of the screen not covered by the dock; centring and panning use this.
-  const vp = useMemo(() => ({ w: screen.w, h: Math.max(0, screen.h - DOCK_H) }), [screen]);
+  // The map area: the screen above the dock (its bottom edge is var(--dock-space) in CSS).
+  const [setViewportEl, vp] = useElementSize<HTMLDivElement>();
   const reduce = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement>(null);
   const dragged = useRef(false);
@@ -74,11 +75,13 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
   const places = useMemo(() => [...world.places].sort((a, b) => a.order - b.order), [world]);
   const map = orientation ? world.maps[orientation] : null;
   const ratio = map ? map.size[0] / map.size[1] : 1.5;
-  // Stage at scale 1 covers the viewport exactly (no empty edges), like object-fit: cover.
-  const stage = useMemo(() => {
-    if (!vp.w || !vp.h) return { w: 0, h: 0 };
-    return vp.w / vp.h > ratio ? { w: vp.w, h: vp.w / ratio } : { w: vp.h * ratio, h: vp.h };
-  }, [vp, ratio]);
+  // Stage at scale 1 fits inside the map area, like object-fit: contain: the whole map is always
+  // visible (D-054). Zooming in is optional; panning never goes past the map's edges.
+  const stage = useMemo(() => containSize(ratio, vp), [vp, ratio]);
+  const bindViewport = (el: HTMLDivElement | null) => {
+    viewportRef.current = el;
+    setViewportEl(el);
+  };
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -108,6 +111,10 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
   useEffect(() => {
     if (!map || !stage.w) return;
     const pad = map.places[current].pad;
+    // stop any zoom still running (e.g. closing a place just before the screen turned)
+    s.stop();
+    x.stop();
+    y.stop();
     s.set(1);
     const c = centreOn(pad.x * stage.w, pad.y * stage.h, 1, stage, vp);
     x.set(c.x);
@@ -218,8 +225,8 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
   );
 
   if (!map || !stage.w) {
-    // Before mount the orientation is unknown; render the meadow colour only (no layout jump).
-    return <div className={styles.viewport} aria-busy="true" />;
+    // Before mount the orientation (and the area's size) is unknown; render the meadow colour only.
+    return <div ref={bindViewport} className={styles.viewport} aria-busy="true" />;
   }
 
   const assetId = (map.assets[locale] ?? map.assets.en) as AssetId;
@@ -259,8 +266,10 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
 
   return (
     <>
+      {/* Spare space around the fitted map is the art's own meadow colour (flat, from world data) */}
+      <div className={styles.backdrop} style={{ background: map.backdrop }} aria-hidden />
       <div
-        ref={viewportRef}
+        ref={bindViewport}
         className={styles.viewport}
         role="region"
         aria-label={t("mapLabel")}
@@ -275,15 +284,23 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
           className={styles.stage}
           style={{ x, y, scale: s, width: stage.w, height: stage.h, ["--inv" as string]: inv }}
           data-orientation={orientation}
+          data-fit={Math.abs(stage.w - vp.w) < 1 && Math.abs(stage.h - vp.h) < 1 ? "exact" : Math.abs(stage.w - vp.w) < 1 ? "width" : "height"}
         >
           <AssetImage id={assetId} alt="" sizes={`${Math.round(stage.w)}px`} className={styles.mapImg} priority />
 
-          {/* glowing ring on the current place's stepping stone */}
+          {/* glowing ring laid on the current place's stepping-stone rim (pad oval measured from the art) */}
           <span
             className={styles.ring}
-            style={{ left: `${currentPad.x * 100}%`, top: `${currentPad.y * 100}%`, width: `${currentPad.r * 2.6 * 100}%` }}
+            data-testid="map-ring"
+            style={{
+              left: `${currentPad.x * 100}%`,
+              top: `${currentPad.y * 100}%`,
+              width: `${(currentPad.rx / RING_ART.rx) * 100}%`,
+              height: `${(currentPad.ry / RING_ART.ry) * 100}%`,
+              translate: `-50% -${RING_ART.cy * 100}%`,
+            }}
           >
-            <AssetImage id="ring_current" alt="" sizes="20vw" />
+            <AssetImage id="ring_current" alt="" sizes="20vw" className={styles.ringImg} />
           </span>
 
           {places.map((p) => {

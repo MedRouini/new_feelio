@@ -29,7 +29,8 @@ export function HotspotEditor({ world }: { world: World }) {
       const next = structuredClone(all);
       const map = next[o];
       if (drag.kind === "path") map.path[drag.i] = [x, y];
-      else map.places[drag.place][drag.kind] = { ...map.places[drag.place][drag.kind], x, y };
+      else if (drag.kind === "pad") map.places[drag.place].pad = { ...map.places[drag.place].pad, x, y };
+      else map.places[drag.place].hotspot = { ...map.places[drag.place].hotspot, x, y };
       return next;
     });
   };

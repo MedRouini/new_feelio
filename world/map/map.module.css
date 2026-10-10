@@ -1,17 +1,26 @@
 /* Interactive global map (MAP.md, DESIGN_SYSTEM.md). The world is the interface: places are tapped on
    the art itself; badges, fog, ring and marker are delivered images or flat brand-colour shapes. */
 
+/* The map area is the screen above the dock; the whole map fits inside it (D-054) */
 .viewport {
   position: fixed;
-  inset: 0;
+  inset: 0 0 var(--dock-space) 0;
   overflow: hidden;
-  background: #9ccd5a; /* meadow green behind the art while it loads */
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
   cursor: grab;
 }
 .viewport:active { cursor: grabbing; }
+.viewport[aria-busy="true"] { background: #9ccd5a; } /* meadow green while the map mounts */
+
+/* Spare space around the fitted map: a flat meadow colour measured from the art's edges (world data) */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: #9ccd5a;
+  pointer-events: none;
+}
 
 .stage {
   position: absolute;
@@ -20,6 +29,10 @@
   transform-origin: 0 0;
   will-change: transform;
 }
+/* The fitted map's spare-space edges fade softly into the meadow colour (only the sides that have spare
+   space; a few pixels of outer grass, never a place, sign or stone) */
+.stage[data-fit="width"] .mapImg { mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%); }
+.stage[data-fit="height"] .mapImg { mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%); }
 .mapImg { display: block; inline-size: 100% !important; block-size: 100% !important; max-width: none !important; aspect-ratio: auto !important; border-radius: 0; }
 
 /* A place: an invisible, generous hit area over the landmark (the art is the button) */
@@ -57,15 +70,16 @@
 }
 .ring {
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform-origin: 50% 51.3%; /* the ring's own centre in the art */
   pointer-events: none;
 }
+.ringImg { display: block; inline-size: 100% !important; block-size: 100% !important; max-width: none !important; object-fit: fill; }
 @media (prefers-reduced-motion: no-preference) {
   .ring { animation: ringPulse 2.4s ease-in-out infinite; }
 }
 @keyframes ringPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.85; }
-  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.06); opacity: 1; }
 }
 
 .marker {
@@ -99,7 +113,7 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   justify-items: center;
-  padding-block: max(16px, env(safe-area-inset-top)) calc(var(--dock-h, 120px) + 12px);
+  padding-block: max(16px, env(safe-area-inset-top)) calc(var(--dock-space) + 12px);
   padding-inline: 16px;
 }
 .placeView > * { pointer-events: auto; }
@@ -153,4 +167,4 @@
   pointer-events: none;
 }
 .sayWrap > * { pointer-events: auto; }
-.placeView ~ .sayWrap { inset-block-start: auto; inset-block-end: calc(var(--dock-h, 120px) + 26vmin); }
+.placeView ~ .sayWrap { inset-block-start: auto; inset-block-end: calc(var(--dock-space) + 26vmin); }

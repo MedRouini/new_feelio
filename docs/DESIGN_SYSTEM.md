@@ -130,4 +130,17 @@ Checked against §2: no cards, panels, pills, badge rows, shadows or emoji. The 
 To revisit when the art arrives:
 - Text contrast on the wooden sign.
 - The bubble's real proportions.
-- Whether the dock mound reads as ground or as a bar.
+- Whether the dock mound reads as ground or as a bar. (Superseded by D-054: the dock is now a phone-style tray.)
+
+**2026-10-10, map fit, ring and dock (D-054, owner feedback).** Screenshots at 8 sizes (360×640 to 1920×1080), EN and AR, portrait and landscape.
+
+Found:
+1. **Ring:** a fixed-size circle that did not match the oval stone, and sat a little off its centre.
+2. **Map:** the cover fit cropped parts of the map on some screens.
+3. **Dock:** the full-width mound with a lifted active item read as heavy.
+4. **First try at spare space:** a blurred copy of the map smeared house colours into the sides. Replaced with the flat meadow colour.
+5. **Turning the screen** during a zoom animation left the map off-centre.
+
+Fixed: all five. The ring is fitted per pad from the art; the map is contained with a meadow-coloured surround; the dock is a phone-style tray; the camera stops running zooms before re-centring.
+
+Checked against §2: flat colours only, no shadow, no blur, no pill or dot for the active item, targets ≥ 72 px.

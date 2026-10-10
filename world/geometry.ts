@@ -42,16 +42,24 @@ export function toPixels(points: readonly Pt[], w: number, h: number): Pt[] {
 
 export type Size = { w: number; h: number };
 
-/** Smallest stage scale that still covers the viewport (no empty edges). */
-export function coverScale(stage: Size, view: Size): number {
-  return Math.max(view.w / stage.w, view.h / stage.h);
+/** Largest stage of the given aspect ratio that fits entirely inside the view (like object-fit: contain),
+ *  so every place, sign and stone on the map is visible at the starting zoom (D-054). */
+export function containSize(ratio: number, view: Size): Size {
+  if (!view.w || !view.h || !ratio) return { w: 0, h: 0 };
+  return view.w / view.h > ratio ? { w: view.h * ratio, h: view.h } : { w: view.w, h: view.w / ratio };
 }
 
-/** Clamps a pan offset (CSS translate of the scaled stage) so the image always covers the viewport. */
+/** Clamps one axis: when the scaled stage is smaller than the view it is centred; when larger, it can
+ *  pan but never past its own edges. */
+function clampAxis(v: number, stageLen: number, viewLen: number) {
+  const free = viewLen - stageLen;
+  if (free >= 0) return free / 2;
+  return Math.min(0, Math.max(free, v));
+}
+
+/** Clamps a pan offset (CSS translate of the scaled stage) so the map never drifts off screen. */
 export function clampPan(x: number, y: number, s: number, stage: Size, view: Size) {
-  const minX = Math.min(0, view.w - stage.w * s);
-  const minY = Math.min(0, view.h - stage.h * s);
-  return { x: Math.min(0, Math.max(minX, x)), y: Math.min(0, Math.max(minY, y)) };
+  return { x: clampAxis(x, stage.w * s, view.w), y: clampAxis(y, stage.h * s, view.h) };
 }
 
 /** Pan offset that centres a point (in unscaled stage pixels) in the viewport, clamped. */

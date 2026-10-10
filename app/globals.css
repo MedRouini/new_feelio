@@ -72,6 +72,16 @@
   --m-wobble: 300ms;
   --m-idle: 3200ms;
   --walk-speed: 120; /* px per second along the map path */
+
+  /* Child dock (phone-style tray, D-054). --dock-space is everything it takes from the bottom of the
+     screen; the map fits itself into the area above it. */
+  --dock-h: 100px;
+  --dock-gap: max(10px, env(safe-area-inset-bottom));
+  --dock-space: calc(var(--dock-h) + var(--dock-gap) + 8px);
+}
+/* Short screens (a phone on its side): a slimmer dock with icons only, so the map keeps its room */
+@media (max-height: 500px) {
+  :root { --dock-h: 76px; --dock-gap: max(6px, env(safe-area-inset-bottom)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

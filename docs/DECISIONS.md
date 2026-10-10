@@ -497,3 +497,13 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - Art for the character falls from 25 files to 4 (1 delivered + 3 colour edits). The approved `bean` and `puff` bases stay in `assets/` for later.
 - The data model keeps `shape`, so more characters can come back without a migration. The validator currently only accepts `bun`.
 - Supersedes the shape and cheer parts of D-038.
+
+## D-054 Map fits the screen, ring fitted to the stone, phone-style dock
+**Status:** accepted (owner request, 2026-10-10)
+- **Map fit:** the map is now fitted like `object-fit: contain` inside the area above the dock, so every place, sign and stone is visible on any screen. It replaces the earlier "cover" fit, which cropped edges on some aspect ratios.
+  - Pinch and wheel zoom still go up to 2.5×. Panning only exists when zoomed in and stops at the map's edges.
+  - Spare space around the map is a flat meadow colour measured from each map's edges (`backdrop` in `world.json`), and the map's edges fade into it over 24 px. No blur, no panel, nothing drawn.
+  - Tested at 360×640, 390×844, 844×390, 820×1180, 1024×1366, 1180×820, 1366×768 and 1920×1080 (E2E).
+- **Ring:** each pad in `world.json` is now an oval (`x, y, rx, ry`) measured from the art (the top rim of the stepping stone, EN and AR maps averaged; they differ by under 0.3%). The ring image is stretched to that oval using where its tube runs in `ring_current` (`RING_ART` in `MapView.tsx`). The path points at each pad moved to the measured centres. If a map image is ever replaced, re-measure the pads.
+- **Dock:** a compact rounded tray floating above the bottom edge, like a phone's app dock, instead of the full-width mound. The current screen is quiet (bold label, others softer); icons never lift. On short screens (a phone on its side, height ≤ 500 px) it slims to icons only, and the words stay as the accessible names. Targets stay ≥ 72 px.
+- The map's area is measured from the element (ResizeObserver), with the dock's space set once in CSS (`--dock-space`), so the camera and the dock can't disagree.

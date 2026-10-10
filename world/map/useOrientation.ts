@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import type { Orientation } from "@/world/schema";
 
 // Which map to show: by viewport shape, not the orientation API (unreliable in iOS PWAs).
@@ -41,4 +41,20 @@ export function useViewportSize(): { w: number; h: number } {
     },
     () => lastSize,
   );
+}
+
+/** Live size of an element (e.g. the map area above the dock, whose bottom is set in CSS). */
+export function useElementSize<T extends HTMLElement>(): [(el: T | null) => void, { w: number; h: number }] {
+  const [el, setEl] = useState<T | null>(null);
+  const [size, setSize] = useState({ w: 0, h: 0 });
+  useEffect(() => {
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      const { width: w, height: h } = entry.contentRect;
+      setSize((prev) => (prev.w === w && prev.h === h ? prev : { w, h }));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [el]);
+  return [setEl, size];
 }

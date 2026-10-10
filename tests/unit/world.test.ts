@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import raw from "@/content/worlds/base/world.json";
-import { clampPan, centreOn, coverScale, facingAt, pointAt, subPath, type Pt } from "@/world/geometry";
+import { clampPan, centreOn, containSize, facingAt, pointAt, subPath, type Pt } from "@/world/geometry";
 import { worldSchema } from "@/world/schema";
 import { computeWorldState } from "@/world/unlock";
 
@@ -87,12 +87,18 @@ describe("geometry", () => {
     expect(facingAt([[0, 0], [10, 0]], 0.5)).toBe("right");
     expect(facingAt([[10, 0], [0, 0]], 0.5)).toBe("left");
   });
-  it("camera: cover scale and clamping keep the art covering the viewport", () => {
-    const stage = { w: 1500, h: 1000 };
-    const view = { w: 1000, h: 1000 };
-    expect(coverScale(stage, view)).toBe(1);
-    expect(clampPan(100, 100, 1, stage, view)).toEqual({ x: 0, y: 0 });
-    expect(clampPan(-9999, -9999, 1, stage, view)).toEqual({ x: -500, y: 0 });
-    expect(centreOn(750, 500, 1, stage, view)).toEqual({ x: -250, y: 0 });
+  it("camera: the whole map fits the view at the start, and panning never leaves the map's edges", () => {
+    // contain: a 3:2 map in a wide view is height-limited, in a tall view width-limited
+    expect(containSize(1.5, { w: 1180, h: 700 })).toEqual({ w: 1050, h: 700 });
+    expect(containSize(2 / 3, { w: 390, h: 740 })).toEqual({ w: 390, h: 585 });
+    const stage = { w: 1050, h: 700 };
+    const view = { w: 1180, h: 700 };
+    // at scale 1 the smaller axis is centred and the map can't be dragged off screen
+    expect(clampPan(-9999, 9999, 1, stage, view)).toEqual({ x: 65, y: 0 });
+    expect(centreOn(100, 100, 1, stage, view)).toEqual({ x: 65, y: 0 });
+    // zoomed in: panning stops at the map's edges
+    expect(clampPan(100, 100, 2, stage, view)).toEqual({ x: 0, y: 0 });
+    expect(clampPan(-9999, -9999, 2, stage, view)).toEqual({ x: 1180 - 2100, y: 700 - 1400 });
+    expect(centreOn(525, 350, 2, stage, view)).toEqual({ x: 590 - 1050, y: 350 - 700 });
   });
 });

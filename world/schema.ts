@@ -31,9 +31,13 @@ export const unlockRule: z.ZodType<UnlockRule> = z.lazy(() =>
 
 const circle = z.object({ x: frac, y: frac, r: z.number().min(0.01).max(0.5) });
 
+/** An oval in map fractions: rx is a fraction of the map width, ry of the map height. */
+const oval = z.object({ x: frac, y: frac, rx: z.number().min(0.01).max(0.5), ry: z.number().min(0.01).max(0.5) });
+
 const mapPlace = z.object({
   hotspot: circle,
-  pad: circle,
+  /** The stepping stone's top rim, measured from the map art; the current-place ring is fitted to it. */
+  pad: oval,
   /** Index of this place's pad in the orientation's path polyline. */
   pathIndex: z.number().int().min(0),
 });
@@ -46,6 +50,9 @@ const orientationMap = z.object({
   labelMode: z.enum(["painted", "blank_signs"]),
   /** Mirroring is only allowed for blank-sign maps (D-021). */
   rtlMirror: z.enum(["none", "mirror"]),
+  /** Flat colour of the art's outer meadow, measured from the map: fills any spare space around the
+   *  fitted map so the world seems to carry on past its edges (D-054). */
+  backdrop: z.string().regex(/^#[0-9a-f]{6}$/),
   path: z.array(point).min(2),
   places: z.record(z.string(), mapPlace),
 });
