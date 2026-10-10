@@ -5,7 +5,60 @@
 |---|---|
 | 0 Discovery and plan | Done; owner said "go" (2026-10-10) |
 | **1 Foundation** | **Done (2026-10-10)**, see below |
-| 1b Interactive global map and mascot shell | Next. All Batch 1 art delivered and approved |
+| **1b Map, mascot shell, character onboarding** | **Code-complete (2026-10-10). Done when the 38 visible placeholder assets are delivered** (docs/PLACEHOLDERS.md) |
+
+## Milestone 1b (map + mascot shell + character onboarding): result
+**Built (all in the DESIGN_SYSTEM direction: scenes, objects, mascot-led, no panels or shadows):**
+- **Onboarding**, "Arriving in Feelio's world", 5 stops, EN and AR, landscape and portrait, skippable and resumable:
+  1. The AI disclosure on a sign and in Feelio's words.
+  2. The character: shape, paint-pot colour, companion, and a name from a list or the parent's nickname.
+  3. Likes (up to 3).
+  4. A local-only microphone test, shown only if Talk is on.
+  5. The gate, then the first map moment: walking to Home.
+- **Map:**
+  - Both orientations, and the Arabic map in Arabic.
+  - Pan, pinch, wheel and double-tap zoom.
+  - Places as real buttons over the art. "Not yet" mist and lock, a ring under the current place, a star when finished.
+  - The mascot and the child's character walk the path. Tapping a place zooms in and shows its level stones.
+- **The rest of the shell:**
+  - The dock on a meadow mound.
+  - The press-and-hold grown-up door.
+  - My collection (the character, companion and name). Talk and Stories show honest "coming soon" screens.
+  - The time-up goodbye; the offline screen and service worker; the PWA manifest and icons.
+  - UI sounds (Kenney CC0).
+- **Parent side:**
+  - The Settings step (Talk, Stories, time per day, sound), so setup now reads: consent, child, settings, hand over.
+  - Time per day is **enforced on the server** through heartbeats (D-045). The Stories switch is enforced too (D-046).
+- **Data and tools:**
+  - World data: `content/worlds/base/world.json`, its schema, the unlock engine, path geometry, and the pack registry (no-code packs).
+  - Dev-only hotspot editor (`/dev/editor`; 404 in production, verified).
+  - Voice-line generator with a cost guard (`safety/voice-lines`). Not run: it needs your voice choice.
+
+### Verified by running it (2026-10-10)
+- `npm run lint` and `npm run typecheck`: clean.
+- `npm test`: **55/55**:
+  - World data, unlock engine, geometry and onboarding validation.
+  - Integration on Neon:
+    - onboarding writes only to its own child, and resumes
+    - the step never goes backwards; skip works
+    - parent settings are what the child sees
+    - heartbeats are rate-limited, and the daily limit stops counting and flips to time-up
+- `npm run test:e2e`: **12/12** in Chromium:
+  - Onboarding completed in **EN and AR × tablet landscape and phone portrait**, then the map with the chosen avatar, then My collection with the chosen name.
+  - Resume after a reload works.
+  - The map: 5 places, a locked "not yet", the place view with 5 stones, rotation switching maps without losing state, the RTL dock order, and the stage never mirrored.
+  - Skip, the time limit, Stories off, child APIs refusing bad input or other origins, the editor.
+  - Milestone 1 flows still pass with the new steps.
+- `next build` + `next start`: the editor returns 404 in production; the manifest, service worker, icons and sounds are served; the internal `/child` and `/parent` paths are unreachable.
+- Page weight on the production build, compressed:
+  - map: JS 210 KB, images 222 KB, fonts 118 KB, total ≈ 570 KB
+  - JS is **over the 150 KB budget** (D-052)
+- Screenshots reviewed at 1180×820 and 390×844 in EN and AR. Critique and fixes are in DESIGN_SYSTEM §9.
+
+### Only written, not run
+- The service worker's offline behaviour: registered in production only, and not exercised offline in a test yet.
+- The voice-line generator with `--yes`: no credits spent.
+- Real-device checks (iPad Safari, Android Chrome).
 
 ## Milestone 1 (Foundation): result
 **Built:**

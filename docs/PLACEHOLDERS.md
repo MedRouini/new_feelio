@@ -2,11 +2,31 @@
 
 Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open entries is not done (CLAUDE.md rule 4).
 
-## Open
-_None._ Milestone 1 uses only delivered, approved assets. No grey placeholder boxes are rendered.
+**How art placeholders work (D-044):**
+- Every asset the app expects is listed in `design/asset-ids.ts`.
+- If its file is approved in `assets/manifest.json`, the real image shows. If not, a grey box labelled `TODO(PLACEHOLDER) <id>` shows in the right shape.
+- When you deliver a file and it's approved, it replaces the box automatically on the next build. No code change is needed.
+- To list what's still missing: `missingAssets()` in `design/assets.ts`.
 
-## Not placeholders, but known gaps (documented, not faked)
-| Gap | Where | Why | Unblocks when |
+## Open: art (46 assets, as of 2026-10-10)
+| Group (`docs/ASSET_REQUESTS.md`) | Assets | Visible in Milestone 1b |
+|---|---|---|
+| Onboarding objects (Batch 2, group 3) | `ui_sign_plate`, `ui_say_bubble`, `ui_grownup_door`, `ui_mic_object`, `ui_paint_pot_amber/rose/lilac/sky` | **Yes, on every child screen.** Sign, bubble and door appear everywhere; pots and mic in onboarding |
+| Open-gate scenes (Batch 2, group 3) | `scene_meadow_land_open`, `scene_meadow_port_open` | Yes (onboarding stop 5) |
+| Avatar variants (Batch 2, group 4) | 21 files: rose, lilac, sky idle × 3 shapes, plus cheer × 12 | Yes, whenever a colour other than amber or a cheer pose is shown |
+| "What do you like?" (Batch 2, group 5) | `like_animals`, `like_space`, `like_music`, `like_drawing`, `like_ballgames`, `like_nature`, `like_blocks`, `like_sea` | Yes (onboarding stop 3) |
+| Mascot poses | `mascot_pointing` (Batch 2), `mascot_listening` (Batch 1 P3) | Yes (onboarding stops 2–4) |
+| Mascot poses, optional | `mascot_excited` | No: the map uses `mascot_feel_excited` until it exists |
+| Mascot voice poses (Milestone 5) | `mascot_thinking`, `mascot_speaking_half/closed/open` | No |
+
+**Milestone 1b closes when the 38 assets in the first five rows are delivered and approved.**
+
+## Open: functionality gaps (honest, visible, never faked)
+| Gap | Where | Why | Closes |
 |---|---|---|---|
-| Parent email verification is off (`REQUIRE_EMAIL_VERIFICATION=false`) | `auth/server.ts` | No email provider chosen yet (a new third-party service needs the owner's approval) | The owner picks a provider |
-| Child home shows a greeting instead of the world map | `app/child/page.tsx` | The map is Milestone 1b | Milestone 1b |
+| Talk shows "coming soon" | `app/child/talk/page.tsx` (`TODO(PLACEHOLDER)`) | The voice companion is Milestone 5 | Milestone 5 |
+| Stories shows "coming soon" | `app/child/stories/page.tsx` (`TODO(PLACEHOLDER)`) | The storybook generator is Milestone 6 | Milestone 6 |
+| Level stones say "adventures are being made" | `world/map/MapView.tsx` | No reviewed scenarios yet (`scenarioIds: []`) | Milestone 4 |
+| Fixed voice lines are captions only | `safety/voice-lines/` | Waiting for you to choose voices and allow the run (D-037). Dry run: 38 lines, 1,687 chars ≈ 844–1,687 credits | When you pick the voices |
+| Parent email verification is off | `auth/server.ts` | No email provider chosen | When you pick a provider |
+| Screen-time days are counted in UTC | `child/usage.ts` | Household timezone and schedule settings come in Milestone 3 | Milestone 3 |

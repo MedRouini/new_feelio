@@ -426,3 +426,65 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 ## D-043 Onboarding is built inside Milestone 1b
 **Status:** accepted · 2026-10-10
 - Its last stop is the first map moment. Milestone 1b = the map + dock + mascot shell + character-creation onboarding, in the DESIGN_SYSTEM direction.
+
+---
+## Milestone 1b decisions (2026-10-10)
+
+## D-044 Expected-asset registry with automatic placeholders
+**Status:** accepted · 2026-10-10
+- `design/asset-ids.ts` lists every asset id the app uses, with its shape.
+- `AssetImage` shows the approved WebP if delivered, otherwise a grey `TODO(PLACEHOLDER)` box of the same shape. The box is a `<span>`, so it is valid inside buttons; a `<div>` in a `<p>` caused a hydration error found by E2E.
+- Delivering art needs no code change.
+
+## D-045 Daily screen time is counted and enforced on the server
+**Status:** accepted · 2026-10-10
+- Child screens send a heartbeat every 60 s while visible (`/api/child/heartbeat`). The server adds at most 60 s per 50 s gap, so it can't be sped up, and stops counting once the limit is reached.
+- Every child page checks `isTimeUp` on the server and shows the warm goodbye (`mascot_sleeping`, no pleading).
+- Days are UTC until household timezones arrive (Milestone 3, listed in PLACEHOLDERS).
+- **Why now:** the parent "time per day" setting would otherwise be fake functionality (CR-4).
+
+## D-046 Parent's Stories switch is enforced
+**Status:** accepted · 2026-10-10
+- With Stories off, the dock hides the item and `/stories` redirects to the map, checked on the server.
+
+## D-047 Onboarding saves fixed-list values only
+**Status:** accepted · 2026-10-10
+- `/api/child/onboarding` validates with `onboardingUpdateSchema`: avatar enums, a nickname key from `content/nicknames.json` or "parent", up to 3 interest ids, step 0–5, `.strict()`. Nothing typed or spoken by the child is stored or sent to any model.
+- The microphone test reads volume locally only (Web Audio analyser). No audio leaves the device.
+- Origin-checked; child scope only. The step never goes backwards. Skip sets the default avatar and marks onboarding done.
+
+## D-048 Map camera, marker and place view
+**Status:** accepted · 2026-10-10
+- Stage covers the area above the dock (`DOCK_H` 132 px) at scale 1; zoom 1–2.5.
+- Pan and pinch with `@use-gesture/react` 10.3.1, animation with `motion` 14.1.0 (both MIT).
+- Places are invisible buttons over the landmarks (the art is the button). Locked places get a light lilac mist plus `badge_lock`.
+- The marker (mascot + avatar) walks the path at 120 px/s to a newly reached place. Facing comes from the on-screen direction, so the mascot is never mirrored. The "last place" memory is per device (`localStorage`, convenience only).
+- Tapping a place zooms in and shows its level stones on the map, not in a panel.
+- Reduced motion: no walking, no pulsing.
+
+## D-049 UI sounds as WAV
+**Status:** accepted · 2026-10-10
+- Six Kenney CC0 sounds converted from OGG to 16-bit WAV, made quieter (×0.6). Total 138 KB. They play on Safari versions without Ogg.
+- No "error" sounds (Feelio has no failure states). Credit in `public/sounds/CREDITS.txt`.
+
+## D-050 Next dev indicator off
+**Status:** accepted · 2026-10-10
+- The floating dev badge covered child controls (skip, dock) and intercepted taps in E2E. Runtime errors still open the full overlay.
+
+## D-051 E2E fixture script (test-only)
+**Status:** accepted · 2026-10-10
+- `scripts/e2e-fixture.ts` creates synthetic parent, child and device key data for Playwright. It refuses to run without `E2E_FIXTURES=1`, is never served, and its accounts (`test+…@example.test`) are removed by the global teardown.
+
+## D-052 Performance: JS over budget (reported, not hidden)
+**Status:** open, revisit in Milestone 7 · 2026-10-10
+- Measured on the production build, map screen, tablet landscape, compressed transfer:
+  - JS **210 KB** (budget 150)
+  - images 222 KB
+  - fonts 118 KB
+  - CSS 7 KB, HTML 9 KB
+  - total ≈ 570 KB
+- Phone portrait images: 138 KB.
+- Planned reductions:
+  - load only the current language's font (Arabic and Latin are both loaded today)
+  - replace `motion` on the map with CSS / Web Animations
+  - lazy-load the place view

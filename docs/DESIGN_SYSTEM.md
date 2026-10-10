@@ -107,3 +107,27 @@ Every child screen gets a note here **before** it is built: the idea, the layout
   - (b) ElevenLabs sound-effects generation: costs credits, and under-18 use needs approval (D-005).
   - (c) You supply sounds.
 - **Q-D3 Remove shadows in the child app:** confirm the token change in §3.
+
+## 9. Review log
+**2026-10-10, onboarding and map, first build.** Screenshots at 1180×820 and 390×844, EN and AR.
+
+Placeholders were still grey boxes at this point.
+
+Found:
+1. **Landscape onboarding:** the full-width speech bubble pushed Feelio into a small clipped corner.
+2. **Portrait:** the bubble ran under the grown-up door.
+3. **Phone map:** the characters stood behind the dock, because the camera ignored the dock.
+4. **Map:** the "not yet" mist hid the buildings.
+
+Fixed:
+1. Feelio gets a full-height column, and the bubble sits above the choices (520 / 440 px).
+2. The bubble leaves room for the door.
+3. The camera centres and clamps inside the area above the dock.
+4. The mist is lighter (0.42) and smaller.
+
+Checked against §2: no cards, panels, pills, badge rows, shadows or emoji. The close button is a plain outlined functional icon.
+
+To revisit when the art arrives:
+- Text contrast on the wooden sign.
+- The bubble's real proportions.
+- Whether the dock mound reads as ground or as a bar.

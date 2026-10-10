@@ -44,5 +44,14 @@ Claude Code asks you to approve project MCP servers in `.mcp.json` the first tim
 | `auth` CLI (Better Auth) | 1.7.7 via `npx` | Used once to generate `platform/db/schema/auth.ts`; telemetry off; nothing installed |
 | next-devtools-mcp | not installed yet | Planned in TOOLS v1 for Next 16+. Deferred: not needed so far, and it would add a telemetry opt-out to maintain |
 
+## Milestone 1b additions
+| Item | Version / source | Why | Notes |
+|---|---|---|---|
+| `@use-gesture/react` | 10.3.1, MIT, pmndrs | Map pan, pinch and wheel | npm dependency |
+| `motion` | 14.1.0, MIT | Map camera and marker animation | npm dependency. A candidate to replace with CSS (D-052) |
+| `lucide-react` | 1.55.0, ISC | Functional icons only (close, next, skip) | Never for illustrations (CR-10) |
+| Kenney "Interface Sounds" | v1.0, CC0, kenney.nl/assets/interface-sounds (checked 2026-10-10) | UI sounds | 6 files converted to WAV in `public/sounds/` (D-049); credit in `public/sounds/CREDITS.txt` |
+| `soundfile` + `numpy` (Python) | Session scratchpad only | One-off OGG to WAV conversion | Not in the project |
+
 ## Other tools used in Milestone 0 (not installed in the project)
 - **PyMuPDF 1.23.26**, installed only into the session scratchpad (not the repo) to render the brand PDF and read its vector fill colours. Nothing to remove from the project.
