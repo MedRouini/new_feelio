@@ -13,8 +13,9 @@ test("Milestone 1: parent sign-up → consent → child → device setup → chi
 
   // 1. Child host without a device key: friendly "ask a grown-up" screen with the AI disclosure.
   await page.goto(APP);
-  await expect(page.getByRole("heading", { name: "Hello! I'm Feelio." })).toBeVisible();
-  await expect(page.getByText("I'm Feelio, a friendly AI")).toBeVisible();
+  await expect(page.getByTestId("not-set-up")).toBeVisible();
+  await expect(page.getByTestId("ai-sign")).toContainText("I'm Feelio, a friendly AI");
+  await expect(page.getByTestId("grownup-door")).toBeVisible();
   await page.screenshot({ path: `${SHOTS}/01-child-not-set-up.png` });
 
   // 2. Parent surfaces are unreachable on the child host.
@@ -51,16 +52,20 @@ test("Milestone 1: parent sign-up → consent → child → device setup → chi
   await page.getByLabel("Age group").selectOption("5-6");
   await page.getByLabel("Child's language").selectOption("ar");
   await page.getByRole("button", { name: "Create profile" }).click();
+  // Parent step 3: settings for this child, then step 4: hand the device over.
+  await expect(page.getByRole("heading", { name: "Settings for Laila" })).toBeVisible();
+  await expect(page.getByText("Step 3 of 4")).toBeVisible();
+  await page.getByRole("button", { name: "Save settings" }).click();
   await expect(page.getByRole("heading", { name: "Laila" })).toBeVisible();
+  await expect(page.getByText(/Step 4 of 4/)).toBeVisible();
   await page.screenshot({ path: `${SHOTS}/04-child-detail.png`, fullPage: true });
 
-  // 6. Set up this device → key handed to the child host → child home in Arabic, RTL.
+  // 6. Set up this device → key handed to the child host → the child's onboarding, in Arabic, RTL.
   await page.getByRole("button", { name: "Set up this device for Laila" }).click();
-  await expect(page).toHaveURL(APP + "/");
-  await expect(page.getByRole("heading", { name: "أهلًا! أنا سعيد جدًا برؤيتك." })).toBeVisible();
+  await expect(page).toHaveURL(APP + "/hello");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
   await expect(page.locator("html")).toHaveAttribute("lang", "ar");
-  await expect(page.getByText("أنا فيليو، ذكاء اصطناعي ودود")).toBeVisible();
+  await expect(page.getByTestId("ai-sign")).toContainText("أنا فيليو، ذكاء اصطناعي ودود");
   await page.screenshot({ path: `${SHOTS}/05-child-home-ar.png` });
 
   // 7. The device cookie is httpOnly, host-only on the child host.
