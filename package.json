@@ -13,8 +13,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/db-migrate.ts",
     "assets:build": "tsx scripts/build-assets.ts",
-    "predev": "tsx scripts/build-assets.ts",
-    "prebuild": "tsx scripts/build-assets.ts"
+    "predev": "npm run content:build",
+    "prebuild": "npm run content:build",
+    "content:build": "tsx scripts/build-world-registry.ts && tsx scripts/build-assets.ts"
   },
   "dependencies": {
     "@better-auth/api-key": "^1.7.7",

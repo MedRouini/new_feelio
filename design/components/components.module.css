@@ -1,13 +1,13 @@
+/* Parent-area components (the child app uses child/ui instead: no shadows, D-042). */
 .button {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
   border: 2px solid transparent; border-radius: var(--r-pill);
   font: inherit; font-weight: 700; cursor: pointer;
-  transition: transform var(--dur-ui) var(--ease-out), box-shadow var(--dur-ui) var(--ease-out);
+  transition: transform var(--dur-ui) var(--ease-out);
 }
 .button:active { transform: scale(0.97); }
 .button:disabled { opacity: 0.6; cursor: not-allowed; }
 .parent { min-block-size: var(--touch-parent); padding-inline: var(--s6); font-size: var(--fs-body-parent); }
-.child { min-block-size: var(--touch-child); padding-inline: var(--s8); font-size: var(--fs-body-child); box-shadow: var(--shadow-soft); }
 .primary { background: var(--primary); color: var(--primary-text); }
 .secondary { background: var(--white); color: var(--primary); border-color: var(--primary); }
 .quietDanger { background: var(--white); color: var(--danger-quiet); border-color: var(--danger-quiet); }
@@ -23,16 +23,11 @@
 .field input:focus-visible { border-color: var(--focus); }
 .field small { color: var(--text-muted); }
 
+/* TODO(PLACEHOLDER) box: deliberately plain grey so it can never pass for finished art. */
 .placeholder {
-  display: grid; place-items: center; text-align: center; padding: var(--s2);
-  background: #d9d9d9; color: #333; border: 2px dashed #888; border-radius: var(--r-input);
-  font-family: ui-monospace, monospace; font-size: 12px;
+  display: grid; place-content: center; gap: 2px; text-align: center; padding: var(--s2);
+  inline-size: 100%; block-size: auto; overflow: hidden;
+  background: #d9d9d9; color: #333; border: 2px dashed #888; border-radius: 12px;
+  font-family: ui-monospace, monospace; font-size: 11px; line-height: 1.2; word-break: break-all;
 }
 
-.aiChip {
-  display: inline-flex; align-items: center; gap: var(--s2); margin: 0;
-  padding-block: var(--s1); padding-inline: var(--s2) var(--s4);
-  background: var(--white); color: var(--text); border-radius: var(--r-pill); box-shadow: var(--shadow-soft);
-  font-weight: 700;
-}
-.aiChipAvatar { inline-size: 32px; block-size: auto; }

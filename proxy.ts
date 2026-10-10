@@ -34,5 +34,6 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // Skip static files and image optimisation; everything else is routed by host.
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|generated/|fonts/).*)"],
+  // Static files, the PWA manifest and the service worker are served as they are on both hosts.
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|generated/|fonts/|sounds/|audio/|manifest.webmanifest|sw.js).*)"],
 };

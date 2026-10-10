@@ -30,3 +30,4 @@ next-env.d.ts
 public/generated/
 design/asset-index.generated.json
 world/packs.generated.ts
+design/audio-index.generated.json

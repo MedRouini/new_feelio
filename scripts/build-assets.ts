@@ -3,7 +3,7 @@
 //  - D-027: on transparent PNGs, alpha >= 240 -> 255 and alpha <= 8 -> 0 (ChatGPT export clean-up).
 //  - Writes design/asset-index.generated.json (sizes per asset) and prints the weight per file.
 // Run: npm run assets:build (also runs before dev and build).
-import { mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, parse } from "node:path";
 import sharp from "sharp";
 
@@ -13,11 +13,18 @@ const OUT_DIR = "public/generated";
 const INDEX_FILE = "design/asset-index.generated.json";
 const WIDTHS: Record<string, number[]> = {
   map: [768, 1024, 1536],
+  world: [768, 1024, 1536],
   default: [128, 256, 512, 1024],
 };
 
 function category(file: string): string {
+  if (file.startsWith("brand/")) return "brand"; // official brand art exported to PNG (companions)
   return file.split("/")[2] ?? "misc"; // assets/approved/<category>/<name>.png
+}
+
+// Approved world/UI art plus the brand companions (heart, cloud, star) used in the child app.
+function isWebAsset(file: string): boolean {
+  return file.startsWith("assets/approved/") || file.startsWith("brand/assets/png/");
 }
 
 async function normaliseAlpha(input: Buffer): Promise<ReturnType<typeof sharp>> {
@@ -32,7 +39,7 @@ async function normaliseAlpha(input: Buffer): Promise<ReturnType<typeof sharp>> 
 
 async function main() {
   const manifest = JSON.parse(readFileSync("assets/manifest.json", "utf8")) as { assets: ManifestEntry[] };
-  const entries = manifest.assets.filter((a) => a.approved && a.file.startsWith("assets/approved/"));
+  const entries = manifest.assets.filter((a) => a.approved && isWebAsset(a.file));
   const index: Record<string, { src: Record<number, string>; width: number; height: number; transparent: boolean }> = {};
   let total = 0;
 
@@ -64,6 +71,26 @@ async function main() {
 
   mkdirSync(dirname(INDEX_FILE), { recursive: true });
   writeFileSync(INDEX_FILE, JSON.stringify(index, null, 2) + "\n");
+
+  // PWA icons: the brand's simplified mascot outline (brand/mini-mascot.png) centred on a flat lilac
+  // tile. Placement only, nothing drawn (ASSET_REQUESTS "Not requested").
+  mkdirSync(join(OUT_DIR, "icons"), { recursive: true });
+  for (const size of [192, 512]) {
+    const inner = Math.round(size * 0.62);
+    const logo = await sharp("brand/mini-mascot.png").resize({ width: inner, height: inner, fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).toBuffer();
+    await sharp({ create: { width: size, height: size, channels: 4, background: "#EFCFF8" } })
+      .composite([{ input: logo, gravity: "center" }])
+      .png()
+      .toFile(join(OUT_DIR, "icons", `icon-${size}.png`));
+  }
+
+  // Pre-generated voice lines (D-037): public/audio/<locale>/<key>.mp3. Lines without audio show captions only.
+  const audio: Record<string, string[]> = { en: [], ar: [] };
+  for (const loc of Object.keys(audio)) {
+    const d = join("public/audio", loc);
+    if (existsSync(d)) audio[loc] = readdirSync(d).filter((f) => f.endsWith(".mp3")).map((f) => f.slice(0, -4)).sort();
+  }
+  writeFileSync("design/audio-index.generated.json", JSON.stringify(audio, null, 2) + "\n");
   console.log(`\n${Object.keys(index).length} assets, ${total.toFixed(0)} KB total across all sizes.`);
 }
 

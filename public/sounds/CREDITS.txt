@@ -1,0 +1,2 @@
+Interface sounds: "Interface Sounds" by Kenney (www.kenney.nl), licence CC0 1.0.
+Files were converted from .ogg to .wav and made quieter. Roles: tap, pick, unlock, step, whoosh, pop (D-041).

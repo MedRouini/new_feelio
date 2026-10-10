@@ -29,8 +29,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - name: Build web assets (generates design/asset-index.generated.json)
-        run: npm run assets:build
+      - name: Build content (world-pack registry + web assets; generated files are git-ignored)
+        run: npm run content:build
       - name: Lint (includes the safety import boundary, CLAUDE.md rule 1)
         run: npm run lint
       - name: Typecheck

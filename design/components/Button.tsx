@@ -3,7 +3,8 @@ import styles from "./components.module.css";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "quietDanger";
-  size?: "child" | "parent";
+  /** Parent area only; child screens use child/ui ThingButton. */
+  size?: "parent";
 };
 
 export function Button({ variant = "primary", size = "parent", className, ...rest }: Props) {

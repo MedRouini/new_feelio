@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   // and child data must never be cached on the server.
   cacheComponents: false,
   poweredByHeader: false,
+  // The floating dev badge covers child controls (skip, dock) in development; runtime errors still
+  // open the full error overlay.
+  devIndicators: false,
   // next-intl request config. Set directly instead of through next-intl's plugin, which loads
   // @swc/core for an extraction feature we don't use (D-034). Must be a relative path.
   turbopack: {
