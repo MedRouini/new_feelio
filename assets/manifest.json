@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "assets": [
+    {
+      "id": "brand.face_happy",
+      "file": "brand/feelings-expressions/png/face_happy.png",
+      "kind": "brand-export",
+      "source": "brand/feelings-expressions/happy-face.svg",
+      "tool": "headless Chrome rasterisation of the official SVG (no redraw)",
+      "prompt": null,
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "matches presentation render",
+        "true alpha, no halo on dark background",
+        "not cropped"
+      ],
+      "sha256": "3d3eaf8715fe7c9fbbb1a3054ab950c1931d58a4a3488ce5bec9fa4dce43813f"
+    },
+    {
+      "id": "brand.face_excited",
+      "file": "brand/feelings-expressions/png/face_excited.png",
+      "kind": "brand-export",
+      "source": "brand/feelings-expressions/excited-face.svg",
+      "tool": "headless Chrome rasterisation of the official SVG (no redraw)",
+      "prompt": null,
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "matches presentation render",
+        "true alpha, no halo on dark background",
+        "not cropped"
+      ],
+      "sha256": "5a90febf34a1c2fc9a1c4ead636232920c9e1ec039d63cf091fe9836d5754727"
+    },
+    {
+      "id": "brand.face_sad",
+      "file": "brand/feelings-expressions/png/face_sad.png",
+      "kind": "brand-export",
+      "source": "brand/feelings-expressions/sad-face.svg",
+      "tool": "headless Chrome rasterisation of the official SVG (no redraw)",
+      "prompt": null,
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "matches presentation render",
+        "true alpha, no halo on dark background",
+        "not cropped"
+      ],
+      "sha256": "2cf8623b29591473170a94f8378e4b1885fcce509ccb04f014cb34673eb9aa14"
+    },
+    {
+      "id": "brand.face_angry",
+      "file": "brand/feelings-expressions/png/face_angry.png",
+      "kind": "brand-export",
+      "source": "brand/feelings-expressions/mad-face.svg",
+      "tool": "headless Chrome rasterisation of the official SVG (no redraw)",
+      "prompt": null,
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "matches presentation render",
+        "true alpha, no halo on dark background",
+        "not cropped"
+      ],
+      "sha256": "017b9d0b33a6b44669ff7b2342e7a7d0553a2faefa8c9e37db0a74a1f1cd167f"
+    },
+    {
+      "id": "brand.companion_heart",
+      "file": "brand/assets/png/companion_heart.png",
+      "kind": "brand-export",
+      "source": "brand/assets/face-svg.svg",
+      "tool": "headless Chrome rasterisation of the official SVG (no redraw)",
+      "prompt": null,
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "matches presentation render",
+        "true alpha, no halo on dark background",
+        "not cropped"
+      ],
+      "sha256": "84af51abe452230e1b004618fce309774a79dbed6cac7675c2fc9d3acfe491a4"
+    },
+    {
+      "id": "brand.companion_cloud",
+      "file": "brand/assets/png/companion_cloud.png",
+      "kind": "brand-export",
+      "source": "brand/assets/cloud-face.svg",
+      "tool": "headless Chrome rasterisation of the official SVG (no redraw)",
+      "prompt": null,
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "matches presentation render",
+        "true alpha, no halo on dark background",
+        "not cropped"
+      ],
+      "sha256": "18c6473a34f35877cbbd4c591384b5463e1130f62048c24826bd2410543818ca"
+    },
+    {
+      "id": "brand.companion_star",
+      "file": "brand/assets/png/companion_star.png",
+      "kind": "brand-export",
+      "source": "brand/assets/star-face.svg",
+      "tool": "headless Chrome rasterisation of the official SVG (no redraw)",
+      "prompt": null,
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "matches presentation render",
+        "true alpha, no halo on dark background",
+        "not cropped"
+      ],
+      "sha256": "f12f3be554396a4ea30c61ff73871b65543f8130d75306ed1f5d7f33112532cc"
+    }
+  ]
+}

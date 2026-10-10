@@ -24,7 +24,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 
 ### Priority 1: blocks Milestone 1b
 
-### R-00 owner-exports   status: requested
+### R-00 owner-exports   status: approved (exports done 2026-10-10; optional mascot re-export still open)
 - Used in: reference uploads for every mascot and collection prompt
 - Purpose: ChatGPT cannot read SVG, so the brand files it needs as references must be PNG
 - Size and ratio: any size ≥ 1024 px on the long side
@@ -35,7 +35,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
   - `brand/assets/png/companion_heart.png`, `companion_cloud.png`, `companion_star.png` (from `face-svg.svg`, `cloud-face.svg`, `star-face.svg`)
   - Optional: re-export `brand/mascot/default/png/IMG_9937.png` with about 40 px padding on every side (the right arm may touch the edge today)
 - Prompt (paste into ChatGPT):
-  > Not a ChatGPT task. These are straight exports of existing brand files. Claude Code does not convert them, so that nothing is redrawn.
+  > Not a ChatGPT task. **Done 2026-10-10:** the 7 SVGs were rasterised as they are with headless Chrome (format conversion only, nothing redrawn), checked against the presentation, and logged in `assets/manifest.json`. Still optional for you: the padded re-export of `IMG_9937.png`.
 
 ### map-h-ar   status: requested
 - Used in: global map, landscape, **Arabic** (Milestone 1b). English keeps the approved original (D-021)
@@ -344,7 +344,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
-| R-00 owner-exports | 2026-10-10 | | | brand file exports, not ChatGPT |
+| R-00 owner-exports | 2026-10-10 | 2026-10-10 | 2026-10-10 | 7 PNGs rasterised from the brand SVGs; optional mascot re-export open |
 | map-h-ar | 2026-10-10 | | | P1 (Arabic map, landscape) |
 | map-v-ar | 2026-10-10 | | | P1 (Arabic map, portrait) |
 | mascot_idle | 2026-10-10 | | | P1, generate first |
