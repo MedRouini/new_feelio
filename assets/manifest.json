@@ -126,6 +126,60 @@
         "not cropped"
       ],
       "sha256": "f12f3be554396a4ea30c61ff73871b65543f8130d75306ed1f5d7f33112532cc"
+    },
+    {
+      "id": "mascot.idle",
+      "file": "assets/approved/mascot/mascot_idle.png",
+      "kind": "mascot-pose",
+      "prompt": "Create an image. I attached the official mascot and its official \"happy\" face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing straight and relaxed, facing the viewer, both arm-flaps resting gently at its sides, feet flat] and [FACE: use the attached happy face exactly: open sparkle eyes and a small soft closed smile]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Culturally neutral. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "no text",
+        "no mascot drift: antenna orb, screen face with sparkle eyes, cheeks, belly heart, arm-flaps, feet, default colourway",
+        "no extra characters",
+        "matches official mascot style (minor: small floating sparkle and thin left outline omitted, accepted)",
+        "edges clean on dark background",
+        "not cropped (orb ~3 px from top edge: tight, OK)",
+        "pose and face as requested (happy face, arms relaxed)",
+        "child-appropriate",
+        "technical: body alpha 240-254 and faint edge specks, normalised in the build step (D-027), source untouched"
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "c8b232247dac176d7a8f8edccafec87226acfb09c7532676b4ed5133a2b6634b"
+    },
+    {
+      "id": "mascot.marker",
+      "file": "assets/approved/mascot/mascot_marker.png",
+      "kind": "mascot-pose",
+      "prompt": "Create an image. I attached the official mascot, an approved pose of it, and the game map it will stand on. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing happily, seen from slightly above at the same three-quarter top-down camera angle as the attached map, one arm-flap raised a little in greeting, with a soft oval ground shadow under its feet in a darker green-grey that matches the map's shadows] and [FACE: happy sparkle eyes and a small open smile]. Match the map's lighting from the top-left. Full body, centred, transparent background PNG around the character and its shadow (plain white if transparency fails), 1024×1024, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "no text",
+        "no mascot drift",
+        "no extra characters",
+        "matches official mascot and map camera",
+        "edges clean on dark background",
+        "not cropped",
+        "pose as requested: happy, slight top-down, greeting arm, soft ground shadow",
+        "child-appropriate",
+        "technical: body alpha 240-253, normalised in the build step (D-027)"
+      ],
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "0c09dc7d8fd4bf4eb722e835884cd31c9d306189c5c92c618f7cced93738b3e4"
     }
   ]
 }

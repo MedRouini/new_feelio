@@ -59,7 +59,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 
 > Note for both Arabic maps: image models often misspell Arabic or break the letter joins. Zoom in on every sign before sending the file. If one word keeps coming out wrong, ask ChatGPT to fix only that sign ("keep everything identical, only rewrite the word on the sign near the school as المدرسة"). Claude Code reads every sign on delivery and compares the image with the original to re-measure the hotspots if anything moved. Last-resort fallback for a stubborn sign: a blank sign with the name drawn by code (D-021).
 
-### mascot_idle   status: requested
+### mascot_idle   status: approved (2026-10-10)
 - Used in: map marker fallback, Talk screen idle, loading, onboarding; **becomes the second reference for every later pose**
 - Purpose: the neutral, calm, standing Feelio that all idle motion (breathing, bob) is applied to in code
 - Size and ratio: 1024×1024 square
@@ -69,7 +69,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot and its official "happy" face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing straight and relaxed, facing the viewer, both arm-flaps resting gently at its sides, feet flat] and [FACE: use the attached happy face exactly: open sparkle eyes and a small soft closed smile]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Culturally neutral. No logos, no watermark.
 
-### mascot_marker   status: requested
+### mascot_marker   status: approved (2026-10-10)
 - Used in: global map, the marker standing on the current place
 - Purpose: a small map figure that reads well at about 80 px and sits on the map like the buildings do
 - Size and ratio: 1024×1024 square
@@ -347,8 +347,8 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | R-00 owner-exports | 2026-10-10 | 2026-10-10 | 2026-10-10 | 7 PNGs rasterised from the brand SVGs; optional mascot re-export open |
 | map-h-ar | 2026-10-10 | | | P1 (Arabic map, landscape) |
 | map-v-ar | 2026-10-10 | | | P1 (Arabic map, portrait) |
-| mascot_idle | 2026-10-10 | | | P1, generate first |
-| mascot_marker | 2026-10-10 | | | P1 |
+| mascot_idle | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved; now the 2nd reference for every pose |
+| mascot_marker | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | mascot_walking_left | 2026-10-10 | | | P1 |
 | mascot_walking_right | 2026-10-10 | | | P1 |
 | dock_map | 2026-10-10 | | | P1, generate first in the icons chat |

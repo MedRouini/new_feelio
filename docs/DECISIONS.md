@@ -298,3 +298,12 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 **Status:** accepted · 2026-10-10
 - Milestone 4 builds the scenario schema (zod), the validator, the migration script and the migration report template, and authors the MVP scenarios as drafts, without waiting for legacy files.
 - When artifacts arrive in `legacy/artifacts/`, the script and the review path are ready (ARCHITECTURE §11).
+
+## D-027 Build-step alpha normalisation for ChatGPT PNGs
+**Status:** accepted (technical) · 2026-10-10
+- ChatGPT's transparent PNGs come with a slightly see-through body (alpha 240–254 instead of 255) and faint specks (alpha < 10) near the edges. Found on `mascot_idle` and `mascot_marker`.
+- The asset build step (`scripts/build-assets`, Milestone 1) makes the derived WebP/AVIF copies with these clean-ups, never touching the source PNG:
+  - alpha ≥ 240 → 255
+  - alpha ≤ 8 → 0
+  - transparent padding of 4% added
+- This is a technical clean-up of transparency, not a change to the art. The source files in `assets/approved/` stay byte-identical (sha256 in `assets/manifest.json`).
