@@ -375,6 +375,286 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 
 ---
 
+## Batch 2 (onboarding "Arriving in Feelio's world" + the child's avatar), written 2026-10-10, **awaiting owner approval of docs/ONBOARDING.md**
+
+Generate **after** approving the plan. Five groups, **one ChatGPT chat per group**, in this order. New folder: `assets/approved/avatar/`.
+
+| Order | Group | Files | Why first |
+|---|---|---|---|
+| 1 | Avatar base designs | 3 | Decides the whole character concept: approve these before the 21 variants |
+| 2 | Welcome meadow scenes | 2 | Every onboarding stop happens here |
+| 3 | Onboarding objects | 10 | Name sign (AI disclosure), say-bubble, grown-up door, mic, gate ×2, paint pots ×4 |
+| 4 | Avatar variants | 21 | 9 colour edits + 12 cheer poses, all edits of the approved bases |
+| 5 | "What do you like?" pictures, plus `mascot_pointing` | 9 | |
+
+### Group 1: avatar base designs (one chat)
+> These are the **child's own character**: a small creature, NOT the mascot (no antenna, no screen face, no belly heart, so it never looks like an AI) and NOT a human child (safety, D-015). Front view and **symmetric** (the app may flip it to face the walking direction).
+
+### avatar_bun_amber_idle   status: requested
+- Used in: Onboarding stop 2 (choose your character); map, Talk, stories, collection (ONBOARDING.md §5)
+- Purpose: Base design of the 'bun' character shape (amber); every other bun variant is an edit of this image
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `OFFICIAL MASCOT` (style reference only)
+- Save as: assets/approved/avatar/avatar_bun_amber_idle.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached our mascot only as a STYLE reference (same glossy kawaii vector finish, same soft lighting from the top-left, same level of detail). Draw a DIFFERENT, new character: a small round, soft, bun-shaped creature, almost a ball, slightly wider than tall, with two tiny rounded ears on top. Simple face drawn directly on the body: two big round dark eyes with small white sparkle highlights, a small happy smile, rosy pink cheeks. Tiny stubby arms and two round feet. Body colour warm amber #F3B03A with a soft lighter highlight on the upper left and gentle deeper shading at the bottom. IMPORTANT, it must NOT look like the attached mascot: no antenna, no orb, no screen or visor on the face, no heart on the belly, no gradient to purple. Standing calmly, facing the viewer, perfectly symmetric left and right. Full body, centred, filling about 75% of the frame, no ground shadow, no props. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### avatar_bean_amber_idle   status: requested
+- Used in: Onboarding stop 2 (choose your character); map, Talk, stories, collection (ONBOARDING.md §5)
+- Purpose: Base design of the 'bean' character shape (amber); every other bean variant is an edit of this image
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `OFFICIAL MASCOT` (style reference only)
+- Save as: assets/approved/avatar/avatar_bean_amber_idle.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached our mascot only as a STYLE reference (same glossy kawaii vector finish, same soft lighting from the top-left, same level of detail). Draw a DIFFERENT, new character: a small, gently rounded bean-shaped creature, a bit taller than wide, with two little soft leaf-like tufts on top of its head. Simple face drawn directly on the body: two big round dark eyes with small white sparkle highlights, a small happy smile, rosy pink cheeks. Tiny stubby arms and two round feet. Body colour warm amber #F3B03A with a soft lighter highlight on the upper left and gentle deeper shading at the bottom. IMPORTANT, it must NOT look like the attached mascot: no antenna, no orb, no screen or visor on the face, no heart on the belly, no gradient to purple. Standing calmly, facing the viewer, perfectly symmetric left and right. Full body, centred, filling about 75% of the frame, no ground shadow, no props. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### avatar_puff_amber_idle   status: requested
+- Used in: Onboarding stop 2 (choose your character); map, Talk, stories, collection (ONBOARDING.md §5)
+- Purpose: Base design of the 'puff' character shape (amber); every other puff variant is an edit of this image
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `OFFICIAL MASCOT` (style reference only)
+- Save as: assets/approved/avatar/avatar_puff_amber_idle.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached our mascot only as a STYLE reference (same glossy kawaii vector finish, same soft lighting from the top-left, same level of detail). Draw a DIFFERENT, new character: a small fluffy cloud-puff creature with a soft scalloped outline like a little cloud, chubby and round. Simple face drawn directly on the body: two big round dark eyes with small white sparkle highlights, a small happy smile, rosy pink cheeks. Tiny stubby arms and two round feet. Body colour warm amber #F3B03A with a soft lighter highlight on the upper left and gentle deeper shading at the bottom. IMPORTANT, it must NOT look like the attached mascot: no antenna, no orb, no screen or visor on the face, no heart on the belly, no gradient to purple. Standing calmly, facing the viewer, perfectly symmetric left and right. Full body, centred, filling about 75% of the frame, no ground shadow, no props. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### Group 2: welcome meadow scenes (one chat)
+
+### scene_meadow_land   status: requested
+- Used in: Onboarding (all 5 stops)
+- Purpose: The welcome meadow where the child arrives and makes their character
+- Size and ratio: 1536x1024 landscape
+- Background: none (full scene, opaque)
+- Upload with the prompt: `MAP H`
+- Save as: assets/approved/world/scene_meadow_land.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Wide 3:2 landscape scene. I attached our approved game map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. A sunny, calm welcome meadow: soft green grass with a few flowers and small bushes near the edges, a pale lilac sky with two or three soft white clouds at the top. A short, wide, light-beige path starts at the bottom centre and leads straight up the middle to a closed friendly wooden garden gate at the back centre, with a low hedge on either side of the gate. The left and right halves of the meadow are open, flat and EMPTY (big free space for characters to stand), and the composition is balanced and nearly symmetric. No buildings, no signs, no people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### scene_meadow_port   status: requested
+- Used in: Onboarding (all 5 stops)
+- Purpose: The welcome meadow where the child arrives and makes their character
+- Size and ratio: 1024x1536 portrait
+- Background: none (full scene, opaque)
+- Upload with the prompt: `MAP V`, plus `scene_meadow_land` (approved)
+- Save as: assets/approved/world/scene_meadow_port.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Tall 2:3 portrait scene. I attached our approved game map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. A sunny, calm welcome meadow: soft green grass with a few flowers and small bushes near the edges, a pale lilac sky with two or three soft white clouds at the top. A short, wide, light-beige path starts at the bottom centre and leads straight up the middle to a closed friendly wooden garden gate at the back centre, with a low hedge on either side of the gate. The left and right halves of the meadow are open, flat and EMPTY (big free space for characters to stand), and the composition is balanced and nearly symmetric. No buildings, no signs, no people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### Group 3: onboarding objects (one chat; upload `dock_map` (approved) each time for the icon style)
+
+### ui_sign_plate   status: requested
+- Used in: The AI name sign at stop 1 ('I'm Feelio, a friendly AI', written by code); the child's name sign; place names
+- Purpose: A blank wooden sign the code writes on
+- Size and ratio: 1536x1024 landscape
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `MAP H` (copy its wooden signs), `dock_map` (approved)
+- Save as: assets/approved/ui/ui_sign_plate.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Wide 3:2 landscape, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single friendly wooden sign seen from the front, exactly like the wooden signs on the attached map (same wood colour, same rounded plank shape, same posts), but wide and completely BLANK: a clean, smooth, light wooden board with nothing written on it, on two short posts. Centred, filling about 85% of the frame width, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### ui_say_bubble   status: requested
+- Used in: What the mascot says (caption + audio)
+- Purpose: A blank speech bubble frame
+- Size and ratio: 1536x1024 landscape
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/ui_say_bubble.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Wide 3:2 landscape, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single big, soft, rounded speech bubble, like a cloud-shaped balloon, cream-white (#FFFDF7) inside with a smooth dark navy (#322A6A) outline of even thickness, and a short rounded tail pointing straight DOWN from the bottom centre. The inside is completely empty. Flat, no gradient inside, no shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### ui_grownup_door   status: requested
+- Used in: Child screens, top corner: press and hold to go to the grown-up area
+- Purpose: A small door that clearly means 'for grown-ups'
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/ui_grownup_door.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single small cosy wooden door with a round top, a little golden key hanging from a hook beside it and a tiny round window, soft purple (#614194) door frame. Chunky and simple, easy to recognise at 64 px. Centred, filling about 80% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### ui_mic_object   status: requested
+- Used in: Onboarding stop 4 and the Talk screen: the big friendly microphone
+- Purpose: A tappable microphone object
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/ui_mic_object.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single chunky, friendly microphone like a toy: a round soft-lilac (#EFCFF8) mesh head with a purple (#614194) band and a short rounded amber (#F3B03A) handle, standing upright on a small round base. Glossy highlight on the upper left. No face. Centred, filling about 75% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### ui_gate_closed   status: requested
+- Used in: Onboarding stop 5: the gate to the world
+- Purpose: The garden gate, closed
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `scene_meadow_land` (approved), `dock_map` (approved)
+- Save as: assets/approved/ui/ui_gate_closed.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish. Copy the wooden garden gate from the attached meadow scene as a single separate object, seen from the front: two rounded wooden gate doors, CLOSED, with two posts and a little arch of green leaves and small flowers on top. Centred, filling about 85% of the frame, no ground, no shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### ui_gate_open   status: requested
+- Used in: Onboarding stop 5: the gate opens
+- Purpose: The same gate, open; pixel-aligned with the closed one
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `ui_gate_closed` (approved)
+- Save as: assets/approved/ui/ui_gate_open.png
+- Prompt (paste into ChatGPT):
+  > Edit the attached image. Keep everything exactly identical (posts, arch, leaves, size, position in the frame) and change only the two gate doors: swing them wide OPEN towards the viewer, so the middle of the gate is empty and transparent. Transparent background PNG (plain white if transparency fails). No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### ui_paint_pot_amber   status: requested
+- Used in: Onboarding stop 2: choose a colour
+- Purpose: A paint pot; the other three colours are edits of it
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/ui_paint_pot_amber.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style. A single small chunky paint pot seen from the front, slightly from above, open, full of thick glossy amber (#F3B03A) paint with one round drip running down the side. Pot body light cream with a navy (#322A6A) rim. Centred, filling about 75% of the frame, no ground shadow, no brush. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### ui_paint_pot_rose   status: requested
+- Used in: Onboarding stop 2: choose a colour
+- Purpose: Paint pot, rose
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `ui_paint_pot_amber` (approved)
+- Save as: assets/approved/ui/ui_paint_pot_rose.png
+- Prompt (paste into ChatGPT):
+  > Edit the attached image. Keep everything exactly identical (pot, rim, size, position, drip shape) and change only the paint colour to soft rose #E0729A, with a matching glossy highlight. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### ui_paint_pot_lilac   status: requested
+- Used in: Onboarding stop 2: choose a colour
+- Purpose: Paint pot, lilac
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `ui_paint_pot_amber` (approved)
+- Save as: assets/approved/ui/ui_paint_pot_lilac.png
+- Prompt (paste into ChatGPT):
+  > Edit the attached image. Keep everything exactly identical (pot, rim, size, position, drip shape) and change only the paint colour to soft lilac #B79AE6, with a matching glossy highlight. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### ui_paint_pot_sky   status: requested
+- Used in: Onboarding stop 2: choose a colour
+- Purpose: Paint pot, sky
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `ui_paint_pot_amber` (approved)
+- Save as: assets/approved/ui/ui_paint_pot_sky.png
+- Prompt (paste into ChatGPT):
+  > Edit the attached image. Keep everything exactly identical (pot, rim, size, position, drip shape) and change only the paint colour to sky blue #79B1DE, with a matching glossy highlight. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+
+### Group 4: avatar variants (one chat per shape; each is an EDIT of an approved image)
+Use the approved base as the only upload. Same size, position and face; only the colour or pose changes.
+
+**Colour edits (9 files):** upload `avatar_{shape}_amber_idle` and paste, replacing COLOUR:
+> Edit the attached image. Keep the character exactly identical (shape, face, eyes, cheeks, arms, feet, size, position in the frame, highlights and shading style) and change only the body colour to COLOUR, with a matching lighter highlight on the upper left and slightly deeper shading at the bottom. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters.
+
+| Save as (`assets/approved/avatar/`) | COLOUR |
+|---|---|
+| `avatar_bun_rose_idle.png`, `avatar_bean_rose_idle.png`, `avatar_puff_rose_idle.png` | soft rose #E0729A |
+| `avatar_bun_lilac_idle.png`, `avatar_bean_lilac_idle.png`, `avatar_puff_lilac_idle.png` | soft lilac #B79AE6 |
+| `avatar_bun_sky_idle.png`, `avatar_bean_sky_idle.png`, `avatar_puff_sky_idle.png` | sky blue #79B1DE |
+
+**Cheer poses (12 files):** upload the matching `avatar_{shape}_{colour}_idle` and paste:
+> Edit the attached image. Keep the same character, colour, face style, size and position in the frame. Change only the pose: a happy little jump with both feet just off the ground and both arms raised, eyes curved with joy and an open smile. Still front view and perfectly symmetric. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters.
+
+Save as `avatar_{shape}_{colour}_cheer.png` for every shape (bun, bean, puff) × colour (amber, rose, lilac, sky).
+
+### Group 5: "What do you like?" pictures + one mascot pose (one chat; upload `dock_map` (approved) each time)
+
+### like_animals   status: requested
+- Used in: Onboarding stop 3 (what do you like?); later story suggestions
+- Purpose: Picture choice: animals
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/like_animals.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a friendly cartoon puppy and kitten sitting side by side. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### like_space   status: requested
+- Used in: Onboarding stop 3 (what do you like?); later story suggestions
+- Purpose: Picture choice: space
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/like_space.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a small rounded rocket next to a ringed planet and two little stars. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### like_music   status: requested
+- Used in: Onboarding stop 3 (what do you like?); later story suggestions
+- Purpose: Picture choice: music
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/like_music.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a round drum with two drumsticks and a small xylophone. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### like_drawing   status: requested
+- Used in: Onboarding stop 3 (what do you like?); later story suggestions
+- Purpose: Picture choice: drawing
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/like_drawing.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: three chunky crayons and a sheet of paper with a simple rainbow drawn on it. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### like_ballgames   status: requested
+- Used in: Onboarding stop 3 (what do you like?); later story suggestions
+- Purpose: Picture choice: ballgames
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/like_ballgames.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a classic soccer ball and a small basketball side by side. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### like_nature   status: requested
+- Used in: Onboarding stop 3 (what do you like?); later story suggestions
+- Purpose: Picture choice: nature
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/like_nature.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a flower pot with a sprouting plant, a big leaf and a ladybird. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### like_blocks   status: requested
+- Used in: Onboarding stop 3 (what do you like?); later story suggestions
+- Purpose: Picture choice: blocks
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/like_blocks.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a small tower of chunky colourful building blocks. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### like_sea   status: requested
+- Used in: Onboarding stop 3 (what do you like?); later story suggestions
+- Purpose: Picture choice: sea
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved)
+- Save as: assets/approved/ui/like_sea.png
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a friendly round fish, a curling wave and a seashell. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
+
+### mascot_pointing   status: requested
+- Used in: Onboarding stops 1–3 ('look over here!'); place card
+- Purpose: Feelio points at the choices (from Batch B)
+- Size and ratio: 1024x1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `OFFICIAL MASCOT`, `mascot_idle` (approved)
+- Save as: assets/approved/mascot/mascot_pointing.png
+- Prompt (paste into ChatGPT):
+  > Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing turned slightly to the side, one arm-flap stretched out pointing to the side, the other relaxed] and [FACE: bright, encouraging eyes looking in the pointing direction, small open smile]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
+
+---
+
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|

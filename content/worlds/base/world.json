@@ -1,0 +1,818 @@
+{
+  "schema": 1,
+  "pack": {
+    "id": "base",
+    "name": {
+      "en": "Feelio's World",
+      "ar": "عالم فيليو"
+    },
+    "region": null,
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "status": "draft",
+    "enabledMarkets": [
+      "*"
+    ],
+    "reviewers": [],
+    "contentReviewStatus": "draft",
+    "version": "0.1.0"
+  },
+  "maps": {
+    "horizontal": {
+      "assets": {
+        "en": "global_horizental",
+        "ar": "global_horizontal_ar"
+      },
+      "size": [
+        1536,
+        1024
+      ],
+      "labelMode": "painted",
+      "rtlMirror": "none",
+      "path": [
+        [
+          0.0,
+          0.43
+        ],
+        [
+          0.09,
+          0.46
+        ],
+        [
+          0.2,
+          0.48
+        ],
+        [
+          0.31,
+          0.57
+        ],
+        [
+          0.4,
+          0.53
+        ],
+        [
+          0.495,
+          0.47
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.69,
+          0.59
+        ],
+        [
+          0.8,
+          0.53
+        ],
+        [
+          0.9,
+          0.47
+        ],
+        [
+          1.0,
+          0.47
+        ]
+      ],
+      "places": {
+        "home": {
+          "hotspot": {
+            "x": 0.17,
+            "y": 0.22,
+            "r": 0.12
+          },
+          "pad": {
+            "x": 0.09,
+            "y": 0.46,
+            "r": 0.06
+          },
+          "pathIndex": 1
+        },
+        "park": {
+          "hotspot": {
+            "x": 0.22,
+            "y": 0.78,
+            "r": 0.14
+          },
+          "pad": {
+            "x": 0.31,
+            "y": 0.57,
+            "r": 0.06
+          },
+          "pathIndex": 3
+        },
+        "school": {
+          "hotspot": {
+            "x": 0.5,
+            "y": 0.24,
+            "r": 0.12
+          },
+          "pad": {
+            "x": 0.495,
+            "y": 0.47,
+            "r": 0.06
+          },
+          "pathIndex": 5
+        },
+        "club": {
+          "hotspot": {
+            "x": 0.7,
+            "y": 0.76,
+            "r": 0.12
+          },
+          "pad": {
+            "x": 0.69,
+            "y": 0.59,
+            "r": 0.06
+          },
+          "pathIndex": 7
+        },
+        "market": {
+          "hotspot": {
+            "x": 0.83,
+            "y": 0.22,
+            "r": 0.12
+          },
+          "pad": {
+            "x": 0.9,
+            "y": 0.47,
+            "r": 0.06
+          },
+          "pathIndex": 9
+        }
+      }
+    },
+    "vertical": {
+      "assets": {
+        "en": "global_vertical",
+        "ar": "global_vertical_ar"
+      },
+      "size": [
+        1024,
+        1536
+      ],
+      "labelMode": "painted",
+      "rtlMirror": "none",
+      "path": [
+        [
+          0.57,
+          1.0
+        ],
+        [
+          0.45,
+          0.91
+        ],
+        [
+          0.36,
+          0.83
+        ],
+        [
+          0.42,
+          0.7
+        ],
+        [
+          0.66,
+          0.61
+        ],
+        [
+          0.5,
+          0.52
+        ],
+        [
+          0.34,
+          0.44
+        ],
+        [
+          0.5,
+          0.35
+        ],
+        [
+          0.68,
+          0.27
+        ],
+        [
+          0.5,
+          0.19
+        ],
+        [
+          0.36,
+          0.135
+        ],
+        [
+          0.52,
+          0.0
+        ]
+      ],
+      "places": {
+        "home": {
+          "hotspot": {
+            "x": 0.77,
+            "y": 0.8,
+            "r": 0.16
+          },
+          "pad": {
+            "x": 0.36,
+            "y": 0.83,
+            "r": 0.09
+          },
+          "pathIndex": 2
+        },
+        "park": {
+          "hotspot": {
+            "x": 0.2,
+            "y": 0.6,
+            "r": 0.18
+          },
+          "pad": {
+            "x": 0.66,
+            "y": 0.61,
+            "r": 0.09
+          },
+          "pathIndex": 4
+        },
+        "school": {
+          "hotspot": {
+            "x": 0.8,
+            "y": 0.43,
+            "r": 0.17
+          },
+          "pad": {
+            "x": 0.34,
+            "y": 0.44,
+            "r": 0.09
+          },
+          "pathIndex": 6
+        },
+        "club": {
+          "hotspot": {
+            "x": 0.24,
+            "y": 0.28,
+            "r": 0.17
+          },
+          "pad": {
+            "x": 0.68,
+            "y": 0.27,
+            "r": 0.09
+          },
+          "pathIndex": 8
+        },
+        "market": {
+          "hotspot": {
+            "x": 0.76,
+            "y": 0.11,
+            "r": 0.17
+          },
+          "pad": {
+            "x": 0.36,
+            "y": 0.135,
+            "r": 0.09
+          },
+          "pathIndex": 10
+        }
+      }
+    }
+  },
+  "places": [
+    {
+      "id": "home",
+      "order": 1,
+      "name": {
+        "en": "Home",
+        "ar": "البيت"
+      },
+      "alt": {
+        "en": "A cosy house with a red roof and a porch full of flowers",
+        "ar": "بيت دافئ بسقف أحمر وشرفة مليئة بالزهور"
+      },
+      "unlock": {
+        "type": "always"
+      },
+      "levels": [
+        {
+          "id": "home-1",
+          "order": 1,
+          "title": {
+            "en": "Leaving for school",
+            "ar": "الخروج إلى المدرسة"
+          },
+          "unlock": {
+            "type": "always"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "home-2",
+          "order": 2,
+          "title": {
+            "en": "Family talks at the table",
+            "ar": "حديث العائلة على المائدة"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "home-3",
+          "order": 3,
+          "title": {
+            "en": "Sharing with a brother or sister",
+            "ar": "المشاركة مع الأخ أو الأخت"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "home-4",
+          "order": 4,
+          "title": {
+            "en": "Bedtime worries",
+            "ar": "مخاوف وقت النوم"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "home-5",
+          "order": 5,
+          "title": {
+            "en": "Going out to play",
+            "ar": "الخروج للعب"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        }
+      ],
+      "voiceContext": {
+        "en": "The child is at the Home in Feelio's world.",
+        "ar": "الطفل في البيت في عالم فيليو."
+      }
+    },
+    {
+      "id": "park",
+      "order": 2,
+      "name": {
+        "en": "Park",
+        "ar": "الحديقة"
+      },
+      "alt": {
+        "en": "A big tree with a swing, a pond and a little wooden bridge",
+        "ar": "شجرة كبيرة عليها أرجوحة، وبركة، وجسر خشبي صغير"
+      },
+      "unlock": {
+        "type": "levels_completed",
+        "place": "home",
+        "count": 3
+      },
+      "levels": [
+        {
+          "id": "park-1",
+          "order": 1,
+          "title": {
+            "en": "Waiting for a turn",
+            "ar": "انتظار الدور"
+          },
+          "unlock": {
+            "type": "always"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "park-2",
+          "order": 2,
+          "title": {
+            "en": "Calming down by the pond",
+            "ar": "الهدوء بجانب البركة"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "park-3",
+          "order": 3,
+          "title": {
+            "en": "Losing a game",
+            "ar": "خسارة لعبة"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "park-4",
+          "order": 4,
+          "title": {
+            "en": "Sharing a picnic",
+            "ar": "مشاركة النزهة"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "park-5",
+          "order": 5,
+          "title": {
+            "en": "Helping someone who is sad",
+            "ar": "مساعدة شخص حزين"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        }
+      ],
+      "voiceContext": {
+        "en": "The child is at the Park in Feelio's world.",
+        "ar": "الطفل في الحديقة في عالم فيليو."
+      }
+    },
+    {
+      "id": "school",
+      "order": 3,
+      "name": {
+        "en": "School",
+        "ar": "المدرسة"
+      },
+      "alt": {
+        "en": "A yellow school with a red roof, a clock and blue doors",
+        "ar": "مدرسة صفراء بسقف أحمر وساعة وأبواب زرقاء"
+      },
+      "unlock": {
+        "type": "levels_completed",
+        "place": "park",
+        "count": 3
+      },
+      "levels": [
+        {
+          "id": "school-1",
+          "order": 1,
+          "title": {
+            "en": "The first day",
+            "ar": "اليوم الأول"
+          },
+          "unlock": {
+            "type": "always"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "school-2",
+          "order": 2,
+          "title": {
+            "en": "Nervous about a test",
+            "ar": "القلق من الاختبار"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "school-3",
+          "order": 3,
+          "title": {
+            "en": "Feeling left out",
+            "ar": "الشعور بالاستبعاد"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "school-4",
+          "order": 4,
+          "title": {
+            "en": "Making a friend",
+            "ar": "تكوين صديق"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "school-5",
+          "order": 5,
+          "title": {
+            "en": "Arguing with a friend",
+            "ar": "الخلاف مع صديق"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        }
+      ],
+      "voiceContext": {
+        "en": "The child is at the School in Feelio's world.",
+        "ar": "الطفل في المدرسة في عالم فيليو."
+      }
+    },
+    {
+      "id": "club",
+      "order": 4,
+      "name": {
+        "en": "Club",
+        "ar": "النادي"
+      },
+      "alt": {
+        "en": "A colourful clubhouse with a stage and a drum",
+        "ar": "نادٍ ملوّن فيه مسرح وطبل"
+      },
+      "unlock": {
+        "type": "levels_completed",
+        "place": "school",
+        "count": 3
+      },
+      "levels": [
+        {
+          "id": "club-1",
+          "order": 1,
+          "title": {
+            "en": "Joining a group",
+            "ar": "الانضمام إلى مجموعة"
+          },
+          "unlock": {
+            "type": "always"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "club-2",
+          "order": 2,
+          "title": {
+            "en": "Taking turns in music",
+            "ar": "تبادل الأدوار في الموسيقى"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "club-3",
+          "order": 3,
+          "title": {
+            "en": "Hearing feedback on art",
+            "ar": "سماع الرأي في الرسم"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "club-4",
+          "order": 4,
+          "title": {
+            "en": "Losing as a team",
+            "ar": "الخسارة كفريق"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "club-5",
+          "order": 5,
+          "title": {
+            "en": "Stage fright",
+            "ar": "رهبة المسرح"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        }
+      ],
+      "voiceContext": {
+        "en": "The child is at the Club in Feelio's world.",
+        "ar": "الطفل في النادي في عالم فيليو."
+      }
+    },
+    {
+      "id": "market",
+      "order": 5,
+      "name": {
+        "en": "Market",
+        "ar": "السوق"
+      },
+      "alt": {
+        "en": "Three market stalls with striped roofs, fruit, flowers and bread",
+        "ar": "ثلاثة أكشاك بمظلات مخططة وفواكه وزهور وخبز"
+      },
+      "unlock": {
+        "type": "levels_completed",
+        "place": "club",
+        "count": 3
+      },
+      "levels": [
+        {
+          "id": "market-1",
+          "order": 1,
+          "title": {
+            "en": "Waiting in line",
+            "ar": "الانتظار في الطابور"
+          },
+          "unlock": {
+            "type": "always"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "market-2",
+          "order": 2,
+          "title": {
+            "en": "Wanting something you can't have",
+            "ar": "الرغبة في شيء لا يمكنك الحصول عليه"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "market-3",
+          "order": 3,
+          "title": {
+            "en": "Feeling lost",
+            "ar": "الشعور بالضياع"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "market-4",
+          "order": 4,
+          "title": {
+            "en": "Being honest",
+            "ar": "الصدق"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        },
+        {
+          "id": "market-5",
+          "order": 5,
+          "title": {
+            "en": "Being kind",
+            "ar": "اللطف"
+          },
+          "unlock": {
+            "type": "previous_level_completed"
+          },
+          "ageBands": [
+            "5-6",
+            "7-9",
+            "10-12"
+          ],
+          "scenarioIds": []
+        }
+      ],
+      "voiceContext": {
+        "en": "The child is at the Market in Feelio's world.",
+        "ar": "الطفل في السوق في عالم فيليو."
+      }
+    }
+  ]
+}
