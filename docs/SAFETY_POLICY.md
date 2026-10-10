@@ -122,7 +122,7 @@ The voice turn budget (SPEC target ≤ 2 s from end of speech to first audio) ha
 | C. B plus a synchronous T1 check of the **first** sentence | ≈ +0.3–0.8 s | Higher | Optional "strict mode" per age band or market |
 | D. Output checked only after the fact | 0 | Lowest | Rejected: an unsafe sentence could be spoken |
 
-**Proposal:** B by default, with **C switchable** in configuration (e.g. on for ages 5–6 or for a market) and turned on automatically for the rest of a session once any medium-or-higher event occurs. The whole reply also gets an asynchronous T1 check after it is spoken. Its verdict feeds the next turn's steering, logging and the post-call second pass. Short replies (1–2 sentences) reduce the window for unsafe content. **Residual risk:** with B alone, a harmful output sentence that T0 rules miss can be spoken once. C closes that gap at a latency cost. I want your call on the default (open question Q3).
+**Decision (D-018, owner, 2026-10-10):** **C (strict) is the default for every age band.** It is a configuration setting (`safety.voice.output_check`), and relaxing it to B is a "weaken a safety check" decision that needs the owner's approval with measured latency numbers from Milestone 2. The whole reply also gets an asynchronous T1 check after it is spoken. Its verdict feeds the next turn's steering, logging and the post-call second pass. Short replies (1–2 sentences) reduce the window for unsafe content. **Residual risk:** with B alone, a harmful output sentence that T0 rules miss can be spoken once. C closes that gap at a latency cost. The owner chose safety first.
 
 Also: crisis turns are **faster** than normal ones, because a T0 hit plays a static file with no model in the loop.
 

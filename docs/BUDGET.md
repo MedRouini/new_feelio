@@ -11,27 +11,26 @@ Tags: **[V]** verified on the provider's page today (URL in `docs/DECISIONS.md` 
 - [V] When a **custom LLM** is used, the agent sends LLM calls to our endpoint. The pass-through LLM charge applies only to ElevenLabs-hosted models. [E] So the LLM cost lands on Together, not on ElevenLabs credits.
 - [?] The help page says Agents "are billed by call minutes, not by the shared credit pool," yet LLM pass-through is "deducted from your ElevenLabs credits." How your 120k credits convert to agent minutes is **not stated anywhere I could find**.
 
-### Interpretation
-Your "about 120k credits" closely matches the **Creator plan (121k credits, 275 agent minutes per month)** [E]. Credits per agent minute implied by the plans: Creator 121,000 / 275 ≈ **440**; Pro ≈ 485 [E].
+### Interpretation (owner confirmed 2026-10-10: **120k credits per month**)
+This matches the **Creator plan (121k credits, 275 agent minutes per month)** [E]. Credits per agent minute implied by the plan ≈ **440** [E]. Still to check on your usage page: how many agent minutes it shows, so we know whether agent minutes and credits are one pool or two (open item).
 
-**Please confirm on the ElevenLabs usage page:** (a) your plan, (b) whether the 120k is monthly or one-off, (c) how many agent minutes it shows. This is open question Q4.
-
-### What 120k credits buys
-| Assumption | Billable minutes |
+### Monthly minutes
+| Assumption | Billable minutes per month |
 |---|---|
-| Creator ratio, 440 credits/min, no silence discount | **≈ 272 min** [E] |
-| Pro ratio, 485 credits/min | ≈ 247 min [E] |
-| 25% of connected time is long silence (> 10 s, billed at 5%) | ≈ 340 min [E] |
-| **Planning figure** (conservative) | **250 min** [E] |
+| Creator ratio, 440 credits/min, no silence discount | ≈ 272 [E] |
+| Pro ratio, 485 credits/min | ≈ 247 [E] |
+| 25% of connected time is long silence (> 10 s, billed at 5%) | ≈ 340 [E] |
+| **Planning figure** (conservative) | **250** [E] |
 
-### Allocation of 120k credits (proposal)
-| Use | Credits | ≈ Minutes or characters | Notes |
+### Monthly allocation
+| Use | Month 1 | Month 2+ | Notes |
 |---|---|---|---|
-| Static audio: fixed phrases + crisis scripts, EN + AR | 15,000 | ≈ 15k–30k chars | About 120 lines × 2 languages × about 90 chars ≈ 21.6k chars. Use Flash v2.5 (0.5/char) for routine lines, and Multilingual v2 or v3 for crisis lines (quality). Generated **once** and reviewed |
-| Development and latency measurement (adult testers only) | 15,000 | ≈ 32 min | M4 end-to-end tests on desktop Chrome, iOS Safari and Android Chrome, EN + AR |
-| Story narration, starter library only | 10,000 | ≈ 10k–20k chars | About 5 reviewed starter stories × 4 pages × about 250 chars × 2 languages ≈ 10k chars. Live narration of generated stories stays **off** until the budget grows |
-| **Pilot voice conversations** | **80,000** | **≈ 170 min** | At about 470 credits/min |
-| **Total** | 120,000 | | If the 120k renews monthly, the pilot line becomes about 230 min/month after month 1 |
+| Static audio: fixed phrases + crisis scripts, EN + AR | 15,000 | 1,000 | About 120 lines × 2 languages × about 90 chars ≈ 21.6k chars, generated **once** in month 1 and reviewed; Flash v2.5 (0.5 credit/char) for routine lines, Multilingual v2 or v3 for crisis lines. Month 2+ covers fixes only |
+| Development and latency tests (adult testers) | 15,000 | 10,000 | ≈ 32 / 21 min |
+| Story narration, starter library | 10,000 | 0 | About 5 reviewed starter stories × 4 pages × 250 chars × 2 languages. Narration of generated stories stays **off** |
+| Scenario narration (static, later) | 0 | up to 10,000 | From Milestone 4, as scenarios get approved |
+| **Voice conversations** | **80,000 ≈ 170 min** | **≈ 99,000 ≈ 210 min** | At about 470 credits/min. Adult testers now; children only after D-005 |
+| **Total** | 120,000 | 120,000 | Unused credits are assumed **not** to roll over [?] |
 
 ### Caps and how many sessions that is (proposed caps, enforced in the session gate)
 | Cap | Proposed value | Where |
@@ -45,11 +44,13 @@ Your "about 120k credits" closely matches the **Creator plan (121k credits, 275 
 | Global budget floor | Below 15% of the allocation left → L1. Allocation spent → L2 (text + static audio) | Kill switch |
 | Bursting | Off (`bursting_enabled: false`) | Agent config |
 
-**Sessions supported** [E]: an average session of about 3.5 billed minutes (children often stop early; silence discount included) gives 170 / 3.5 ≈ **48 voice sessions** from the pilot allocation. For example **6 pilot children × about 8 sessions each** (about 2 per week for a month). With a monthly-renewing 120k, about 65 sessions per month after month 1.
+**Sessions supported** [E]: an average session of about 3.5 billed minutes (children often stop early; silence discount included):
+- Month 1: 170 / 3.5 ≈ **48 sessions**.
+- Month 2+: 210 / 3.5 ≈ **60 sessions per month**. For example 7 pilot children × about 2 sessions per week.
 
 **What this means:** voice is a precious, short "talk with Feelio" moment, not an open-ended chat. The text chat (L2) is the always-available companion, and it costs no ElevenLabs credits.
 
-## 2. Together AI (USD; your credit amount is unknown, Q5)
+## 2. Together AI (USD; owner has about **$50** of credits, 2026-10-10)
 Prices [V] from together.ai/pricing (cross-checked with the docs models list):
 
 | Use | Model | Price per 1M tokens (in / out) or per image |
@@ -81,7 +82,16 @@ Total ≈ 9.6k input and 0.4k output tokens per minute ≈ **$0.0017 per minute*
 | FLUX.2-dev | **≈ $0.10** |
 | FLUX.2-pro | ≈ $0.19 |
 
-Proposed cap: 3 generated stories per child per day, 30 per household per month, and a global monthly limit set once you tell me the Together credit amount.
+### How the $50 is split (proposal)
+| Use | Allocation | What it buys [E] |
+|---|---|---|
+| Model benchmarks (voice and story candidates, EN + AR) and red-team runs | $8 | A 400-case red-team run costs ≈ $0.05 on Qwen3.5-9B, so about 100 runs, plus benchmarks |
+| Voice LLM + classifier (≈ $0.002/min) | $3 | ≈ 1,500 voice minutes, far more than ElevenLabs allows |
+| Text companion (L2, no voice) | $4 | ≈ 2,000 text sessions |
+| **Stories** (≈ $0.10 each with FLUX.2-dev) | $25 | ≈ 250 stories, including the M5 evaluation (3 image models × 20 stories ≈ $8) |
+| Reserve | $10 | Retries, regenerations, surprises |
+
+Caps that make it last the pilot: **2 generated stories per child per day**, **40 stories per month globally** during the pilot, image regenerations limited to 1 per page, and a **global Together spend meter** that switches stories to the starter library (L3) at 80% of the month's allocation. The `$50` is a balance, not a monthly grant, so the meter counts against the remaining balance [E: please tell me if you top up monthly].
 
 ### Other
 - Rate limits: [V] none are published (best-effort serverless, 429 or 503 under load), so the client retries with backoff and degrades to L3.

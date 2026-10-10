@@ -16,6 +16,10 @@
         "--output-dir",
         ".playwright-mcp"
       ]
+    },
+    "together-docs": {
+      "type": "http",
+      "url": "https://docs.together.ai/mcp"
     }
   }
 }

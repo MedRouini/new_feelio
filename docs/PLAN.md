@@ -45,20 +45,35 @@
 
 Review stops (SPEC: after 0, 1b, 2, 4 and the end) follow the content: after 0, 1b, 2, **5 (voice)**, and the end.
 
-## Open questions (ranked by how much they block)
-1. **Q1 ElevenLabs approval (D-005), blocks voice with children.** Will you request ElevenLabs' written approval for an under-18 product? Until then, are you comfortable with adult-only development and testing of the voice agent?
-2. **Q2 Abuse disclosure when the parent may be involved** (SAFETY_POLICY §5). Do you accept: no parent notification when the actor is a household member or unknown; a restricted review queue with **you** as the named safety lead (daily review during the pilot); and a consent-form clause saying so? Do you have access to a safeguarding expert and counsel to review it?
-3. **Q3 Proxy latency vs safety** (SAFETY_POLICY §3). Default to design B (parallel input check, gated release, rule-based output checks, async full check), with strict mode C on for ages 5–6 and after any event? Or strict C everywhere at about +0.3–0.8 s per turn?
-4. **Q4 Your ElevenLabs plan.** Which plan is it, is the 120k monthly or one-off, and how many agent minutes does your usage page show? This changes the budget (BUDGET §1).
-5. **Q5 Together AI credit amount**, so I can set the global story and LLM caps. Also: please turn on zero data retention in the Together dashboard (D-009).
-6. **Q6 Safety classifier (D-008).** Together has no Llama Guard any more. Approve the LLM classifier with our taxonomy, or do you want me to research a separate moderation provider (a new service)?
-7. **Q7 Map signs and RTL (D-006).** Approve the blank-sign edits with code-drawn names, and mirroring the horizontal map in Arabic? Also: "Home" vs "House", and is the school's red pennant OK?
-8. **Q8 Story characters (D-015).** Animals or creatures by default instead of human children?
-9. **Q9 Brand items** (BRAND.md §10): colourways (B1), amber logo hex (B2), fonts (B3 / D-011: buy the FF Yaseer web licence? Which option for Dreaming Outloud?), tagline (B4), voice and tone and UI tokens (B5), Arabic register (B6), mascot PNG re-export (B7). **And approve BRAND.md v2.**
-10. **Q10 Auth and data stack:** approve Better Auth + Neon (D-002, D-014)? The email provider for OTP and magic links will be a separate question in M1.
-11. **Q11 Data retention proposals** (ARCHITECTURE §7, SAFETY_POLICY §7): approve or edit the numbers.
-12. **Q12 Caps** (BUDGET §1): 4-minute sessions, 8 min/day per child, 20 min/day globally during the pilot, 3 stories per child per day. OK?
-13. **Q13 Tools needing your yes** (TOOLS.md): the Together docs MCP (recommended); Context7, Vercel and GitHub MCPs (not needed now). I recommend never installing the ElevenLabs MCP.
-14. **Q14 Legacy scenarios:** `legacy/artifacts/` is empty. When will you add them? M4 (scenarios) needs them.
-15. **Q15 Accounts you'll need to create** (when ready): Neon (DATABASE_URL), a Vercel project. Rename `global_horizental.png` whenever convenient.
-16. **Q16 Sync script in TypeScript instead of Python** (D-016)?
+## Owner answers (2026-10-10)
+| Q | Answer | Recorded in |
+|---|---|---|
+| 1 ElevenLabs approval | Adult-only voice testing until approval | D-005 |
+| 2 Abuse-disclosure rule | Accepted. No expert or counsel available yet | D-019 (pilot gate below) |
+| 3 Latency vs safety | Not clear in the question. **Resolved by the priority order: strict checking for every age**, revisited only with measured numbers | D-018 |
+| 4 ElevenLabs credits | 120k **per month** | D-020, BUDGET §1 |
+| 5 Together credits | About $50 | D-020, BUDGET §2 |
+| 6 Classifier | "Anything that keeps the voice agent configurable and safe for children": LLM classifier behind a pluggable, configuration-driven interface | D-008, D-022 |
+| 7 Map | Owner generates Arabic-sign versions in ChatGPT. English keeps the originals. No map mirroring | D-021 (replaces D-006) |
+| 8 Story characters | Animals or creatures, **and Feelio** (composited from approved poses, never generated) | D-015, D-024 |
+| 9 Fonts | Free fonts for now: Balsamiq Sans + Baloo Bhaijaan 2 (both OFL) | D-023 |
+| 10 Auth and DB | Better Auth + Neon approved | D-002, D-014 |
+| 12 Together docs MCP | Installed | TOOLS.md |
+| 13 Legacy scenarios | None yet. Prepare the base (schema, validator, migration script) without them | D-026 |
+| 14 Scripts | No preference beyond "no trouble on Vercel": TypeScript (same toolchain as the app; Vercel never runs these scripts) | D-025 |
+
+## Pilot gate: all must be true before any real child uses Feelio
+- [ ] ElevenLabs written approval for an under-18 product (D-005). Until then, children get the text companion only
+- [ ] One qualified review of SAFETY_POLICY §5 and the crisis scripts (free options in D-019)
+- [ ] DPAs and paid plans: Vercel Pro, Neon, Together (+ written OK for children's data), ElevenLabs (D-009, D-010)
+- [ ] Counsel review of `docs/LEGAL_NOTES.md` and the consent form (CR-5)
+- [ ] Red-team suite passing with 100% recall on high-severity categories (SR-17)
+
+## Still open
+1. **Approve `brand/BRAND.md` v2**, including §7 voice and tone and §8 UI tokens. Not yet answered.
+2. **Brand details** (BRAND.md §10): colourways (B1), amber logo hex (B2), tagline (B4), Arabic register: Modern Standard Arabic or a dialect (B6), mascot PNG re-export (B7).
+3. **Retention periods and caps** (ARCHITECTURE §7, SAFETY_POLICY §7, BUDGET §1–2). Not answered. I'll use the proposed numbers as defaults in configuration unless you change them.
+4. **Approve the architecture** (D-001 Next.js TypeScript, ARCHITECTURE.md) and the **milestone order** above. Your "go" for Milestone 1 counts as approval.
+5. **Email provider** for parent sign-in codes: a new third-party service, asked in Milestone 1.
+6. **Accounts when ready:** Neon (`DATABASE_URL`) and a Vercel project. Rename `global_horizental.png` whenever convenient.
+7. On your ElevenLabs usage page: how many **agent minutes** it shows per month (tells us whether minutes and credits are one pool).

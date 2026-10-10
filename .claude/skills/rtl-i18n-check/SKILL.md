@@ -28,15 +28,16 @@ Feelio ships in English (LTR) and Arabic (RTL), and every feature must work in b
 ## 3. Mirroring images: the rules
 - [ ] **The mascot is NEVER mirrored.** No `scaleX(-1)`, `transform: scale(-1, 1)`, `rotateY(180deg)` or `flip` on any mascot element or its container, in either direction. Facing changes use the separate delivered poses (`mascot_walking_left` / `mascot_walking_right`). Grep for `scaleX(-1)`, `scale(-1`, `rotateY(180`, `flip`.
 - [ ] **Companions** (heart, cloud, star), badges, dock icons and story illustrations are never mirrored.
-- [ ] **Horizontal global map:** mirrored in RTL only if the owner has confirmed it (decision D-006) **and** the text-free (blank-sign) version is in use. The image and hotspot `x` values mirror together (`x' = 1 − x`, path polylines included). Badges, labels and the mascot marker sit on top of the mirrored layer and are not mirrored themselves. If the map in use still has painted English signs, it must **not** be mirrored.
+- [ ] **Global maps (D-021):** Arabic uses its own Arabic-sign map (`assets.ar` in world.json). English uses the English map. **Maps with painted words are never mirrored.** Mirroring (`rtl_mirror: "mirror"`, image and `x → 1 − x` together) is allowed only for a `label_mode: "blank_signs"` map. Badges, labels and the mascot marker are never mirrored.
+- [ ] Delivered Arabic maps: every sign word read and checked against the expected word (البيت، الحديقة، المدرسة، النادي، السوق), with correctly joined letters.
 - [ ] **Vertical map:** not mirrored (the journey runs bottom to top).
 - [ ] Mascot walking direction is chosen from the **on-screen** movement vector after mirroring, never from data order.
 
 ## 4. Arabic typography
-- [ ] ff yaseer is loaded for Arabic (licence per D-011), with a fallback stack. Balsamiq Sans is used for Latin.
+- [ ] Baloo Bhaijaan 2 (OFL) is loaded for Arabic, or ff yaseer once licensed (D-023), with a fallback stack. Balsamiq Sans is used for Latin.
 - [ ] No letter-spacing on Arabic text (it breaks the joining). No `text-transform`, no faux italics.
 - [ ] Line height is at least 1.6 for Arabic. Check that diacritics are not clipped in buttons and chips (test with a string containing tashkeel).
-- [ ] Dreaming Outloud is never used for Arabic.
+- [ ] No script or display font is used for Arabic, and no Latin-only font is applied to Arabic text.
 - [ ] Truncation and ellipsis work in RTL. Avoid truncating child-facing text at all.
 
 ## 5. Tests

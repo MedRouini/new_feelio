@@ -37,27 +37,27 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Not a ChatGPT task. These are straight exports of existing brand files. Claude Code does not convert them, so that nothing is redrawn.
 
-### map-h-blank-signs   status: requested
-- Used in: global map, landscape (Milestone 1b)
-- Purpose: the approved map has English words painted on the five wooden signs. Text inside the art cannot be translated to Arabic, read by a screen reader, or mirrored for right-to-left. With blank signs, code writes the place name on each sign in the child's language.
+### map-h-ar   status: requested
+- Used in: global map, landscape, **Arabic** (Milestone 1b). English keeps the approved original (D-021)
+- Purpose: the same map with the five sign words in Arabic, so Arabic-speaking children read their own language on the map
 - Size and ratio: 1536×1024 landscape (same as the original)
 - Background: none (full scene, opaque)
 - Upload with the prompt: `MAP H`
-- Save as: `assets/approved/map/global_horizontal_blank.png`
+- Save as: `assets/approved/map/global_horizontal_ar.png`
 - Prompt (paste into ChatGPT):
-  > Edit the attached image. Keep everything exactly identical (same size 1536×1024, same composition, same buildings, path, stone pads, trees, flowers, colours, art style and camera) and change only one thing: remove the painted words from the five wooden signs (House, School, Market, Park, Club). Leave each sign as a clean, empty wooden board with the same shape, size, position, wood colour and posts. Do not move, add or remove anything else. No text, no letters, no logos, no watermark, no extra characters, no people.
+  > Edit the attached image. Keep everything exactly identical (same size 1536×1024, same composition, same buildings, path, stone pads, trees, flowers, colours, art style and camera) and change only the words painted on the five wooden signs. Replace them with these Arabic words, written right to left with correctly connected Arabic letters, in a friendly rounded hand-painted style in the same dark brown as now, centred on each sign: the sign that says "House" → "البيت"; "School" → "المدرسة"; "Market" → "السوق"; "Park" → "الحديقة"; "Club" → "النادي". Keep each sign's shape, size, position, wood colour and posts. Do not mirror or flip the image. Do not move, add or remove anything else. No other text, no English letters, no logos, no watermark, no extra characters, no people.
 
-### map-v-blank-signs   status: requested
-- Used in: global map, portrait (Milestone 1b)
-- Purpose: same as `map-h-blank-signs`, for the vertical map
+### map-v-ar   status: requested
+- Used in: global map, portrait, **Arabic** (Milestone 1b)
+- Purpose: same as `map-h-ar`, for the vertical map
 - Size and ratio: 1024×1536 portrait (same as the original)
 - Background: none (full scene, opaque)
 - Upload with the prompt: `MAP V`
-- Save as: `assets/approved/map/global_vertical_blank.png`
+- Save as: `assets/approved/map/global_vertical_ar.png`
 - Prompt (paste into ChatGPT):
-  > Edit the attached image. Keep everything exactly identical (same size 1024×1536, same composition, same buildings, path, stone pads, trees, flowers, colours, art style and camera) and change only one thing: remove the painted words from the five wooden signs (Market, Club, School, Park, House). Leave each sign as a clean, empty wooden board with the same shape, size, position, wood colour and posts. Do not move, add or remove anything else. No text, no letters, no logos, no watermark, no extra characters, no people.
+  > Edit the attached image. Keep everything exactly identical (same size 1024×1536, same composition, same buildings, path, stone pads, trees, flowers, colours, art style and camera) and change only the words painted on the five wooden signs. Replace them with these Arabic words, written right to left with correctly connected Arabic letters, in a friendly rounded hand-painted style in the same dark brown as now, centred on each sign: the sign that says "Market" → "السوق"; "Club" → "النادي"; "School" → "المدرسة"; "Park" → "الحديقة"; "House" → "البيت". Keep each sign's shape, size, position, wood colour and posts. Do not mirror or flip the image. Do not move, add or remove anything else. No other text, no English letters, no logos, no watermark, no extra characters, no people.
 
-> Note for both map edits: ChatGPT sometimes re-renders the whole picture when editing. Claude Code compares the delivered file with the original pixel by pixel and re-measures the hotspots if anything moved. If the edit drifts badly, the fallback is to keep the original and cover each sign with a code-drawn label chip (decision D-006).
+> Note for both Arabic maps: image models often misspell Arabic or break the letter joins. Zoom in on every sign before sending the file. If one word keeps coming out wrong, ask ChatGPT to fix only that sign ("keep everything identical, only rewrite the word on the sign near the school as المدرسة"). Claude Code reads every sign on delivery and compares the image with the original to re-measure the hotspots if anything moved. Last-resort fallback for a stubborn sign: a blank sign with the name drawn by code (D-021).
 
 ### mascot_idle   status: requested
 - Used in: map marker fallback, Talk screen idle, loading, onboarding; **becomes the second reference for every later pose**
@@ -334,7 +334,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
   > Edit the attached image. Same pose and body as the attached pose image, only the mouth changes: wide open in a round, happy speaking shape. Keep everything else exactly identical: same size, same position in the frame, same eyes, cheeks, colours and highlights. Transparent background PNG (plain white if transparency fails), 1024×1024. No text, no letters, no other changes.
 
 ### Not requested (done in code from delivered or brand files, allowed by the protocol)
-- Place thumbnails in the place card: cropped in code from the approved blank-sign map.
+- Place thumbnails in the place card: cropped in code from the approved map of the current language.
 - Dock tiles, sheet and card backgrounds, speech bubbles, the Play button: flat brand colours and shapes in code. Functional icons (back, close, settings, mic, play) come from one icon library.
 - PWA app icon: the brand's simplified mascot outline (`brand/mini-logo-icon.svg`) on a flat lilac tile.
 - Locked-place dimming: CSS filter on the delivered map plus `badge_lock`.
@@ -345,8 +345,8 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
 | R-00 owner-exports | 2026-10-10 | | | brand file exports, not ChatGPT |
-| map-h-blank-signs | 2026-10-10 | | | P1 |
-| map-v-blank-signs | 2026-10-10 | | | P1 |
+| map-h-ar | 2026-10-10 | | | P1 (Arabic map, landscape) |
+| map-v-ar | 2026-10-10 | | | P1 (Arabic map, portrait) |
 | mascot_idle | 2026-10-10 | | | P1, generate first |
 | mascot_marker | 2026-10-10 | | | P1 |
 | mascot_walking_left | 2026-10-10 | | | P1 |

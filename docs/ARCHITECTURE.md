@@ -104,7 +104,7 @@ If any check fails, the client gets a reason code and the Talk screen degrades (
 2. Bind to our session: read the conversation id (via a `request_headers` dynamic variable `{system__conversation_id}`, **verify in M4**; fallback: an opaque session id in `custom_llm_extra_body`, looked up server-side). **Age band, locale and place come from our DB, never from the client.**
 3. Time check: if `now − started_at ≥ allowed_seconds`, stream the static goodbye line and an `end_call` tool call.
 4. Take the latest user turn → `safety.checkInput` (T0 synchronous; a crisis hit short-circuits to a fixed script plus a `show_safety_resources` tool call plus `set_mascot_state: calm`).
-5. Start generation (Together, streaming) **in parallel** with the T1 input classification. Hold tokens until T1 returns (design B, `docs/SAFETY_POLICY.md` §3).
+5. Start generation (Together, streaming) **in parallel** with the T1 input classification. Hold tokens until T1 returns. Then, in strict mode (the default for every age, D-018), each sentence also passes T1 before release (`docs/SAFETY_POLICY.md` §3).
 6. Split the stream into sentences. Each sentence passes T0 output rules (and T1 in strict mode) before it is written as an SSE chunk. A failure swaps in a reviewed fallback and drops the rest of the turn.
 7. Optionally emit `set_mascot_state` (empathy, happy, calm…) chosen by **our** router from the classification, not left to the model. Whether a custom LLM can trigger client tools by returning `tool_calls` is **not documented, so verify in M4**. Fallback: the client derives emotion from a tag we prepend and strip **(verify)**.
 8. Buffer words: if T1 or the model is slow, stream "Hmm… " (with the trailing space ElevenLabs requires) and/or rely on the agent's `soft_timeout_config`. The first token must arrive within `cascade_timeout_seconds` (default 4 s, raise to 6–8).
@@ -128,7 +128,7 @@ Both are 2:3 / 3:2 PNGs (horizontal 1536×1024, 2.0 MB; vertical 1024×1536, 1.8
 | Market | Three stalls with red, blue and yellow striped awnings (fruit, potted flowers, bread) | 5 (end) |
 
 **Issues found:**
-1. **Painted English words on all five signs** ("House", "School", "Market", "Park", "Club"). They can't be localised to Arabic, can't be mirrored (the words would be reversed), and break the protocol's no-text rule. Fix: blank-sign edits (`map-h-blank-signs`, `map-v-blank-signs` in `docs/ASSET_REQUESTS.md`), with names written by code on the signs.
+1. **Painted English words on all five signs** ("House", "School", "Market", "Park", "Club"). They can't be localised to Arabic, can't be mirrored (the words would be reversed), and break the protocol's no-text rule. Resolution (D-021): English keeps these maps. The owner generates Arabic-sign versions (`map-h-ar`, `map-v-ar` in `docs/ASSET_REQUESTS.md`). Neither is mirrored.
 2. The art says **"House"** while the spec says **"Home"**. Proposal: data id `home`, displayed name "Home" / "البيت" (Q-list).
 3. The school's red pennant is a generic flag, not a national one. ART_DIRECTION says "no flags", so please confirm it's fine.
 4. The file is named `global_horizental.png` (typo). Proposal: the build step reads it as is, and you rename it whenever convenient.
@@ -157,10 +157,11 @@ Both are 2:3 / 3:2 PNGs (horizontal 1536×1024, 2.0 MB; vertical 1024×1536, 1.8
   },
   "maps": {
     "horizontal": {
-      "asset": "map.global.horizontal.blank",        // id in assets/manifest.json → file + derived WebP/AVIF sizes
-      "fallback_asset": "map.global.horizontal",     // signed original, used only while the blank one is pending; never mirrored
+      "assets": {"en": "map.global.horizontal", "ar": "map.global.horizontal.ar"},   // ids in assets/manifest.json → file + derived WebP/AVIF sizes; a missing locale falls back to "en"
+      "label_mode": "painted",                        // "painted" (words in the art) | "blank_signs" (code draws names at each place's "sign" anchor; for future languages)
       "size": [1536, 1024],
-      "rtl_mirror": "pending_owner",                  // "mirror" | "none" | "pending_owner" (D-006)
+      "rtl_mirror": "none",                           // "none" | "mirror" (allowed only with label_mode "blank_signs"; D-021)
+      "locale_overrides": {},                         // e.g. {"ar": {"places": {...}}} only if an edited map moved something (written by the hotspot editor)
       "path": [[0.0,0.43],[0.09,0.46],[0.20,0.48],[0.31,0.57],[0.40,0.53],[0.495,0.47],[0.58,0.52],[0.69,0.59],[0.80,0.53],[0.90,0.47],[1.0,0.47]],
       "places": {
         "home":   {"hotspot": {"x":0.17,"y":0.22,"r":0.12}, "pad": {"x":0.09,"y":0.46,"r":0.06}, "sign": {"x":0.09,"y":0.32,"w":0.07}, "path_index": 1},
@@ -168,7 +169,7 @@ Both are 2:3 / 3:2 PNGs (horizontal 1536×1024, 2.0 MB; vertical 1024×1536, 1.8
         // school, club, market …
       }
     },
-    "vertical": { "asset": "map.global.vertical.blank", "size": [1024,1536], "rtl_mirror": "none", "path": [[0.57,1.0],[0.45,0.91],[0.36,0.83],[0.42,0.70],[0.66,0.61],[0.50,0.52],[0.34,0.44],[0.50,0.35],[0.68,0.27],[0.50,0.19],[0.36,0.135],[0.52,0.0]], "places": { /* … */ } }
+    "vertical": { "assets": {"en": "map.global.vertical", "ar": "map.global.vertical.ar"}, "label_mode": "painted", "size": [1024,1536], "rtl_mirror": "none", "path": [[0.57,1.0],[0.45,0.91],[0.36,0.83],[0.42,0.70],[0.66,0.61],[0.50,0.52],[0.34,0.44],[0.50,0.35],[0.68,0.27],[0.50,0.19],[0.36,0.135],[0.52,0.0]], "places": { /* … */ } }
   },
   "places": [
     {
@@ -200,9 +201,9 @@ Both are 2:3 / 3:2 PNGs (horizontal 1536×1024, 2.0 MB; vertical 1024×1536, 1.8
 - **Pan and zoom:** `@use-gesture/react` (drag, pinch, wheel, double-tap) drives `motion` values, with the GPU transform only. No React re-render per frame, so 60 fps is achievable on a mid-range tablet. The camera is clamped so the image always covers the viewport. Minimum scale = "cover" (whole map visible along the short side), maximum 2.5×. Double-tap a place animates the zoom to it. Inertia comes from springs. `touch-action: none` on the stage only.
 - **Place states (from server progress):** locked (CSS `filter: saturate(.35) brightness(.95)` on a clipped copy of the landmark area plus `badge_lock`; a tap gives a gentle shake, and the mascot shows `mascot_happy` with the spoken line "Not yet! Let's finish {previous place} first."), unlocked, current (`ring_current` with a slow scale pulse), completed (`badge_star`). Reduced motion: no shake, pulse or walk, just a fade.
 - **Mascot marker:** stands on the current place's pad. When a place unlocks, it walks along the `path` polyline from the old pad's `path_index` to the new one. Arc-length parameterisation of the polyline in stage coordinates; `motion` animates `t: 0 → 1` at a constant speed (about 120 px/s of on-screen distance, capped at 3 s). The pose is `mascot_walking_left` or `mascot_walking_right`, chosen from the **on-screen** x-direction of the current segment, so it stays correct after RTL mirroring. A small hop bob (translateY sine) gives the walk. On arrival: `mascot_excited` for 1.2 s, then `mascot_marker`. Missing poses show a grey `TODO(PLACEHOLDER)` box of the same size.
-- **Place card:** bottom sheet in portrait, side panel (inline-end) in landscape on tablets. It shows the name (from data, in the current language), a code-drawn level path of `node_*` images with code numbers, the lock, star and check badges, and one big Play button. No illustration until assets arrive (or a code crop of the landmark from the blank map).
+- **Place card:** bottom sheet in portrait, side panel (inline-end) in landscape on tablets. It shows the name (from data, in the current language), a code-drawn level path of `node_*` images with code numbers, the lock, star and check badges, and one big Play button. No illustration until assets arrive (or a code crop of the landmark from the current-language map).
 - **Dock:** fixed at the bottom with 4 big buttons (Map, Talk, Stories, My collection). `dock_*` images sit on code-drawn tint tiles, with labels and audio cues. Reading-direction order. Settings and the parent area are reachable only through the adult gate, never on the dock.
-- **RTL:** UI uses logical CSS. Horizontal map: mirror `scaleX(-1)` on the **image layer only**, with all data `x` values mapped to `1 − x`. Only once the blank-sign map exists **and** you confirm (D-006). The mascot, badges and labels are never mirrored. Vertical map: not mirrored.
+- **RTL:** UI chrome uses logical CSS and mirrors. **Maps are not mirrored** (D-021): Arabic uses its own Arabic-sign map with the same composition, so the journey reads left to right (horizontal) or bottom to top (vertical) in both languages. The renderer still supports `rtl_mirror: "mirror"` (image layer `scaleX(-1)`, data `x → 1 − x`) for a future blank-sign map. The mascot, badges and labels are never mirrored.
 - **Accessibility:** each hotspot is a `<button>` with a localised name ("Park, unlocked, 2 of 5 levels done") and an audio-description button. Focus order follows `order`. Arrow keys move along the path. The map also has a plain list view toggle for screen-reader users.
 - **Dev-only hotspot editor:** route `app/(dev)/editor`, returning `notFound()` unless `NODE_ENV === 'development'` **and** excluded from the production build (a build-time env flag removes the route; a CI test asserts that `/editor` returns 404 in the production build). It shows both maps, draggable circles for hotspots, pads, sign anchors and path vertices (add or remove points), a live mirrored preview, and **Export** (download plus copy JSON). It never writes to the server.
 - **Performance budget:** map image ≤ 500 KB at the chosen width (AVIF, likely about 150–250 KB), map screen JS ≤ 150 KB gzipped, and page weight reported per screen in CI (Playwright plus a size report).

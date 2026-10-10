@@ -136,8 +136,8 @@ White on purple 7.80, white on navy 12.54, white on rose 4.25 (large text only),
 - **Dreaming Outloud**: "a playful script typeface … can be used for titles in presentation." [P] The deck's section titles are set in it. [F, visual]
 - No font files or licences are in `brand/`. [F] Licence findings are in `docs/DECISIONS.md` (D-011) and listed as open item B3.
 - **[I] Product rules:**
-  - Latin UI: Balsamiq Sans 400/700. Arabic UI: ff yaseer. Mixed strings fall back per script through `font-family` order.
-  - Dreaming Outloud only for large display titles in English (≥ 32 px), never for content a child must read, and never for Arabic.
+  - **For now (owner, 2026-10-10; D-023), free OFL fonts only:** Latin UI **Balsamiq Sans** 400/700. Arabic UI **Baloo Bhaijaan 2** (OFL, rounded, close in feel to ff yaseer). Display titles **Balsamiq Sans Bold** (no script font). Mixed strings fall back per script through `font-family` order.
+  - Later, with licences bought: ff yaseer replaces Baloo Bhaijaan 2, and Dreaming Outloud may return for large English display titles only (≥ 32 px, never for Arabic, never for content a child must read). A token change, not a code change.
   - Child app base size 20 px (ages 5–8) and 18 px (9–12), line height 1.5. Parent area base 16 px. Text size is a parent setting (SPEC §4).
   - Numerals: Western digits in English. In Arabic, follow the locale setting (Eastern Arabic digits by default; to confirm with Arabic-speaking reviewers).
 
@@ -177,7 +177,7 @@ White on purple 7.80, white on navy 12.54, white on rose 4.25 (large text only),
 ## 10. Open items for the owner (brand)
 - **B1** Keep the four colourways in the product? If yes, please add rose→violet and teal→blue files.
 - **B2** Amber logo variant: is #FFB703 intended (rather than #F3B03A), and is its heart #614194 or #9F65ED?
-- **B3** Please add the ff yaseer and Dreaming Outloud font files with their licences to `brand/fonts/` (see D-011).
+- **B3** ~~Font files~~ Resolved for now: free OFL fonts (D-023). Buy the ff yaseer web licence later if you want the exact brand font.
 - **B4** Is "Dream. Explore. Grow." an official tagline?
 - **B5** Approve §7 voice and tone and §8 UI foundations, or edit them.
 - **B6** Arabic register: Modern Standard Arabic only, or a dialect per market?

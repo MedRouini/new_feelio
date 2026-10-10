@@ -17,7 +17,7 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Sources (read 2026-10-10):** vercel.com/docs/functions/runtimes/edge; vercel.com/docs/functions/streaming-functions; npm registry.
 
 ## D-002 Authentication: Better Auth
-**Status:** proposed · 2026-10-10
+**Status:** **accepted** (owner, 2026-10-10)
 
 **Comparison against SPEC §3.1:**
 | Criterion | **Better Auth** 1.7.7 (MIT) | Clerk (`@clerk/nextjs` 7.9.14) | Supabase Auth (`supabase-js` 2.117.3) |
@@ -95,7 +95,7 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Static audio:** crisis scripts are pre-generated and reviewed. In voice, the agent speaks the **reviewed text** through TTS. Playing our own static file inside an Agents session is not a documented feature, so the client plays the static file only in text mode (L2).
 
 ## D-005 BLOCKER: ElevenLabs prohibits products directed at under-18s without written approval
-**Status:** **blocked: owner action** · 2026-10-10
+**Status:** **blocked for real children; adult-only development and voice testing accepted by the owner (2026-10-10).** The ElevenLabs approval request is still to be made
 - **Fact (read 2026-10-10, elevenlabs.io/use-policy, "Last Updated: 09 October 2026"):** "You must be at least 18 to have an ElevenLabs account. Apps, products, or experiences directed at individuals under 18 are prohibited unless we have assessed and approved them in writing. Where approved, you must obtain any parental consent required by applicable law and maintain records of that consent."
 - **Also in the policy:** no voice recordings of under-18s may be used to create or train voices. The Terms of Use §1(a) say the same about under-18 users.
 - **Consequence:** Feelio's voice companion (the main feature) must not be used by real children until ElevenLabs approves Feelio **in writing**.
@@ -107,7 +107,7 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Action for you:** contact ElevenLabs (sales or support) for written approval and describe the safeguards in `docs/SAFETY_POLICY.md`. If it's refused or slow, fallbacks would need your approval as a new provider for the children's voice path. Not researched yet.
 
 ## D-006 Global map: text-free signs, and RTL mirroring
-**Status:** proposed, needs your confirmation · 2026-10-10
+**Status:** **superseded by D-021** (owner prefers Arabic-sign versions made in ChatGPT) · 2026-10-10
 - **Finding:** both approved maps have English words painted on the five signs.
 - **Decision:**
   - Request blank-sign edits (`map-h-blank-signs`, `map-v-blank-signs`, top of Batch 1).
@@ -129,7 +129,7 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Sources (read 2026-10-10):** together.ai/pricing; docs.together.ai/docs/serverless/models.md; …/deprecations.md; …/inference/images/{overview,parameters,reference-images}.md; …/inference/chat/structured-outputs.md; …/gpt-oss.md; …/glm-5.3-quickstart.md.
 
 ## D-008 Safety classifier: Together has no moderation model, so an LLM classifier with our taxonomy
-**Status:** **needs your decision** (changes a safety check described in SPEC §3.1) · 2026-10-10
+**Status:** **accepted** (owner, 2026-10-10: "anything that keeps the voice agent configurable and safe for children"). The classifier sits behind a provider-agnostic interface, so a guard model or a moderation provider can be swapped in by configuration (D-022)
 - **Fact (read 2026-10-10, docs.together.ai/docs/serverless/models.md):** "There are currently no moderation models offered via serverless."
   - The deprecations page lists `meta-llama/Llama-Guard-4-12B` as removed on 2026-08-25, and earlier Llama Guards removed in 2025–26.
   - The `safety_model` parameter still exists, but has no model to use.
@@ -164,7 +164,7 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Sources (read 2026-10-10):** vercel.com/docs/functions/limitations; /configuring-functions/duration; /plans/hobby; /limits/fair-use-guidelines; /cron-jobs/usage-and-pricing; vercel.com/legal/terms; vercel.com/legal/dpa.
 
 ## D-011 Fonts: licences
-**Status:** **needs your action** · 2026-10-10
+**Status:** **resolved for now by D-023** (free fonts); buying the licences is deferred · 2026-10-10
 
 | Font | Licence | What to do |
 |---|---|---|
@@ -194,20 +194,20 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - If Claude is ever added, this becomes a pre-launch blocker that needs counsel.
 
 ## D-014 Database: Neon (free tier)
-**Status:** proposed · 2026-10-10
+**Status:** **accepted** (owner, 2026-10-10)
 - **Neon free tier:** plain Postgres, 1 GB per project, 100 CU-hours, scale-to-zero after 5 minutes (cold start on the first query), branches for previews, Vercel integration.
 - **Supabase free tier:** 500 MB and pauses after a week of inactivity. It is mainly useful with Supabase Auth, which we're not using.
 - Synthetic data only until a paid plan with a DPA.
 - **Sources:** neon.com/pricing; neon.com/docs/introduction/regions; supabase.com/pricing (read 2026-10-10).
 
-## D-015 Story characters default to animals or creatures (proposal)
-**Status:** needs your decision · 2026-10-10
+## D-015 Story characters default to animals or creatures
+**Status:** **accepted** with an addition from the owner: Feelio itself appears in stories (see D-024) · 2026-10-10
 - Generating images of human children is the riskiest generative surface (SR-01, T3).
 - Defaulting story characters to friendly animals or creatures, in the brand style, removes most of that risk and helps consistency.
 - Human characters could come later only from the approved cast sheet.
 
 ## D-016 Scripts language
-**Status:** needs your decision (low priority) · 2026-10-10
+**Status:** **decided: TypeScript** (see D-025) · 2026-10-10
 - SPEC names `scripts/sync_voice_agent.py`. The local Python is 3.8 (end of life).
 - Proposal: write the sync script in TypeScript (`scripts/sync-voice-agent.ts`, run with `tsx`) using `@elevenlabs/elevenlabs-js`, so there's one toolchain. Same behaviour: the repo config is the source of truth, there's a dry-run diff, and CI fails if the live agent drifts.
 - Alternative: keep Python, which needs Python ≥ 3.10.
@@ -216,3 +216,85 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 **Status:** done · 2026-10-10
 - The folder was not a git repository. I ran `git init`, added a `.gitignore` (`.env*` except `.env.example`, `node_modules`, `.playwright-mcp/`, build output), and committed the Milestone 0 docs on branch `milestone-0`.
 - No remote was added. Pushing is your call.
+
+---
+## Owner answers to the Milestone 0 questions (2026-10-10)
+
+## D-018 Voice safety mode: strict by default for every age
+**Status:** accepted · 2026-10-10
+- The owner asked for plain wording. The choice was "faster, with a small chance an unsafe sentence is spoken" versus "about half a second slower, every sentence checked by the classifier before it is spoken."
+- Following the CLAUDE.md priority order (child safety first), the default is **strict mode (design C) for all age bands**: parallel input check, gated release, and a T1 check of each sentence before release.
+- Milestone 2's voice-proxy spike measures the real added latency. If end-to-end latency misses the 2 s target, I bring the measured numbers to the owner before relaxing anything. Relaxing is a "weaken a safety check" decision, so it is never automatic.
+- The mode is configuration (`safety.voice.output_check = strict | gated`), per age band and per market.
+
+## D-019 Abuse-disclosure rule accepted; no expert or counsel yet → pilot gate
+**Status:** accepted with a gate · 2026-10-10
+- The owner accepts SAFETY_POLICY §5: no parent notification when the actor is a household member or unknown, a restricted review queue, and the owner as named safety lead.
+- No safeguarding expert or counsel is available now (small team).
+- **Build proceeds.** The policy stays marked "[expert review]".
+- **Recommended gate before any real child uses the product:** at least one qualified review of §5 and the crisis scripts. Free options to try:
+  - Tech Coalition **Pathways** free consultation (md@technologycoalition.org)
+  - The local child helpline organisation of the first market (many advise partners)
+  - A university child-psychology or social-work department
+- This joins the ElevenLabs approval (D-005) and the DPAs (D-009, D-010) on the pilot checklist in `docs/PLAN.md`.
+
+## D-020 Budget inputs
+**Status:** accepted · 2026-10-10
+- ElevenLabs: **120k credits per month** (owner). Together AI: **about $50 of credits** (owner).
+- BUDGET.md is updated: about 170 voice minutes in month 1 (one-time static-audio generation), about 234 per month after that, and a Together allocation that makes $50 last the pilot.
+
+## D-021 Global map: English art as is, plus an Arabic-sign version from ChatGPT
+**Status:** accepted · 2026-10-10
+- The owner will generate Arabic versions of both maps in ChatGPT. This replaces the blank-sign plan in D-006.
+- **English** uses the approved maps unchanged.
+- **Arabic** uses `global_horizontal_ar.png` and `global_vertical_ar.png`: same composition, only the sign words changed to Arabic. Same composition means one set of hotspot positions. If ChatGPT moves anything, the hotspot editor stores per-locale positions.
+- `world.json` supports a map asset **per orientation and per locale**, plus an optional `mode: "blank_signs"` with code-drawn labels for future languages.
+- **The Arabic map is not mirrored** (it contains text). The journey reads left to right in both languages. The UI chrome still mirrors.
+- **Check on delivery:** ChatGPT often misspells or disconnects Arabic letters. I read every sign against the expected words. If a sign is still wrong after a few tries, the fallback is a blank sign with a code-drawn label for that map.
+- **Names:**
+
+| Place | English (as painted) | Arabic |
+|---|---|---|
+| Home (data id `home`) | House | البيت |
+| Park | Park | الحديقة |
+| School | School | المدرسة |
+| Club | Club | النادي |
+| Market | Market | السوق |
+
+- The UI labels match the signs ("House"), so the child sees one word for one place.
+- The school's red pennant is kept (generic, not a national flag) unless the owner objects.
+
+## D-022 Safety classifier is pluggable
+**Status:** accepted · 2026-10-10
+- `safety/classify/` exposes one interface: `classify(text|image, ctx) → {category, severity, actor_class, confidence}`.
+- Implementations: `llm-json` (default, Qwen3.5-9B on Together), and later `guard-model` or `moderation-api`.
+- Configuration chooses one or chains them (any "block" wins).
+- Thresholds, the taxonomy, the routing table and strict mode are all data, so the voice agent stays configurable without code changes. Every configuration change must re-run the red-team suite before it ships.
+
+## D-023 Fonts: free (OFL) fonts for now
+**Status:** accepted · 2026-10-10 (licences checked in google/fonts on 2026-10-10)
+- **Latin:** Balsamiq Sans (brand font, OFL).
+- **Arabic:** **Baloo Bhaijaan 2** (Ek Type, OFL, Arabic subset, rounded and friendly) instead of FF Yaseer, until a web licence is bought.
+- **Display titles:** Balsamiq Sans Bold instead of Dreaming Outloud. No extra script font is loaded, and it reads better for young children.
+- Swapping to FF Yaseer later is a token change in `design/`, not a code change.
+
+## D-024 Feelio appears in stories, composited, never generated
+**Status:** accepted · 2026-10-10
+- The owner wants story characters to be animals or creatures, and Feelio itself can be a character.
+- To keep brand fidelity (CLAUDE.md rule 7; SPEC §5.2; ASSET_PROTOCOL), the image model **never draws Feelio**.
+  - The story text marks Feelio's appearances per page with an emotion.
+  - The app composites the matching **approved pose** (from the mascot pose library) onto the generated page, as a character in the scene.
+  - The generated scene leaves room for it ("empty space on the left for a character").
+- Other characters are generated animals or creatures from the per-story character sheet. The heart, cloud and star companions can appear the same way as Feelio, from brand files.
+- This makes the full pose library (Batches B and C) more valuable, so I'll request story-relevant poses in the Milestone 6 batch.
+
+## D-025 Tooling scripts in TypeScript
+**Status:** accepted · 2026-10-10
+- `scripts/sync-voice-agent.ts` and the other scripts run with `tsx` on Node, the same toolchain Vercel builds with. No Python is needed in CI or on Vercel.
+- Vercel never runs these scripts; they run locally and in CI.
+- The owner's Python 3.11 and 3.13 installs remain available for one-off tools if ever needed.
+
+## D-026 Legacy scenarios: prepare the base, no artifacts yet
+**Status:** accepted · 2026-10-10
+- Milestone 4 builds the scenario schema (zod), the validator, the migration script and the migration report template, and authors the MVP scenarios as drafts, without waiting for legacy files.
+- When artifacts arrive in `legacy/artifacts/`, the script and the review path are ready (ARCHITECTURE §11).
