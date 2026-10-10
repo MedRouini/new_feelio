@@ -309,6 +309,26 @@
         "no text"
       ],
       "sha256": "17f18569de3e27917c1117b4f9a0fe10e2cdc35425ecfee14a77a44436264d8e"
+    },
+    {
+      "id": "ui.dock_map",
+      "file": "assets/approved/ui/dock_map.png",
+      "kind": "ui-icon",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached our game map for style. A single game icon object, centred, filling about 80% of the frame, with no tile or background shape behind it: a small folded paper map, partly open, showing a green meadow with a winding beige path and a round amber location pin standing on it. Chunky, rounded, easy to read at small size. Match the attached map's art style, colours and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "approved_by": "owner",
+      "reviewed_by": "claude-code",
+      "checks": [
+        "no text",
+        "folded map with location pin, reads as 'map' instantly",
+        "glossy kawaii style matching the world map",
+        "true alpha, no stray pixels, not cropped",
+        "owner chose this version (2026-10-10)"
+      ],
+      "sha256": "c1a87924abf3d7ada7e3bcb25a8f983c51e651e96e924c5e89fe9efdb986fa63"
     }
   ]
 }

@@ -99,7 +99,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot, an approved pose, and an approved walking-left pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: walking happily toward the RIGHT side of the image; body turned three-quarters to the right, leaning slightly forward, the front foot lifted mid-step, arm-flaps swinging gently, antenna bending slightly backwards with the motion; do not simply flip the walking-left image: keep the light coming from the top-left and the glossy highlights where the original has them] and [FACE: cheerful sparkle eyes looking to the right, small open smile]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no motion lines, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### dock_map   status: requested
+### dock_map   status: approved (2026-10-10)
 - Used in: phone-style dock, "Map" button (with a code label and audio cue)
 - Purpose: playful, instantly readable icon for the world map
 - Size and ratio: 1024×1024 square
@@ -385,7 +385,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | mascot_marker | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | mascot_walking_left | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | mascot_walking_right | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
-| dock_map | 2026-10-10 | | | P1, generate first in the icons chat |
+| dock_map | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved; style reference for the other dock icons |
 | dock_talk | 2026-10-10 | | | P1 |
 | dock_stories | 2026-10-10 | | | P1 |
 | dock_collection | 2026-10-10 | | | P1 |
