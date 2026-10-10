@@ -313,3 +313,10 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - The delivered `mascot_feel_*` images have the official faces exactly right, but the bodies are not pixel-aligned with `mascot_idle`. Silhouette overlap: excited 0.83 (arms raised), angry 0.90, sad 0.97.
 - Rather than ask for redos, the app shows feeling poses as standalone images. When it changes from one to another it uses a quick scale "pop" (about 150 ms; a plain swap under reduced motion), never a cross-fade, so the body difference doesn't show.
 - Pixel alignment is still **required** for frame sets that animate in place: `mascot_idle_blink` (with `mascot_idle`) and the three `mascot_speaking_*` mouth frames.
+
+## D-029 Blink shown through a face mask
+**Status:** accepted · 2026-10-10
+- `mascot_idle_blink` came back with the body about 1.7% larger than `mascot_idle` (no offset) and without eyebrows.
+- A full-image swap would make Feelio twitch. So the app layers the blink image over `mascot_idle` and shows it only through a soft mask covering the screen face (CSS `mask-image` on the delivered image, allowed by the asset protocol) for about 150 ms.
+- The body always comes from `mascot_idle`.
+- No redo needed. The speaking mouth frames (Milestone 5) still need true pixel alignment, or they'll use the same mask approach.

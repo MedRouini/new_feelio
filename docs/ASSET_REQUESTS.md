@@ -231,7 +231,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot, an approved pose of it, and its official excited face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: a small happy hop with both feet just off the ground, both arm-flaps raised high, antenna bouncing] and [FACE: the attached excited face exactly: big sparkle eyes and an open smile]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no motion lines, no confetti, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_waving   status: requested
+### mascot_waving   status: approved (2026-10-10)
 - Used in: hello at app start and onboarding; goodbye at the end of a session or when the time limit is reached (warm, never pleading)
 - Purpose: greeting and farewell
 - Size and ratio: 1024×1024 square
@@ -241,7 +241,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot, an approved pose of it, and its official happy face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: waving hello with one arm-flap raised high above its side, the other arm-flap relaxed, body tilted slightly toward the raised arm] and [FACE: the attached happy face, friendly and calm]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_idle_blink   status: requested
+### mascot_idle_blink   status: approved (2026-10-10)
 - Used in: idle loop everywhere (swapped in for about 150 ms every few seconds)
 - Purpose: makes the idle mascot feel alive without drawing in code
 - Size and ratio: 1024×1024 square, **pixel-aligned with `mascot_idle`**
@@ -251,7 +251,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Edit the attached image. Keep everything exactly identical (same character, same pose, same size, same position in the frame, same colours and highlights) and change only the eyes on the screen face: both eyes gently closed, drawn as soft downward-curved lines in the same dark navy, like a blink. The smile and cheeks stay the same. Transparent background PNG (plain white if transparency fails), 1024×1024. No text, no letters, no other changes.
 
-### ring_current   status: requested
+### ring_current   status: approved (2026-10-10)
 - Used in: global map, under the current place (code adds a slow pulse), and around the current level node
 - Purpose: marks "you are here" softly
 - Size and ratio: 1024×1024 square
@@ -261,7 +261,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached our game map and an approved badge for style. A single soft glowing ring lying flat on the ground, seen from slightly above at the same camera angle as the map (so it looks like a wide oval), made of a warm amber-to-rose glow (#F3B03A to #C4557C) with a few tiny four-point sparkles in lilac (#CEB0FF) along it. The middle of the ring is completely empty and transparent. Centred, filling about 85% of the frame width. Flat 2D vector-style illustration for a children's mobile game, soft gradients, gentle glow; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no characters.
 
-### mascot_sleeping   status: requested
+### mascot_sleeping   status: approved (2026-10-10)
 - Used in: offline state of the PWA, "come back tomorrow" when the daily time is used up (calm, not sad)
 - Purpose: a restful, positive "resting now" state
 - Size and ratio: 1024×1024 square
@@ -271,7 +271,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: sitting down peacefully, body slightly slumped and relaxed, arm-flaps resting on its belly, antenna drooping gently] and [FACE: eyes closed as soft curved lines, a tiny peaceful smile, cheeks a little rosier, looking content and cosy, not sad]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no pillow, no blanket, no "Z" letters, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_confused   status: requested
+### mascot_confused   status: approved (2026-10-10)
 - Used in: error states with a retry button (something went wrong; never the child's fault)
 - Purpose: a light, kind "hmm, let's try again" face
 - Size and ratio: 1024×1024 square
@@ -396,13 +396,13 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | node_current | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | node_completed | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | mascot_head_happy | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
-| mascot_happy | 2026-10-10 | | | P2 |
+| mascot_happy | 2026-10-10 | | | P2. Optional: if skipped, "yay" moments use `mascot_feel_excited` |
 | mascot_excited | 2026-10-10 | | | P2. Optional now: `mascot_feel_excited` covers the map tap reaction; generate the hop version only if you want more motion |
-| mascot_waving | 2026-10-10 | | | P2 |
-| mascot_idle_blink | 2026-10-10 | | | P2 |
-| ring_current | 2026-10-10 | | | P2 |
-| mascot_sleeping | 2026-10-10 | | | P2 (from Batch B, needed for the offline shell) |
-| mascot_confused | 2026-10-10 | | | P2 (from Batch B, needed for error states) |
+| mascot_waving | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |
+| mascot_idle_blink | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |
+| ring_current | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |
+| mascot_sleeping | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2 (from Batch B, needed for the offline shell). Approved |
+| mascot_confused | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2 (from Batch B, needed for error states). Approved |
 | mascot_feel_excited | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2b, face swap on mascot_idle. Approved |
 | mascot_feel_sad | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2b, face swap on mascot_idle. Approved |
 | mascot_feel_angry | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2b, face swap on mascot_idle; naming only. Approved |

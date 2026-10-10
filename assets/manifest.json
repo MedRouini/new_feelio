@@ -507,6 +507,98 @@
         "clean alpha on light and dark, not cropped"
       ],
       "sha256": "83903d989437209cef5450bc76698e91f034145fcd76ef89c827b48cc215ec04"
+    },
+    {
+      "id": "ui.ring_current",
+      "file": "assets/approved/ui/ring_current.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached our game map and an approved badge for style. A single soft glowing ring lying flat on the ground, seen from slightly above at the same camera angle as the map (so it looks like a wide oval), made of a warm amber-to-rose glow (#F3B03A to #C4557C) with a few tiny four-point sparkles in lilac (#CEB0FF) along it. The middle of the ring is completely empty and transparent. Centred, filling about 85% of the frame width. Flat 2D vector-style illustration for a children's mobile game, soft gradients, gentle glow; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "warm amber-to-rose glowing oval ring with lilac sparkles",
+        "transparent centre",
+        "flat on the ground, map camera angle",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "f68190e70b04b1a560c257e72c538b7e1dd194237bd06a88f16464115b360eef"
+    },
+    {
+      "id": "mascot.mascot_waving",
+      "file": "assets/approved/mascot/mascot_waving.png",
+      "kind": "mascot-pose",
+      "prompt": "Create an image. I attached the official mascot, an approved pose of it, and its official happy face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: waving hello with one arm-flap raised high above its side, the other arm-flap relaxed, body tilted slightly toward the raised arm] and [FACE: the attached happy face, friendly and calm]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "waving with one arm raised, happy face",
+        "no mascot drift",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "332de23ced91521a2eba2fe65d0b055edb24de4b011a1b5b4daa935aaa534b2b"
+    },
+    {
+      "id": "mascot.mascot_sleeping",
+      "file": "assets/approved/mascot/mascot_sleeping.png",
+      "kind": "mascot-pose",
+      "prompt": "Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: sitting down peacefully, body slightly slumped and relaxed, arm-flaps resting on its belly, antenna drooping gently] and [FACE: eyes closed as soft curved lines, a tiny peaceful smile, cheeks a little rosier, looking content and cosy, not sad]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no pillow, no blanket, no \"Z\" letters, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "sitting, eyes closed, peaceful smile, arms on belly: cosy, not sad",
+        "no 'Z' letters",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "64b5489b190421b5951ce01fc8aaa5e7274e360fbc5a3b4c854edfb9ed290ead"
+    },
+    {
+      "id": "mascot.mascot_confused",
+      "file": "assets/approved/mascot/mascot_confused.png",
+      "kind": "mascot-pose",
+      "prompt": "Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: head and body tilted to one side, one arm-flap raised to the side of the screen face as if scratching its head, antenna bent into a gentle curve] and [FACE: one eyebrow raised, eyes looking up and to the side, a small wavy mouth; puzzled but cheerful, not worried]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no question marks, no symbols, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "scratching head, one brow raised, puzzled but cheerful",
+        "no question marks",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "26c3bbc126a577d7629e37be3bbbb5661a080d08948c40f66f12917bdb78b2f3"
+    },
+    {
+      "id": "mascot.mascot_idle_blink",
+      "file": "assets/approved/mascot/mascot_idle_blink.png",
+      "kind": "mascot-pose",
+      "prompt": "Edit the attached image. Keep everything exactly identical (same character, same pose, same size, same position in the frame, same colours and highlights) and change only the eyes on the screen face: both eyes gently closed, drawn as soft downward-curved lines in the same dark navy, like a blink. The smile and cheeks stay the same. Transparent background PNG (plain white if transparency fails), 1024×1024. No text, no letters, no other changes.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "closed-eye arcs, same smile and cheeks",
+        "NOT pixel-aligned: body about 1.7% larger, eyebrows missing (silhouette IoU 0.98, no offset)",
+        "accepted under D-029: shown only through a face-area mask over mascot_idle",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "d637e3dd8c4b70f77775b07c0935f88d37a8638fa8b5621d856a6f53d5500548"
     }
   ]
 }
