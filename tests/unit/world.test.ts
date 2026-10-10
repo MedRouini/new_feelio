@@ -100,5 +100,7 @@ describe("geometry", () => {
     expect(clampPan(100, 100, 2, stage, view)).toEqual({ x: 0, y: 0 });
     expect(clampPan(-9999, -9999, 2, stage, view)).toEqual({ x: 1180 - 2100, y: 700 - 1400 });
     expect(centreOn(525, 350, 2, stage, view)).toEqual({ x: 590 - 1050, y: 350 - 700 });
+    // with a dock over the bottom 100 px, the point is centred in the 600 px above it
+    expect(centreOn(525, 350, 2, stage, view, 600)).toEqual({ x: 590 - 1050, y: 300 - 700 });
   });
 });

@@ -16,6 +16,7 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 | Character colours (Batch 2, group 4) | `avatar_bun_rose_idle`, `avatar_bun_lilac_idle`, `avatar_bun_sky_idle` | Yes, when a colour other than amber is shown |
 | "What do you like?" (Batch 2, group 5) | `like_animals`, `like_space`, `like_music`, `like_drawing`, `like_ballgames`, `like_nature`, `like_blocks`, `like_sea` | Yes (onboarding stop 3) |
 | Mascot poses | `mascot_pointing` (Batch 2), `mascot_listening` (Batch 1 P3) | Yes (onboarding stops 2–4) |
+| Dock (D-055) | `dock_calm` | **Yes, on every child screen** (the dock's 5th button) |
 | Mascot poses, optional | `mascot_excited` | No: the map uses `mascot_feel_excited` until it exists |
 | Mascot voice poses (Milestone 5) | `mascot_thinking`, `mascot_speaking_half/closed/open` | No |
 
@@ -25,6 +26,7 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 | Gap | Where | Why | Closes |
 |---|---|---|---|
 | Talk shows "coming soon" | `app/child/talk/page.tsx` (`TODO(PLACEHOLDER)`) | The voice companion is Milestone 5 | Milestone 5 |
+| Calm shows "coming soon" | `app/child/calm/page.tsx` (`TODO(PLACEHOLDER)`) | The calm corner (slow breathing with Feelio, static audio only) is not scheduled yet (D-055) | When you schedule it |
 | Stories shows "coming soon" | `app/child/stories/page.tsx` (`TODO(PLACEHOLDER)`) | The storybook generator is Milestone 6 | Milestone 6 |
 | Level stones say "adventures are being made" | `world/map/MapView.tsx` | No reviewed scenarios yet (`scenarioIds: []`) | Milestone 4 |
 | Fixed voice lines are captions only | `safety/voice-lines/` | Waiting for you to choose voices and allow the run (D-037). Dry run: 36 lines, 1,672 chars ≈ 836–1,672 credits | When you pick the voices |

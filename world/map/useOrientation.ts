@@ -3,8 +3,10 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import type { Orientation } from "@/world/schema";
 
-// Which map to show: by viewport shape, not the orientation API (unreliable in iOS PWAs).
-const query = "(orientation: portrait)";
+// Which map to show: by viewport size, not the orientation API (unreliable in iOS PWAs). The vertical
+// map is for phones held upright; from tablet width (768 px) up, and in any landscape view, the
+// horizontal map is used (D-055).
+const query = "(orientation: portrait) and (max-width: 767px)";
 
 function subscribe(cb: () => void) {
   const mq = window.matchMedia(query);

@@ -1,10 +1,11 @@
 /* Interactive global map (MAP.md, DESIGN_SYSTEM.md). The world is the interface: places are tapped on
    the art itself; badges, fog, ring and marker are delivered images or flat brand-colour shapes. */
 
-/* The map area is the screen above the dock; the whole map fits inside it (D-054) */
+/* The map area is the whole screen; the whole map fits inside it (D-054) and the glass dock floats
+   over its bottom edge (D-055) */
 .viewport {
   position: fixed;
-  inset: 0 0 var(--dock-space) 0;
+  inset: 0;
   overflow: hidden;
   touch-action: none;
   user-select: none;

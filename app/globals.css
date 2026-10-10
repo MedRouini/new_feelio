@@ -73,15 +73,32 @@
   --m-idle: 3200ms;
   --walk-speed: 120; /* px per second along the map path */
 
-  /* Child dock (phone-style tray, D-054). --dock-space is everything it takes from the bottom of the
-     screen; the map fits itself into the area above it. */
-  --dock-h: 100px;
-  --dock-gap: max(10px, env(safe-area-inset-bottom));
-  --dock-space: calc(var(--dock-h) + var(--dock-gap) + 8px);
+  /* Child dock (glass bar over the world, D-054, D-055). Sizes step up per screen class below.
+     --dock-space is how much of the bottom the bar covers; place views and bubbles keep clear of it. */
+  --dock-h: 72px;            /* the bar */
+  --dock-rise: 16px;         /* how far the main button rises above it */
+  --dock-icon: 46px;
+  --dock-icon-main: 64px;
+  --dock-label: 15px;
+  --dock-target: 60px;
+  --dock-pad: 4px;
+  --dock-inset: 8px;
+  --dock-radius: 28px;
+  --dock-max: 560px;
+  --dock-gap: max(8px, env(safe-area-inset-bottom));
+  --dock-space: calc(var(--dock-h) + var(--dock-gap) + var(--dock-rise));
 }
-/* Short screens (a phone on its side): a slimmer dock with icons only, so the map keeps its room */
+/* tablet */
+@media (min-width: 600px) and (min-height: 501px) {
+  :root { --dock-h: 96px; --dock-rise: 20px; --dock-icon: 52px; --dock-icon-main: 76px; --dock-target: 76px; --dock-pad: 10px; --dock-radius: 34px; --dock-max: 660px; --dock-gap: max(12px, env(safe-area-inset-bottom)); }
+}
+/* desktop and large tablets */
+@media (min-width: 1200px) and (min-height: 700px) {
+  :root { --dock-h: 108px; --dock-rise: 24px; --dock-icon: 60px; --dock-icon-main: 88px; --dock-label: 17px; --dock-target: 88px; --dock-pad: 16px; --dock-radius: 38px; --dock-max: 780px; --dock-gap: 16px; }
+}
+/* short screens (a phone on its side): the slimmest bar */
 @media (max-height: 500px) {
-  :root { --dock-h: 76px; --dock-gap: max(6px, env(safe-area-inset-bottom)); }
+  :root { --dock-h: 62px; --dock-rise: 12px; --dock-icon: 42px; --dock-icon-main: 56px; --dock-target: 60px; --dock-max: 480px; --dock-gap: max(6px, env(safe-area-inset-bottom)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

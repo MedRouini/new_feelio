@@ -64,12 +64,14 @@
       "map": "Map",
       "talk": "Talk",
       "stories": "Stories",
+      "calm": "Calm",
       "collection": "My collection",
       "nav": "Main"
     },
     "soon": {
       "talk": "Talking with me is coming soon. For now, let's explore the map!",
       "stories": "Stories are on their way. Let's explore the map!",
+      "calm": "A calm corner, where we breathe slowly together, is coming soon. Let's explore the map!",
       "back": "Back to the map"
     },
     "collection": {

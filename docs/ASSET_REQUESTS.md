@@ -139,6 +139,16 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon for style and three small brand characters (a heart, a cloud and a star with cute faces). A single game icon, centred, filling about 80% of the frame, no tile or background shape: a rounded keepsake box in soft rose (#FFD8E6 with #C4557C trim), lid open, with the three attached characters peeking out happily, kept identical to the attachments in shape, colour and face. Chunky, rounded, easy to read at small size, same glossy finish as the attached icon. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no other characters.
 
+### dock_calm   status: requested (2026-10-10, D-055)
+- Used in: phone-style dock, "Calm" button (the calm corner: slow breathing with Feelio)
+- Purpose: icon for a quiet, calming place
+- Size and ratio: 1024×1024 square
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `dock_map` (approved), `dock_stories` (approved), so the set matches
+- Save as: `assets/approved/ui/dock_calm.png`
+- Prompt (paste into ChatGPT):
+  > Create an image. Square 1:1, transparent background. I attached two approved icons; match their style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a soft round sky-blue (#D4ECFF with #79B1DE shading) cushion floating gently, with three small soft lilac (#EFCFF8) breath swirls rising above it and one tiny amber (#F3B03A) four-point sparkle. Calm, sleepy and cosy, not busy. Chunky, rounded, easy to read at small size, same glossy finish as the attached icons. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Culturally neutral. No face, no text, no letters, no numbers, no logos, no watermark, no characters.
+
 ### badge_lock   status: approved (2026-10-10)
 - Used in: global map (locked place), place card (locked level node overlay)
 - Purpose: a friendly "not yet" marker (grey = not yet), never scary or punishing
@@ -687,3 +697,4 @@ Upload `avatar_bun_amber_idle` (approved) and paste, replacing COLOUR:
 | mascot_speaking_half | 2026-10-10 | | | P3 (voice), base for the mouth frames |
 | mascot_speaking_closed | 2026-10-10 | | | P3 (voice) |
 | mascot_speaking_open | 2026-10-10 | | | P3 (voice) |
+| dock_calm | 2026-10-10 | | | Dock, 5th button (D-055) |

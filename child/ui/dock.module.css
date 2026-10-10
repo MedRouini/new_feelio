@@ -1,6 +1,7 @@
-/* The dock (D-054): a phone-style tray floating above the bottom edge, like the dock of app icons on a
-   phone's home screen. One flat brand colour, no shadow, no bar across the whole width. The current
-   screen is quiet: its label is bold and the others are softer; the icons themselves never move. */
+/* The dock (D-054, D-055): a phone-style glass bar floating over the world as an overlay; the map runs
+   underneath it. Five buttons; the Map in the centre is larger and rises a little above the bar.
+   The current screen is quiet: a bold label, the others softer. No shadow (D-042).
+   Sizes step up with the screen (phone, tablet, desktop) through the --dock-* tokens in globals.css. */
 .dock {
   position: fixed;
   inset-block-end: var(--dock-gap);
@@ -8,50 +9,76 @@
   z-index: 15;
   display: flex;
   justify-content: center;
-  padding-inline: 12px;
+  padding-inline: var(--dock-inset);
   pointer-events: none;
 }
 .tray {
   pointer-events: auto;
-  display: flex;
-  align-items: stretch;
-  gap: clamp(2px, 1.5vw, 14px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* the main button stays centred even when Stories is off */
+  grid-template-rows: minmax(0, 1fr); /* the row is the bar; the main button overflows upward */
+  align-items: end;
+  inline-size: min(100%, var(--dock-max));
   block-size: var(--dock-h);
-  max-inline-size: 100%;
-  padding: 6px clamp(6px, 1.5vw, 14px);
-  border-radius: 34px;
-  background: var(--lilac-100);
+  padding-inline: var(--dock-pad);
+  border-radius: var(--dock-radius);
+  /* glass: the world shows through, softened */
+  background: rgb(236 226 255 / 0.5);
+  border: 2px solid rgb(255 255 255 / 0.55);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
 }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .tray { background: rgb(236 226 255 / 0.92); }
+}
+.side { display: flex; align-items: end; justify-content: space-evenly; block-size: 100%; }
+
 .item {
   position: relative;
   display: grid;
   grid-template-rows: 1fr auto;
   justify-items: center;
   align-items: center;
-  gap: 0;
-  min-inline-size: 76px;
-  min-block-size: 76px;
-  padding-inline: 4px;
-  border-radius: 26px;
+  min-inline-size: var(--dock-target);
+  block-size: 100%;
+  padding-block: 4px 8px;
+  border-radius: 24px;
   color: var(--navy-900);
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
 .item:focus-visible { outline: 4px solid var(--focus); outline-offset: 2px; }
+.art > * { display: block; }
 .art {
   display: block;
-  inline-size: 62px;
+  inline-size: var(--dock-icon);
   transition: transform var(--m-pop) var(--ease-spring);
 }
 .item:active .art { transform: scale(0.88); }
-@media (prefers-reduced-motion: reduce) { .art { transition: none; } .item:active .art { transform: none; } }
-.label { font-size: 16px; font-weight: 600; line-height: 1.15; text-align: center; opacity: 0.72; white-space: nowrap; }
-html[lang="ar"] .label { font-size: 17px; }
+.label {
+  font-size: var(--dock-label);
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0.72;
+}
 .item[aria-current="page"] .label { font-weight: 800; opacity: 1; }
-@media (max-height: 500px) {
-  .item { min-block-size: 72px; min-inline-size: 72px; grid-template-rows: 1fr; }
-  .art { inline-size: 56px; }
-  /* icons only; the word stays as the link's accessible name */
-  .label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* The main button: a larger icon that rises above the bar */
+.main {
+  margin-inline: var(--dock-pad);
+  block-size: calc(100% + var(--dock-rise));
+}
+.main .art { inline-size: var(--dock-icon-main); }
+
+/* Phones and short screens: icons only; the words stay as the links' accessible names */
+@media (max-width: 599px), (max-height: 500px) {
+  .label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+  .item { grid-template-rows: 1fr; padding-block: 4px; }
   .item[aria-current="page"] .art { transform: scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .art { transition: none; }
+  .item:active .art, .item[aria-current="page"] .art { transform: none; }
 }

@@ -13,11 +13,12 @@ import { TimeUp } from "./TimeUp";
 import styles from "./child.module.css";
 
 /**
- * An honest "not built yet" screen for a dock destination (Talk: Milestone 5, Stories: Milestone 6).
+ * An honest "not built yet" screen for a dock destination (Talk: Milestone 5, Stories: Milestone 6,
+ * Calm: not scheduled yet, D-055).
  * No fake functionality (CR-4): the mascot says plainly that it is coming, and the dock leads back.
  * Listed in docs/PLACEHOLDERS.md as a known gap, not hidden.
  */
-export async function ComingSoon({ item, art, line }: { item: DockItem; art: AssetId; line: "talk" | "stories" }) {
+export async function ComingSoon({ item, art, line }: { item: DockItem; art: AssetId; line: "talk" | "stories" | "calm" }) {
   const child = await getChild();
   if (!child) redirect("/");
   const view = await getChildView(child);

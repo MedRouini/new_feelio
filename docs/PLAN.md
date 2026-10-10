@@ -22,7 +22,7 @@
   - The whole map always fits the screen above the dock, and the ring is fitted to each stone's measured oval (D-054). **Verified by running it:** E2E at 8 screen sizes.
   - The mascot and the child's character walk the path. Tapping a place zooms in and shows its level stones.
 - **The rest of the shell:**
-  - The dock as a phone-style tray (D-054).
+  - The dock as a glass bar over the world with five buttons and the Map as the larger centre button (D-055). The horizontal map is used from tablet width up. **Verified by running it:** E2E at 9 screen sizes, EN and AR. Waiting on `dock_calm` art.
   - The press-and-hold grown-up door.
   - My collection (the character, companion and name). Talk and Stories show honest "coming soon" screens.
   - The time-up goodbye; the offline screen and service worker; the PWA manifest and icons.

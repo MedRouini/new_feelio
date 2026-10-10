@@ -17,6 +17,7 @@ export const VOICE_LINES: Record<string, string> = {
   home_notSetUp: "child.notSetUpTitle+child.notSetUpBody",
   soon_talk: "child.soon.talk",
   soon_stories: "child.soon.stories",
+  soon_calm: "child.soon.calm",
   collection_intro: "child.collection.intro",
   offline_line: "child.offline.line",
   time_up: "child.timeUp",

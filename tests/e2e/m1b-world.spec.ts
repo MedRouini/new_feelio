@@ -131,29 +131,35 @@ test("map: places, locked 'not yet', place view, rotation, RTL dock order", asyn
   await page.screenshot({ path: `${SHOTS}/ar-portrait-map-rotated.png` });
 });
 
-test("map: the whole map fits above the dock on every screen; the ring sits on the current stone", async ({ page }) => {
+test("map: the whole map fits every screen under the glass dock; Map is the centre button; the ring sits on the stone", async ({ page }) => {
   const f = fixture({ locale: "en", onboarded: true });
   await asChild(page, f);
-  const sizes = [PORTRAIT, LANDSCAPE, { width: 360, height: 640 }, { width: 844, height: 390 }, { width: 820, height: 1180 }, { width: 1366, height: 768 }, { width: 1920, height: 1080 }, { width: 1024, height: 1366 }];
+  const sizes = [PORTRAIT, LANDSCAPE, { width: 768, height: 1024 }, { width: 360, height: 640 }, { width: 844, height: 390 }, { width: 820, height: 1180 }, { width: 1366, height: 768 }, { width: 1920, height: 1080 }, { width: 1024, height: 1366 }];
   await page.setViewportSize(sizes[0]);
   await page.goto(APP);
   for (const size of sizes) {
     await page.setViewportSize(size);
     const stage = page.locator("[data-orientation]");
-    await expect(stage).toHaveAttribute("data-orientation", size.width > size.height ? "horizontal" : "vertical");
+    // horizontal map from tablet width up, and in any landscape view (D-055)
+    const horizontal = size.width > size.height || size.width >= 768;
+    await expect(stage).toHaveAttribute("data-orientation", horizontal ? "horizontal" : "vertical");
     await expect(async () => {
       const box = (await stage.boundingBox())!;
-      const tray = (await page.getByTestId("dock-map").boundingBox())!;
-      // every edge of the map is on screen, and the map ends above the dock
+      // every edge of the map is on screen, and it is as big as it can be (touches one axis)
       expect(box.x).toBeGreaterThanOrEqual(-0.5);
       expect(box.y).toBeGreaterThanOrEqual(-0.5);
       expect(box.x + box.width).toBeLessThanOrEqual(size.width + 0.5);
-      expect(box.y + box.height).toBeLessThanOrEqual(tray.y);
-      // and it is as big as it can be: it touches the area on one axis
+      expect(box.y + box.height).toBeLessThanOrEqual(size.height + 0.5);
       expect(Math.abs(box.width - size.width) < 1 || box.y < 1).toBe(true);
+      // five dock buttons, the Map in the centre and larger than the others
+      await expect(page.locator("[data-dock] a")).toHaveCount(5);
+      const main = (await page.getByTestId("dock-map").boundingBox())!;
+      const talk = (await page.getByTestId("dock-talk").boundingBox())!;
+      expect(Math.abs(main.x + main.width / 2 - size.width / 2)).toBeLessThan(2);
+      expect(main.height).toBeGreaterThan(talk.height);
       // the ring's centre is the current pad's centre (Home), measured from the art
       const ring = (await page.getByTestId("map-ring").boundingBox())!;
-      const pad = size.width > size.height ? { x: 0.0877, y: 0.4385 } : { x: 0.3596, y: 0.8376 };
+      const pad = horizontal ? { x: 0.0877, y: 0.4385 } : { x: 0.3596, y: 0.8376 };
       expect(Math.abs(ring.x + ring.width / 2 - (box.x + pad.x * box.width))).toBeLessThan(3);
     }).toPass({ timeout: 5000 });
     await page.waitForTimeout(400);

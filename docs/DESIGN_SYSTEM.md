@@ -144,3 +144,13 @@ Found:
 Fixed: all five. The ring is fitted per pad from the art; the map is contained with a meadow-coloured surround; the dock is a phone-style tray; the camera stops running zooms before re-centring.
 
 Checked against §2: flat colours only, no shadow, no blur, no pill or dot for the active item, targets ≥ 72 px.
+
+**2026-10-10, glass dock and five buttons (D-055, owner request).** Screenshots at 9 sizes (360×640 to 1920×1080, including 768×1024), EN and AR.
+
+Found:
+1. The taller centre button stretched the bar's row, so the labels hung over the bar's bottom edge.
+2. The Calm icon is not delivered yet: a grey placeholder box shows in the dock.
+
+Fixed: 1 (the bar's row height is fixed; the Map button rises above it). 2 waits for `dock_calm`.
+
+Checked against §2 with the owner's override: glass is now allowed for the dock only. Still no shadows, pills or dots; the active state is a bold label.

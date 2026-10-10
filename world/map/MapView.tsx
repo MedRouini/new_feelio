@@ -65,7 +65,7 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
   const t = useTranslations("child.map");
   const orientation = useOrientation();
   const screen = useViewportSize();
-  // The map area: the screen above the dock (its bottom edge is var(--dock-space) in CSS).
+  // The map area: the whole screen (the glass dock floats over it, D-055).
   const [setViewportEl, vp] = useElementSize<HTMLDivElement>();
   const reduce = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -172,8 +172,14 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
     };
   }, [map, stage, current, arriveFromStart, reduce, markerX, markerY]);
 
+  // The part of the map not under the glass dock: zoomed places are centred in it (D-055).
+  const focusHeight = () => {
+    const dock = document.querySelector("[data-dock] > *");
+    return dock ? Math.min(vp.h, dock.getBoundingClientRect().top) : vp.h;
+  };
+
   const zoomTo = (px: number, py: number, scale: number) => {
-    const c = centreOn(px, py, scale, stage, vp);
+    const c = centreOn(px, py, scale, stage, vp, focusHeight());
     const opts = reduce ? { duration: 0 } : { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] as const };
     animate(s, scale, opts);
     animate(x, c.x, opts);

@@ -13,7 +13,7 @@ const square = [
   "mascot_speaking_half", "mascot_speaking_closed", "mascot_speaking_open",
   "mascot_feel_excited", "mascot_feel_sad", "mascot_feel_angry",
   // ui
-  "dock_map", "dock_talk", "dock_stories", "dock_collection",
+  "dock_map", "dock_talk", "dock_stories", "dock_collection", "dock_calm",
   "badge_lock", "badge_star", "badge_check", "node_locked", "node_current", "node_completed", "ring_current",
   "ui_grownup_door", "ui_mic_object",
   "like_animals", "like_space", "like_music", "like_drawing", "like_ballgames", "like_nature", "like_blocks", "like_sea",

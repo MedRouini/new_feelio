@@ -62,7 +62,8 @@ export function clampPan(x: number, y: number, s: number, stage: Size, view: Siz
   return { x: clampAxis(x, stage.w * s, view.w), y: clampAxis(y, stage.h * s, view.h) };
 }
 
-/** Pan offset that centres a point (in unscaled stage pixels) in the viewport, clamped. */
-export function centreOn(px: number, py: number, s: number, stage: Size, view: Size) {
-  return clampPan(view.w / 2 - px * s, view.h / 2 - py * s, s, stage, view);
+/** Pan offset that centres a point (in unscaled stage pixels) in the viewport, clamped. `focusH` is the
+ *  height of the part not covered by overlays at the bottom (the dock); the point is centred in it. */
+export function centreOn(px: number, py: number, s: number, stage: Size, view: Size, focusH = view.h) {
+  return clampPan(view.w / 2 - px * s, focusH / 2 - py * s, s, stage, view);
 }
