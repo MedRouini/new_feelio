@@ -307,3 +307,9 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - alpha ≤ 8 → 0
   - transparent padding of 4% added
 - This is a technical clean-up of transparency, not a change to the art. The source files in `assets/approved/` stay byte-identical (sha256 in `assets/manifest.json`).
+
+## D-028 Feeling poses swap with a "pop", so pixel alignment is not required
+**Status:** accepted · 2026-10-10
+- The delivered `mascot_feel_*` images have the official faces exactly right, but the bodies are not pixel-aligned with `mascot_idle`. Silhouette overlap: excited 0.83 (arms raised), angry 0.90, sad 0.97.
+- Rather than ask for redos, the app shows feeling poses as standalone images. When it changes from one to another it uses a quick scale "pop" (about 150 ms; a plain swap under reduced motion), never a cross-fade, so the body difference doesn't show.
+- Pixel alignment is still **required** for frame sets that animate in place: `mascot_idle_blink` (with `mascot_idle`) and the three `mascot_speaking_*` mouth frames.

@@ -37,7 +37,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Not a ChatGPT task. **Done 2026-10-10:** the 7 SVGs were rasterised as they are with headless Chrome (format conversion only, nothing redrawn), checked against the presentation, and logged in `assets/manifest.json`. Still optional for you: the padded re-export of `IMG_9937.png`.
 
-### map-h-ar   status: requested
+### map-h-ar   status: approved (2026-10-10)
 - Used in: global map, landscape, **Arabic** (Milestone 1b). English keeps the approved original (D-021)
 - Purpose: the same map with the five sign words in Arabic, so Arabic-speaking children read their own language on the map
 - Size and ratio: 1536×1024 landscape (same as the original)
@@ -47,7 +47,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Edit the attached image. Keep everything exactly identical (same size 1536×1024, same composition, same buildings, path, stone pads, trees, flowers, colours, art style and camera) and change only the words painted on the five wooden signs. Replace them with these Arabic words, written right to left with correctly connected Arabic letters, in a friendly rounded hand-painted style in the same dark brown as now, centred on each sign: the sign that says "House" → "البيت"; "School" → "المدرسة"; "Market" → "السوق"; "Park" → "الحديقة"; "Club" → "النادي". Keep each sign's shape, size, position, wood colour and posts. Do not mirror or flip the image. Do not move, add or remove anything else. No other text, no English letters, no logos, no watermark, no extra characters, no people.
 
-### map-v-ar   status: requested
+### map-v-ar   status: approved (2026-10-10)
 - Used in: global map, portrait, **Arabic** (Milestone 1b)
 - Purpose: same as `map-h-ar`, for the vertical map
 - Size and ratio: 1024×1536 portrait (same as the original)
@@ -79,7 +79,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot, an approved pose of it, and the game map it will stand on. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing happily, seen from slightly above at the same three-quarter top-down camera angle as the attached map, one arm-flap raised a little in greeting, with a soft oval ground shadow under its feet in a darker green-grey that matches the map's shadows] and [FACE: happy sparkle eyes and a small open smile]. Match the map's lighting from the top-left. Full body, centred, transparent background PNG around the character and its shadow (plain white if transparency fails), 1024×1024, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_walking_left   status: requested
+### mascot_walking_left   status: approved (2026-10-10)
 - Used in: global map, marker walking along the path toward the left; never produced by mirroring in code
 - Purpose: travel animation between places (the path runs both ways, and right-to-left languages reverse the journey)
 - Size and ratio: 1024×1024 square
@@ -89,7 +89,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: walking happily toward the LEFT side of the image; body turned three-quarters to the left, leaning slightly forward, the front foot lifted mid-step, arm-flaps swinging gently, antenna bending slightly backwards with the motion] and [FACE: cheerful sparkle eyes looking to the left, small open smile]. Keep the light coming from the top-left and the glossy highlights in the same places as on the original. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no motion lines, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_walking_right   status: requested
+### mascot_walking_right   status: approved (2026-10-10)
 - Used in: global map, marker walking toward the right
 - Purpose: as above, other direction. A separate drawing, because mirroring would flip the highlights and the asymmetric details
 - Size and ratio: 1024×1024 square
@@ -285,7 +285,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 > `mascot_idle` already wears the official **happy** face, so it doubles as `mascot_feel_happy`. These three complete the set.
 > **Usage rule:** these faces are for naming feelings. The angry face is never used as Feelio reacting to the child (MASCOT.md).
 
-### mascot_feel_excited   status: requested
+### mascot_feel_excited   status: approved (2026-10-10)
 - Used in: feelings check-in on the Talk screen ("How are you feeling?"), scenario feeling choices ("How might Sami feel?"), My collection
 - Purpose: Feelio in the calm idle pose wearing the official **excited** face, so a child can see and name the feeling
 - Size and ratio: same canvas as `mascot_idle` (1254×1254), **pixel-aligned with `mascot_idle`** (only the screen face differs)
@@ -295,7 +295,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Edit the first attached image. Keep everything exactly identical (same character, same pose, same body, arms, feet, antenna, belly heart, colours, highlights, same size and same position in the frame) and change only the face on the dark blue screen: replace it with the face in the second attached image, copied exactly (same eyes, eyebrows, mouth, cheeks). The screen shape and its glossy rim stay as they are. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters, no other changes.
 
-### mascot_feel_sad   status: requested
+### mascot_feel_sad   status: approved (2026-10-10)
 - Used in: feelings check-in on the Talk screen ("How are you feeling?"), scenario feeling choices ("How might Sami feel?"), My collection; also the scenario moment when a character feels sad
 - Purpose: Feelio in the calm idle pose wearing the official **sad** face, so a child can see and name the feeling
 - Size and ratio: same canvas as `mascot_idle` (1254×1254), **pixel-aligned with `mascot_idle`** (only the screen face differs)
@@ -305,7 +305,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Edit the first attached image. Keep everything exactly identical (same character, same pose, same body, arms, feet, antenna, belly heart, colours, highlights, same size and same position in the frame) and change only the face on the dark blue screen: replace it with the face in the second attached image, copied exactly (same eyes, eyebrows, mouth, cheeks, including the small tears). The screen shape and its glossy rim stay as they are. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters, no other changes.
 
-### mascot_feel_angry   status: requested
+### mascot_feel_angry   status: approved (2026-10-10)
 - Used in: feelings check-in on the Talk screen ("How are you feeling?"), scenario feeling choices ("How might Sami feel?"), My collection
 - Purpose: Feelio in the calm idle pose wearing the official **angry** face, so a child can see and name the feeling
 - Size and ratio: same canvas as `mascot_idle` (1254×1254), **pixel-aligned with `mascot_idle`** (only the screen face differs)
@@ -379,12 +379,12 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
 | R-00 owner-exports | 2026-10-10 | 2026-10-10 | 2026-10-10 | 7 PNGs rasterised from the brand SVGs; optional mascot re-export open |
-| map-h-ar | 2026-10-10 | | | P1 (Arabic map, landscape) |
-| map-v-ar | 2026-10-10 | | | P1 (Arabic map, portrait) |
+| map-h-ar | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1 (Arabic map, landscape). Approved |
+| map-v-ar | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1 (Arabic map, portrait). Approved |
 | mascot_idle | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved; now the 2nd reference for every pose |
 | mascot_marker | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
-| mascot_walking_left | 2026-10-10 | | | P1 |
-| mascot_walking_right | 2026-10-10 | | | P1 |
+| mascot_walking_left | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
+| mascot_walking_right | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | dock_map | 2026-10-10 | | | P1, generate first in the icons chat |
 | dock_talk | 2026-10-10 | | | P1 |
 | dock_stories | 2026-10-10 | | | P1 |
@@ -397,15 +397,15 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | node_completed | 2026-10-10 | | | P1 |
 | mascot_head_happy | 2026-10-10 | | | P1 |
 | mascot_happy | 2026-10-10 | | | P2 |
-| mascot_excited | 2026-10-10 | | | P2 |
+| mascot_excited | 2026-10-10 | | | P2. Optional now: `mascot_feel_excited` covers the map tap reaction; generate the hop version only if you want more motion |
 | mascot_waving | 2026-10-10 | | | P2 |
 | mascot_idle_blink | 2026-10-10 | | | P2 |
 | ring_current | 2026-10-10 | | | P2 |
 | mascot_sleeping | 2026-10-10 | | | P2 (from Batch B, needed for the offline shell) |
 | mascot_confused | 2026-10-10 | | | P2 (from Batch B, needed for error states) |
-| mascot_feel_excited | 2026-10-10 | | | P2b, face swap on mascot_idle |
-| mascot_feel_sad | 2026-10-10 | | | P2b, face swap on mascot_idle |
-| mascot_feel_angry | 2026-10-10 | | | P2b, face swap on mascot_idle; naming only |
+| mascot_feel_excited | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2b, face swap on mascot_idle. Approved |
+| mascot_feel_sad | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2b, face swap on mascot_idle. Approved |
+| mascot_feel_angry | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2b, face swap on mascot_idle; naming only. Approved |
 | mascot_listening | 2026-10-10 | | | P3 (voice) |
 | mascot_thinking | 2026-10-10 | | | P3 (voice) |
 | mascot_speaking_half | 2026-10-10 | | | P3 (voice), base for the mouth frames |

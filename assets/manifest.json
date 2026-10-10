@@ -180,6 +180,135 @@
         1254
       ],
       "sha256": "0c09dc7d8fd4bf4eb722e835884cd31c9d306189c5c92c618f7cced93738b3e4"
+    },
+    {
+      "id": "map.global.horizontal.ar",
+      "file": "assets/approved/map/global_horizontal_ar.png",
+      "kind": "map",
+      "prompt": "Edit the attached image. Keep everything exactly identical (same size 1536×1024, same composition, same buildings, path, stone pads, trees, flowers, colours, art style and camera) and change only the words painted on the five wooden signs. Replace them with these Arabic words, written right to left with correctly connected Arabic letters, in a friendly rounded hand-painted style in the same dark brown as now, centred on each sign: the sign that says \"House\" → \"البيت\"; \"School\" → \"المدرسة\"; \"Market\" → \"السوق\"; \"Park\" → \"الحديقة\"; \"Club\" → \"النادي\". Keep each sign's shape, size, position, wood colour and posts. Do not mirror or flip the image. Do not move, add or remove anything else. No other text, no English letters, no logos, no watermark, no extra characters, no people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "all 5 Arabic sign words correct and joined: البيت، المدرسة، السوق، الحديقة، النادي",
+        "composition identical to the English map (0.09% pixels changed outside signs), so the same hotspots apply",
+        "no other text, no people",
+        "same style"
+      ],
+      "sha256": "8e4446324c97ff4e1e1f82b0cec02f4f1f2e91a351840560a0a996227bb1747a"
+    },
+    {
+      "id": "map.global.vertical.ar",
+      "file": "assets/approved/map/global_vertical_ar.png",
+      "kind": "map",
+      "prompt": "Edit the attached image. Keep everything exactly identical (same size 1024×1536, same composition, same buildings, path, stone pads, trees, flowers, colours, art style and camera) and change only the words painted on the five wooden signs. Replace them with these Arabic words, written right to left with correctly connected Arabic letters, in a friendly rounded hand-painted style in the same dark brown as now, centred on each sign: the sign that says \"Market\" → \"السوق\"; \"Club\" → \"النادي\"; \"School\" → \"المدرسة\"; \"Park\" → \"الحديقة\"; \"House\" → \"البيت\". Keep each sign's shape, size, position, wood colour and posts. Do not mirror or flip the image. Do not move, add or remove anything else. No other text, no English letters, no logos, no watermark, no extra characters, no people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "all 5 Arabic sign words correct and joined",
+        "composition identical to the English map (0.05% pixels changed outside signs)",
+        "no other text, no people",
+        "same style"
+      ],
+      "sha256": "c645e89922ddfbba078c4736d10f1b2cfb84c2d0d6780fc50caa893db42beca6"
+    },
+    {
+      "id": "mascot.walking_left",
+      "file": "assets/approved/mascot/mascot_walking_left.png",
+      "kind": "mascot-pose",
+      "prompt": "Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: walking happily toward the LEFT side of the image; body turned three-quarters to the left, leaning slightly forward, the front foot lifted mid-step, arm-flaps swinging gently, antenna bending slightly backwards with the motion] and [FACE: cheerful sparkle eyes looking to the left, small open smile]. Keep the light coming from the top-left and the glossy highlights in the same places as on the original. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no motion lines, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "reads clearly as walking LEFT: body turned left, eyes left, front foot lifted, antenna trailing right",
+        "no mascot drift (orb antenna, screen face, cheeks, heart, feet, colourway); arms are rounder stubs than the official flaps, accepted",
+        "light from the top-left",
+        "no stray pixels beyond 7 px of the body",
+        "not cropped",
+        "no text"
+      ],
+      "sha256": "0678925fc282b9d234cd063ca14e7a77020d6ec24b379370972e90e74641573f"
+    },
+    {
+      "id": "mascot.walking_right",
+      "file": "assets/approved/mascot/mascot_walking_right.png",
+      "kind": "mascot-pose",
+      "prompt": "Create an image. I attached the official mascot, an approved pose, and an approved walking-left pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: walking happily toward the RIGHT side of the image; body turned three-quarters to the right, leaning slightly forward, the front foot lifted mid-step, arm-flaps swinging gently, antenna bending slightly backwards with the motion; do not simply flip the walking-left image: keep the light coming from the top-left and the glossy highlights where the original has them] and [FACE: cheerful sparkle eyes looking to the right, small open smile]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no motion lines, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "reads clearly as walking RIGHT: drawn separately (not a flip), highlights still top-left",
+        "consistent with walking_left (same proportions and finish)",
+        "no stray pixels",
+        "not cropped",
+        "no text"
+      ],
+      "sha256": "991054c23eca0a5c234482f0b6ecaadc2de49d0c42518cf3b901935b76552fba"
+    },
+    {
+      "id": "mascot.feel_excited",
+      "file": "assets/approved/mascot/mascot_feel_excited.png",
+      "kind": "mascot-feeling",
+      "prompt": "Edit the first attached image. Keep everything exactly identical (same character, same pose, same body, arms, feet, antenna, belly heart, colours, highlights, same size and same position in the frame) and change only the face on the dark blue screen: replace it with the face in the second attached image, copied exactly (same eyes, eyebrows, mouth, cheeks). The screen shape and its glossy rim stay as they are. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters, no other changes.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "face matches the official excited template",
+        "body differs from idle (arms raised; silhouette overlap 0.83), accepted under D-028: used as a standalone image, swapped with a pop, not cross-faded",
+        "can double as the map tap reaction (mascot_excited)",
+        "no text"
+      ],
+      "sha256": "165f63f1c82c41585fbad39b9ffa1ef12aeea06a832b5c21dd405c8de702544e"
+    },
+    {
+      "id": "mascot.feel_sad",
+      "file": "assets/approved/mascot/mascot_feel_sad.png",
+      "kind": "mascot-feeling",
+      "prompt": "Edit the first attached image. Keep everything exactly identical (same character, same pose, same body, arms, feet, antenna, belly heart, colours, highlights, same size and same position in the frame) and change only the face on the dark blue screen: replace it with the face in the second attached image, copied exactly (same eyes, eyebrows, mouth, cheeks, including the small tears). The screen shape and its glossy rim stay as they are. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters, no other changes.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "face matches the official sad template, tears included",
+        "silhouette overlap with idle 0.97",
+        "antenna orb about 1-2 px from the top edge: tight but not cut",
+        "no text"
+      ],
+      "sha256": "06d96273908552dd0457d65a1776f262e4d030bd823123b39ef933b74f7c538b"
+    },
+    {
+      "id": "mascot.feel_angry",
+      "file": "assets/approved/mascot/mascot_feel_angry.png",
+      "kind": "mascot-feeling",
+      "prompt": "Edit the first attached image. Keep everything exactly identical (same character, same pose, same body, arms, feet, antenna, belly heart, colours, highlights, same size and same position in the frame) and change only the face on the dark blue screen: replace it with the face in the second attached image, copied exactly (same eyes, eyebrows, mouth, cheeks, including the small anger mark above the screen at the top right; keep that mark exactly as in the face image). The screen shape and its glossy rim stay as they are. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters, no other changes.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "face matches the official angry template, anger mark included",
+        "silhouette overlap with idle 0.90 (wider arm-flaps, closer to the official mascot), accepted under D-028",
+        "usage rule: for naming feelings only, never at the child (MASCOT.md)",
+        "no text"
+      ],
+      "sha256": "17f18569de3e27917c1117b4f9a0fe10e2cdc35425ecfee14a77a44436264d8e"
     }
   ]
 }
