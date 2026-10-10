@@ -109,7 +109,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached our game map for style. A single game icon object, centred, filling about 80% of the frame, with no tile or background shape behind it: a small folded paper map, partly open, showing a green meadow with a winding beige path and a round amber location pin standing on it. Chunky, rounded, easy to read at small size. Match the attached map's art style, colours and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### dock_talk   status: requested
+### dock_talk   status: approved (2026-10-10)
 - Used in: phone-style dock, "Talk" button (opens the voice companion)
 - Purpose: shows that Talk means talking with Feelio
 - Size and ratio: 1024×1024 square
@@ -119,7 +119,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached the official mascot, an approved pose of it, and an approved icon for style. A single game icon, centred, filling about 80% of the frame, no tile or background shape: the head and upper body of the attached mascot (keep it identical: antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, same colours and glossy style), happy face with a small open smile, next to a rounded pale lilac (#EFCFF8) speech bubble with three soft purple dots inside. Same chunky, glossy icon style as the attached icon. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no other characters.
 
-### dock_stories   status: requested
+### dock_stories   status: approved (2026-10-10)
 - Used in: phone-style dock, "Stories" button
 - Purpose: icon for the storybook feature
 - Size and ratio: 1024×1024 square
@@ -129,7 +129,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: an open storybook with a soft purple (#614194) rounded cover and cream pages, a few small four-point sparkles in lilac and amber rising from the pages. The pages are completely blank: no writing, no scribbles, no pictures. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no characters.
 
-### dock_collection   status: requested
+### dock_collection   status: approved (2026-10-10)
 - Used in: phone-style dock, "My collection" button
 - Purpose: icon for collected mascot moments and companions
 - Size and ratio: 1024×1024 square
@@ -139,7 +139,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon for style and three small brand characters (a heart, a cloud and a star with cute faces). A single game icon, centred, filling about 80% of the frame, no tile or background shape: a rounded keepsake box in soft rose (#FFD8E6 with #C4557C trim), lid open, with the three attached characters peeking out happily, kept identical to the attachments in shape, colour and face. Chunky, rounded, easy to read at small size, same glossy finish as the attached icon. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no other characters.
 
-### badge_lock   status: requested
+### badge_lock   status: approved (2026-10-10)
 - Used in: global map (locked place), place card (locked level node overlay)
 - Purpose: a friendly "not yet" marker (grey = not yet), never scary or punishing
 - Size and ratio: 1024×1024 square
@@ -159,7 +159,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved badge; match its style, size and finish exactly. A single plump five-point star with softly rounded tips, warm yellow-amber (#FFC32C to #F3B03A) with a glossy highlight on the upper left, centred, filling about 75% of the frame. No face on the star. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no characters.
 
-### badge_check   status: requested
+### badge_check   status: approved (2026-10-10)
 - Used in: place card (finished scenario inside a level), collection
 - Purpose: a small "done" mark (green), calmer than the star
 - Size and ratio: 1024×1024 square
@@ -169,7 +169,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached two approved badges; match their style, size and finish exactly. A single round badge: a fresh green disc (#3E9B4F to #2E8B45) with a lighter green rim (#8FD18A) and a thick, rounded white checkmark in the middle (green means "done"), gentle glossy highlight on the upper left, centred, filling about 75% of the frame. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No face, no text, no letters, no numbers, no logos, no watermark, no characters.
 
-### node_locked   status: requested
+### node_locked   status: approved (2026-10-10)
 - Used in: place card, level node in the locked state (code adds the level number and `badge_lock`)
 - Purpose: base button art for the level path inside the place card
 - Size and ratio: 1024×1024 square
@@ -179,7 +179,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached our game map (look at the round stone pads on the path) and an approved badge for finish. A single round game level button seen from slightly above, like a thick rounded stepping stone with a flat empty top and a soft darker rim, in soft warm grey (#D9D5DE top, #B3ADBD rim), with a gentle highlight. Grey means "not yet": calm, not dark, not sad. The top face is completely empty (no number, no symbol, no lock). Centred, filling about 80% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no characters.
 
-### node_current   status: requested
+### node_current   status: approved (2026-10-10)
 - Used in: place card, the level the child plays next
 - Purpose: inviting, warm "play me" state (code adds the number and a soft pulse)
 - Size and ratio: 1024×1024 square
@@ -189,7 +189,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved level button. Keep exactly the same shape, size, angle and finish, and change only the colours: a warm amber top (#F3B03A to #FFC32C) with a deeper orange-rose rim (#E1774E), and a soft warm glow around the edge. The top face stays completely empty. Centred, same framing as the attachment, no ground shadow. No text, no letters, no numbers, no symbols, no logos, no watermark, no characters.
 
-### node_completed   status: requested
+### node_completed   status: approved (2026-10-10)
 - Used in: place card, finished level (code adds the number and `badge_star`)
 - Purpose: "done, replay any time" state (green = done)
 - Size and ratio: 1024×1024 square
@@ -199,7 +199,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved level button. Keep exactly the same shape, size, angle and finish, and change only the colours: a fresh green top (#8FD18A to #6CC070) with a deeper green rim (#3E9B4F). Green means "done". The top face stays completely empty. Centred, same framing as the attachment, no ground shadow. No text, no letters, no numbers, no symbols, no logos, no watermark, no characters.
 
-### mascot_head_happy   status: requested
+### mascot_head_happy   status: approved (2026-10-10)
 - Used in: the "I'm Feelio, a friendly AI" chip (Talk screen, onboarding), small avatar buttons, place-card speech line
 - Purpose: a small avatar that reads clearly at 32–64 px
 - Size and ratio: 1024×1024 square
@@ -386,16 +386,16 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | mascot_walking_left | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | mascot_walking_right | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | dock_map | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved; style reference for the other dock icons |
-| dock_talk | 2026-10-10 | | | P1 |
-| dock_stories | 2026-10-10 | | | P1 |
-| dock_collection | 2026-10-10 | | | P1 |
-| badge_lock | 2026-10-10 | | | P1 |
+| dock_talk | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
+| dock_stories | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
+| dock_collection | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
+| badge_lock | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | badge_star | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
-| badge_check | 2026-10-10 | | | P1 |
-| node_locked | 2026-10-10 | | | P1 |
-| node_current | 2026-10-10 | | | P1 |
-| node_completed | 2026-10-10 | | | P1 |
-| mascot_head_happy | 2026-10-10 | | | P1 |
+| badge_check | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
+| node_locked | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
+| node_current | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
+| node_completed | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
+| mascot_head_happy | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | mascot_happy | 2026-10-10 | | | P2 |
 | mascot_excited | 2026-10-10 | | | P2. Optional now: `mascot_feel_excited` covers the map tap reaction; generate the hop version only if you want more motion |
 | mascot_waving | 2026-10-10 | | | P2 |

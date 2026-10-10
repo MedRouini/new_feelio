@@ -348,6 +348,165 @@
         "made with the old lilac lock as style reference: no effect on its colour"
       ],
       "sha256": "61836e01b4ef2d09859350552b08b7874f337cca2d2187ba07f4096821eca9e6"
+    },
+    {
+      "id": "ui.badge_lock",
+      "file": "assets/approved/ui/badge_lock.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved icon; match its style. A single chunky, rounded padlock badge, closed, in soft warm grey (#D9D5DE body with #9C95A8 shading and a darker #7D7690 shackle) with a small warm amber (#F3B03A) keyhole, a gentle glossy shine, centred, filling about 75% of the frame. Grey means \"not yet\": friendly and soft, not scary, not dark, not metallic. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No face, no text, no letters, no numbers, no logos, no watermark, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "soft warm grey padlock with amber keyhole (new status colours)",
+        "friendly, not metallic or scary",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "36140d23033bf942764d317f30c77472797890bc05c99136333b0c5de4dbf9dc"
+    },
+    {
+      "id": "ui.badge_check",
+      "file": "assets/approved/ui/badge_check.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached two approved badges; match their style, size and finish exactly. A single round badge: a fresh green disc (#3E9B4F to #2E8B45) with a lighter green rim (#8FD18A) and a thick, rounded white checkmark in the middle (green means \"done\"), gentle glossy highlight on the upper left, centred, filling about 75% of the frame. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No face, no text, no letters, no numbers, no logos, no watermark, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "green disc with a thick white check (new status colours)",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "3dd7aba37ca8ca85b1b295e9fa28a1cfc022da89825a530f8db2a0c9502827fd"
+    },
+    {
+      "id": "ui.node_locked",
+      "file": "assets/approved/ui/node_locked.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached our game map (look at the round stone pads on the path) and an approved badge for finish. A single round game level button seen from slightly above, like a thick rounded stepping stone with a flat empty top and a soft darker rim, in soft warm grey (#D9D5DE top, #B3ADBD rim), with a gentle highlight. Grey means \"not yet\": calm, not dark, not sad. The top face is completely empty (no number, no symbol, no lock). Centred, filling about 80% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "soft grey stepping-stone button, empty top",
+        "matches the grey lock",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "20d827be17538dd0a9dc7dda8b4dfb70a5f19246c7cc84d76722aec4a84b15b8"
+    },
+    {
+      "id": "ui.node_current",
+      "file": "assets/approved/ui/node_current.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved level button. Keep exactly the same shape, size, angle and finish, and change only the colours: a warm amber top (#F3B03A to #FFC32C) with a deeper orange-rose rim (#E1774E), and a soft warm glow around the edge. The top face stays completely empty. Centred, same framing as the attachment, no ground shadow. No text, no letters, no numbers, no symbols, no logos, no watermark, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "amber top with orange rim and a warm glow (the glow is intended semi-transparent pixels)",
+        "same shape as the other nodes",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "a47211109038d3eb385f1619ef09180b7cca1f3ec4a0f551e72452fc59d18313"
+    },
+    {
+      "id": "ui.node_completed",
+      "file": "assets/approved/ui/node_completed.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved level button. Keep exactly the same shape, size, angle and finish, and change only the colours: a fresh green top (#8FD18A to #6CC070) with a deeper green rim (#3E9B4F). Green means \"done\". The top face stays completely empty. Centred, same framing as the attachment, no ground shadow. No text, no letters, no numbers, no symbols, no logos, no watermark, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "fresh green top, deeper green rim",
+        "same shape as the other nodes",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "9a75312516a93862c0604893b0304812da5bd1907b346f8f99289fa1bc194fa5"
+    },
+    {
+      "id": "ui.dock_talk",
+      "file": "assets/approved/ui/dock_talk.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached the official mascot, an approved pose of it, and an approved icon for style. A single game icon, centred, filling about 80% of the frame, no tile or background shape: the head and upper body of the attached mascot (keep it identical: antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, same colours and glossy style), happy face with a small open smile, next to a rounded pale lilac (#EFCFF8) speech bubble with three soft purple dots inside. Same chunky, glossy icon style as the attached icon. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no other characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "Feelio accurate: orb antenna, screen face with sparkle eyes, cheeks, belly heart, colourway",
+        "lilac speech bubble with dots, no letters",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "3cfb10aaf09530df620e8107cc749d108ebf9bf30068c016475650740e792d2b"
+    },
+    {
+      "id": "ui.dock_stories",
+      "file": "assets/approved/ui/dock_stories.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: an open storybook with a soft purple (#614194) rounded cover and cream pages, a few small four-point sparkles in lilac and amber rising from the pages. The pages are completely blank: no writing, no scribbles, no pictures. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "open purple storybook, blank pages (no fake writing), brand sparkles",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "bd6e1017e7a1336682622364dc55b4b0c061a0a57cd810445d8b99f6ceffc5df"
+    },
+    {
+      "id": "ui.dock_collection",
+      "file": "assets/approved/ui/dock_collection.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved icon for style and three small brand characters (a heart, a cloud and a star with cute faces). A single game icon, centred, filling about 80% of the frame, no tile or background shape: a rounded keepsake box in soft rose (#FFD8E6 with #C4557C trim), lid open, with the three attached characters peeking out happily, kept identical to the attachments in shape, colour and face. Chunky, rounded, easy to read at small size, same glossy finish as the attached icon. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no other characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "pink keepsake box with the brand heart, cloud and star companions, faces faithful",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "b10bb137b7f9c3d0d1c12be32d74d5eb5af799da080feac27443fabaf2eb08e0"
+    },
+    {
+      "id": "mascot.mascot_head_happy",
+      "file": "assets/approved/mascot/mascot_head_happy.png",
+      "kind": "mascot-pose",
+      "prompt": "Create an image. I attached the official mascot, an approved pose, and its official happy face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks. Show only the head and upper body, from the top of the antenna orb down to just below the screen face (the belly heart is not visible), facing the viewer, centred, filling about 85% of the frame. [FACE: use the attached happy face exactly.] Transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "head and upper body as requested, happy face, antenna orb, cheeks",
+        "reads at small sizes",
+        "no text",
+        "clean alpha on light and dark, not cropped"
+      ],
+      "sha256": "83903d989437209cef5450bc76698e91f034145fcd76ef89c827b48cc215ec04"
     }
   ]
 }
