@@ -21,3 +21,11 @@ test-results/
 Thumbs.db
 .vscode/
 .idea/
+
+# Next.js / tooling (from create-next-app)
+.vercel
+*.pem
+npm-debug.log*
+next-env.d.ts
+public/generated/
+design/asset-index.generated.json
