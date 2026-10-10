@@ -51,7 +51,7 @@
       "stories": "Stories your child asks for, kept for 90 days or until you delete them.",
       "safety_events": "If something worrying is said, a short safety note (not the conversation) for safety review."
     },
-    "consentRights": "You can see, export or delete your child's data at any time, and withdraw consent.",
+    "consentRights": "You can see your child's profile and devices and delete a profile or your whole account at any time. Exporting data and withdrawing consent from the dashboard are coming later in the pilot; until then, contact us.",
     "consentCheckbox": "I am the parent or legal guardian, and I give consent for my child to use Feelio as described.",
     "consentButton": "I agree",
     "childrenTitle": "Your children",

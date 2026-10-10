@@ -144,6 +144,10 @@ Review stops (SPEC: after 0, 1b, 2, 4 and the end) follow the content: after 0, 
 - [ ] DPAs and paid plans: Vercel Pro, Neon, Together (+ written OK for children's data), ElevenLabs (D-009, D-010)
 - [ ] Counsel review of `docs/LEGAL_NOTES.md` and the consent form (CR-5)
 - [ ] Red-team suite passing with 100% recall on high-severity categories (SR-17)
+- [ ] **Verifiable parental consent method** chosen per market and built. The M1 method (`account_reauth_checkbox`) is not one of the methods the COPPA Rule lists (§312.5(b)(2)); see `docs/LEGAL_NOTES.md`
+- [ ] Data export and withdraw-consent built in the dashboard (M3). The consent text says they are coming
+- [ ] Written information-security program and a published data-retention policy (amended COPPA Rule §312.8(b), §312.10; LEGAL_NOTES)
+- [ ] A support contact address for parents (the consent text tells them to "contact us")
 
 ## Still open
 0. **Email provider** for parent email verification and future safety notices: a new third-party service, so the owner chooses (e.g. Resend or Postmark). Until then `REQUIRE_EMAIL_VERIFICATION=false`.
