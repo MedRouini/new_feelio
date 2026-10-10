@@ -1,0 +1,213 @@
+/* Child UI building blocks (DESIGN_SYSTEM.md §5). No shadows (D-042), no cards, no pills.
+   Depth comes from layering, scale and motion; separation from colour or the navy outline. */
+
+/* ---------- Scene: full-screen world background, picked by orientation in CSS ---------- */
+.scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--lilac-50);
+  font-size: var(--fs-say);
+  color: var(--text);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.sceneBg { position: absolute; inset: 0; }
+.sceneBg[data-orient="port"] { display: none; }
+@media (orientation: portrait) {
+  .sceneBg[data-orient="land"] { display: none; }
+  .sceneBg[data-orient="port"] { display: block; }
+}
+.sceneImg {
+  display: block;
+  inline-size: 100% !important;
+  block-size: 100% !important;
+  max-width: none !important;
+  object-fit: cover;
+  aspect-ratio: auto !important;
+  border-radius: 0;
+}
+
+/* ---------- Mascot ---------- */
+.mascot {
+  position: relative;
+  display: inline-block;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  min-inline-size: var(--touch-child);
+  min-block-size: var(--touch-child);
+  transform-origin: 50% 100%;
+}
+.mascotImg { display: block; inline-size: 100%; }
+.mascotBlink {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  /* D-029: only the face area of the blink image is ever shown */
+  mask-image: radial-gradient(ellipse 24% 13% at 50% 38%, #000 70%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 24% 13% at 50% 38%, #000 70%, transparent 100%);
+}
+.mascotBlink[data-on="true"] { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .breathe { animation: breathe var(--m-idle) ease-in-out infinite; }
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.015, 0.985); }
+}
+
+/* Tap feedback shared by every tappable object: squash, then settle */
+.pop { animation: pop var(--m-settle) var(--ease-spring); }
+@keyframes pop {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.12, 0.9); }
+  60% { transform: scale(0.96, 1.05); }
+  100% { transform: scale(1); }
+}
+.wobble { animation: wobble var(--m-wobble) ease-in-out 2; }
+@keyframes wobble {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+.hop { animation: hop 520ms var(--ease-out); }
+@keyframes hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pop, .wobble, .hop { animation: fade 200ms ease-out; }
+  @keyframes fade { from { opacity: 0.6; } to { opacity: 1; } }
+}
+
+/* ---------- Say bubble: delivered frame + caption ---------- */
+.say {
+  position: relative;
+  display: grid;
+  inline-size: min(78vw, 640px);
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+.say > * { grid-area: 1 / 1; }
+.sayFrame { inline-size: 100%; }
+.sayText {
+  align-self: center;
+  justify-self: center;
+  inline-size: 78%;
+  margin-block-end: 9%;
+  font-size: var(--fs-say);
+  line-height: 1.35;
+  font-weight: 700;
+}
+html[lang="ar"] .sayText { line-height: 1.7; }
+
+/* ---------- Name sign: delivered blank wooden sign + code words ---------- */
+.sign { position: relative; display: inline-grid; inline-size: min(60vw, 420px); }
+.sign > * { grid-area: 1 / 1; }
+.signText {
+  align-self: start;
+  justify-self: center;
+  margin-block-start: 15%;
+  inline-size: 78%;
+  text-align: center;
+  font-weight: 700;
+  font-size: var(--fs-word);
+  line-height: 1.2;
+  color: #4a2a12; /* dark brown like the painted map signs; check contrast (≥ 4.5:1) when ui_sign_plate arrives */
+}
+
+/* ---------- Thing button: a delivered object you can touch ---------- */
+.thing {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: var(--touch-child);
+  min-block-size: var(--touch-child);
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--text);
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.thing:focus-visible { outline: 4px solid var(--focus); outline-offset: 4px; border-radius: 24px; }
+.thing[aria-pressed="true"] .thingArt { transform: translateY(-8%) scale(1.06); }
+.thing[aria-pressed="true"]::after {
+  /* chosen: a soft amber ground glow made of brand colour (a flat ellipse, not a drop shadow) */
+  content: "";
+  position: absolute;
+  inset-block-end: 0;
+  inline-size: 70%;
+  block-size: 14%;
+  border-radius: 50%;
+  background: var(--amber-500);
+  opacity: 0.55;
+  z-index: -1;
+}
+.thingArt { inline-size: 100%; transition: transform var(--m-pop) var(--ease-spring); }
+.thingLabel { font-size: var(--fs-word); font-weight: 700; margin-block-start: var(--s1); }
+
+/* ---------- Avatar ---------- */
+.avatar { position: relative; display: inline-block; }
+.avatarBody { display: block; inline-size: 100%; }
+.avatarCompanion {
+  position: absolute;
+  inline-size: 38%;
+  inset-block-start: -6%;
+  inset-inline-end: -22%;
+  animation: float 2.6s ease-in-out infinite;
+}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8%); } }
+@media (prefers-reduced-motion: reduce) { .avatarCompanion { animation: none; } }
+
+/* ---------- Grown-up door (top corner, never the child's main action) ---------- */
+.door {
+  position: fixed;
+  inset-block-start: max(10px, env(safe-area-inset-top));
+  inset-inline-end: max(10px, env(safe-area-inset-right));
+  z-index: 20;
+  inline-size: 64px;
+  block-size: 64px;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  opacity: 0.85;
+}
+.doorRing {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 5px solid var(--purple-500);
+  clip-path: inset(0 calc(100% - var(--p, 0) * 100%) 0 0);
+  pointer-events: none;
+}
+
+/* ---------- Skip (functional icon + word, quiet) ---------- */
+.skip {
+  position: fixed;
+  inset-block-end: max(12px, env(safe-area-inset-bottom));
+  inset-inline-start: max(12px, env(safe-area-inset-left));
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-block-size: 48px;
+  padding-inline: var(--s3);
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}

@@ -1,0 +1,117 @@
+/* Onboarding layout (ONBOARDING.md §2). Landscape: mascot at the start side, choices in the middle.
+   Portrait: bubble on top, mascot, then choices. Logical properties, so Arabic composes right to left;
+   the art itself is never mirrored. No panels, no shadows. */
+
+.scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--lilac-50);
+  color: var(--text);
+  user-select: none;
+  -webkit-user-select: none;
+  display: grid;
+  /* Landscape: Feelio gets the full height of the start column; the bubble sits above the choices. */
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "mascot say"
+    "mascot stage";
+  column-gap: clamp(8px, 2vw, 32px);
+  padding-block: max(14px, env(safe-area-inset-top)) max(70px, env(safe-area-inset-bottom));
+  padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+}
+@media (orientation: portrait) {
+  .scene {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: "say" "mascot" "stage";
+  }
+}
+
+.say {
+  grid-area: say;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding-inline-end: 72px; /* room for the grown-up door in the corner */
+}
+.say > * { inline-size: min(100%, 520px); }
+@media (orientation: portrait) {
+  .say > * { inline-size: min(100%, 440px); }
+}
+
+.mascotSpot {
+  grid-area: mascot;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--s2);
+}
+.mascot { inline-size: min(42vmin, 340px); }
+@media (orientation: portrait) {
+  .mascotSpot { flex-direction: row; justify-content: center; align-items: flex-end; }
+  .mascot { inline-size: min(30vmin, 220px); }
+}
+.aiSign { inline-size: min(40vmin, 340px); }
+
+.stage {
+  grid-area: stage;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 0;
+}
+
+/* the "go on" stepping stone with an arrow */
+.goStone { inline-size: clamp(96px, 15vmin, 128px); }
+.goIcon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-block-end: 14%;
+  color: var(--navy-900);
+}
+
+/* stop 2 */
+.character { display: grid; justify-items: center; gap: var(--s4); inline-size: 100%; }
+.preview { inline-size: min(26vmin, 220px); }
+.choices { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: clamp(8px, 2.5vmin, 28px); }
+.choice { inline-size: clamp(88px, 17vmin, 150px); }
+.nameChoice { inline-size: clamp(120px, 22vmin, 190px); }
+.nameText {
+  position: absolute;
+  inset-inline: 10%;
+  inset-block-start: 22%;
+  text-align: center;
+  font-size: var(--fs-word);
+  font-weight: 700;
+  color: #4a2a12;
+  pointer-events: none;
+}
+
+/* stop 3 */
+.likes { display: grid; justify-items: center; gap: var(--s4); }
+.likeGrid { display: grid; grid-template-columns: repeat(4, auto); gap: clamp(8px, 2vmin, 20px); justify-content: center; }
+@media (orientation: portrait) { .likeGrid { grid-template-columns: repeat(4, auto); } }
+.like { inline-size: clamp(76px, 15vmin, 132px); }
+
+/* stop 4 */
+.mic { display: flex; align-items: flex-end; gap: clamp(16px, 5vmin, 60px); }
+.micObject { inline-size: clamp(110px, 22vmin, 190px); }
+
+/* stop 5: the open gate is revealed only around the gate itself (D-029 technique) */
+.gateReveal {
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 13% 15% at 50% 26%, #000 75%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 13% 15% at 50% 26%, #000 75%, transparent 100%);
+  animation: reveal 700ms ease-out both;
+}
+@keyframes reveal { from { opacity: 0; } to { opacity: 1; } }

@@ -1,5 +1,8 @@
 {
-  "_meta": { "reviewStatus": "draft", "note": "Source language. Child-facing lines need child-development review." },
+  "_meta": {
+    "reviewStatus": "draft",
+    "note": "Source language. Child-facing lines need child-development review."
+  },
   "common": {
     "appName": "Feelio",
     "aiChip": "I'm Feelio, a friendly AI",
@@ -20,7 +23,68 @@
     "askGrownUp": "Grown-up: set up this device",
     "homeHello": "Hi! I'm so happy to see you.",
     "homeComingSoon": "Our world map is on its way.",
-    "aiExplain": "I'm an AI friend. I'm not a person, and I'm always happy when you talk to the grown-ups who love you too."
+    "aiExplain": "I'm an AI friend. I'm not a person, and I'm always happy when you talk to the grown-ups who love you too.",
+    "onb": {
+      "aiSign": "I'm Feelio, a friendly AI",
+      "hello": "Hi! I'm Feelio. I'm a friendly AI. That means I'm not a person. I'm a computer friend who loves talking about feelings.",
+      "makeCharacter": "Shall we make you a character? Tap me to start!",
+      "pickShape": "Which friend is you? Tap one!",
+      "pickColour": "Now pick a colour!",
+      "pickCompanion": "Who will travel with you? A heart, a cloud or a star?",
+      "pickName": "What shall I call you? Pick a name!",
+      "nameHello": "Hello, {name}!",
+      "likes": "What do you like? Pick up to three!",
+      "likesDone": "Great choices! Let's go on.",
+      "micAsk": "When you want to talk with me, tap the microphone. I only listen after you tap. Shall we try?",
+      "micSay": "Now say hello! Watch my ears.",
+      "micHeard": "I heard you! Hello!",
+      "micNo": "That's okay! We can still play.",
+      "micOff": "Your grown-up can turn on talking later. Let's go!",
+      "gate": "Ready? Let's open the gate to your world!",
+      "welcome": "This is your world! Your first place is Home.",
+      "next": "Next",
+      "skip": "Skip",
+      "replay": "Hear it again",
+      "micButton": "Microphone",
+      "openGate": "Open the gate"
+    },
+    "map": {
+      "placeLocked": "{name}: not yet",
+      "placeOpen": "{name}: open",
+      "placeCurrent": "{name}: you are here",
+      "placeDone": "{name}: finished",
+      "notYet": "Not yet! Let's finish {place} first.",
+      "levelsComing": "The adventures here are still being made. Come back soon!",
+      "level": "Level {n}: {title}",
+      "levelLocked": "Level {n}: not yet",
+      "close": "Close",
+      "mapLabel": "Feelio's world map",
+      "you": "You"
+    },
+    "dock": {
+      "map": "Map",
+      "talk": "Talk",
+      "stories": "Stories",
+      "collection": "My collection",
+      "nav": "Main"
+    },
+    "soon": {
+      "talk": "Talking with me is coming soon. For now, let's explore the map!",
+      "stories": "Stories are on their way. Let's explore the map!",
+      "back": "Back to the map"
+    },
+    "collection": {
+      "title": "My collection",
+      "intro": "This is you and your friend!"
+    },
+    "grownup": {
+      "door": "For grown-ups: press and hold",
+      "hold": "Keep holding…"
+    },
+    "offline": {
+      "line": "I'm resting. Let's play again when we're back online!"
+    },
+    "timeUp": "That's all for today! Feelio is going to rest now. See you tomorrow!"
   },
   "parent": {
     "title": "Feelio for parents",
@@ -77,7 +141,48 @@
     "child": "Child",
     "lastUsed": "Last used",
     "expires": "Expires",
-    "never": "Never"
+    "never": "Never",
+    "settingsTitle": "Settings for {name}",
+    "stepOf": "Step {n} of 4",
+    "talkSetting": "Talking with Feelio (voice)",
+    "talkNote": "Voice is in adult testing only for now, until our voice provider approves use by children. Turning this on today only shows the microphone step.",
+    "storiesSetting": "Stories",
+    "dailySetting": "Time per day",
+    "minutes": "{n} minutes",
+    "soundSetting": "Sound effects",
+    "saveSettings": "Save settings",
+    "changeSettings": "Change settings",
+    "handOver": "Last step: give this device to {name}. Open this page on their tablet or phone and press the button below."
   },
-  "ageBands": { "5-6": "5–6 years", "7-9": "7–9 years", "10-12": "10–12 years" }
+  "ageBands": {
+    "5-6": "5–6 years",
+    "7-9": "7–9 years",
+    "10-12": "10–12 years"
+  },
+  "shapes": {
+    "bun": "Round friend",
+    "bean": "Tall friend",
+    "puff": "Fluffy friend"
+  },
+  "colours": {
+    "amber": "Sunny orange",
+    "rose": "Rose pink",
+    "lilac": "Lilac",
+    "sky": "Sky blue"
+  },
+  "companions": {
+    "heart": "Heart",
+    "cloud": "Cloud",
+    "star": "Star"
+  },
+  "interests": {
+    "animals": "Animals",
+    "space": "Space",
+    "music": "Music",
+    "drawing": "Drawing",
+    "ballgames": "Ball games",
+    "nature": "Plants and nature",
+    "blocks": "Building blocks",
+    "sea": "The sea"
+  }
 }

@@ -1,36 +1,51 @@
+import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getChild } from "@/auth/guards";
-import { AiChip } from "@/design/components/AiChip";
-import { AssetImage } from "@/design/components/AssetImage";
-import { env } from "@/platform/env";
+import { getChildView } from "@/child/view";
+import { Dock } from "@/child/ui/Dock";
+import { Mascot } from "@/child/ui/Mascot";
+import { NameSign } from "@/child/ui/NameSign";
+import { Scene } from "@/child/ui/Scene";
+import { loadWorld } from "@/world/load";
+import { MapView } from "@/world/map/MapView";
+import { SayLine } from "./SayLine";
+import { Heartbeat } from "./Heartbeat";
+import { SoundSetting } from "./SoundSetting";
+import { TimeUp } from "./TimeUp";
 import styles from "./child.module.css";
 
-// Child app home (Milestone 1). The interactive world map replaces the greeting in Milestone 1b.
-export default async function ChildHome() {
+// The child app's home: the world map. Before a device is set up: the welcome meadow with Feelio and
+// the grown-up door. Before onboarding is finished: onboarding.
+export default async function ChildHome({ searchParams }: { searchParams: Promise<{ arrive?: string }> }) {
   const child = await getChild();
   const t = await getTranslations("child");
 
   if (!child) {
     return (
-      <main className={styles.screen}>
-        <AiChip />
-        <AssetImage id="mascot_waving" alt="" sizes="(orientation: portrait) 60vw, 34vh" className={styles.mascot} priority />
-        <h1 className={styles.title}>{t("notSetUpTitle")}</h1>
-        <p className={styles.body}>{t("notSetUpBody")}</p>
-        <a className={styles.grownUpLink} href={`${env().DASHBOARD_ORIGIN}/`}>
-          {t("askGrownUp")}
-        </a>
-      </main>
+      <Scene land="scene_meadow_land" port="scene_meadow_port" alt="" testId="not-set-up">
+        <div className={styles.notSetUp}>
+          <SayLine text={`${t("notSetUpTitle")} ${t("notSetUpBody")}`} audioKey="home_notSetUp" />
+          <div className={styles.notSetUpMascot}>
+            <NameSign text={t("onb.aiSign")} className={styles.notSetUpSign} testId="ai-sign" />
+            <Mascot pose="mascot_waving" label={t("onb.aiSign")} sizes="34vmin" className={styles.bigMascot} />
+          </div>
+        </div>
+      </Scene>
     );
   }
 
+  const view = await getChildView(child);
+  if (!view) redirect("/");
+  if (!view.onboarding.done) redirect("/hello");
+  if (view.timeUp) return <TimeUp />;
+  const { arrive } = await searchParams;
+
   return (
-    <main className={styles.screen}>
-      <AiChip />
-      <AssetImage id="mascot_idle" alt="" sizes="(orientation: portrait) 60vw, 34vh" className={styles.mascot} priority />
-      <h1 className={styles.title}>{t("homeHello")}</h1>
-      <p className={styles.body}>{t("aiExplain")}</p>
-      <p className={styles.note}>{t("homeComingSoon")}</p>
-    </main>
+    <>
+      <SoundSetting on={view.sound} />
+      <Heartbeat />
+      <MapView world={loadWorld("base")} state={view.world} locale={view.locale} avatar={view.avatar} arriveFromStart={arrive === "1"} />
+      <Dock active="map" stories={view.features.stories} />
+    </>
   );
 }

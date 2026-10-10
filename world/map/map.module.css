@@ -1,0 +1,156 @@
+/* Interactive global map (MAP.md, DESIGN_SYSTEM.md). The world is the interface: places are tapped on
+   the art itself; badges, fog, ring and marker are delivered images or flat brand-colour shapes. */
+
+.viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #9ccd5a; /* meadow green behind the art while it loads */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.viewport:active { cursor: grabbing; }
+
+.stage {
+  position: absolute;
+  inset-block-start: 0;
+  left: 0; /* physical on purpose: the stage is art space, never mirrored (D-021) */
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.mapImg { display: block; inline-size: 100% !important; block-size: 100% !important; max-width: none !important; aspect-ratio: auto !important; border-radius: 0; }
+
+/* A place: an invisible, generous hit area over the landmark (the art is the button) */
+.place {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 0;
+  padding: 0;
+  background: none;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.place:focus-visible { outline: 5px solid var(--focus); outline-offset: 4px; }
+/* "Not yet": a soft lilac mist over the landmark (flat brand colour, not a shadow) */
+.place[data-state="locked"]::before {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  background: var(--lilac-100);
+  opacity: 0.42;
+}
+
+/* Overlays keep a readable size at any zoom: scale(var(--inv)) undoes the camera zoom */
+.badge {
+  position: absolute;
+  inline-size: 34%;
+  inset-block-start: 4%;
+  inset-inline-end: 4%;
+  transform: scale(var(--inv, 1));
+  transform-origin: 100% 0;
+  pointer-events: none;
+}
+.ring {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ring { animation: ringPulse 2.4s ease-in-out infinite; }
+}
+@keyframes ringPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.85; }
+  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+}
+
+.marker {
+  position: absolute;
+  inline-size: 0;
+  block-size: 0;
+  pointer-events: none;
+}
+.markerInner {
+  position: absolute;
+  inset-block-end: 0;
+  left: 0; /* art space (see .stage): never mirrored */
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  transform: translate(-50%, 0) scale(var(--inv, 1));
+  transform-origin: 50% 100%;
+}
+.markerMascot { inline-size: var(--marker, 96px); pointer-events: auto; }
+.markerAvatar { inline-size: calc(var(--marker, 96px) * 0.62); margin-inline-start: -10%; }
+.hopping { animation: hop 360ms ease-in-out infinite; }
+@keyframes hop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12%); } }
+@media (prefers-reduced-motion: reduce) { .hopping { animation: none; } }
+
+/* ---------- Place view: zoomed-in place with level stones on the map, no panel ---------- */
+.placeView {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  padding-block: max(16px, env(safe-area-inset-top)) calc(var(--dock-h, 120px) + 12px);
+  padding-inline: 16px;
+}
+.placeView > * { pointer-events: auto; }
+.placeSign { inline-size: min(56vw, 360px); }
+.stones {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(6px, 2vw, 20px);
+  flex-wrap: wrap;
+}
+/* the stones sit on a gentle arc, like steps along a path */
+.stones > :nth-child(2), .stones > :nth-child(4) { margin-block-end: 3vmin; }
+.stones > :nth-child(3) { margin-block-end: 5vmin; }
+.stone { inline-size: clamp(76px, 13vmin, 120px); position: relative; }
+.stoneNum {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-block-end: 18%;
+  font-size: var(--fs-big);
+  font-weight: 700;
+  color: var(--navy-900);
+  pointer-events: none;
+}
+.stoneBadge { position: absolute; inline-size: 44%; inset-block-start: -10%; inset-inline-end: -8%; pointer-events: none; }
+.close {
+  position: fixed;
+  inset-block-start: max(12px, env(safe-area-inset-top));
+  inset-inline-start: max(12px, env(safe-area-inset-left));
+  z-index: 11;
+  inline-size: 72px;
+  block-size: 72px;
+  display: grid;
+  place-items: center;
+  border: var(--outline);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--navy-900);
+  cursor: pointer;
+}
+
+.sayWrap {
+  position: fixed;
+  inset-block-start: max(12px, env(safe-area-inset-top));
+  inset-inline: 0;
+  z-index: 12;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.sayWrap > * { pointer-events: auto; }
+.placeView ~ .sayWrap { inset-block-start: auto; inset-block-end: calc(var(--dock-h, 120px) + 26vmin); }

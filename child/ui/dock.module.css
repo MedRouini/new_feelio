@@ -1,0 +1,61 @@
+/* The dock: four objects on a flat lilac meadow mound along the bottom edge (no bar, no shadow). */
+.dock {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: 15;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(4px, 3vw, 40px);
+  padding-block: 18px max(6px, env(safe-area-inset-bottom));
+  padding-inline: 12px;
+  pointer-events: none;
+}
+.dock::before {
+  /* the mound: one big flat ellipse of brand lilac, only its top shows */
+  content: "";
+  position: absolute;
+  inset-inline: -10%;
+  inset-block-end: -140%;
+  block-size: 260%;
+  border-radius: 50%;
+  background: var(--lilac-100);
+  border-block-start: var(--outline);
+  z-index: -1;
+}
+.item {
+  pointer-events: auto;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  min-inline-size: 84px;
+  min-block-size: 84px;
+  color: var(--navy-900);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.item:focus-visible { outline: 4px solid var(--focus); outline-offset: 4px; border-radius: 20px; }
+.art {
+  display: block;
+  inline-size: clamp(64px, 11vmin, 96px);
+  transition: transform var(--m-pop) var(--ease-spring);
+}
+.item:active .art { transform: scale(0.9, 1.08); }
+/* where you are: the object stands up taller, on an amber spot of ground */
+.item[aria-current="page"] .art { transform: translateY(-10px) scale(1.08); }
+.item[aria-current="page"]::after {
+  content: "";
+  display: block;
+  inline-size: 60%;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--amber-500);
+  order: -1;
+  margin-block-end: -12px;
+  align-self: end;
+  grid-row: 1;
+  z-index: -1;
+}
+.label { font-size: 17px; font-weight: 700; line-height: 1.1; text-align: center; }
+html[lang="ar"] .label { font-size: 18px; }

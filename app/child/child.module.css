@@ -1,21 +1,28 @@
-/* Child app: fullscreen, no page scroll, big targets, safe-area aware (SPEC §4.1). */
-.screen {
-  min-block-size: 100dvh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s4);
-  padding-block: max(var(--s6), env(safe-area-inset-top)) max(var(--s6), env(safe-area-inset-bottom));
-  padding-inline: max(var(--s6), env(safe-area-inset-left)) max(var(--s6), env(safe-area-inset-right));
-  background: var(--surface-child);
-  font-size: var(--fs-body-child);
-  text-align: center;
-  overflow: hidden;
+/* Child screens built on Scene (DESIGN_SYSTEM.md): mascot standing in the world, a say-bubble, very
+   little text, no panels or shadows. Logical properties so Arabic composes right to left. */
+
+.notSetUp, .soon, .collection {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  justify-items: center;
+  align-items: end;
+  padding-block: max(16px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-bottom));
+  padding-inline: 16px;
 }
-.mascot { inline-size: min(60vw, 34vh); }
-.title { font-size: var(--fs-title); margin: 0; color: var(--text); }
-.body { margin: 0; max-inline-size: 32ch; }
-.note { margin: 0; color: var(--text-muted); }
-.grownUpLink {
-  display: inline-flex; align-items: center; min-block-size: var(--touch-child);
-  padding-inline: var(--s8); border-radius: var(--r-pill);
-  background: var(--white); color: var(--primary); border: 2px solid var(--primary);
-  font-weight: 700; text-decoration: none; font-size: var(--fs-body-parent);
+.soon, .collection { padding-block-end: 150px; } /* room for the dock */
+.notSetUpMascot { display: flex; align-items: flex-end; gap: var(--s4); }
+.notSetUpSign { inline-size: min(40vmin, 340px); margin-block-end: 6vmin; }
+.bigMascot { inline-size: min(40vmin, 340px); }
+@media (orientation: portrait) {
+  .notSetUpMascot { flex-direction: column; align-items: center; }
+  .notSetUpSign { margin-block-end: 0; }
 }
+
+.soonRow { display: flex; align-items: flex-end; gap: clamp(16px, 5vmin, 56px); }
+.soonDock { inline-size: min(22vmin, 170px); }
+
+.collectionRow { display: flex; align-items: flex-end; gap: clamp(16px, 6vmin, 72px); }
+.collectionAvatar { inline-size: min(36vmin, 300px); }
+.collectionName { inline-size: min(40vmin, 320px); }
