@@ -1,0 +1,38 @@
+.button {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
+  border: 2px solid transparent; border-radius: var(--r-pill);
+  font: inherit; font-weight: 700; cursor: pointer;
+  transition: transform var(--dur-ui) var(--ease-out), box-shadow var(--dur-ui) var(--ease-out);
+}
+.button:active { transform: scale(0.97); }
+.button:disabled { opacity: 0.6; cursor: not-allowed; }
+.parent { min-block-size: var(--touch-parent); padding-inline: var(--s6); font-size: var(--fs-body-parent); }
+.child { min-block-size: var(--touch-child); padding-inline: var(--s8); font-size: var(--fs-body-child); box-shadow: var(--shadow-soft); }
+.primary { background: var(--primary); color: var(--primary-text); }
+.secondary { background: var(--white); color: var(--primary); border-color: var(--primary); }
+.quietDanger { background: var(--white); color: var(--danger-quiet); border-color: var(--danger-quiet); }
+
+.card { background: var(--surface); border-radius: var(--r-card); box-shadow: var(--shadow-soft); padding: var(--s6); }
+
+.field { display: flex; flex-direction: column; gap: var(--s1); margin-block-end: var(--s4); }
+.field label { font-weight: 700; }
+.field input, .field select {
+  min-block-size: var(--touch-parent); padding-inline: var(--s3); font: inherit; color: var(--text);
+  border: 2px solid var(--purple-100); border-radius: var(--r-input); background: var(--white);
+}
+.field input:focus-visible { border-color: var(--focus); }
+.field small { color: var(--text-muted); }
+
+.placeholder {
+  display: grid; place-items: center; text-align: center; padding: var(--s2);
+  background: #d9d9d9; color: #333; border: 2px dashed #888; border-radius: var(--r-input);
+  font-family: ui-monospace, monospace; font-size: 12px;
+}
+
+.aiChip {
+  display: inline-flex; align-items: center; gap: var(--s2); margin: 0;
+  padding-block: var(--s1); padding-inline: var(--s2) var(--s4);
+  background: var(--white); color: var(--text); border-radius: var(--r-pill); box-shadow: var(--shadow-soft);
+  font-weight: 700;
+}
+.aiChipAvatar { inline-size: 32px; block-size: auto; }

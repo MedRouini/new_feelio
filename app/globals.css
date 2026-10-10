@@ -1,0 +1,90 @@
+/* Feelio design tokens. Source: brand/BRAND.md (DRAFT v2) §4 colour, §5 type, §8 UI foundations.
+   Colours are the verified brand values; status colours per BRAND.md §8 (owner, 2026-10-10).
+   Logical properties only (margin-inline, padding-block, inset-inline…) so Arabic RTL mirrors
+   correctly (rtl-i18n-check). No illustrations in CSS (CR-10). */
+
+:root {
+  /* Brand palette (verified against the presentation's vector fills) */
+  --amber-500: #f3b03a;
+  --amber-100: #ffe6ba;
+  --rose-500: #c4557c;
+  --rose-100: #ffd8e6;
+  --purple-500: #614194;
+  --purple-100: #efcff8;
+  --blue-500: #79b1de;
+  --blue-100: #d4ecff;
+  /* Supporting colours found in the brand files */
+  --navy-900: #322a6a;
+  --purple-600: #5742a9;
+  --lilac-50: #f3ecff;
+  --lilac-100: #ece2ff;
+  --lilac-300: #ceb0ff;
+  --white: #ffffff;
+
+  /* Status (meaning first; never colour alone) */
+  --status-locked: #d9d5de;
+  --status-locked-rim: #b3adbd;
+  --status-current: #f3b03a;
+  --status-done: #8fd18a;
+  --status-done-rim: #3e9b4f;
+  --status-check: #2e8b45;
+
+  /* Roles */
+  --text: var(--navy-900); /* 12.5:1 on white, ≥ 8.9:1 on every tint */
+  --text-muted: #4b4380; /* ≥ 7:1 on white */
+  --surface: var(--white);
+  --surface-child: var(--lilac-50);
+  --primary: var(--purple-500); /* white on purple 7.8:1 */
+  --primary-text: var(--white);
+  --accent: var(--amber-500); /* navy on amber 6.6:1 */
+  --focus: var(--purple-600);
+  --danger-quiet: #8a2c4e; /* used only in the parent area for destructive actions; never for child status */
+
+  /* Type (D-023: free OFL fonts for now) */
+  --font-latin: var(--font-balsamiq), "Balsamiq Sans", system-ui, sans-serif;
+  --font-arabic: var(--font-baloo-bhaijaan), "Baloo Bhaijaan 2", "Segoe UI", Tahoma, sans-serif;
+  --text-scale: 1;
+  --fs-body-child: calc(20px * var(--text-scale));
+  --fs-body-parent: calc(16px * var(--text-scale));
+  --fs-title: calc(32px * var(--text-scale));
+  --lh: 1.5;
+
+  /* Spacing (4-pt), radius, touch targets */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s6: 24px; --s8: 32px; --s12: 48px; --s16: 64px;
+  --r-input: 12px; --r-card: 20px; --r-sheet: 28px; --r-pill: 999px;
+  --touch-child: 64px;
+  --touch-parent: 44px;
+  --shadow-soft: 0 6px 16px rgb(50 42 106 / 0.15);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-ui: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-ui: 0ms; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-latin);
+  color: var(--text);
+  background: var(--surface);
+  line-height: var(--lh);
+  -webkit-font-smoothing: antialiased;
+}
+
+html[lang="ar"] body { font-family: var(--font-arabic); line-height: 1.7; }
+/* No letter-spacing or text-transform on Arabic (breaks joining). */
+html[lang="ar"] * { letter-spacing: normal !important; text-transform: none !important; }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+
+a { color: var(--primary); }
+
+/* Visually hidden but readable by screen readers */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

@@ -211,7 +211,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 
 ### Priority 2: Milestone 1b reactions and shell states
 
-### mascot_happy   status: requested
+### mascot_happy   status: approved (2026-10-10)
 - Used in: map (place completed), place card, scenario feedback later
 - Purpose: warm happiness, calmer than excited
 - Size and ratio: 1024×1024 square
@@ -396,7 +396,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | node_current | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | node_completed | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | mascot_head_happy | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
-| mascot_happy | 2026-10-10 | | | P2. Optional: if skipped, "yay" moments use `mascot_feel_excited` |
+| mascot_happy | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |
 | mascot_excited | 2026-10-10 | | | P2. Optional now: `mascot_feel_excited` covers the map tap reaction; generate the hop version only if you want more motion |
 | mascot_waving | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |
 | mascot_idle_blink | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |

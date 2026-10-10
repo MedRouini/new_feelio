@@ -599,6 +599,60 @@
         "clean alpha on light and dark, not cropped"
       ],
       "sha256": "d637e3dd8c4b70f77775b07c0935f88d37a8638fa8b5621d856a6f53d5500548"
+    },
+    {
+      "id": "map.global.horizontal",
+      "file": "assets/approved/map/global_horizental.png",
+      "kind": "map",
+      "prompt": null,
+      "tool": "owner-supplied (pre-dates the protocol)",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "approved_by": "owner",
+      "reviewed_by": "claude-code",
+      "checks": [
+        "owner-approved original map",
+        "contains English sign words (English locale only; D-021)",
+        "filename typo 'horizental' kept until the owner renames it"
+      ],
+      "sha256": "d9a0fab706a8066a7d6cedf68e04cc253e4b764a2d2bf45d7ae7cfe2c904b9ab"
+    },
+    {
+      "id": "map.global.vertical",
+      "file": "assets/approved/map/global_vertical.png",
+      "kind": "map",
+      "prompt": null,
+      "tool": "owner-supplied (pre-dates the protocol)",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "approved_by": "owner",
+      "reviewed_by": "claude-code",
+      "checks": [
+        "owner-approved original map",
+        "contains English sign words (English locale only; D-021)",
+        "filename typo 'horizental' kept until the owner renames it"
+      ],
+      "sha256": "2b83504a5aabe808bd091daf2fcee99e9c7f9ec2d8f50037856c864d9cc2caaa"
+    },
+    {
+      "id": "mascot.mascot_happy",
+      "file": "assets/approved/mascot/mascot_happy.png",
+      "kind": "mascot-pose",
+      "prompt": "Create an image. I attached the official mascot, an approved pose of it, and its official happy face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing, arm-flaps lifted slightly outward and open as if saying \"yay\", body leaning a little to one side] and [FACE: the attached happy face, eyes slightly curved with joy]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "arms open 'yay', happy face",
+        "no mascot drift",
+        "clean alpha, not cropped",
+        "no text"
+      ],
+      "sha256": "21ec8c28a09e8c3dee2154934a50664c2a9ea61c3b31c7daa172a636fcc0b4a3"
     }
   ]
 }

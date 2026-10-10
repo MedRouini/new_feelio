@@ -1,0 +1,21 @@
+/* Child app: fullscreen, no page scroll, big targets, safe-area aware (SPEC §4.1). */
+.screen {
+  min-block-size: 100dvh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s4);
+  padding-block: max(var(--s6), env(safe-area-inset-top)) max(var(--s6), env(safe-area-inset-bottom));
+  padding-inline: max(var(--s6), env(safe-area-inset-left)) max(var(--s6), env(safe-area-inset-right));
+  background: var(--surface-child);
+  font-size: var(--fs-body-child);
+  text-align: center;
+  overflow: hidden;
+}
+.mascot { inline-size: min(60vw, 34vh); }
+.title { font-size: var(--fs-title); margin: 0; color: var(--text); }
+.body { margin: 0; max-inline-size: 32ch; }
+.note { margin: 0; color: var(--text-muted); }
+.grownUpLink {
+  display: inline-flex; align-items: center; min-block-size: var(--touch-child);
+  padding-inline: var(--s8); border-radius: var(--r-pill);
+  background: var(--white); color: var(--primary); border: 2px solid var(--primary);
+  font-weight: 700; text-decoration: none; font-size: var(--fs-body-parent);
+}
