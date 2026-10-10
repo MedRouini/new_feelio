@@ -149,7 +149,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style. A single chunky, rounded padlock badge, closed, in soft warm grey (#D9D5DE body with #9C95A8 shading and a darker #7D7690 shackle) with a small warm amber (#F3B03A) keyhole, a gentle glossy shine, centred, filling about 75% of the frame. Grey means "not yet": friendly and soft, not scary, not dark, not metallic. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No face, no text, no letters, no numbers, no logos, no watermark, no characters.
 
-### badge_star   status: requested
+### badge_star   status: approved (2026-10-10)
 - Used in: global map (completed place), place card (completed level)
 - Purpose: gentle "you did it" marker (effort, not score)
 - Size and ratio: 1024×1024 square
@@ -390,7 +390,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | dock_stories | 2026-10-10 | | | P1 |
 | dock_collection | 2026-10-10 | | | P1 |
 | badge_lock | 2026-10-10 | | | P1 |
-| badge_star | 2026-10-10 | | | P1 |
+| badge_star | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | badge_check | 2026-10-10 | | | P1 |
 | node_locked | 2026-10-10 | | | P1 |
 | node_current | 2026-10-10 | | | P1 |

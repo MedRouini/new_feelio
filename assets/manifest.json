@@ -329,6 +329,25 @@
         "owner chose this version (2026-10-10)"
       ],
       "sha256": "c1a87924abf3d7ada7e3bcb25a8f983c51e651e96e924c5e89fe9efdb986fa63"
+    },
+    {
+      "id": "ui.badge_star",
+      "file": "assets/approved/ui/badge_star.png",
+      "kind": "ui-badge",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved badge; match its style, size and finish exactly. A single plump five-point star with softly rounded tips, warm yellow-amber (#FFC32C to #F3B03A) with a glossy highlight on the upper left, centred, filling about 75% of the frame. No face on the star. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "gold plump five-point star, no face (keeps the star companion's meaning separate)",
+        "glossy, matches the icon set",
+        "clean alpha on light and dark, not cropped",
+        "no text",
+        "made with the old lilac lock as style reference: no effect on its colour"
+      ],
+      "sha256": "61836e01b4ef2d09859350552b08b7874f337cca2d2187ba07f4096821eca9e6"
     }
   ]
 }
