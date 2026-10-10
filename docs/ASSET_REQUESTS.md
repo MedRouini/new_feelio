@@ -281,6 +281,40 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: head and body tilted to one side, one arm-flap raised to the side of the screen face as if scratching its head, antenna bent into a gentle curve] and [FACE: one eyebrow raised, eyes looking up and to the side, a small wavy mouth; puzzled but cheerful, not worried]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no question marks, no symbols, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
+### Priority 2b: the four official feelings on the idle pose (added 2026-10-10)
+> `mascot_idle` already wears the official **happy** face, so it doubles as `mascot_feel_happy`. These three complete the set.
+> **Usage rule:** these faces are for naming feelings. The angry face is never used as Feelio reacting to the child (MASCOT.md).
+
+### mascot_feel_excited   status: requested
+- Used in: feelings check-in on the Talk screen ("How are you feeling?"), scenario feeling choices ("How might Sami feel?"), My collection
+- Purpose: Feelio in the calm idle pose wearing the official **excited** face, so a child can see and name the feeling
+- Size and ratio: same canvas as `mascot_idle` (1254×1254), **pixel-aligned with `mascot_idle`** (only the screen face differs)
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `mascot_idle` (approved), `FACE: excited` (`brand/feelings-expressions/png/face_excited.png`)
+- Save as: `assets/approved/mascot/mascot_feel_excited.png`
+- Prompt (paste into ChatGPT):
+  > Edit the first attached image. Keep everything exactly identical (same character, same pose, same body, arms, feet, antenna, belly heart, colours, highlights, same size and same position in the frame) and change only the face on the dark blue screen: replace it with the face in the second attached image, copied exactly (same eyes, eyebrows, mouth, cheeks). The screen shape and its glossy rim stay as they are. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters, no other changes.
+
+### mascot_feel_sad   status: requested
+- Used in: feelings check-in on the Talk screen ("How are you feeling?"), scenario feeling choices ("How might Sami feel?"), My collection; also the scenario moment when a character feels sad
+- Purpose: Feelio in the calm idle pose wearing the official **sad** face, so a child can see and name the feeling
+- Size and ratio: same canvas as `mascot_idle` (1254×1254), **pixel-aligned with `mascot_idle`** (only the screen face differs)
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `mascot_idle` (approved), `FACE: sad` (`brand/feelings-expressions/png/face_sad.png`)
+- Save as: `assets/approved/mascot/mascot_feel_sad.png`
+- Prompt (paste into ChatGPT):
+  > Edit the first attached image. Keep everything exactly identical (same character, same pose, same body, arms, feet, antenna, belly heart, colours, highlights, same size and same position in the frame) and change only the face on the dark blue screen: replace it with the face in the second attached image, copied exactly (same eyes, eyebrows, mouth, cheeks, including the small tears). The screen shape and its glossy rim stay as they are. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters, no other changes.
+
+### mascot_feel_angry   status: requested
+- Used in: feelings check-in on the Talk screen ("How are you feeling?"), scenario feeling choices ("How might Sami feel?"), My collection
+- Purpose: Feelio in the calm idle pose wearing the official **angry** face, so a child can see and name the feeling
+- Size and ratio: same canvas as `mascot_idle` (1254×1254), **pixel-aligned with `mascot_idle`** (only the screen face differs)
+- Background: transparent PNG (white if transparency fails)
+- Upload with the prompt: `mascot_idle` (approved), `FACE: angry` (`brand/feelings-expressions/png/face_angry.png`)
+- Save as: `assets/approved/mascot/mascot_feel_angry.png`
+- Prompt (paste into ChatGPT):
+  > Edit the first attached image. Keep everything exactly identical (same character, same pose, same body, arms, feet, antenna, belly heart, colours, highlights, same size and same position in the frame) and change only the face on the dark blue screen: replace it with the face in the second attached image, copied exactly (same eyes, eyebrows, mouth, cheeks, including the small anger mark above the screen at the top right; keep that mark exactly as in the face image). The screen shape and its glossy rim stay as they are. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters, no other changes.
+
 ### Priority 3: voice poses of Batch A (Milestone 4; generate in the same sitting if you can)
 
 ### mascot_listening   status: requested
@@ -369,6 +403,9 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 | ring_current | 2026-10-10 | | | P2 |
 | mascot_sleeping | 2026-10-10 | | | P2 (from Batch B, needed for the offline shell) |
 | mascot_confused | 2026-10-10 | | | P2 (from Batch B, needed for error states) |
+| mascot_feel_excited | 2026-10-10 | | | P2b, face swap on mascot_idle |
+| mascot_feel_sad | 2026-10-10 | | | P2b, face swap on mascot_idle |
+| mascot_feel_angry | 2026-10-10 | | | P2b, face swap on mascot_idle; naming only |
 | mascot_listening | 2026-10-10 | | | P3 (voice) |
 | mascot_thinking | 2026-10-10 | | | P3 (voice) |
 | mascot_speaking_half | 2026-10-10 | | | P3 (voice), base for the mouth frames |

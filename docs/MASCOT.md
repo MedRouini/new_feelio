@@ -20,6 +20,7 @@ The mascot is the product's face and guide, present on almost every child screen
 - Always an AI friend: visible chip "I'm Feelio, a friendly AI" in child words, with audio, on the Talk screen and at onboarding.
 - Points back to trusted adults; never presents itself as the child's only friend.
 - Reactions follow the child's feeling: empathy first, celebration only for effort and kindness, not for scores.
+- **Feeling faces** (`mascot_idle` = happy, `mascot_feel_excited`, `mascot_feel_sad`, `mascot_feel_angry`) are for *naming* feelings (check-ins, scenario choices, collection). Feelio never shows the angry face *at* the child or as a reaction to what the child did.
 
 ## State machine (code)
 States: `idle`, `listening`, `thinking`, `speaking`, `happy`, `excited`, `empathy` (sad/caring), `calm`, `proud`, `celebrating`, `confused`, `sleeping`, `waving`, `walking_left`, `walking_right`, `pointing`.
