@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "milestone-*"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      # Dummy values so the app can build and unit tests can import modules. No real secrets in CI.
+      # Integration tests skip unless a DATABASE_URL secret for a separate test branch is configured.
+      DATABASE_URL: ${{ secrets.TEST_DATABASE_URL || 'postgresql://ci:ci@localhost/ci' }}
+      BETTER_AUTH_SECRET: ci-only-not-a-secret-ci-only-not-a-secret-000
+      DATA_ENCRYPTION_KEY: ci-only-not-a-secret-ci-only-not-a-secret-111
+      CRON_SECRET: ci-only-not-a-secret-ci-only-not-a-secret-222
+      HAS_TEST_DB: ${{ secrets.TEST_DATABASE_URL != '' }}
+      APP_ORIGIN: http://localhost:3000
+      DASHBOARD_ORIGIN: http://dashboard.localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Build web assets (generates design/asset-index.generated.json)
+        run: npm run assets:build
+      - name: Lint (includes the safety import boundary, CLAUDE.md rule 1)
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit tests
+        run: npx vitest run tests/unit
+      - name: Integration tests (only with a test database secret)
+        if: env.HAS_TEST_DB == 'true'
+        run: npx vitest run tests/integration
+      - name: Build
+        run: npm run build
