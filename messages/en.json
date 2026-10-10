@@ -28,8 +28,7 @@
       "aiSign": "I'm Feelio, a friendly AI",
       "hello": "Hi! I'm Feelio. I'm a friendly AI. That means I'm not a person. I'm a computer friend who loves talking about feelings.",
       "makeCharacter": "Shall we make you a character? Tap me to start!",
-      "pickShape": "Which friend is you? Tap one!",
-      "pickColour": "Now pick a colour!",
+      "pickColour": "This little friend is you! Pick a colour.",
       "pickCompanion": "Who will travel with you? A heart, a cloud or a star?",
       "pickName": "What shall I call you? Pick a name!",
       "nameHello": "Hello, {name}!",
@@ -158,11 +157,6 @@
     "5-6": "5–6 years",
     "7-9": "7–9 years",
     "10-12": "10–12 years"
-  },
-  "shapes": {
-    "bun": "Round friend",
-    "bean": "Tall friend",
-    "puff": "Fluffy friend"
   },
   "colours": {
     "amber": "Sunny orange",

@@ -160,6 +160,16 @@ html[lang="ar"] .sayText { line-height: 1.7; }
 /* ---------- Avatar ---------- */
 .avatar { position: relative; display: inline-block; }
 .avatarBody { display: block; inline-size: 100%; }
+/* the character's "yay": a happy double hop on its one picture (D-053) */
+@media (prefers-reduced-motion: no-preference) {
+  .cheer .avatarBody { animation: cheer 700ms var(--ease-spring) 2; transform-origin: 50% 100%; }
+}
+@keyframes cheer {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  20% { transform: translateY(0) scale(1.08, 0.92); }
+  50% { transform: translateY(-16%) scale(0.96, 1.05); }
+  80% { transform: translateY(0) scale(1.04, 0.96); }
+}
 .avatarCompanion {
   position: absolute;
   inline-size: 38%;

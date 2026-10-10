@@ -47,9 +47,8 @@ for (const locale of ["en", "ar"] as const) {
       await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-1-hello.png` });
       await page.getByTestId("onb-next").click();
 
-      // Stop 2: character (shape → colour → companion → name).
+      // Stop 2: character (colour → companion → name). One character for now (D-053).
       await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "character");
-      await page.getByTestId("shape-bean").click();
       await page.getByTestId("colour-sky").click();
       await page.getByTestId("companion-heart").click();
       await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-2-character.png` });
@@ -79,7 +78,7 @@ for (const locale of ["en", "ar"] as const) {
       await expect(page).toHaveURL(`${APP}/?arrive=1`, { timeout: 15_000 });
       await expect(page.getByRole("region")).toBeVisible();
       await expect(page.getByTestId("map-marker").locator("[data-pose]")).toBeVisible();
-      await expect(page.locator("[data-avatar]").first()).toHaveAttribute("data-avatar", "bean-sky-heart");
+      await expect(page.locator("[data-avatar]").first()).toHaveAttribute("data-avatar", "bun-sky-heart");
       await expect(page.locator('[data-place="home"]')).toHaveAttribute("data-state", "current");
       await page.waitForTimeout(1500);
       await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-4-map.png` });

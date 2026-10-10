@@ -3,7 +3,6 @@
 // Lines with variables (a name, a place) are not pre-generated; they show as captions only.
 export const VOICE_LINES: Record<string, string> = {
   onb_hello: "child.onb.hello",
-  onb_pickShape: "child.onb.pickShape",
   onb_pickColour: "child.onb.pickColour",
   onb_pickCompanion: "child.onb.pickCompanion",
   onb_pickName: "child.onb.pickName",

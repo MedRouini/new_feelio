@@ -488,3 +488,12 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - load only the current language's font (Arabic and Latin are both loaded today)
   - replace `motion` on the map with CSS / Web Animations
   - lazy-load the place view
+
+## D-053 One character for now
+**Status:** accepted (owner, 2026-10-10)
+- The child's character is `bun` only (the round one: its silhouette differs most from Feelio's tall body), in 4 colours, with one pose.
+- The "yay" moment is a code hop (squash, jump, settle) on the same picture.
+- Colour is chosen by tapping the character in each colour, so paint pots are dropped.
+- Art for the character falls from 25 files to 4 (1 delivered + 3 colour edits). The approved `bean` and `puff` bases stay in `assets/` for later.
+- The data model keeps `shape`, so more characters can come back without a migration. The validator currently only accepts `bun`.
+- Supersedes the shape and cheer parts of D-038.

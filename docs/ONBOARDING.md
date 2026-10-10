@@ -1,4 +1,4 @@
-# Onboarding: "Arriving in Feelio's world" (PLAN v1, awaiting owner approval; nothing built yet)
+# Onboarding: "Arriving in Feelio's world" (v1.1, built in Milestone 1b; simplified by D-053)
 
 Two parts: a short **grown-up part** in the parent dashboard, then the **child's part** on the child's device, led by the mascot. Mostly voice and pictures; almost nothing to read.
 
@@ -43,6 +43,8 @@ The child's part happens in **one place: the welcome meadow**. It's a scene in t
 - **Assets:** `scene_meadow_land`, `scene_meadow_port`, `ui_sign_plate`, `ui_say_bubble`, `mascot_waving`, `mascot_pointing`.
 
 ### Stop 2: Make your character
+> **Updated 2026-10-10 (D-053):** one character (`bun`) for now. The child picks its colour by tapping the character in each of the 4 colours (no shape choice, no paint pots), then a companion and a name. Its "yay" is a code hop (no cheer pose).
+
 - **Idea:** three little **creature friends** stand on stepping stones (not people: D-015 safety choice and no human likeness). Tap one and it hops.
 - **Colour:** four big **paint pots** (flat brand colour circles in code are allowed, but a delivered paint-pot object reads better: `ui_paint_pot`, recoloured by an approved variant, not by code). Tap a pot and the chosen creature changes colour with a little splash bounce.
 - **Companion:** heart, cloud or star floats down beside it (existing brand companion art).
@@ -99,7 +101,7 @@ The child's part happens in **one place: the welcome meadow**. It's a scene in t
 
 ## 5. The avatar: data model and composition (used on the map, Talk, stories, collection)
 - **What it is:** a small Feelio-world **creature**, not a person and not a second mascot. It has **no antenna, no screen face and no belly heart**: those mark the AI mascot, and the child's character must never look like an AI.
-- **Choices:** 3 body shapes × 4 colours × 1 companion choice, out of 3 (heart, cloud, star). Accessories: none in v1 (the model reserves a field).
+- **Choices (D-053):** one shape (`bun`) × 4 colours × 1 companion choice, out of 3 (heart, cloud, star). The data model keeps `shape` so more characters can return later without a migration. Accessories: none.
 
 ```ts
 type Avatar = {
@@ -116,7 +118,7 @@ type Avatar = {
   - `Avatar` renders the delivered image `avatar_{shape}_{colour}_{pose}` and places the delivered companion image beside it.
   - Poses: `idle` and `cheer`. Walking on the map is a **hop** (a code transform on `idle`), so no walking poses are needed.
   - The avatar may be flipped horizontally for direction. It isn't the mascot (whose never-mirror rule stands), and the creature designs are symmetric, which the prompts require.
-  - Total avatar images: 3 × 4 × 2 = **24**, made as 3 base designs, then colour edits, then the cheer pose.
+  - Total avatar images: **4** (`bun` in amber, rose, lilac, sky). The cheer is a code hop.
 - **Where it appears:**
 
 | Place | How |

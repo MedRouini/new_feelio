@@ -4,7 +4,7 @@ import { INTERESTS, NICKNAMES, onboardingUpdateSchema } from "@/child/options";
 import { AVATAR_COLOURS, AVATAR_POSES, AVATAR_SHAPES, EXPECTED_ASSETS } from "@/design/asset-ids";
 
 describe("onboarding input (fixed lists only, ONBOARDING.md §4)", () => {
-  const ok = { step: 2, avatar: { v: 1, shape: "bean", colour: "sky", companion: "heart" }, nickname: "pip", interests: ["space", "music"] };
+  const ok = { step: 2, avatar: { v: 1, shape: "bun", colour: "sky", companion: "heart" }, nickname: "pip", interests: ["space", "music"] };
 
   it("accepts values from the lists", () => {
     expect(onboardingUpdateSchema.safeParse(ok).success).toBe(true);
@@ -15,6 +15,7 @@ describe("onboarding input (fixed lists only, ONBOARDING.md §4)", () => {
     const bad = [
       { ...ok, nickname: "Sami Ahmed" },
       { ...ok, avatar: { ...ok.avatar, colour: "black" } },
+      { ...ok, avatar: { ...ok.avatar, shape: "bean" } }, // one character for now (D-053)
       { ...ok, interests: ["space", "music", "sea", "animals"] },
       { ...ok, interests: ["guns"] },
       { ...ok, step: 9 },

@@ -29,7 +29,7 @@ export default async function Collection() {
         <div className={styles.collection}>
           <SayLine text={t("intro")} audioKey="collection_intro" />
           <div className={styles.collectionRow}>
-            <Avatar avatar={view.avatar} pose="cheer" sizes="36vmin" className={styles.collectionAvatar} />
+            <Avatar avatar={view.avatar} cheer sizes="36vmin" className={styles.collectionAvatar} />
             {view.name ? <NameSign text={view.name} className={styles.collectionName} testId="child-name" /> : null}
           </div>
         </div>

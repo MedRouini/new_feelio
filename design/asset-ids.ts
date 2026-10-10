@@ -16,7 +16,6 @@ const square = [
   "dock_map", "dock_talk", "dock_stories", "dock_collection",
   "badge_lock", "badge_star", "badge_check", "node_locked", "node_current", "node_completed", "ring_current",
   "ui_grownup_door", "ui_mic_object",
-  "ui_paint_pot_amber", "ui_paint_pot_rose", "ui_paint_pot_lilac", "ui_paint_pot_sky",
   "like_animals", "like_space", "like_music", "like_drawing", "like_ballgames", "like_nature", "like_blocks", "like_sea",
   // brand companions (exported from the official SVGs)
   "companion_heart", "companion_cloud", "companion_star",
@@ -26,9 +25,11 @@ const wide = ["ui_sign_plate", "ui_say_bubble"] as const;
 const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open"] as const;
 const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open"] as const;
 
-export const AVATAR_SHAPES = ["bun", "bean", "puff"] as const;
+// D-053 (owner, 2026-10-10): one character for now ("bun"), four colours, one pose. Its "yay" is a
+// code hop. The approved bean/puff bases stay in assets/ for later but are not used.
+export const AVATAR_SHAPES = ["bun"] as const;
 export const AVATAR_COLOURS = ["amber", "rose", "lilac", "sky"] as const;
-export const AVATAR_POSES = ["idle", "cheer"] as const;
+export const AVATAR_POSES = ["idle"] as const;
 export type AvatarShape = (typeof AVATAR_SHAPES)[number];
 export type AvatarColour = (typeof AVATAR_COLOURS)[number];
 export type AvatarPose = (typeof AVATAR_POSES)[number];

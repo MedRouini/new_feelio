@@ -28,9 +28,9 @@ describe.skipIf(!process.env.DATABASE_URL)("child flow (integration, synthetic d
   });
 
   it("onboarding saves choices for this child only, and resumes", async () => {
-    await applyOnboardingUpdate(childA, { step: 2, avatar: { v: 1, shape: "puff", colour: "lilac", companion: "cloud" }, nickname: "parent" });
+    await applyOnboardingUpdate(childA, { step: 2, avatar: { v: 1, shape: "bun", colour: "lilac", companion: "cloud" }, nickname: "parent" });
     const v = await getChildView(childA);
-    expect(v?.avatar).toEqual({ v: 1, shape: "puff", colour: "lilac", companion: "cloud" });
+    expect(v?.avatar).toEqual({ v: 1, shape: "bun", colour: "lilac", companion: "cloud" });
     expect(v?.name).toBe("Laila");
     expect(v?.onboarding).toEqual({ step: 2, done: false });
     const other = await getChildView(childB);

@@ -13,7 +13,7 @@ import { play } from "@/child/ui/sound";
 import uiStyles from "@/child/ui/ui.module.css";
 import { COMPANIONS, INTERESTS, MAX_INTERESTS, NICKNAMES, type Avatar as AvatarChoice, type Interest } from "@/child/options";
 import { AssetImage } from "@/design/components/AssetImage";
-import { AVATAR_COLOURS, AVATAR_SHAPES, type AssetId } from "@/design/asset-ids";
+import { AVATAR_COLOURS, type AssetId } from "@/design/asset-ids";
 import styles from "./onboarding.module.css";
 
 // Onboarding "Arriving in Feelio's world" (docs/ONBOARDING.md). One scene, five stops, led by the mascot.
@@ -21,7 +21,7 @@ import styles from "./onboarding.module.css";
 
 type Stop = "hello" | "character" | "likes" | "mic" | "gate";
 const STOPS: Stop[] = ["hello", "character", "likes", "mic", "gate"];
-type CharPart = "shape" | "colour" | "companion" | "name";
+type CharPart = "colour" | "companion" | "name";
 
 type Props = {
   locale: "en" | "ar";
@@ -42,7 +42,6 @@ async function save(body: Record<string, unknown>) {
 
 export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabled, parentNickname }: Props) {
   const t = useTranslations("child.onb");
-  const ts = useTranslations("shapes");
   const tc = useTranslations("colours");
   const tco = useTranslations("companions");
   const ti = useTranslations("interests");
@@ -52,7 +51,7 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
   const entryFor = (st: Stop, pt: CharPart): { line: { text: string; key: string }; pose: MascotPose } => {
     if (st === "hello") return { line: { text: t("hello"), key: "onb_hello" }, pose: "mascot_waving" };
     if (st === "character") {
-      const k = pt === "shape" ? "pickShape" : pt === "colour" ? "pickColour" : pt === "companion" ? "pickCompanion" : "pickName";
+      const k = pt === "colour" ? "pickColour" : pt === "companion" ? "pickCompanion" : "pickName";
       return { line: { text: t(k), key: `onb_${k}` }, pose: "mascot_pointing" };
     }
     if (st === "likes") return { line: { text: t("likes"), key: "onb_likes" }, pose: "mascot_pointing" };
@@ -66,13 +65,13 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
   };
   const initialStop = STOPS[Math.min(startStep, STOPS.length - 1)];
   const [stop, setStop] = useState<Stop>(initialStop);
-  const [part, setPart] = useState<CharPart>("shape");
+  const [part, setPart] = useState<CharPart>("colour");
   const [avatar, setAvatar] = useState<AvatarChoice>(initialAvatar);
   const [cheer, setCheer] = useState(false);
   const [nickname, setNickname] = useState<string | null>(null);
   const [likes, setLikes] = useState<Interest[]>([]);
-  const [line, setLine] = useState(() => entryFor(initialStop, "shape").line);
-  const [pose, setPose] = useState<MascotPose>(() => entryFor(initialStop, "shape").pose);
+  const [line, setLine] = useState(() => entryFor(initialStop, "colour").line);
+  const [pose, setPose] = useState<MascotPose>(() => entryFor(initialStop, "colour").pose);
   const enter = (st: Stop, pt: CharPart) => {
     const e = entryFor(st, pt);
     setLine(e.line);
@@ -92,7 +91,7 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
     if (ok) {
       play("whoosh");
       setStop(next);
-      enter(next, "shape");
+      enter(next, "colour");
     }
   };
 
@@ -214,17 +213,11 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
 
         {stop === "character" ? (
           <div className={styles.character}>
-            <Avatar avatar={avatar} pose={cheer ? "cheer" : "idle"} sizes="34vmin" className={styles.preview} />
+            <Avatar avatar={avatar} cheer={cheer} sizes="34vmin" className={styles.preview} />
             <div className={styles.choices} data-part={part}>
-              {part === "shape"
-                ? AVATAR_SHAPES.map((shape) => (
-                    <ThingButton key={shape} art={`avatar_${shape}_${avatar.colour}_idle`} label={ts(shape)} sizes="18vmin" className={styles.choice}
-                      pressed={avatar.shape === shape} sound="pick" testId={`shape-${shape}`} onPress={() => choose({ shape }, "colour")} />
-                  ))
-                : null}
               {part === "colour"
                 ? AVATAR_COLOURS.map((colour) => (
-                    <ThingButton key={colour} art={`ui_paint_pot_${colour}`} label={tc(colour)} sizes="16vmin" className={styles.choice}
+                    <ThingButton key={colour} art={`avatar_${avatar.shape}_${colour}_idle`} label={tc(colour)} sizes="16vmin" className={styles.choice}
                       pressed={avatar.colour === colour} sound="pick" testId={`colour-${colour}`} onPress={() => choose({ colour }, "companion")} />
                   ))
                 : null}

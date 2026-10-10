@@ -383,8 +383,8 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 |---|---|---|---|
 | 1 | Avatar base designs | 3 | Decides the whole character concept: approve these before the 21 variants |
 | 2 | Welcome meadow scenes | 2 | Every onboarding stop happens here |
-| 3 | Onboarding objects | 10 | Name sign (AI disclosure), say-bubble, grown-up door, mic, open-gate scene edits ×2, paint pots ×4 |
-| 4 | Avatar variants | 21 | 9 colour edits + 12 cheer poses, all edits of the approved bases |
+| 3 | Onboarding objects | 6 | Name sign (AI disclosure), say-bubble, grown-up door, mic, open-gate scene edits ×2 (paint pots no longer needed, D-053) |
+| 4 | Character colours | 3 | `bun` in rose, lilac and sky (D-053: one character, one pose) |
 | 5 | "What do you like?" pictures, plus `mascot_pointing` | 9 | |
 
 ### Group 1: avatar base designs (one chat)
@@ -505,7 +505,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Edit the attached image. Keep everything exactly identical (same size, composition, path, grass, flowers, trees, sky, colours, art style, the stone gate pillars) and change only the two wooden gate doors: swing them wide open inwards, so through the open gateway we see a soft warm golden glow of light and a hint of green hills. Do not move, add or remove anything else. No text, no letters, no logos, no watermark, no people, no characters.
 
-### ui_paint_pot_amber   status: requested
+### ui_paint_pot_amber   status: not needed (D-053: the child picks the character's colour directly)
 - Used in: Onboarding stop 2: choose a colour
 - Purpose: A paint pot; the other three colours are edits of it
 - Size and ratio: 1024x1024 square
@@ -515,7 +515,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style. A single small chunky paint pot seen from the front, slightly from above, open, full of thick glossy amber (#F3B03A) paint with one round drip running down the side. Pot body light cream with a navy (#322A6A) rim. Centred, filling about 75% of the frame, no ground shadow, no brush. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### ui_paint_pot_rose   status: requested
+### ui_paint_pot_rose   status: not needed (D-053: the child picks the character's colour directly)
 - Used in: Onboarding stop 2: choose a colour
 - Purpose: Paint pot, rose
 - Size and ratio: 1024x1024 square
@@ -525,7 +525,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Edit the attached image. Keep everything exactly identical (pot, rim, size, position, drip shape) and change only the paint colour to soft rose #E0729A, with a matching glossy highlight. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### ui_paint_pot_lilac   status: requested
+### ui_paint_pot_lilac   status: not needed (D-053: the child picks the character's colour directly)
 - Used in: Onboarding stop 2: choose a colour
 - Purpose: Paint pot, lilac
 - Size and ratio: 1024x1024 square
@@ -535,7 +535,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Edit the attached image. Keep everything exactly identical (pot, rim, size, position, drip shape) and change only the paint colour to soft lilac #B79AE6, with a matching glossy highlight. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### ui_paint_pot_sky   status: requested
+### ui_paint_pot_sky   status: not needed (D-053: the child picks the character's colour directly)
 - Used in: Onboarding stop 2: choose a colour
 - Purpose: Paint pot, sky
 - Size and ratio: 1024x1024 square
@@ -545,22 +545,17 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Edit the attached image. Keep everything exactly identical (pot, rim, size, position, drip shape) and change only the paint colour to sky blue #79B1DE, with a matching glossy highlight. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### Group 4: avatar variants (one chat per shape; each is an EDIT of an approved image)
-Use the approved base as the only upload. Same size, position and face; only the colour or pose changes.
+### Group 4: character colours (only 3 files; one chat; each is an EDIT of the approved `bun`)
+> **Owner decision 2026-10-10 (D-053): one character for now (`bun`), four colours, no cheer pose** (the "yay" is a code hop). The approved `bean` and `puff` bases are kept for later but not used. Paint pots are not needed: the child taps the character in each colour.
 
-**Colour edits (9 files):** upload `avatar_{shape}_amber_idle` and paste, replacing COLOUR:
-> Edit the attached image. Keep the character exactly identical (shape, face, eyes, cheeks, arms, feet, size, position in the frame, highlights and shading style) and change only the body colour to COLOUR, with a matching lighter highlight on the upper left and slightly deeper shading at the bottom. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters.
+Upload `avatar_bun_amber_idle` (approved) and paste, replacing COLOUR:
+> Edit the attached image. Keep the character exactly identical (shape, ears, face, eyes, cheeks, arms, feet, outline, size, position in the frame, highlights and shading style) and change only the body colour to COLOUR, with a matching lighter highlight on the upper left, slightly deeper shading at the bottom and a matching slightly darker outline. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters.
 
 | Save as (`assets/approved/avatar/`) | COLOUR |
 |---|---|
-| `avatar_bun_rose_idle.png`, `avatar_bean_rose_idle.png`, `avatar_puff_rose_idle.png` | soft rose #E0729A |
-| `avatar_bun_lilac_idle.png`, `avatar_bean_lilac_idle.png`, `avatar_puff_lilac_idle.png` | soft lilac #B79AE6 |
-| `avatar_bun_sky_idle.png`, `avatar_bean_sky_idle.png`, `avatar_puff_sky_idle.png` | sky blue #79B1DE |
-
-**Cheer poses (12 files):** upload the matching `avatar_{shape}_{colour}_idle` and paste:
-> Edit the attached image. Keep the same character, colour, face style, size and position in the frame. Change only the pose: a happy little jump with both feet just off the ground and both arms raised, eyes curved with joy and an open smile. Still front view and perfectly symmetric. Transparent background PNG (plain white if transparency fails). No text, no letters, no logos, no watermark, no extra characters.
-
-Save as `avatar_{shape}_{colour}_cheer.png` for every shape (bun, bean, puff) × colour (amber, rose, lilac, sky).
+| `avatar_bun_rose_idle.png` | soft rose #E0729A |
+| `avatar_bun_lilac_idle.png` | soft lilac #B79AE6 |
+| `avatar_bun_sky_idle.png` | sky blue #79B1DE |
 
 ### Group 5: "What do you like?" pictures + one mascot pose (one chat; upload `dock_map` (approved) each time)
 

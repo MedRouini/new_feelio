@@ -8,18 +8,18 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 - When you deliver a file and it's approved, it replaces the box automatically on the next build. No code change is needed.
 - To list what's still missing: `missingAssets()` in `design/assets.ts`.
 
-## Open: art (46 assets, as of 2026-10-10)
+## Open: art (as of 2026-10-10, after D-053)
 | Group (`docs/ASSET_REQUESTS.md`) | Assets | Visible in Milestone 1b |
 |---|---|---|
-| Onboarding objects (Batch 2, group 3) | `ui_sign_plate`, `ui_say_bubble`, `ui_grownup_door`, `ui_mic_object`, `ui_paint_pot_amber/rose/lilac/sky` | **Yes, on every child screen.** Sign, bubble and door appear everywhere; pots and mic in onboarding |
+| Onboarding objects (Batch 2, group 3) | `ui_sign_plate`, `ui_say_bubble`, `ui_grownup_door`, `ui_mic_object` | **Yes, on every child screen.** Sign, bubble and door appear everywhere; the mic in onboarding |
 | Open-gate scenes (Batch 2, group 3) | `scene_meadow_land_open`, `scene_meadow_port_open` | Yes (onboarding stop 5) |
-| Avatar variants (Batch 2, group 4) | 21 files: rose, lilac, sky idle × 3 shapes, plus cheer × 12 | Yes, whenever a colour other than amber or a cheer pose is shown |
+| Character colours (Batch 2, group 4) | `avatar_bun_rose_idle`, `avatar_bun_lilac_idle`, `avatar_bun_sky_idle` | Yes, when a colour other than amber is shown |
 | "What do you like?" (Batch 2, group 5) | `like_animals`, `like_space`, `like_music`, `like_drawing`, `like_ballgames`, `like_nature`, `like_blocks`, `like_sea` | Yes (onboarding stop 3) |
 | Mascot poses | `mascot_pointing` (Batch 2), `mascot_listening` (Batch 1 P3) | Yes (onboarding stops 2–4) |
 | Mascot poses, optional | `mascot_excited` | No: the map uses `mascot_feel_excited` until it exists |
 | Mascot voice poses (Milestone 5) | `mascot_thinking`, `mascot_speaking_half/closed/open` | No |
 
-**Milestone 1b closes when the 38 assets in the first five rows are delivered and approved.**
+**Milestone 1b closes when the 19 assets in the first five rows are delivered and approved** (was 38; D-053 removed 19).
 
 ## Open: functionality gaps (honest, visible, never faked)
 | Gap | Where | Why | Closes |
