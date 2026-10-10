@@ -383,24 +383,25 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 |---|---|---|---|
 | 1 | Avatar base designs | 3 | Decides the whole character concept: approve these before the 21 variants |
 | 2 | Welcome meadow scenes | 2 | Every onboarding stop happens here |
-| 3 | Onboarding objects | 10 | Name sign (AI disclosure), say-bubble, grown-up door, mic, gate ×2, paint pots ×4 |
+| 3 | Onboarding objects | 10 | Name sign (AI disclosure), say-bubble, grown-up door, mic, open-gate scene edits ×2, paint pots ×4 |
 | 4 | Avatar variants | 21 | 9 colour edits + 12 cheer poses, all edits of the approved bases |
 | 5 | "What do you like?" pictures, plus `mascot_pointing` | 9 | |
 
 ### Group 1: avatar base designs (one chat)
 > These are the **child's own character**: a small creature, NOT the mascot (no antenna, no screen face, no belly heart, so it never looks like an AI) and NOT a human child (safety, D-015). Front view and **symmetric** (the app may flip it to face the walking direction).
 
-### avatar_bun_amber_idle   status: requested
+### avatar_bun_amber_idle   status: redo (2026-10-10)
 - Used in: Onboarding stop 2 (choose your character); map, Talk, stories, collection (ONBOARDING.md §5)
 - Purpose: Base design of the 'bun' character shape (amber); every other bun variant is an edit of this image
 - Size and ratio: 1024x1024 square
 - Background: transparent PNG (white if transparency fails)
-- Upload with the prompt: `OFFICIAL MASCOT` (style reference only)
+- Upload with the prompt: `avatar_bean_amber_idle` (approved; match its outline and finish), `OFFICIAL MASCOT` (style reference only)
+- Redo reason: a wide whitish glow/halo around the whole edge (rejection checklist), and no outline, so it did not match bean and puff. Keep the design itself (round bun, little round ears).
 - Save as: assets/approved/avatar/avatar_bun_amber_idle.png
 - Prompt (paste into ChatGPT):
-  > Create an image. Square 1:1, transparent background. I attached our mascot only as a STYLE reference (same glossy kawaii vector finish, same soft lighting from the top-left, same level of detail). Draw a DIFFERENT, new character: a small round, soft, bun-shaped creature, almost a ball, slightly wider than tall, with two tiny rounded ears on top. Simple face drawn directly on the body: two big round dark eyes with small white sparkle highlights, a small happy smile, rosy pink cheeks. Tiny stubby arms and two round feet. Body colour warm amber #F3B03A with a soft lighter highlight on the upper left and gentle deeper shading at the bottom. IMPORTANT, it must NOT look like the attached mascot: no antenna, no orb, no screen or visor on the face, no heart on the belly, no gradient to purple. Standing calmly, facing the viewer, perfectly symmetric left and right. Full body, centred, filling about 75% of the frame, no ground shadow, no props. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+  > Create an image. Square 1:1, transparent background. I attached an approved character (match its thin darker-orange outline, glossy finish, eye style and proportions of face to body) and our mascot only as a STYLE reference (same glossy kawaii vector finish, same soft lighting from the top-left, same level of detail). Draw a DIFFERENT, new character: a small round, soft, bun-shaped creature, almost a ball, slightly wider than tall, with two tiny rounded ears on top. Simple face drawn directly on the body: two big round dark eyes with small white sparkle highlights, a small happy smile, rosy pink cheeks. Tiny stubby arms and two round feet. Body colour warm amber #F3B03A with a soft lighter highlight on the upper left and gentle deeper shading at the bottom. IMPORTANT, it must NOT look like the attached mascot: no antenna, no orb, no screen or visor on the face, no heart on the belly, no gradient to purple. Standing calmly, facing the viewer, perfectly symmetric left and right. Full body, centred, filling about 75% of the frame, no ground shadow, no props. Crisp, clean edges: NO glow, NO halo, NO soft light around the outside of the character, NO blur at the edges; a thin darker-orange outline all the way round like the attached character. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### avatar_bean_amber_idle   status: requested
+### avatar_bean_amber_idle   status: approved (2026-10-10)
 - Used in: Onboarding stop 2 (choose your character); map, Talk, stories, collection (ONBOARDING.md §5)
 - Purpose: Base design of the 'bean' character shape (amber); every other bean variant is an edit of this image
 - Size and ratio: 1024x1024 square
@@ -410,7 +411,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached our mascot only as a STYLE reference (same glossy kawaii vector finish, same soft lighting from the top-left, same level of detail). Draw a DIFFERENT, new character: a small, gently rounded bean-shaped creature, a bit taller than wide, with two little soft leaf-like tufts on top of its head. Simple face drawn directly on the body: two big round dark eyes with small white sparkle highlights, a small happy smile, rosy pink cheeks. Tiny stubby arms and two round feet. Body colour warm amber #F3B03A with a soft lighter highlight on the upper left and gentle deeper shading at the bottom. IMPORTANT, it must NOT look like the attached mascot: no antenna, no orb, no screen or visor on the face, no heart on the belly, no gradient to purple. Standing calmly, facing the viewer, perfectly symmetric left and right. Full body, centred, filling about 75% of the frame, no ground shadow, no props. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### avatar_puff_amber_idle   status: requested
+### avatar_puff_amber_idle   status: approved (2026-10-10)
 - Used in: Onboarding stop 2 (choose your character); map, Talk, stories, collection (ONBOARDING.md §5)
 - Purpose: Base design of the 'puff' character shape (amber); every other puff variant is an edit of this image
 - Size and ratio: 1024x1024 square
@@ -422,7 +423,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 
 ### Group 2: welcome meadow scenes (one chat)
 
-### scene_meadow_land   status: requested
+### scene_meadow_land   status: approved (2026-10-10)
 - Used in: Onboarding (all 5 stops)
 - Purpose: The welcome meadow where the child arrives and makes their character
 - Size and ratio: 1536x1024 landscape
@@ -432,7 +433,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Create an image. Wide 3:2 landscape scene. I attached our approved game map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. A sunny, calm welcome meadow: soft green grass with a few flowers and small bushes near the edges, a pale lilac sky with two or three soft white clouds at the top. A short, wide, light-beige path starts at the bottom centre and leads straight up the middle to a closed friendly wooden garden gate at the back centre, with a low hedge on either side of the gate. The left and right halves of the meadow are open, flat and EMPTY (big free space for characters to stand), and the composition is balanced and nearly symmetric. No buildings, no signs, no people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### scene_meadow_port   status: requested
+### scene_meadow_port   status: approved (2026-10-10)
 - Used in: Onboarding (all 5 stops)
 - Purpose: The welcome meadow where the child arrives and makes their character
 - Size and ratio: 1024x1536 portrait
@@ -484,25 +485,25 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single chunky, friendly microphone like a toy: a round soft-lilac (#EFCFF8) mesh head with a purple (#614194) band and a short rounded amber (#F3B03A) handle, standing upright on a small round base. Glossy highlight on the upper left. No face. Centred, filling about 75% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### ui_gate_closed   status: requested
-- Used in: Onboarding stop 5: the gate to the world
-- Purpose: The garden gate, closed
-- Size and ratio: 1024x1024 square
-- Background: transparent PNG (white if transparency fails)
-- Upload with the prompt: `scene_meadow_land` (approved), `dock_map` (approved)
-- Save as: assets/approved/ui/ui_gate_closed.png
+### scene_meadow_land_open   status: requested
+- Used in: Onboarding stop 5 (the gate opens; the app reveals only the gate area over the closed scene, so small drift elsewhere does not show)
+- Purpose: the same meadow with the gate open
+- Size and ratio: 1536x1024 landscape
+- Background: none (full scene, opaque)
+- Upload with the prompt: `scene_meadow_land` (approved)
+- Save as: assets/approved/world/scene_meadow_land_open.png
 - Prompt (paste into ChatGPT):
-  > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish. Copy the wooden garden gate from the attached meadow scene as a single separate object, seen from the front: two rounded wooden gate doors, CLOSED, with two posts and a little arch of green leaves and small flowers on top. Centred, filling about 85% of the frame, no ground, no shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
+  > Edit the attached image. Keep everything exactly identical (same size, composition, path, grass, flowers, trees, sky, colours, art style, the stone gate pillars) and change only the two wooden gate doors: swing them wide open inwards, so through the open gateway we see a soft warm golden glow of light and a hint of green hills. Do not move, add or remove anything else. No text, no letters, no logos, no watermark, no people, no characters.
 
-### ui_gate_open   status: requested
-- Used in: Onboarding stop 5: the gate opens
-- Purpose: The same gate, open; pixel-aligned with the closed one
-- Size and ratio: 1024x1024 square
-- Background: transparent PNG (white if transparency fails)
-- Upload with the prompt: `ui_gate_closed` (approved)
-- Save as: assets/approved/ui/ui_gate_open.png
+### scene_meadow_port_open   status: requested
+- Used in: Onboarding stop 5 (the gate opens; the app reveals only the gate area over the closed scene, so small drift elsewhere does not show)
+- Purpose: the same meadow with the gate open
+- Size and ratio: 1024x1536 portrait
+- Background: none (full scene, opaque)
+- Upload with the prompt: `scene_meadow_port` (approved)
+- Save as: assets/approved/world/scene_meadow_port_open.png
 - Prompt (paste into ChatGPT):
-  > Edit the attached image. Keep everything exactly identical (posts, arch, leaves, size, position in the frame) and change only the two gate doors: swing them wide OPEN towards the viewer, so the middle of the gate is empty and transparent. Transparent background PNG (plain white if transparency fails). No text, no letters, no numbers, no logos, no watermark, no extra characters.
+  > Edit the attached image. Keep everything exactly identical (same size, composition, path, grass, flowers, trees, sky, colours, art style, the stone gate pillars) and change only the two wooden gate doors: swing them wide open inwards, so through the open gateway we see a soft warm golden glow of light and a hint of green hills. Do not move, add or remove anything else. No text, no letters, no logos, no watermark, no people, no characters.
 
 ### ui_paint_pot_amber   status: requested
 - Used in: Onboarding stop 2: choose a colour

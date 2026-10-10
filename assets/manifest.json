@@ -653,6 +653,80 @@
         "no text"
       ],
       "sha256": "21ec8c28a09e8c3dee2154934a50664c2a9ea61c3b31c7daa172a636fcc0b4a3"
+    },
+    {
+      "id": "avatar.avatar_bean_amber_idle",
+      "file": "assets/approved/avatar/avatar_bean_amber_idle.png",
+      "kind": "avatar",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached our mascot only as a STYLE reference (same glossy kawaii vector finish, same soft lighting from the top-left, same level of detail). Draw a DIFFERENT, new character: a small, gently rounded bean-shaped creature, a bit taller than wide, with two little soft leaf-like tufts on top of its head. Simple face drawn directly on the body: two big round dark eyes with small white sparkle highlights, a small happy smile, rosy pink cheeks. Tiny stubby arms and two round feet. Body colour warm amber #F3B03A with a soft lighter highlight on the upper left and gentle deeper shading at the bottom. IMPORTANT, it must NOT look like the attached mascot: no antenna, no orb, no screen or visor on the face, no heart on the belly, no gradient to purple. Standing calmly, facing the viewer, perfectly symmetric left and right. Full body, centred, filling about 75% of the frame, no ground shadow, no props. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "tall bean creature, leaf tufts",
+        "clearly not the mascot: no antenna, no screen face, no belly heart",
+        "thin darker-orange outline, glossy finish",
+        "front view, near-symmetric",
+        "clean alpha, no stray pixels, not cropped",
+        "no text"
+      ],
+      "sha256": "21aed1216652fc7d040015fb51e2aa780063ecd926598cd090fda663b2ca6472"
+    },
+    {
+      "id": "avatar.avatar_puff_amber_idle",
+      "file": "assets/approved/avatar/avatar_puff_amber_idle.png",
+      "kind": "avatar",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached our mascot only as a STYLE reference (same glossy kawaii vector finish, same soft lighting from the top-left, same level of detail). Draw a DIFFERENT, new character: a small fluffy cloud-puff creature with a soft scalloped outline like a little cloud, chubby and round. Simple face drawn directly on the body: two big round dark eyes with small white sparkle highlights, a small happy smile, rosy pink cheeks. Tiny stubby arms and two round feet. Body colour warm amber #F3B03A with a soft lighter highlight on the upper left and gentle deeper shading at the bottom. IMPORTANT, it must NOT look like the attached mascot: no antenna, no orb, no screen or visor on the face, no heart on the belly, no gradient to purple. Standing calmly, facing the viewer, perfectly symmetric left and right. Full body, centred, filling about 75% of the frame, no ground shadow, no props. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "fluffy cloud-puff creature",
+        "clearly not the mascot",
+        "outline matches bean",
+        "front view, near-symmetric",
+        "clean alpha, not cropped",
+        "no text"
+      ],
+      "sha256": "270ed983a9b94454168c4ba33097139bf65ea0f15fe4e6e674c5668d22675aa5"
+    },
+    {
+      "id": "scene.scene_meadow_land",
+      "file": "assets/approved/world/scene_meadow_land.png",
+      "kind": "scene",
+      "prompt": "Create an image. Wide 3:2 landscape scene. I attached our approved game map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. A sunny, calm welcome meadow: soft green grass with a few flowers and small bushes near the edges, a pale lilac sky with two or three soft white clouds at the top. A short, wide, light-beige path starts at the bottom centre and leads straight up the middle to a closed friendly wooden garden gate at the back centre, with a low hedge on either side of the gate. The left and right halves of the meadow are open, flat and EMPTY (big free space for characters to stand), and the composition is balanced and nearly symmetric. No buildings, no signs, no people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "matches the approved map style and camera",
+        "path to a closed wooden gate, open meadow on both sides",
+        "no text, no people, no characters"
+      ],
+      "sha256": "1151a46c86c3363f2112d948347d440b6a361809773d1b5067e8c578ec6c9b4f"
+    },
+    {
+      "id": "scene.scene_meadow_port",
+      "file": "assets/approved/world/scene_meadow_port.png",
+      "kind": "scene",
+      "prompt": "Create an image. Tall 2:3 portrait scene. I attached our approved game map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. A sunny, calm welcome meadow: soft green grass with a few flowers and small bushes near the edges, a pale lilac sky with two or three soft white clouds at the top. A short, wide, light-beige path starts at the bottom centre and leads straight up the middle to a closed friendly wooden garden gate at the back centre, with a low hedge on either side of the gate. The left and right halves of the meadow are open, flat and EMPTY (big free space for characters to stand), and the composition is balanced and nearly symmetric. No buildings, no signs, no people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "matches the landscape scene and the map",
+        "open space for characters",
+        "no text, no people"
+      ],
+      "sha256": "f1f4a3c0477ab5347d64fa75f86bdfb0ccb61a33960d264382c7e95a3d3c5d8e"
     }
   ]
 }
