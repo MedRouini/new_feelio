@@ -6,7 +6,7 @@
 | Layer | Choice | Why (details in DECISIONS.md) |
 |---|---|---|
 | App + API | **Next.js (App Router, TypeScript), Node.js runtime route handlers** on Vercel Hobby. Not FastAPI | One language end to end. ElevenLabs React SDK, Better Auth and Drizzle are TypeScript. Streaming route handlers fit the custom-LLM proxy. Vercel now recommends Node over Edge (Edge is unsupported from Next.js 16.3). D-001 |
-| Hosting | Vercel Hobby: 300 s max function duration (Fluid Compute), 4.5 MB request and response bodies, single region (`iad1` default), daily-only cron | Dev and small pilot only. Hobby is personal and non-commercial, with no DPA (D-010) |
+| Hosting | Vercel Hobby: 300 s max function duration (Fluid Compute), 4.5 MB request and response bodies, single region, set to `fra1` (Frankfurt, D-030), daily-only cron | Dev and small pilot only. Hobby is personal and non-commercial, with no DPA (D-010) |
 | Database | **Neon** Postgres (free tier) + Drizzle ORM | Plain Postgres, branches for previews, Vercel integration. Synthetic data only (no DPA on free tiers) |
 | Auth | **Better Auth** (MIT, self-hosted in our Postgres) | §6, D-002 |
 | Voice | ElevenLabs Agents, WebRTC, custom LLM → our proxy | §4, D-003 and D-004. **Usage-policy blocker: D-005** |

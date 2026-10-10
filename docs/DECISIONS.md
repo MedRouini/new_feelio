@@ -320,3 +320,16 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - A full-image swap would make Feelio twitch. So the app layers the blink image over `mascot_idle` and shows it only through a soft mask covering the screen face (CSS `mask-image` on the delivered image, allowed by the asset protocol) for about 150 ms.
 - The body always comes from `mascot_idle`.
 - No redo needed. The speaking mouth frames (Milestone 5) still need true pixel alignment, or they'll use the same mask approach.
+
+## D-030 Region: Frankfurt for the database and Vercel functions
+**Status:** accepted (owner, 2026-10-10)
+- **Neon project:** AWS Europe Central (Frankfurt).
+- **Vercel functions:** region `fra1`, set in `vercel.json`. Hobby allows one function region, and it can be changed. App and database must sit together.
+- **Why:**
+  - Closer to the likely users (Arabic-speaking North Africa and Middle East, Europe).
+  - EU data location fits the strict privacy baseline.
+  - Cheapest to decide before any data exists.
+- **Cost:**
+  - Together AI (no region choice; US-hosted) and ElevenLabs' servers that call our voice proxy are outside the EU. Each voice turn adds about 0.15–0.2 s of transatlantic round trips (estimate). Measured in the Milestone 2 voice spike, against the 2 s target.
+  - Browser↔ElevenLabs audio is unaffected.
+  - Data sent to Together and ElevenLabs still leaves the EU. That is covered in LEGAL_NOTES and the provider DPAs (D-009).
