@@ -309,42 +309,6 @@
         "no text"
       ],
       "sha256": "17f18569de3e27917c1117b4f9a0fe10e2cdc35425ecfee14a77a44436264d8e"
-    },
-    {
-      "id": "brand.motif_dashed_arrow",
-      "file": "brand/assets/png/motif_dashed_arrow.png",
-      "kind": "brand-export",
-      "source": "brand/assets/arrow.svg",
-      "tool": "headless Chrome rasterisation of the official SVG (no redraw)",
-      "prompt": null,
-      "date": "2026-10-10",
-      "chat_link": null,
-      "approved": true,
-      "reviewed_by": "claude-code",
-      "checks": [
-        "matches the SVG",
-        "true alpha",
-        "not cropped"
-      ],
-      "sha256": "df84b371832f5027749f38cad64494d7f153e98ebb52e95957948f03cc799060"
-    },
-    {
-      "id": "brand.motif_sparkle",
-      "file": "brand/assets/png/motif_sparkle.png",
-      "kind": "brand-export",
-      "source": "brand/assets/star.svg",
-      "tool": "headless Chrome rasterisation of the official SVG (no redraw)",
-      "prompt": null,
-      "date": "2026-10-10",
-      "chat_link": null,
-      "approved": true,
-      "reviewed_by": "claude-code",
-      "checks": [
-        "matches the SVG",
-        "true alpha",
-        "not cropped"
-      ],
-      "sha256": "6270c493659e2235f01b23b49e942219ed6444864a6c263104a94259848ffcdb"
     }
   ]
 }
