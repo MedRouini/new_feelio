@@ -727,6 +727,25 @@
         "no text, no people"
       ],
       "sha256": "f1f4a3c0477ab5347d64fa75f86bdfb0ccb61a33960d264382c7e95a3d3c5d8e"
+    },
+    {
+      "id": "avatar.avatar_bun_amber_idle",
+      "file": "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "kind": "avatar",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved character (match its thin darker-orange outline, glossy finish, eye style and proportions of face to body) and our mascot only as a STYLE reference (same glossy kawaii vector finish, same soft lighting from the top-left, same level of detail). Draw a DIFFERENT, new character: a small round, soft, bun-shaped creature, almost a ball, slightly wider than tall, with two tiny rounded ears on top. Simple face drawn directly on the body: two big round dark eyes with small white sparkle highlights, a small happy smile, rosy pink cheeks. Tiny stubby arms and two round feet. Body colour warm amber #F3B03A with a soft lighter highlight on the upper left and gentle deeper shading at the bottom. IMPORTANT, it must NOT look like the attached mascot: no antenna, no orb, no screen or visor on the face, no heart on the belly, no gradient to purple. Standing calmly, facing the viewer, perfectly symmetric left and right. Full body, centred, filling about 75% of the frame, no ground shadow, no props. Crisp, clean edges: NO glow, NO halo, NO soft light around the outside of the character, NO blur at the edges; a thin darker-orange outline all the way round like the attached character. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-10",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "redo fixed: no glow/halo (low-alpha edge pixels 443k -> 12k)",
+        "thin darker-orange outline, matches bean and puff",
+        "clearly not the mascot",
+        "clean alpha, not cropped",
+        "no text"
+      ],
+      "sha256": "183d5ebb2f65752320922c24d74d73535cc67d73413bd0754c99192da236ee67"
     }
   ]
 }

@@ -390,7 +390,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 ### Group 1: avatar base designs (one chat)
 > These are the **child's own character**: a small creature, NOT the mascot (no antenna, no screen face, no belly heart, so it never looks like an AI) and NOT a human child (safety, D-015). Front view and **symmetric** (the app may flip it to face the walking direction).
 
-### avatar_bun_amber_idle   status: redo (2026-10-10)
+### avatar_bun_amber_idle   status: approved (2026-10-10, after one redo)
 - Used in: Onboarding stop 2 (choose your character); map, Talk, stories, collection (ONBOARDING.md §5)
 - Purpose: Base design of the 'bun' character shape (amber); every other bun variant is an edit of this image
 - Size and ratio: 1024x1024 square
