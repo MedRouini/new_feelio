@@ -162,6 +162,7 @@ White on purple 7.80, white on navy 12.54, white on rose 4.25 (large text only),
 - **Motion:** 150–250 ms ease-out for UI, 400–700 ms spring for mascot reactions. Everything is disabled or replaced by a fade under `prefers-reduced-motion`.
 - **Sound:** short, soft cues paired with icons. Fixed audio is pre-generated (SPEC §3.2).
 - **Surfaces:** child app on page lilac #F3ECFF or white with lilac cloud shapes. Parent area on white with purple accents, no mascot or a small one.
+- **Status colours [I] (owner, 2026-10-10):** meaning first, and never colour alone (each state also has its own icon or motion). **Locked** = soft warm grey (#D9D5DE, rim #B3ADBD) + lock badge. **Current** = amber (#F3B03A) + gentle pulse. **Completed** = fresh green (#8FD18A, rim #3E9B4F) + gold star. **Check** = green disc (#2E8B45) with a white check (4.29:1). Navy numbers stay readable on all of them (grey 8.67, amber 6.62, green 6.96). **No red anywhere for status:** there are no failure states.
 - **Functional icons:** one library (proposal: Lucide, ISC licence), rounded 2 px stroke in navy. Only for back, close, settings, mic, play/pause, and similar.
 
 ## 9. Gaps still open (needed by the product, not in the brand)

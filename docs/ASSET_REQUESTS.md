@@ -141,13 +141,13 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 
 ### badge_lock   status: requested
 - Used in: global map (locked place), place card (locked level node overlay)
-- Purpose: a friendly "not yet" marker, never scary or punishing
+- Purpose: a friendly "not yet" marker (grey = not yet), never scary or punishing
 - Size and ratio: 1024×1024 square
 - Background: transparent PNG (white if transparency fails)
 - Upload with the prompt: `dock_map` (approved)
 - Save as: `assets/approved/ui/badge_lock.png`
 - Prompt (paste into ChatGPT):
-  > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style. A single chunky, rounded padlock badge, closed, in soft lilac and purple (#EFCFF8 body with #614194 shading and a small amber #F3B03A keyhole), a gentle glossy shine, centred, filling about 75% of the frame. Friendly and soft, not scary, not metallic grey. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No face, no text, no letters, no numbers, no logos, no watermark, no characters.
+  > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style. A single chunky, rounded padlock badge, closed, in soft warm grey (#D9D5DE body with #9C95A8 shading and a darker #7D7690 shackle) with a small warm amber (#F3B03A) keyhole, a gentle glossy shine, centred, filling about 75% of the frame. Grey means "not yet": friendly and soft, not scary, not dark, not metallic. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No face, no text, no letters, no numbers, no logos, no watermark, no characters.
 
 ### badge_star   status: requested
 - Used in: global map (completed place), place card (completed level)
@@ -161,13 +161,13 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 
 ### badge_check   status: requested
 - Used in: place card (finished scenario inside a level), collection
-- Purpose: a small "done" mark that is calmer than the star
+- Purpose: a small "done" mark (green), calmer than the star
 - Size and ratio: 1024×1024 square
 - Background: transparent PNG (white if transparency fails)
 - Upload with the prompt: `badge_lock` (approved), `badge_star` (approved)
 - Save as: `assets/approved/ui/badge_check.png`
 - Prompt (paste into ChatGPT):
-  > Create an image. Square 1:1, transparent background. I attached two approved badges; match their style, size and finish exactly. A single round badge: a soft purple (#614194) disc with a lighter lilac rim and a thick, rounded white checkmark in the middle, gentle glossy highlight on the upper left, centred, filling about 75% of the frame. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No face, no text, no letters, no numbers, no logos, no watermark, no characters.
+  > Create an image. Square 1:1, transparent background. I attached two approved badges; match their style, size and finish exactly. A single round badge: a fresh green disc (#3E9B4F to #2E8B45) with a lighter green rim (#8FD18A) and a thick, rounded white checkmark in the middle (green means "done"), gentle glossy highlight on the upper left, centred, filling about 75% of the frame. Flat 2D vector-style illustration for a children's mobile game, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No face, no text, no letters, no numbers, no logos, no watermark, no characters.
 
 ### node_locked   status: requested
 - Used in: place card, level node in the locked state (code adds the level number and `badge_lock`)
@@ -177,7 +177,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Upload with the prompt: `MAP H` (the round stone pads are the style reference), `badge_lock` (approved)
 - Save as: `assets/approved/ui/node_locked.png`
 - Prompt (paste into ChatGPT):
-  > Create an image. Square 1:1, transparent background. I attached our game map (look at the round stone pads on the path) and an approved badge for finish. A single round game level button seen from slightly above, like a thick rounded stepping stone with a flat empty top and a soft darker rim, in muted lilac-grey (#DCD3EC top, #B9AED3 rim), with a gentle highlight. The top face is completely empty (no number, no symbol, no lock). Centred, filling about 80% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no characters.
+  > Create an image. Square 1:1, transparent background. I attached our game map (look at the round stone pads on the path) and an approved badge for finish. A single round game level button seen from slightly above, like a thick rounded stepping stone with a flat empty top and a soft darker rim, in soft warm grey (#D9D5DE top, #B3ADBD rim), with a gentle highlight. Grey means "not yet": calm, not dark, not sad. The top face is completely empty (no number, no symbol, no lock). Centred, filling about 80% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, minimal shading, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no characters.
 
 ### node_current   status: requested
 - Used in: place card, the level the child plays next
@@ -191,13 +191,13 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 
 ### node_completed   status: requested
 - Used in: place card, finished level (code adds the number and `badge_star`)
-- Purpose: calm "done, replay any time" state
+- Purpose: "done, replay any time" state (green = done)
 - Size and ratio: 1024×1024 square
 - Background: transparent PNG (white if transparency fails)
 - Upload with the prompt: `node_locked` (approved)
 - Save as: `assets/approved/ui/node_completed.png`
 - Prompt (paste into ChatGPT):
-  > Create an image. Square 1:1, transparent background. I attached an approved level button. Keep exactly the same shape, size, angle and finish, and change only the colours: a soft purple top (#7A5AB0 to #614194) with a lighter lilac rim (#EFCFF8). The top face stays completely empty. Centred, same framing as the attachment, no ground shadow. No text, no letters, no numbers, no symbols, no logos, no watermark, no characters.
+  > Create an image. Square 1:1, transparent background. I attached an approved level button. Keep exactly the same shape, size, angle and finish, and change only the colours: a fresh green top (#8FD18A to #6CC070) with a deeper green rim (#3E9B4F). Green means "done". The top face stays completely empty. Centred, same framing as the attachment, no ground shadow. No text, no letters, no numbers, no symbols, no logos, no watermark, no characters.
 
 ### mascot_head_happy   status: requested
 - Used in: the "I'm Feelio, a friendly AI" chip (Talk screen, onboarding), small avatar buttons, place-card speech line
