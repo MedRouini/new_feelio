@@ -1,0 +1,16 @@
+{
+  "id": "baseline",
+  "name": "Strict common baseline (no market chosen)",
+  "status": "draft",
+  "note": "SPEC §1 and §8: the strictest common baseline applies until markets are chosen. Requires legal review.",
+  "minParentAge": 18,
+  "ageOfDigitalConsent": 16,
+  "consent": {
+    "method": "account_reauth_checkbox",
+    "policyVersion": "2026-10-draft-1",
+    "scopes": ["child_profile", "progress", "usage_limits", "voice_companion", "stories", "safety_events"],
+    "reviewStatus": "draft_requires_legal_review"
+  },
+  "locales": ["en", "ar"],
+  "defaultLocale": "en"
+}
