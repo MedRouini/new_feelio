@@ -27,6 +27,6 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 | Talk shows "coming soon" | `app/child/talk/page.tsx` (`TODO(PLACEHOLDER)`) | The voice companion is Milestone 5 | Milestone 5 |
 | Stories shows "coming soon" | `app/child/stories/page.tsx` (`TODO(PLACEHOLDER)`) | The storybook generator is Milestone 6 | Milestone 6 |
 | Level stones say "adventures are being made" | `world/map/MapView.tsx` | No reviewed scenarios yet (`scenarioIds: []`) | Milestone 4 |
-| Fixed voice lines are captions only | `safety/voice-lines/` | Waiting for you to choose voices and allow the run (D-037). Dry run: 38 lines, 1,687 chars ≈ 844–1,687 credits | When you pick the voices |
+| Fixed voice lines are captions only | `safety/voice-lines/` | Waiting for you to choose voices and allow the run (D-037). Dry run: 36 lines, 1,672 chars ≈ 836–1,672 credits | When you pick the voices |
 | Parent email verification is off | `auth/server.ts` | No email provider chosen | When you pick a provider |
 | Screen-time days are counted in UTC | `child/usage.ts` | Household timezone and schedule settings come in Milestone 3 | Milestone 3 |
