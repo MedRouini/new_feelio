@@ -36,5 +36,13 @@ Claude Code asks you to approve project MCP servers in `.mcp.json` the first tim
 | ElevenLabs CLI `@elevenlabs/cli` 1.4.0 | github.com/elevenlabs/cli | Browser OAuth login | ElevenLabs | Not needed: SPEC requires `scripts/sync_voice_agent.py` through the API, which uses the existing key server-side. Could replace it later if you prefer |
 | ElevenLabs MCP (local, deprecated; or hosted `api.elevenlabs.io/v1/mcp`) | elevenlabs/elevenlabs-mcp 0.12.2 | API key or OAuth | ElevenLabs | **Do not install.** It spends the scarce credits, can modify or delete the agent and its safety-proxy config (a CR-1 bypass), can read conversation transcripts (future child data), and can place outbound calls or clone voices |
 
+## Development dependencies with network or install effects (Milestone 1)
+| Item | Version | Note |
+|---|---|---|
+| Playwright Chromium (headless shell) | 156.0.8078.4 (playwright 1.64) | Downloaded once from Microsoft's CDN into `%LOCALAPPDATA%\ms-playwright` for `npm run test:e2e`. Remove: `npx playwright uninstall` |
+| npm install scripts | n/a | npm blocks dependency install scripts by default; **none are approved** (`allowScripts` is empty). `@swc/core` was approved briefly, then removed when the next-intl plugin was dropped (D-034) |
+| `auth` CLI (Better Auth) | 1.7.7 via `npx` | Used once to generate `platform/db/schema/auth.ts`; telemetry off; nothing installed |
+| next-devtools-mcp | not installed yet | Planned in TOOLS v1 for Next 16+. Deferred: not needed so far, and it would add a telemetry opt-out to maintain |
+
 ## Other tools used in Milestone 0 (not installed in the project)
 - **PyMuPDF 1.23.26**, installed only into the session scratchpad (not the repo) to render the brand PDF and read its vector fill colours. Nothing to remove from the project.

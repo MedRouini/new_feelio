@@ -333,3 +333,55 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - Together AI (no region choice; US-hosted) and ElevenLabs' servers that call our voice proxy are outside the EU. Each voice turn adds about 0.15–0.2 s of transatlantic round trips (estimate). Measured in the Milestone 2 voice spike, against the 2 s target.
   - Browser↔ElevenLabs audio is unaffected.
   - Data sent to Together and ElevenLabs still leaves the EU. That is covered in LEGAL_NOTES and the provider DPAs (D-009).
+
+---
+## Milestone 1 decisions
+
+## D-031 Cache Components off
+**Status:** accepted · 2026-10-10
+- `create-next-app` 16.4 enables `cacheComponents`. With it on, every per-user page must sit behind Suspense boundaries, and caching rules extend to session-derived data (Next 16 guide "Authentication with Cache Components", read 2026-10-10).
+- Nearly every Feelio page is per-user, and child data must never be cached on the server, so it is off. Pages render dynamically. Revisit for static marketing pages only.
+
+## D-032 One deployment, two hosts (child app and parent dashboard)
+**Status:** accepted (owner: dashboard on its own subdomain, 2026-10-10)
+- One Next.js app. `proxy.ts` routes by host (`APP_ORIGIN`, `DASHBOARD_ORIGIN`).
+- Child pages live under internal `app/child`, parent pages under `app/parent`. Both prefixes are unreachable directly on either host (unit-tested in `platform/hosts.ts`).
+- Better Auth and `/api/parent/*` only exist on the dashboard host; `/api/child/*` only on the child host.
+- Cookies are host-only, so the parent session never reaches the child host.
+- **Two Next 16 behaviours found in testing, and how they're handled:**
+  - (1) Next renders a server-action redirect target in-process with the server's own `Host` but keeps `x-forwarded-host`. The proxy therefore prefers `x-forwarded-host`. On Vercel the edge sets it.
+  - (2) Parent redirects use absolute dashboard URLs (`dashboardRedirect`), so they are real navigations.
+- Both were caught by the end-to-end test (a parent redirect briefly rendered the child page) and are covered by it now.
+
+## D-033 Child device hand-off
+**Status:** accepted · 2026-10-10
+- The parent opens the dashboard **on the child's device**, signs in (counts as the adult gate) and presses "Set up this device".
+- `/api/parent/devices` (origin-checked, parent scope) creates a Better Auth API key with `configId: child-device`:
+  - SHA-256 hashed at rest
+  - 30-day expiry
+  - permission `child:play`
+  - metadata `{childId, householdId}`
+  - 300 requests/min
+- It returns a page that auto-POSTs the key to `/api/child/device/claim` on the child host (origin-checked). That route verifies the key and stores it in an httpOnly, host-only cookie.
+- The key never appears in a URL, log or history.
+- In the same response the parent is **signed out on that device**, so the child can't reach the parent area during the gate window.
+- Not Better Auth's device-authorization plugin: it would hand the child the parent's session.
+- **Found in E2E:** a global `Referrer-Policy: same-origin` makes browsers send `Origin: null` on this cross-origin POST, and the origin check (correctly) refused it. The policy is now `strict-origin-when-cross-origin`.
+
+## D-034 next-intl configured without its plugin
+**Status:** accepted · 2026-10-10
+- next-intl's Next plugin loads `@swc/core` at start for an optional message-extraction feature. On this Windows machine, SWC's native loader refuses to run because `C:\` grants all users modify rights (its cache-root safety check).
+- The plugin only contributes one thing for our setup: the `next-intl/config` alias. That alias is set directly in `next.config.ts` (`turbopack.resolveAlias`), and the plugin is not loaded.
+- No install-script approvals are kept in `package.json` (npm `allowScripts` is empty).
+
+## D-035 Fonts loaded through `next/font/google`
+**Status:** accepted · 2026-10-10
+- Balsamiq Sans and Baloo Bhaijaan 2 (both OFL, D-023) are downloaded at build time and self-hosted by Next. The browser never contacts Google.
+
+## D-036 Adult gate implementation
+**Status:** accepted · 2026-10-10
+- Parent area: the session must have passed a password re-check within `ADULT_GATE_MINUTES` (30).
+- Destructive actions (delete child, delete account): within `ADULT_GATE_SENSITIVE_MINUTES` (5).
+- The re-check uses Better Auth `auth.api.verifyPassword` (server-only). The pass is stored in our `adult_gate` table keyed by session, so it is not a token of our own.
+- Signing in or signing up counts as a pass (the password was just typed).
+- Per-market alternatives (e.g. card checks) can be added in market config later.
