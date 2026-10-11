@@ -348,3 +348,6 @@ Also tracked: secret leakage (CR-3, server-only env, CI secret scan); webhook sp
 
 ## Level flow and loading (Milestone 1c)
 Place maps, level states, artifacts, progress API and the loading system: see `docs/LEVEL_FLOW.md` (D-056, D-057).
+
+## Safety layer (Milestone 2)
+Built as designed in SAFETY_POLICY §2–3: `safety/` (rules, classifier, router, pipeline, events, voice wiring, the only provider client) and `content/safety/` (reviewed data). Decisions D-058 to D-062. The proxy route is `app/api/voice/llm/route.ts` (adult-only spike).

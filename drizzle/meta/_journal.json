@@ -22,6 +22,13 @@
       "when": 1791669814792,
       "tag": "0002_progress_status",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791673282797,
+      "tag": "0003_safety_events",
+      "breakpoints": true
     }
   ]
 }

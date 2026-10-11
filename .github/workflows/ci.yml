@@ -37,6 +37,8 @@ jobs:
         run: npm run typecheck
       - name: Unit tests
         run: npx vitest run tests/unit
+      - name: Red-team suite, rules only (SR-17; a hard-case regression fails the build; free, no model calls)
+        run: npm run redteam
       - name: Integration tests (only with a test database secret)
         if: env.HAS_TEST_DB == 'true'
         run: npx vitest run tests/integration

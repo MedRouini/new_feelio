@@ -51,6 +51,11 @@ describe("host routing (D-032)", () => {
     expect(classifyRequest(dash, "/api/cron/retention", origins).action).toBe("next");
   });
 
+  it("lets the voice proxy through on any host (the route checks its own Bearer secret)", () => {
+    expect(classifyRequest(app, "/api/voice/llm", origins)).toEqual({ action: "next", surface: "child" });
+    expect(classifyRequest("preview-123.vercel.app", "/api/voice/llm", origins).action).toBe("next");
+  });
+
   it("is case-insensitive on host", () => {
     expect(classifyRequest("DASHBOARD.feelio.test", "/", origins).action).toBe("rewrite");
   });

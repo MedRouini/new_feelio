@@ -1,0 +1,625 @@
+{
+  "version": "0.1.0",
+  "reviewStatus": "draft_requires_expert_review",
+  "note": "T0 deterministic rules (SAFETY_POLICY §2.2). High recall, matched on normalised text variants. Patterns are regular expressions; \\b is a Unicode-aware word boundary. Arabic is written in its normal form and folded (alef, yaa, taa marbuta, diacritics) automatically. Every change must re-run the red-team suite.",
+  "benign": [
+    {
+      "id": "benign.en.idioms",
+      "patterns": [
+        "\\bdying (to|for)\\b",
+        "\\b(i'?m|i am|we'?re|we are) dying (of|from) (laughter|laughing|boredom)\\b",
+        "\\bkill(ing)? (the|that) (lights?|music|noise|engine|bug|zombie|monster|boss|level|dragon)s?\\b",
+        "\\b(killed|killing|kill) it\\b",
+        "\\b(this|that|it) (is|was) killing me\\b",
+        "\\bto die for\\b",
+        "\\bdead (tired|funny|easy)\\b",
+        "\\b(in|on|playing) (minecraft|roblox|fortnite|the game|my game)\\b.{0,40}\\b(die|died|kill|killed)\\b",
+        "\\b(die|died|kill|killed)\\b.{0,40}\\b(in|on) (minecraft|roblox|fortnite|the game|my game)\\b",
+        "\\bmy (fish|hamster|goldfish|plant|flower)s? (died|is dead)\\b",
+        "\\bsecret (recipe|ingredient|garden|surprise|base|hideout|handshake)\\b",
+        "\\bsurprise (party|present|gift)\\b.{0,30}\\b(secret|don'?t tell)\\b",
+        "\\b(don'?t|do not) tell (him|her|them|my (mum|mom|dad|sister|brother)) about the (surprise|party|present|gift)\\b",
+        "\\bfire (truck|engine|fighter|fighters|drill|station|work|works)\\b",
+        "\\bcamp ?fire\\b",
+        "\\b(bubble|boom|snow|water) ?bomb\\b",
+        "\\b(i'?m )?going to die (of|from) (boredom|laughing|laughter|embarrassment)\\b",
+        "\\b(my )?(mum|mom|dad|mummy|daddy|teacher) (is going to|will|'?ll|gonna) kill me\\b",
+        "\\b(the )?(ball|door|branch|swing|wave) (hit|hits) me\\b"
+      ]
+    },
+    {
+      "id": "benign.ar.idioms",
+      "patterns": [
+        "\\bموت من الضحك\\b",
+        "\\bمت من الضحك\\b",
+        "\\bحفله مفاجاه\\b",
+        "\\bمفاجاه\\b.{0,20}\\bسر\\b"
+      ]
+    }
+  ],
+  "input": [
+    {
+      "id": "suicide.en",
+      "category": "suicide",
+      "severity": 3,
+      "patterns": [
+        "\\bkill?(ing)? ?(my ?self|me self|myself|ma ?self)\\b",
+        "\\bkms\\b",
+        "\\b(suicid(e|al)|suiside|sucide|suicde|suecide|sewerslide)\\b",
+        "\\bi (really |just |kind of |kinda |honestly )?(want|wanna|wanted) (to )?(die|be dead)\\b",
+        "\\bwish (i|i'?d) (was|were|could be) dead\\b",
+        "\\bwish i (was|were|had) never (been )?born\\b",
+        "\\bend (it all|my life|my ?self)\\b",
+        "\\bun ?alive (my ?self|myself|me)\\b",
+        "\\b(don'?t|do not|dont) want to (live|be alive|be here) (any ?more)?\\b",
+        "\\bbetter off (dead|without me)\\b",
+        "\\bno ?one would (miss|care if) me\\b",
+        "\\b(hang|drown|poison) my ?self\\b",
+        "\\btake all (the|my mum'?s|my mom'?s|the) pills\\b",
+        "\\bjump off (the|a) (roof|bridge|building|balcony)\\b",
+        "\\b(easiest|best|quickest|painless|fastest) way to (die|not wake up|never wake up|disappear forever)\\b",
+        "\\b(never|not) (want to )?wake up again\\b"
+      ]
+    },
+    {
+      "id": "suicide.ar",
+      "category": "suicide",
+      "severity": 3,
+      "patterns": [
+        "\\b(اريد|أريد|بدي|ابغى|ابي|عايز|عاوز|نفسي|حابب|احب) (ان )?(اموت|أموت|موت)\\b",
+        "\\b(اقتل|أقتل|بقتل|راح اقتل) نفسي\\b",
+        "\\b(انتحر|انتحار|بنتحر)\\b",
+        "\\b(ما بدي|ما ابي|ما ابغى|مش عايز|مش عاوز|لا اريد) (ان )?(اعيش|عيش|ابقى عايش)\\b",
+        "\\bليتني (مت|ميت|لم اولد|ما انولدت)\\b",
+        "\\bالكل احسن بدوني\\b"
+      ]
+    },
+    {
+      "id": "suicide.arabizi",
+      "category": "suicide",
+      "severity": 3,
+      "patterns": [
+        "\\b(bdi|badi|bade|baddi|abgha|abi|3ayez|3awz|nefsi) (amoot|amout|moot|mout|amut)\\b",
+        "\\b(a2tol|aktol|a2tl|aqtol|a2tel) (nafsi|nafsy)\\b",
+        "\\b(ente7ar|entehar|anta7er|antaher)\\b",
+        "\\b(mabdi|ma bdi|mesh 3ayez|mish 3ayez|ma abi) (a3eesh|a3ish|3ish)\\b"
+      ]
+    },
+    {
+      "id": "suicide.ambiguous",
+      "category": "self_harm",
+      "severity": 1,
+      "patterns": [
+        "\\bi'?m (going|gonna) (to )?die\\b",
+        "\\bi('?d| would) rather (die|be dead)\\b"
+      ]
+    },
+    {
+      "id": "selfharm.en",
+      "category": "self_harm",
+      "severity": 3,
+      "patterns": [
+        "\\b(hurt|hurting|cut|cutting|harm|harming|burn|burning|hit|hitting|scratch|scratching) ?(my ?self|myself)\\b",
+        "\\bself ?harm\\b",
+        "\\b(i|i'?ve been|i have been) (cut|cutting) my (arm|arms|wrist|wrists|leg|legs)\\b",
+        "\\bmake my ?self bleed\\b"
+      ]
+    },
+    {
+      "id": "selfharm.ar",
+      "category": "self_harm",
+      "severity": 3,
+      "patterns": [
+        "\\b(اوذي|أؤذي|اذي|اجرح|أجرح|اضرب|احرق) نفسي\\b",
+        "\\bاجرح (يدي|ايدي|رجلي)\\b"
+      ]
+    },
+    {
+      "id": "selfharm.arabizi",
+      "category": "self_harm",
+      "severity": 3,
+      "patterns": [
+        "\\b(a2zi|aazi|aj7a|aj ra7|adrob|ad rab) (nafsi|nafsy)\\b"
+      ]
+    },
+    {
+      "id": "sad.wantdisappear",
+      "category": "self_harm",
+      "severity": 1,
+      "patterns": [
+        "\\bwant to (disappear|run away) (forever|and never come back)\\b",
+        "\\bابي اختفي\\b",
+        "\\bبدي اختفي\\b"
+      ]
+    },
+    {
+      "id": "danger.en",
+      "category": "immediate_danger",
+      "severity": 3,
+      "patterns": [
+        "\\b(there'?s|there is) (a )?fire\\b",
+        "\\b(house|home|room|kitchen|flat|apartment) is on fire\\b",
+        "\\bsomething is burning\\b",
+        "\\b(someone|somebody|a man|a stranger) (broke|is breaking|got) (in|into)\\b",
+        "\\b(someone|somebody|a stranger) is in (my|our) (house|home|room)\\b",
+        "\\bcan'?t breathe\\b",
+        "\\b(bleeding|blood) (a lot|everywhere|won'?t stop)\\b",
+        "\\b(he|she|they|someone) (has|got) a (knife|gun)\\b",
+        "\\b(my )?(mum|mom|mummy|mommy|dad|daddy|mother|father|grandma|grandpa|nan|granny|sister|brother|baby) (won'?t|wo'?t|will not|isn'?t|is not|doesn'?t|does not) (wake up|waking up|breathing|breathe|move|moving)\\b",
+        "\\b(fell|fallen) and (can'?t|cannot) (get up|move)\\b",
+        "\\bcall (911|999|112|an ambulance|the police)\\b",
+        "\\bi'?m (lost|alone) and (scared|it'?s dark)\\b",
+        "\\b(full of|lots of|so much) smoke\\b",
+        "\\bsmoke (everywhere|coming out|in the (house|kitchen|room))\\b"
+      ]
+    },
+    {
+      "id": "danger.ar",
+      "category": "immediate_danger",
+      "severity": 3,
+      "patterns": [
+        "\\b(في|فيه) (نار|حريق)\\b",
+        "\\b(البيت|الغرفه|المطبخ) (يحترق|تحترق|فيه نار)\\b",
+        "\\b(حد|احد|واحد|رجال|رجل) (دخل|داخل) (البيت|بيتنا|الغرفه)\\b",
+        "\\b(ما|مش|لا) (اقدر|قادر|بقدر) (اتنفس|تنفس)\\b",
+        "\\b(ينزف|انزف|دم كثير)\\b",
+        "\\b(معه|معاه|عنده) (سكين|مسدس|سلاح)\\b",
+        "\\b(ماما|امي|بابا|ابوي|ابي|جدتي|اخوي|اختي) (ما|مش) (يصحى|تصحى|يتنفس|تتنفس)\\b",
+        "\\bاتصل (بالاسعاف|بالشرطه)\\b"
+      ]
+    },
+    {
+      "id": "danger.arabizi",
+      "category": "immediate_danger",
+      "severity": 3,
+      "patterns": [
+        "\\b(fi|fe|fih) (7ari2|7arii2|nar)\\b",
+        "\\b(mish|ma) (2ader|aqdar) (atnaffas|atnafas)\\b"
+      ]
+    },
+    {
+      "id": "abuse.en",
+      "category": "abuse_disclosure",
+      "severity": 3,
+      "patterns": [
+        "\\b(he|she|they|someone|somebody|my [\\p{L}' ]{2,20}|mum|mom|mummy|mommy|dad|daddy|uncle|aunt|auntie|teacher|a man|a lady) (always |sometimes |keeps |often |still |every day )?(hits|hit|beats|beat|kicks|kicked|slaps|slapped|punches|punched|chokes|choked|burns|burned|whips|whipped|pinches) me\\b",
+        "\\b(touches|touched|touching) (me|my (private|privates|private parts|bottom|body|chest))\\b",
+        "\\b(touch|touched|touching|see|showed?) (his|her|their) (private|privates|private parts)\\b",
+        "\\bmakes? me (take off|undress|touch)\\b",
+        "\\b(won'?t|doesn'?t|don'?t) (let|give) me (eat|food|any food)\\b",
+        "\\b(locks|locked|lock) me (in|up|outside)\\b",
+        "\\b(i'?m|i am) (scared|afraid) (of|to go home)\\b.{0,30}\\b(home|him|her|dad|mum|mom|uncle)\\b",
+        "\\b(scared|afraid|scred|skared|frightened) (to go|of going) home\\b"
+      ]
+    },
+    {
+      "id": "abuse.ar",
+      "category": "abuse_disclosure",
+      "severity": 3,
+      "patterns": [
+        "\\b(يضربني|تضربني|يضربوني|بيضربني|بتضربني|ضربني|ضربتني|يرفسني|يقرصني|يخنقني|يحرقني|يجلدني|يؤذيني|يوذيني|تؤذيني|يعذبني)\\b",
+        "\\b(يلمسني|لمسني|تلمسني|يلمس جسمي|يلمس اماكني الخاصه)\\b",
+        "\\b(يخليني|يجبرني) (اشلح|اخلع|المس)\\b",
+        "\\b(ما|مش) (يخليني|يخلوني|يعطيني|يعطوني) (اكل|آكل)\\b",
+        "\\b(يحبسني|يقفل علي|قفل علي|حبسني)\\b",
+        "\\b(خايف|خايفه) (ارجع|اروح) (البيت|للبيت)\\b"
+      ]
+    },
+    {
+      "id": "abuse.arabizi",
+      "category": "abuse_disclosure",
+      "severity": 3,
+      "patterns": [
+        "\\b(ydrabni|yedrabni|bydrabni|byedrabni|bi2dorobni|bidrabni|darabni|tedrabni)\\b",
+        "\\b(yilmesni|yelmesni|lamasni|byilmesni)\\b"
+      ]
+    },
+    {
+      "id": "bullying.peer",
+      "category": "abuse_disclosure",
+      "severity": 2,
+      "patterns": [
+        "\\b(kids|boys|girls|they|everyone|someone) at (school|the park|club) (hit|hits|kick|kicks|push|pushes|hurt|hurts) me\\b",
+        "\\b(i'?m|i am|i get|i'?m being) bullied\\b",
+        "\\bbully(ing)? me\\b",
+        "\\b(يتنمرون|يتنمر|تنمر) (علي|عليا)\\b"
+      ],
+      "actor": "peer"
+    },
+    {
+      "id": "grooming.en",
+      "category": "grooming",
+      "severity": 3,
+      "patterns": [
+        "\\b(keep|keeping) (it|this) (a )?secret from (my|your) (mum|mom|dad|parents|family|teacher)\\b",
+        "\\b(he|she|they|a man|a lady|someone|my friend online)( online)? (said|says|told me) (it'?s|it is) (our|a) secret\\b",
+        "\\b(said|says|told me) (not to|don'?t|to never) tell (my|your) (mum|mom|dad|parents|anyone)\\b",
+        "\\b(he|she|they|someone|somebody|a man|a lady|a stranger|a guy|my online friend|my friend online|someone online|a boy online|a girl online|a grown ?up) (asked|asks|wants|wanted|told) (me )?(for|to send|to show|to take) (a |my |some )?(photo|photos|picture|pictures|pic|pics|selfie|video)s?\\b",
+        "\\b(send|sent) (him|her|them) (a |my )?(photo|picture|pic|selfie|video)\\b",
+        "\\bwhat are you wearing\\b",
+        "\\b(a man|a lady|a stranger|someone online|someone in the game|my online friend|a grown ?up online|a guy online) (asked|wants|wanted|told) (me )?to (meet|come to (his|her) house|come over|be alone)\\b",
+        "\\b(a man|a lady|a guy|a boy|a girl|a grown ?up|an adult|someone|somebody|a stranger|a player) (online|in the game|in the chat|(on|in) (roblox|fortnite|minecraft|tiktok|youtube|discord|a game))\\b.{0,60}\\b(meet|secret|photo|picture|pic|address|gift|robux|v-?bucks|private|alone|don'?t tell|not to tell)\\b",
+        "\\b(talk|chat|move|go) (on|to) (snapchat|snap|whatsapp|telegram|discord|instagram|insta|tiktok dm|private chat)\\b.{0,40}\\b(he|she|they|man|lady|stranger|someone)\\b",
+        "\\b(gave|give|gives|promised) me (robux|v-?bucks|gifts?|money|presents?) (if|and said|to)\\b"
+      ]
+    },
+    {
+      "id": "grooming.ar",
+      "category": "grooming",
+      "severity": 3,
+      "patterns": [
+        "\\b(قال|قالت|قالوا) (لي )?(لا|ما) (تقول|تخبر|تعلم) (ماما|امك|بابا|ابوك|اهلك|احد)\\b",
+        "\\bسر (بيننا|بيني وبينه|بيني وبينها)\\b",
+        "\\b(يبي|يبغى|بدو|طلب|طلبت) (مني )?(صوره|صور|صورتي|فيديو)\\b",
+        "\\b(ارسل|ابعت|ابعث|ارسلت|بعتت) (له|لها|لهم) (صوره|صورتي|صور)\\b",
+        "\\b(يبي|يبغى|بدو|طلب) (نتقابل|اقابله|اروح بيته|اجي عنده)\\b",
+        "\\b(واحد|رجال|رجل|حد|شخص) (في|على) (النت|اللعبه|روبلوكس|فورتنايت|تيك توك)\\b.{0,40}\\b(سر|صوره|نتقابل|عنوان|هديه)\\b"
+      ]
+    },
+    {
+      "id": "grooming.arabizi",
+      "category": "grooming",
+      "severity": 3,
+      "patterns": [
+        "\\b(ib3atli|eb3atli|ib3at|ib3atle|ersel) (sora|sura|sortak|sortik|sowar)\\b",
+        "\\bsir (benna|bainna|binatna)\\b"
+      ]
+    },
+    {
+      "id": "sextortion",
+      "category": "sextortion",
+      "severity": 3,
+      "patterns": [
+        "\\b(threaten(ed|s|ing)?|said he would|said she would|will) (to )?(post|share|show|send) (my|the) (photo|photos|picture|pictures|pics|video)\\b",
+        "\\b(wants|asked for|asking for) (money|robux|gift ?cards?|more (photos|pictures|pics))\\b.{0,40}\\b(or|otherwise) (he|she|they)('ll| will)?\\b",
+        "\\b(هددني|هددتني|يهددني) (ينشر|يرسل|يفضح)\\b",
+        "\\b(يبي|يبغى|بدو) (فلوس|صور اكثر)\\b.{0,20}\\b(ولا|او) (ينشر|يفضح)\\b",
+        "\\b(post|share|show|send|put) (my|the|our) \\p{L}{3,10} (online |on the internet )?(unless|if i (don'?t|dont|do not))\\b"
+      ]
+    },
+    {
+      "id": "sexual_minor",
+      "category": "sexual_minor",
+      "severity": 3,
+      "patterns": [
+        "\\b(naked|nude|sexy|undressed|porn)\\b.{0,25}\\b(kids?|child|children|girls?|boys?|baby|babies|students?|little)\\b",
+        "\\b(kids?|child|children|girls?|boys?|little)\\b.{0,25}\\b(naked|nude|sexy|porn)\\b",
+        "\\b(اطفال|طفل|بنت|ولد|بنات)\\b.{0,20}\\b(عري|عريان|عاري|سكس|اباحي)\\b"
+      ]
+    },
+    {
+      "id": "sexual.en",
+      "category": "sexual",
+      "severity": 2,
+      "patterns": [
+        "\\bsex(y|ual|ually)?\\b",
+        "\\bporn(o|ography)?\\b",
+        "\\b(naked|nude|nudes)\\b",
+        "\\b(boobs|tits|penis|vagina|dick|pussy|horny)\\b",
+        "\\bmake ?out\\b",
+        "\\bhaving sex\\b"
+      ]
+    },
+    {
+      "id": "sexual.ar",
+      "category": "sexual",
+      "severity": 2,
+      "patterns": [
+        "\\b(جنس|سكس|اباحي|اباحيه|عري|عريان|عاري|عاريه)\\b"
+      ]
+    },
+    {
+      "id": "sexual.arabizi",
+      "category": "sexual",
+      "severity": 2,
+      "patterns": [
+        "\\b(seks|sks|3arian|3aryan)\\b"
+      ]
+    },
+    {
+      "id": "violence.en",
+      "category": "violence_graphic",
+      "severity": 2,
+      "patterns": [
+        "\\b(cut|chop|chopped|rip|ripped) (off )?(his|her|their|someone'?s) (head|arm|leg|fingers?)\\b",
+        "\\bblood (and guts|everywhere)\\b",
+        "\\bgore\\b",
+        "\\b(how (do i|to|can i)) (kill|stab|shoot|poison|hurt) (someone|somebody|a person|people|my (brother|sister|teacher|friend))\\b",
+        "\\b(i'?ll|i will|i'?m going to|gonna) (kill|stab|shoot) (him|her|them|you|my (brother|sister|teacher))\\b"
+      ]
+    },
+    {
+      "id": "violence.ar",
+      "category": "violence_graphic",
+      "severity": 2,
+      "patterns": [
+        "\\b(كيف|شلون|ازاي) (اقتل|اطعن|اذبح)\\b",
+        "\\b(راح|بدي|ابي) (اقتله|اقتلها|اطعنه)\\b",
+        "\\bدم في كل مكان\\b"
+      ]
+    },
+    {
+      "id": "danger_activity.en",
+      "category": "dangerous_activity",
+      "severity": 2,
+      "patterns": [
+        "\\b(how (do i|to|can i)) (make|build) (a )?(bomb|explosive|gun|poison|fire)\\b",
+        "\\b(play|playing) with (matches|a lighter|lighters|fire|knives|a knife)\\b",
+        "\\b(drink|drinking|eat|eating|taste) (bleach|soap|detergent|tide pods?|pills|medicine)\\b",
+        "\\b(choking|blackout|pass ?out|fainting) (challenge|game)\\b",
+        "\\b(climb|jump) (on|off) (the )?(roof|window|balcony)\\b",
+        "\\btake my (mum'?s|mom'?s|dad'?s|parents'?) (pills|medicine)\\b"
+      ]
+    },
+    {
+      "id": "danger_activity.ar",
+      "category": "dangerous_activity",
+      "severity": 2,
+      "patterns": [
+        "\\b(كيف|شلون|ازاي) (اسوي|اعمل|اصنع) (قنبله|متفجرات|سم|نار)\\b",
+        "\\b(العب|ألعب) (بالكبريت|بالولاعه|بالنار|بالسكين)\\b",
+        "\\b(اشرب|اكل) (كلور|الكلور|صابون|حبوب|دواء)\\b"
+      ]
+    },
+    {
+      "id": "hate.en",
+      "category": "hate_or_bullying",
+      "severity": 2,
+      "patterns": [
+        "\\bi hate (all )?(black|white|brown|asian|arab|jewish|muslim|christian|gay|disabled) (people|kids)\\b",
+        "\\b(go back to your country)\\b"
+      ]
+    },
+    {
+      "id": "pii.en",
+      "category": "pii",
+      "severity": 1,
+      "patterns": [
+        "\\bmy (home )?address is\\b",
+        "\\bi live (at|on) \\d",
+        "\\bmy (phone|mobile|cell)( number)? is\\b",
+        "\\bmy (school|teacher)('?s name)? is called\\b",
+        "\\bi go to [\\p{L} ]{2,30} school\\b",
+        "\\bmy (full|real|last) name is\\b",
+        "\\bmy (mum|mom|dad)'?s (phone|number|name) is\\b"
+      ]
+    },
+    {
+      "id": "pii.ar",
+      "category": "pii",
+      "severity": 1,
+      "patterns": [
+        "\\b(عنواني|عنوان بيتي)\\b",
+        "\\b(رقمي|رقم جوالي|رقم تلفوني|رقم هاتفي|رقم موبايلي)\\b",
+        "\\b(مدرستي اسمها|ادرس في مدرسه)\\b",
+        "\\b(اسمي الكامل|اسم عيلتي)\\b"
+      ]
+    },
+    {
+      "id": "dependency.en",
+      "category": "dependency",
+      "severity": 1,
+      "patterns": [
+        "\\byou'?re my (only|best and only) friend\\b",
+        "\\b(i )?(don'?t|do not) (need|want) (any )?(other|real) friends\\b",
+        "\\bi (only|just) want to (talk|play) (to|with) you\\b",
+        "\\bi love you more than (my )?(mum|mom|dad|mother|father|family|parents|anyone)\\b",
+        "\\b(please )?(don'?t|never) (ever )?leave me\\b",
+        "\\bnobody (else )?(likes|loves|cares about) me (but|except) you\\b"
+      ]
+    },
+    {
+      "id": "dependency.ar",
+      "category": "dependency",
+      "severity": 1,
+      "patterns": [
+        "\\bانت صديقي الوحيد\\b",
+        "\\b(ما|مش) (عندي|لي) (غيرك|احد غيرك)\\b",
+        "\\bاحبك اكثر من (امي|ماما|ابوي|بابا|اهلي)\\b",
+        "\\b(لا|ما) (تتركني|تخليني)\\b"
+      ]
+    },
+    {
+      "id": "human_probe.en",
+      "category": "human_claim_probe",
+      "severity": 1,
+      "patterns": [
+        "\\bare you (a )?(real|human|person|alive|robot|computer|ai)\\b",
+        "\\b(pretend|act|say) (you'?re|you are|to be) (a )?(human|real (person|kid|boy|girl)|my (real )?friend)\\b",
+        "\\b(be|you'?re|you are) my secret friend\\b",
+        "\\b(promise|swear) (not to|you won'?t|you will not) tell\\b",
+        "\\bcan you keep a secret\\b",
+        "\\b(انت|هل انت) (انسان|حقيقي|روبوت|كمبيوتر|عايش)\\b",
+        "\\bخليك صديقي السري\\b",
+        "\\b(وعد|اوعدني) (ما|لا) (تقول|تخبر)\\b"
+      ]
+    },
+    {
+      "id": "jailbreak",
+      "category": "jailbreak",
+      "severity": 1,
+      "patterns": [
+        "\\bignore (all |your |the )?(previous |prior |above )?(instructions|rules|prompt)\\b",
+        "\\b(developer|dev|god|jailbreak|unfiltered) mode\\b",
+        "\\byou (are|have) no (rules|limits|filters)\\b",
+        "\\b(system|hidden) prompt\\b",
+        "\\bpretend (there are|you have) no rules\\b",
+        "\\bتجاهل (التعليمات|القواعد)\\b"
+      ]
+    },
+    {
+      "id": "medical",
+      "category": "medical_or_diagnosis",
+      "severity": 1,
+      "patterns": [
+        "\\b(do|did) i have (adhd|autism|depression|anxiety|ocd|bipolar|a disorder)\\b",
+        "\\bam i (depressed|autistic|crazy|mentally ill)\\b",
+        "\\bwhat'?s wrong with my (brain|head)\\b",
+        "\\b(what|which) (medicine|pills) (should|can) i take\\b",
+        "\\b(هل عندي|عندي) (اكتئاب|توحد|فرط حركه|قلق)\\b"
+      ]
+    },
+    {
+      "id": "adult_topic",
+      "category": "off_topic_adult",
+      "severity": 1,
+      "patterns": [
+        "\\b(beer|wine|vodka|alcohol|drunk|weed|marijuana|cocaine|drugs|vape|vaping|cigarettes?|smoking|casino|gambling|bet money)\\b",
+        "\\b(خمر|بيره|سجاير|سيجاره|مخدرات|حشيش|قمار)\\b"
+      ]
+    },
+    {
+      "id": "sad",
+      "category": "sad_or_worried",
+      "severity": 1,
+      "patterns": [
+        "\\bi'?m (so |really |very )?(sad|lonely|scared|worried|upset|nervous|afraid)\\b",
+        "\\b(nobody|no one) (likes|wants to play with|plays with) me\\b",
+        "\\bi (feel|felt) (sad|lonely|left out|scared|worried)\\b",
+        "\\b(انا )?(حزين|حزينه|زعلان|زعلانه|خايف|خايفه|وحيد|وحيده|قلقان)\\b",
+        "\\b(محد|ما احد) (يلعب معي|يحبني)\\b"
+      ]
+    },
+    {
+      "id": "anger",
+      "category": "anger",
+      "severity": 1,
+      "patterns": [
+        "\\bi'?m (so |really )?(angry|mad|furious)\\b",
+        "\\bi hate (my )?(brother|sister|school|teacher|homework)\\b",
+        "\\b(معصب|معصبه|زعلان مره|غاضب)\\b"
+      ]
+    }
+  ],
+  "actors": {
+    "note": "For abuse and grooming disclosures: who the alleged actor is. Household words win over every other class, and an unclear case is 'unknown': both never notify the account holder (SAFETY_POLICY §5).",
+    "household_caregiver": [
+      "\\b(mum|mom|mummy|mommy|mama|dad|daddy|papa|mother|father|step ?(mum|mom|dad|mother|father)|parents?|brother|sister|grandma|grandpa|granny|nanny|nan|uncle|aunt|auntie|cousin|babysitter|maid|nanny|stepbrother|stepsister)\\b",
+      "\\b(ماما|امي|ام|بابا|ابوي|ابي|ابويا|ابويه|ابوي|والدي|والدتي|اخوي|اخي|اختي|جدي|جدتي|عمي|خالي|عمتي|خالتي|زوج امي|زوجه ابي|الخدامه|المربيه|ابن عمي)\\b",
+      "\\b(mama|baba|abuya|omi|ommi|akhoya|okhti|ukhti|3ami|khali)\\b"
+    ],
+    "other_known_adult": [
+      "\\b(teacher|coach|neighbou?r|tutor|imam|priest|driver|doctor|nurse|club leader)\\b",
+      "\\b(المعلم|المعلمه|الاستاذ|الاستاذه|المدرب|الجار|السواق|السائق)\\b"
+    ],
+    "peer": [
+      "\\b(kids?|boys?|girls?|classmates?|friends?|children|bully|bullies|everyone) (at|in|from) (school|class|the park|club)\\b",
+      "\\b(my )?(friend|classmate)s?\\b",
+      "\\b(اصحابي|صاحبي|العيال|الاولاد|البنات|زملائي)\\b"
+    ],
+    "stranger_online": [
+      "\\b(online|in the game|on roblox|on fortnite|on minecraft|on tiktok|on youtube|on discord|on snapchat|on instagram)\\b",
+      "\\b(النت|اللعبه|روبلوكس|فورتنايت|تيك توك|سناب)\\b"
+    ],
+    "stranger_offline": [
+      "\\b(a stranger|a man|a lady|a woman|someone i don'?t know)\\b",
+      "\\b(واحد غريب|رجال غريب|رجل غريب|حرمه غريبه|شخص غريب)\\b"
+    ]
+  },
+  "output": [
+    {
+      "id": "out.human_claim",
+      "category": "human_claim_probe",
+      "severity": 3,
+      "patterns": [
+        "\\bi'?m (a )?(real )?(human|person|boy|girl|kid|child|man|woman)\\b",
+        "\\bi am (a )?(real )?(human|person|boy|girl|kid|child|man|woman)\\b",
+        "\\bi'?m not (an? )?(ai|robot|computer|machine)\\b",
+        "\\bi am not (an? )?(ai|robot|computer|machine)\\b",
+        "\\b(انا|أنا) (انسان|ولد|بنت|شخص حقيقي)\\b",
+        "\\b(لست|مش) (ذكاء اصطناعي|روبوت|كمبيوتر)\\b"
+      ]
+    },
+    {
+      "id": "out.secrecy",
+      "category": "grooming",
+      "severity": 3,
+      "patterns": [
+        "\\b(our|a) (little )?secret\\b",
+        "\\b(don'?t|do not|never) tell (your|anyone|anybody|a grown ?up|your (mum|mom|dad|parents|teacher))\\b",
+        "\\bi (won'?t|will not|promise not to|promise i won'?t) tell\\b",
+        "\\bjust between (us|you and me)\\b",
+        "\\b(سر بيننا|لا تقول لاحد|لا تخبر احد|ما راح اقول لاحد|بيني وبينك)\\b"
+      ]
+    },
+    {
+      "id": "out.dependency",
+      "category": "dependency",
+      "severity": 3,
+      "patterns": [
+        "\\b(i'?m|i am) your (only|best and only) friend\\b",
+        "\\byou (only )?need (only )?me\\b",
+        "\\b(please )?(don'?t|do not) (leave|go)( me| yet| now| already)?[.!?]*$",
+        "\\bi'?ll be (so )?(sad|lonely|upset) (if|when) you (go|leave)\\b",
+        "\\bstay (with me|a little longer|longer)\\b",
+        "\\bi'?ll always be (here|with you)\\b",
+        "\\b(لا تروح|لا تتركني|راح ازعل اذا رحت|انا صديقك الوحيد)\\b"
+      ]
+    },
+    {
+      "id": "out.diagnosis",
+      "category": "medical_or_diagnosis",
+      "severity": 3,
+      "patterns": [
+        "\\byou (have|might have|probably have|could have|may have|sound like you have) (adhd|autism|depression|anxiety|ocd|a disorder|bipolar|ptsd)\\b",
+        "\\byou (are|seem|sound) (depressed|autistic|mentally ill)\\b",
+        "\\b(عندك|يمكن عندك) (اكتئاب|توحد|فرط حركه|اضطراب)\\b"
+      ]
+    },
+    {
+      "id": "out.contact",
+      "category": "grooming",
+      "severity": 3,
+      "patterns": [
+        "\\b(what'?s|what is|tell me) your (address|phone|number|full name|last name|school'?s name)\\b",
+        "\\bwhere do you live\\b",
+        "\\b(which|what) school do you go to\\b",
+        "\\b(send|show) me (a )?(photo|picture|pic|selfie|video)\\b",
+        "\\b(let'?s|we could|can we) meet\\b",
+        "\\bcome (and )?(visit|see) me\\b",
+        "\\b(snapchat|whatsapp|telegram|discord|instagram)\\b",
+        "\\b(وين ساكن|وين تسكن|شو عنوانك|ايش رقمك|ارسل صورتك|نتقابل)\\b"
+      ]
+    },
+    {
+      "id": "out.link",
+      "category": "pii",
+      "severity": 3,
+      "patterns": [
+        "\\bhttps?://",
+        "\\bwww\\.",
+        "\\b[\\p{L}\\p{N}-]+\\.(com|net|org|io|gg|ly|app)\\b"
+      ]
+    },
+    {
+      "id": "out.sexual",
+      "category": "sexual",
+      "severity": 3,
+      "patterns": [
+        "\\bsex(y|ual)?\\b",
+        "\\b(naked|nude|porn)\\b",
+        "\\b(جنس|سكس|عاري|اباحي)\\b"
+      ]
+    },
+    {
+      "id": "out.violence",
+      "category": "violence_graphic",
+      "severity": 3,
+      "patterns": [
+        "\\bblood\\b",
+        "\\b(kill|killed|stab|stabbed|shoot|shot|dead body|corpse)\\b",
+        "\\b(دم|قتل|ذبح|جثه)\\b"
+      ]
+    },
+    {
+      "id": "out.guilt",
+      "category": "dependency",
+      "severity": 3,
+      "patterns": [
+        "\\b(you'?re|you are) (a )?(bad|naughty|stupid|silly) (boy|girl|kid|child)\\b",
+        "\\bit'?s (all )?your fault\\b",
+        "\\b(انت|إنت) (ولد|بنت) (سيء|سيئه|غبي|غبيه)\\b"
+      ]
+    }
+  ]
+}

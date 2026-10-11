@@ -20,6 +20,13 @@ const schema = z.object({
   // Providers are optional until Milestone 2; only safety/ may read them.
   ELEVENLABS_API_KEY: z.string().optional(),
   TOGETHER_API_KEY: z.string().optional(),
+  // Voice proxy (Milestone 2 spike, ARCHITECTURE §4.3): the Bearer secret the ElevenLabs agent sends,
+  // and an explicit switch. The spike is adult-only and off unless VOICE_SPIKE_ENABLED=1 (D-061).
+  VOICE_PROXY_SECRET: z.string().min(32).optional(),
+  VOICE_SPIKE_ENABLED: z
+    .enum(["0", "1"])
+    .default("0")
+    .transform((v) => v === "1"),
 });
 
 export type Env = z.infer<typeof schema>;

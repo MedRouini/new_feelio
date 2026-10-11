@@ -1,4 +1,19 @@
-# Feelio safety policy (DRAFT v0.1, Milestone 0)
+# Feelio safety policy (DRAFT v0.1, Milestone 0; implementation status added in Milestone 2)
+
+> **Implementation status (2026-10-11, Milestone 2).**
+> - **Built:**
+>   - §2 pipeline in `safety/`, with rules, routing, scripts and resources as reviewed data in `content/safety/`
+>   - §5 restricted events
+>   - §7 retention (approved, D-058)
+>   - the SR-17 red-team suite (`npm run redteam`)
+>   - SR-41 procedure (`docs/REPORTING_PROCEDURE.md`)
+> - **Not yet:**
+>   - images (§4.2, Milestone 6)
+>   - the post-call pass (§4.3, Milestone 5)
+>   - voice client tools (§4.1, D-004)
+>   - the safety lead's review screen (Milestone 3)
+>
+> Results and caveats are in D-060 and D-062. Everything remains **[expert review]**.
 
 > **Status: DRAFT, not reviewed.** Needs review by a child-protection or safeguarding expert, a child psychologist, and counsel before the pilot. Nothing here is a legal or compliance claim (CLAUDE.md rule 5). Wherever this document says the product does something, read it as "is designed to"; nothing is built yet.
 > Sources are saved in `docs/safety/` (retrieved 2026-10-10). Live pages are authoritative.

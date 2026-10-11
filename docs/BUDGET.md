@@ -116,3 +116,7 @@ Included each month: 1M invocations, 4 h Active CPU (time spent waiting on I/O, 
 
 ## 5. Developer usage report (SPEC §3.2)
 `/dev/usage` (development only) reads `usage_ledger` and the ElevenLabs post-call `call_duration_secs`. It shows credits and minutes per session, per child (pseudonymous), per feature and per day, Together tokens and images, and the remaining allocation for each line in §1.
+
+## Measured in Milestone 2 (2026-10-11)
+- One full red-team run (765 inputs + 26 outputs, classifier on Together) costs about $0.10. Rules-only runs are free and run in CI.
+- A strict voice turn makes 1 model call plus 1 + (sentences) classifier calls: roughly 1,500 to 2,500 Together tokens, about $0.0005 per turn. Voice credits (ElevenLabs) were not used.

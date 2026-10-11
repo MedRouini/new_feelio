@@ -24,7 +24,9 @@
 | Child device keys (Better Auth API keys: **SHA-256 hash**, first 7 characters, expiry, last use) | Child device sign-in without credentials | Neon | 30 days, or until revoked | Revoke; child or account deletion (explicit, no FK); daily sweep of expired keys |
 | Audit log (parent setting changes) | Accountability, parent support | Neon | 1 year (*proposed*) | Daily retention job; cascades with the account |
 | Rate-limit counters | Abuse protection on sign-in | Neon | 1 day | Daily retention job |
-| *Planned (M2+)*: safety events, encrypted excerpts | Safety review (SAFETY_POLICY §7) | Neon | 90 days / 30 days (*proposed*) | Retention job + crypto-shred |
+| Safety events (category, severity, actor class, feature, locale, time; no conversation, no audio) | Safety review; parent summaries (not for restricted events) | Neon | 90 days; restricted events 30 days unless escalated (approved D-058) | Daily retention job; cascades with the profile |
+| Safety-event excerpts (redacted, at most 200 characters, AES-256-GCM) | Reviewing whether a high or medium event was real | Neon | 30 days (approved D-058) | Daily job deletes the ciphertext |
+| Safety-event counts (day, category, severity, feature; no child) | Transparency reporting (SR-42) | Neon | Kept (no personal data) | n/a |
 | *Planned (M5)*: voice audio and transcripts | Live conversation | Processed by ElevenLabs; **not stored by Feelio** | ElevenLabs minimal retention (configured per agent) | Provider deletion API where available |
 | *Planned (M6)*: stories and generated images | The child's stories | Neon + blob storage (to be chosen) | 90 days (*proposed*) | Delete with the story or profile |
 

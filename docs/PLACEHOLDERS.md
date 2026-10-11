@@ -34,5 +34,9 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 | Developer test artifact (dev and test runs only) | `world/artifacts/dev/DevTestArtifact.tsx` | Lets the level flow run end to end before real artifacts exist. Never in production (unit-tested) | Removed or kept as a dev tool when Milestone 4 adds real artifacts |
 | Place-map stone positions are provisional | `content/worlds/base/world.json` (`map.provisional: true`) | No place-map art to measure yet | When each place map is delivered |
 | Fixed voice lines are captions only | `safety/voice-lines/` | Waiting for you to choose voices and allow the run (D-037). Dry run: 36 lines, 1,672 chars ≈ 836–1,672 credits | When you pick the voices |
+| Voice proxy is not bound to a child's voice session | `app/api/voice/llm/route.ts` (adult-only spike, off unless `VOICE_SPIKE_ENABLED=1`) | The session gate is Milestone 5 (D-061) | Milestone 5 |
+| Crisis resources have no phone numbers | `content/safety/resources/baseline.json` | Markets not chosen; numbers must be verified per country (D-059) | When the first market is chosen |
+| Crisis card and mascot mood in voice | Proxy (client tools) | Whether a custom LLM can trigger client tools is unverified (D-004) | Milestone 5 |
+| Safety lead review screen | none yet | Comes with the parent dashboard (Milestone 3); until then, owner-only database queries | Milestone 3 |
 | Parent email verification is off | `auth/server.ts` | No email provider chosen | When you pick a provider |
 | Screen-time days are counted in UTC | `child/usage.ts` | Household timezone and schedule settings come in Milestone 3 | Milestone 3 |

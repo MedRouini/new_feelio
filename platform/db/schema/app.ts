@@ -181,6 +181,52 @@ export const auditLog = pgTable(
   (t) => [index("audit_household_idx").on(t.householdId)],
 );
 
+// Safety events (SAFETY_POLICY §1 G, §5, §7; retention approved by the owner 2026-10-11, D-058).
+// Minimal fields only: never the conversation, never audio. Kept 90 days. An excerpt (redacted, at
+// most 200 characters, encrypted) only for medium/high events, kept 30 days. "Restricted" events
+// (a possible household abuser, or unknown) are never shown to the account holder, only to the
+// safety lead, and are deleted after 30 days unless escalated.
+export const safetyEvent = pgTable(
+  "safety_event",
+  {
+    id: id(),
+    childId: text("child_id").references(() => childProfile.id, { onDelete: "cascade" }),
+    householdId: text("household_id").references(() => household.id, { onDelete: "cascade" }),
+    category: text("category").notNull(),
+    severity: integer("severity").notNull(),
+    level: text("level", { enum: ["low", "medium", "high"] }).notNull(),
+    actorClass: text("actor_class"),
+    feature: text("feature").notNull(),
+    locale: text("locale").notNull(),
+    phase: text("phase", { enum: ["input", "output"] }).notNull(),
+    source: text("source", { enum: ["t0", "t1"] }).notNull(),
+    action: text("action").notNull(),
+    restricted: boolean("restricted").notNull().default(false),
+    /** Shown on the parent dashboard (Milestone 3). Always false for restricted events. */
+    parentVisible: boolean("parent_visible").notNull().default(false),
+    excerptEnc: text("excerpt_enc"),
+    excerptUntil: timestamp("excerpt_until", { withTimezone: true }),
+    escalated: boolean("escalated").notNull().default(false),
+    reviewedAt: timestamp("reviewed_at", { withTimezone: true }),
+    createdAt: createdAt(),
+  },
+  (t) => [index("safety_event_child_idx").on(t.childId, t.createdAt), index("safety_event_review_idx").on(t.reviewedAt, t.level)],
+);
+
+// Aggregate counts for transparency reporting (SR-42): no child, no content. Kept indefinitely.
+export const safetyEventCount = pgTable(
+  "safety_event_count",
+  {
+    day: date("day").notNull(),
+    category: text("category").notNull(),
+    severity: integer("severity").notNull(),
+    feature: text("feature").notNull(),
+    phase: text("phase").notNull(),
+    count: integer("count").notNull().default(0),
+  },
+  (t) => [primaryKey({ columns: [t.day, t.category, t.severity, t.feature, t.phase] })],
+);
+
 // Global switches and budgets (kill switches, provider-approval flags; ARCHITECTURE §9).
 export const config = pgTable("config", {
   key: text("key").primaryKey(),

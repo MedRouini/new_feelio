@@ -538,3 +538,89 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Shared timing:** at least 650 ms on screen (no flicker); "Almost there…" after 5 s; failures become a calm retry with the confused Feelio, never an error or the child's fault.
 - **Reduced motion:** fades only. The scene is a polite live region.
 - Uses only approved art and motion. The new pictures (arrival pictures, celebration burst, `mascot_making`) are requested in Batch 3, and the screens leave them out or use stand-ins until then.
+
+## D-058 Safety-data retention approved
+**Status:** accepted (owner, 2026-10-11)
+- SAFETY_POLICY §7 as proposed:
+  - safety events: 90 days
+  - redacted excerpts (at most 200 characters, encrypted): 30 days, then the ciphertext is deleted
+  - restricted events (a possible household actor, or unknown): 30 days unless escalated
+  - aggregate counts with no child data: kept
+  - full transcripts and audio: never stored
+- Built in `platform/retention.ts` (daily job). Integration-tested on Neon with synthetic data.
+
+## D-059 Crisis resources: baseline with no phone numbers
+**Status:** accepted (owner, 2026-10-11)
+- Markets are not chosen, and a wrong number in a crisis is worse than none.
+- The baseline says "tell a grown-up you trust right now" and "call your local emergency number", and names helplines without numbers (`content/safety/resources/baseline.json`).
+- Each market adds a reviewed file with verified numbers. A unit test checks the baseline has no invented numbers.
+
+## D-060 Safety layer v0.1: how it is built
+**Status:** built and tested (2026-10-11). Expert review is still required (D-019).
+- **Models checked against Together's live model list (2026-10-11):**
+  - `Qwen/Qwen3.5-9B` ($0.17 in / $0.25 out per million tokens) is available.
+  - There is still **no moderation or guard model** on Together serverless, so D-008 stands.
+  - `reasoning: {enabled: false}` and `response_format: json_schema` both work.
+- **T0 rules:** reviewed data in `content/safety/rules.json`, covering English, Arabic and Arabizi. Each message is matched in several normalised forms:
+  - folded Arabic letters and diacritics
+  - leetspeak decoded, spaced-out letters joined
+  - texting shorthand expanded, stretched letters reduced
+
+  Arabic patterns automatically accept attached prefixes (و ف ب ل ال). Benign look-alikes are blanked out before matching.
+- **T1 classifier:** our taxonomy plus a strict JSON schema (prompt `t1-v0.3`). It sees only redacted text and an age band. One retry, then **fail closed**:
+  - **input:** a gentle "check-in" line pointing to a trusted grown-up. Without a verdict a crisis can't be ruled out, so it is never a change of subject.
+  - **output:** a reviewed fallback line.
+- **Router and scripts are reviewed data** (`routing.json`, `scripts.json`). The model never chooses a crisis script, the resources or the mascot's mood (D-004).
+- **Disclosures:**
+  - Household and unknown actors are "restricted": never shown to the account holder.
+  - Peer bullying gets a supportive, steered reply, not a crisis script.
+- **Personal information** is redacted before the model sees it, and before anything is stored.
+- **A stream that breaks mid-sentence:** the cut-off fragment is dropped, never said.
+- **Red-team suite v0.1:** 765 cases (179 seeds plus generated variants: shouting, speech-recognition style, stretched letters, Arabic diacritics, typos, role-play), plus 26 output sentences.
+- **Results (2026-10-11):**
+  - **Rules only:** every case the rules must catch is caught; 0 false alarms on 148 benign look-alikes. This is the CI gate.
+  - **Rules plus classifier:**
+    - serious cases: 399/399
+    - redirects: 94/94
+    - steers: 123/124
+    - benign: 148/148, with 0 false alarms
+    - outputs: 26/26
+    - classifier p50 0.57 s, p95 1.3 s
+  - **Honest caveat:** the cases were written by Claude Code together with the rules and prompts, so they are a floor, not proof. They need cases written by a safeguarding expert and by native Arabic speakers. Multi-turn grooming patterns are not covered yet (Milestone 5).
+
+## D-061 Voice proxy spike: adult-only, scripted calls, no live ElevenLabs call yet
+**Status:** accepted (owner, 2026-10-11: "skip the live call for now")
+- `POST /api/voice/llm` speaks the OpenAI streaming format the ElevenLabs custom LLM expects.
+  - It is protected by `VOICE_PROXY_SECRET` (Bearer, constant-time compare) and is **off unless `VOICE_SPIKE_ENABLED=1`**.
+  - It ignores any system prompt the agent sends.
+  - It is not bound to a child: a test age band and locale, statistics counted as "test".
+- Host routing lets `/api/voice/` through on any host, because the route checks its own secret (like cron).
+- Tested over HTTP with scripted turns (auth refusals, a normal turn, crisis turns, Arabic). No ElevenLabs agent was created, and no ElevenLabs credits were spent.
+- **Still open for Milestone 5:**
+  - binding to a voice session in our database (the session gate)
+  - whether a custom LLM can trigger client tools (crisis card, mascot mood) (D-004)
+  - buffer words for slow turns
+  - the post-call transcript check
+  - an end-to-end call over a public URL (Vercel preview or tunnel)
+
+## D-062 Voice latency measured: strict mode stays the default; a decision for the owner
+**Status:** measured (2026-10-11). **Owner decision pending**: relaxing a safety check is never automatic (D-018).
+- **How it was measured:** `scripts/voice-latency.ts`, 12 child-style turns (8 English, 4 Arabic) × 2 rounds per mode, modes alternating turn by turn, from the developer machine. This is the time until the first checked words leave our proxy. ElevenLabs speech-to-text and text-to-speech come on top.
+
+| Mode | First words, median | First words, slowest 5% | Turns that fell back |
+|---|---|---|---|
+| **strict** (every sentence reviewed by T1) | 1.9 s | 6.5 s | 2/24 time-outs; 7/24 had a sentence blocked (mostly Arabic) |
+| gated (output rules only, T1 on the input) | 1.1 s | 5.7 s | 4/24 time-outs |
+
+- **Findings:**
+  1. Strict adds about 0.8 s to the median turn.
+  2. **Neither mode meets the 2 s voice target reliably** once speech time is added.
+  3. Together's slow moments push about one turn in eight into the safe fallback, in both modes.
+  4. In strict mode the output reviewer blocks many Arabic sentences.
+  5. `Qwen3.5-9B` writes weak Arabic: it misspelled "فيليو" as "شيليو" and had grammar slips.
+- **Options for the owner (to decide before Milestone 5 voice work):**
+  - (a) Keep strict, accept roughly 2.5 to 3 s turns, and tune the Arabic output review.
+  - (b) Gated, plus an asynchronous review of every sentence after it is spoken, which steers the next turn.
+  - (c) Evaluate a faster or better Arabic model for generation (e.g. `meta-models/Muse-Glimmer-30B`) and re-measure.
+
+  **Recommendation:** (c) first, then decide between (a) and (b) with the new numbers. Text mode is unaffected: there, strict costs nothing visible.

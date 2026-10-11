@@ -1,0 +1,78 @@
+{
+  "version": "0.1.0",
+  "reviewStatus": "draft_requires_expert_review",
+  "note": "Policy router (SAFETY_POLICY §2.2): finding → action. Reviewed data, never decided by a model. For each category the first entry whose minSeverity (and actor filter, if any) matches wins. Across findings, the stronger action wins (crisis > block > redirect > steer > allow), then the category order in `priority`.",
+  "priority": [
+    "immediate_danger",
+    "suicide",
+    "self_harm",
+    "sexual_minor",
+    "sextortion",
+    "grooming",
+    "abuse_disclosure",
+    "sexual",
+    "violence_graphic",
+    "dangerous_activity",
+    "jailbreak",
+    "off_topic_adult",
+    "hate_or_bullying",
+    "pii",
+    "dependency",
+    "human_claim_probe",
+    "medical_or_diagnosis",
+    "sad_or_worried",
+    "anger",
+    "ok"
+  ],
+  "routes": {
+    "immediate_danger": [
+      { "minSeverity": 2, "action": { "type": "crisis", "script": "immediate_danger", "resources": ["emergency_number", "trusted_adult"], "mascot": "calm" }, "event": "high" },
+      { "minSeverity": 1, "action": { "type": "steer", "notes": ["gentle_check_in"] }, "event": "low" }
+    ],
+    "suicide": [
+      { "minSeverity": 2, "action": { "type": "crisis", "script": "self_harm", "resources": ["trusted_adult", "crisis_line"], "mascot": "calm" }, "event": "high" },
+      { "minSeverity": 1, "action": { "type": "steer", "notes": ["gentle_check_in"] }, "event": "low" }
+    ],
+    "self_harm": [
+      { "minSeverity": 2, "action": { "type": "crisis", "script": "self_harm", "resources": ["trusted_adult", "crisis_line"], "mascot": "calm" }, "event": "high" },
+      { "minSeverity": 1, "action": { "type": "steer", "notes": ["gentle_check_in"] }, "event": "low" }
+    ],
+    "sexual_minor": [
+      { "minSeverity": 1, "action": { "type": "crisis", "script": "exploitation", "resources": ["trusted_adult", "child_helpline", "report_exploitation"], "mascot": "calm" }, "event": "high" }
+    ],
+    "sextortion": [
+      { "minSeverity": 1, "action": { "type": "crisis", "script": "exploitation", "resources": ["trusted_adult", "child_helpline", "report_exploitation"], "mascot": "calm" }, "event": "high" }
+    ],
+    "grooming": [
+      { "minSeverity": 2, "action": { "type": "crisis", "script": "exploitation", "resources": ["trusted_adult", "child_helpline", "report_exploitation"], "mascot": "calm" }, "event": "high" },
+      { "minSeverity": 1, "action": { "type": "steer", "notes": ["no_secrets"] }, "event": "medium" }
+    ],
+    "abuse_disclosure": [
+      { "minSeverity": 2, "actors": ["peer"], "action": { "type": "steer", "notes": ["bullying_support"] }, "event": "medium" },
+      { "minSeverity": 2, "action": { "type": "crisis", "script": "abuse_disclosure", "resources": ["trusted_adult", "child_helpline"], "mascot": "empathy" }, "event": "high" },
+      { "minSeverity": 1, "action": { "type": "steer", "notes": ["gentle_check_in"] }, "event": "low" }
+    ],
+    "sexual": [{ "minSeverity": 1, "action": { "type": "redirect", "line": "sexual" }, "event": "aggregate" }],
+    "violence_graphic": [
+      { "minSeverity": 2, "action": { "type": "redirect", "line": "violence" }, "event": "low" },
+      { "minSeverity": 1, "action": { "type": "steer", "notes": ["gentle_limits"] }, "event": "none" }
+    ],
+    "dangerous_activity": [
+      { "minSeverity": 2, "action": { "type": "redirect", "line": "danger" }, "event": "low" },
+      { "minSeverity": 1, "action": { "type": "steer", "notes": ["safety_first"] }, "event": "none" }
+    ],
+    "hate_or_bullying": [
+      { "minSeverity": 2, "action": { "type": "redirect", "line": "kindness" }, "event": "low" },
+      { "minSeverity": 1, "action": { "type": "steer", "notes": ["kindness"] }, "event": "none" }
+    ],
+    "pii": [{ "minSeverity": 1, "action": { "type": "steer", "notes": ["keep_private"] }, "event": "aggregate" }],
+    "dependency": [{ "minSeverity": 1, "action": { "type": "steer", "notes": ["real_friends"] }, "event": "low" }],
+    "human_claim_probe": [{ "minSeverity": 1, "action": { "type": "steer", "notes": ["honest_ai", "no_secrets"] }, "event": "none" }],
+    "jailbreak": [{ "minSeverity": 1, "action": { "type": "redirect", "line": "jailbreak" }, "event": "aggregate" }],
+    "medical_or_diagnosis": [{ "minSeverity": 1, "action": { "type": "steer", "notes": ["no_diagnosis"] }, "event": "none" }],
+    "off_topic_adult": [{ "minSeverity": 1, "action": { "type": "redirect", "line": "adult_topic" }, "event": "aggregate" }],
+    "sad_or_worried": [{ "minSeverity": 1, "action": { "type": "steer", "notes": ["empathy"] }, "event": "none" }],
+    "anger": [{ "minSeverity": 1, "action": { "type": "steer", "notes": ["calm_anger"] }, "event": "none" }],
+    "ok": []
+  }
+}

@@ -7,6 +7,59 @@
 | **1 Foundation** | **Done (2026-10-10)**, see below |
 | **1b Map, mascot shell, character onboarding** | **Code-complete (2026-10-10). Done when the 38 visible placeholder assets are delivered** (docs/PLACEHOLDERS.md) |
 | **1c Level flow and loading** (owner request) | **Code-complete (2026-10-11).** Place maps, level states, progress and unlocking, artifact architecture, loading system. Done when the Batch 3 P1 assets are delivered and Home's stones are measured (docs/LEVEL_FLOW.md) |
+| **2 Safety layer + voice-proxy spike** | **Built and tested (2026-10-11).** Live ElevenLabs call skipped by the owner (D-061). Waiting on: the strict/gated latency decision (D-062), and expert review of scripts and rules (D-019 gate) |
+
+## Milestone 2 (safety layer + test suite + voice-proxy spike): result
+**Built** (`safety/`, `content/safety/`; decisions D-058 to D-062):
+- **The pipeline:**
+  - T0 rules in English, Arabic and Arabizi
+  - T1 classifier (Together, JSON schema, fails closed)
+  - a reviewed routing table, crisis scripts, redirect lines, fallbacks and steer notes
+  - the child-safety system prompt
+  - sentence-by-sentence output checks (strict by default)
+  - personal-information redaction
+- **Safety events:** minimal and restricted where needed; encrypted excerpts; anonymous counts; retention as approved (D-058).
+- **Crisis resources:** baseline wording with no numbers until markets are chosen (D-059).
+- **Red-team suite:** 765 cases plus 26 output sentences. `npm run redteam` (rules only, free, in CI) and `npm run redteam -- --full` (with the classifier, about $0.10).
+- **Voice proxy spike:** `/api/voice/llm`, adult-only and switched off by default. Latency script: `scripts/voice-latency.ts`.
+- **`docs/REPORTING_PROCEDURE.md`** (draft, needs counsel).
+
+### Verified by running it (2026-10-11)
+- **Red team, rules only:** all must-catch cases caught; 0 false alarms.
+- **Red team, rules plus classifier:**
+  - serious cases 399/399
+  - benign 148/148 (0 false alarms)
+  - steers 123/124
+  - outputs 26/26
+- **Unit tests:** pipeline behaviour with a fake model:
+  - a crisis never waits for a model
+  - words are held until the verdict
+  - unsafe sentences are swapped
+  - fail closed
+  - a broken stream is not said
+  - personal information never reaches the model
+- **Integration tests on Neon:**
+  - restricted events are hidden from the parent
+  - excerpts are encrypted and redacted
+  - counts
+  - retention, including escalated events kept
+  - cascade on account deletion
+- **The proxy over HTTP:** 401 without the secret; the agent's own system prompt is ignored; crisis scripts in about 0.2 s; English and Arabic turns.
+- **Latency measured:** strict median 1.9 s, gated 1.1 s, to first checked words (D-062).
+- **End to end:** 16/16. A first run on a freshly restarted dev server timed out on 8 tests while pages were still compiling. All 16 passed on the warm server (3.6 min), and the failing test passed on its own. Dev-server cold start, not a code fault; worth knowing if CI ever runs the end-to-end tests against `next dev`.
+- **Lint, typecheck, 92 unit and integration tests:** all pass.
+
+### Only written, not run
+- A live ElevenLabs agent call (skipped by the owner).
+- Image checks (stories, Milestone 6).
+- The post-call transcript webhook (Milestone 5).
+
+### Bugs found by testing (worth knowing)
+- **Typos and role-play:** they slipped past the first classifier prompt. Fixed in `t1-v0.2`.
+- **Honest AI disclosures:** the output reviewer blocked "I'm not a real person, I'm Feelio, a friendly AI". Fixed in `t1-v0.3`, and now covered by output tests.
+- **Classifier time-outs:** under load they fell back to a change of subject. They now give a gentle check-in line, after one retry.
+- **Broken streams:** a stream that broke mid-sentence released the half sentence. Now dropped.
+- **Host routing:** it answered 404 for the new voice route. `/api/voice/` is now allowed on any host, because the route checks its own secret.
 
 ## Milestone 1c (level flow and loading, D-056, D-057): result
 **Built** (details in `docs/LEVEL_FLOW.md`):

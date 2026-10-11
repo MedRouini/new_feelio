@@ -1,15 +1,19 @@
 import "server-only";
 import { and, eq, isNotNull, lt } from "drizzle-orm";
 import { db } from "@/platform/db/client";
-import { adultGate, apikey, auditLog, rateLimit, session, usageLedger, verification } from "@/platform/db/schema";
+import { adultGate, apikey, auditLog, rateLimit, safetyEvent, session, usageLedger, verification } from "@/platform/db/schema";
 
 // Retention table (CR-6). Proposals awaiting owner sign-off are in docs/ARCHITECTURE.md §7.
-// Safety events (90 d) and excerpts (30 d) join this list in Milestone 2.
+// Safety data (SAFETY_POLICY §7, approved by the owner 2026-10-11, D-058): events 90 days, excerpts
+// 30 days (crypto-shredded by deleting the ciphertext), restricted events 30 days unless escalated.
+// Aggregate counts (safety_event_count) hold no child data and are kept.
 export const RETENTION_DAYS = {
   usageLedger: 90,
   auditLog: 365,
   adultGate: 1,
   rateLimit: 1,
+  safetyEvent: 90,
+  restrictedSafetyEvent: 30,
 } as const;
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -27,7 +31,17 @@ export async function runRetention(now = Date.now()) {
     db.delete(apikey).where(and(isNotNull(apikey.expiresAt), lt(apikey.expiresAt, nowDate))).returning({ id: apikey.id }),
     db.delete(apikey).where(eq(apikey.enabled, false)).returning({ id: apikey.id }),
     db.delete(rateLimit).where(lt(rateLimit.lastRequest, now - RETENTION_DAYS.rateLimit * DAY)).returning({ id: rateLimit.id }),
+    db.delete(safetyEvent).where(lt(safetyEvent.createdAt, cutoff(RETENTION_DAYS.safetyEvent, now))).returning({ id: safetyEvent.id }),
+    db
+      .delete(safetyEvent)
+      .where(and(eq(safetyEvent.restricted, true), eq(safetyEvent.escalated, false), lt(safetyEvent.createdAt, cutoff(RETENTION_DAYS.restrictedSafetyEvent, now))))
+      .returning({ id: safetyEvent.id }),
+    db
+      .update(safetyEvent)
+      .set({ excerptEnc: null, excerptUntil: null })
+      .where(and(isNotNull(safetyEvent.excerptUntil), lt(safetyEvent.excerptUntil, nowDate), eq(safetyEvent.escalated, false)))
+      .returning({ id: safetyEvent.id }),
   ]);
-  const [usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits] = results.map((r) => r.length);
-  return { usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits };
+  const [usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts] = results.map((r) => r.length);
+  return { usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts };
 }

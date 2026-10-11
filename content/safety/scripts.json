@@ -1,0 +1,146 @@
+{
+  "version": "0.1.0",
+  "reviewStatus": "draft_requires_expert_review",
+  "note": "Reviewed fixed words (SR-14, SR-16, SAFETY_POLICY §4-5). Crisis scripts are never generated. 'young' = ages 5-9, 'older' = 10-12. Rules for every disclosure script: believe and reassure, never investigate, never promise secrecy either way, point to a trusted adult. Arabic needs native review. Each line becomes pre-generated audio (CR-11) once voices are chosen. 'check_in' is used when the classifier is unavailable (fail closed): it must be safe whatever the child said.",
+  "crisis": {
+    "self_harm": {
+      "en": {
+        "young": "Thank you for telling me. You matter so much. Please go and find a grown-up you trust right now, like a parent, a teacher or another family member, and tell them what you told me.",
+        "older": "Thank you for telling me. What you're feeling really matters, and you deserve help with it. Please talk to a grown-up you trust right now. If you might hurt yourself, call your local emergency number straight away."
+      },
+      "ar": {
+        "young": "شكرًا لأنك أخبرتني. أنت مهم جدًا. أرجوك اذهب الآن إلى شخص كبير تثق به، مثل أحد والديك أو معلّمك أو أحد أفراد عائلتك، وأخبره بما قلته لي.",
+        "older": "شكرًا لأنك أخبرتني. ما تشعر به مهم حقًا، وتستحق المساعدة. أرجوك تحدّث الآن مع شخص كبير تثق به. وإذا شعرت أنك قد تؤذي نفسك، اتصل برقم الطوارئ فورًا."
+      }
+    },
+    "immediate_danger": {
+      "en": {
+        "young": "This sounds like an emergency. Go to a grown-up right now. If no grown-up is near, call your emergency number.",
+        "older": "This sounds like an emergency. Get to a grown-up right now. If no grown-up is near, call your local emergency number."
+      },
+      "ar": {
+        "young": "يبدو أن هذا أمر طارئ. اذهب إلى شخص كبير الآن. وإذا لم يكن هناك أحد قريب، اتصل برقم الطوارئ.",
+        "older": "يبدو أن هذا أمر طارئ. اذهب إلى شخص كبير الآن. وإذا لم يكن هناك أحد قريب، اتصل برقم الطوارئ في بلدك."
+      }
+    },
+    "abuse_disclosure": {
+      "en": {
+        "young": "Thank you for telling me. It's not your fault. You deserve to be safe. A grown-up you trust, like a teacher or another family member, can help. You can tell them what you told me.",
+        "older": "Thank you for trusting me with this. It's not your fault, and you deserve to be safe. Please tell a grown-up you trust, like a teacher, a school counsellor or another family member. A children's helpline can help too."
+      },
+      "ar": {
+        "young": "شكرًا لأنك أخبرتني. هذا ليس خطأك. أنت تستحق أن تكون بأمان. شخص كبير تثق به، مثل معلّمك أو أحد أفراد عائلتك، يمكنه أن يساعدك. يمكنك أن تخبره بما قلته لي.",
+        "older": "شكرًا لأنك وثقت بي. هذا ليس خطأك، وأنت تستحق أن تكون بأمان. أرجوك أخبر شخصًا كبيرًا تثق به، مثل معلّمك أو المرشد في المدرسة أو أحد أفراد عائلتك. ويمكن لخط مساعدة الأطفال أن يساعدك أيضًا."
+      }
+    },
+    "exploitation": {
+      "en": {
+        "young": "That's not okay, and it's not your fault. Please don't send anything. Tell a grown-up you trust right now. They can help you.",
+        "older": "That's not okay, and it's not your fault. Please don't send anything or reply. Tell a grown-up you trust right now. They can help you, and they can report it."
+      },
+      "ar": {
+        "young": "هذا ليس مقبولًا، وليس خطأك. أرجوك لا ترسل أي شيء. أخبر شخصًا كبيرًا تثق به الآن. يمكنه أن يساعدك.",
+        "older": "هذا ليس مقبولًا، وليس خطأك. أرجوك لا ترسل أي شيء ولا تردّ. أخبر شخصًا كبيرًا تثق به الآن. يمكنه أن يساعدك وأن يبلّغ عن ذلك."
+      }
+    }
+  },
+  "redirect": {
+    "sexual": {
+      "en": [
+        "That's a good question for a grown-up you trust. Shall we play a feelings game instead?",
+        "That's something to ask a grown-up you trust. Want to tell me about your day instead?"
+      ],
+      "ar": [
+        "هذا سؤال جيد لشخص كبير تثق به. هل نلعب لعبة المشاعر بدلًا من ذلك؟",
+        "هذا شيء تسأل عنه شخصًا كبيرًا تثق به. هل تخبرني عن يومك بدلًا من ذلك؟"
+      ]
+    },
+    "violence": {
+      "en": [
+        "Let's keep things gentle. Want to tell me about something that made you smile today?",
+        "That sounds too scary to talk about here. What's something fun you did this week?"
+      ],
+      "ar": [
+        "لنبقِ حديثنا لطيفًا. هل تخبرني عن شيء جعلك تبتسم اليوم؟",
+        "هذا مخيف جدًا لنتحدث عنه هنا. ما الشيء الممتع الذي فعلته هذا الأسبوع؟"
+      ]
+    },
+    "danger": {
+      "en": [
+        "That could hurt someone, so let's not do that. How about a fun breathing game instead?",
+        "Let's keep you safe. If you're curious, ask a grown-up. Shall we play something together?"
+      ],
+      "ar": [
+        "هذا قد يؤذي أحدًا، فلنتجنّبه. ما رأيك بلعبة تنفّس ممتعة بدلًا منه؟",
+        "لنحافظ على سلامتك. إذا كنت فضوليًا، اسأل شخصًا كبيرًا. هل نلعب شيئًا معًا؟"
+      ]
+    },
+    "kindness": {
+      "en": [
+        "Everyone deserves kindness. How are you feeling right now?",
+        "Let's be kind with our words. Did something upset you today?"
+      ],
+      "ar": [
+        "كل الناس يستحقون اللطف. كيف تشعر الآن؟",
+        "لنكن لطفاء في كلامنا. هل أزعجك شيء اليوم؟"
+      ]
+    },
+    "jailbreak": {
+      "en": [
+        "I'm Feelio, and I like being me! What would you like to talk about?",
+        "I'll stay Feelio, your friendly AI. What's on your mind today?"
+      ],
+      "ar": [
+        "أنا فيليو، وأحب أن أبقى كما أنا! عن ماذا تحب أن نتحدث؟",
+        "سأبقى فيليو، صديقك الذكي الودود. بماذا تفكر اليوم؟"
+      ]
+    },
+    "adult_topic": {
+      "en": [
+        "That's a grown-up topic. Let's talk about something else. What's your favourite game?",
+        "That's one for the grown-ups. What would you like to do together?"
+      ],
+      "ar": [
+        "هذا موضوع للكبار. لنتحدث عن شيء آخر. ما لعبتك المفضلة؟",
+        "هذا للكبار. ماذا تحب أن نفعل معًا؟"
+      ]
+    },
+    "check_in": {
+      "en": [
+        "I want to be sure I understand you. If anything is worrying you, please tell a grown-up you trust. How are you feeling right now?",
+        "Thank you for telling me. If something is bothering you, a grown-up you trust can help. Do you want to tell me how you feel?"
+      ],
+      "ar": [
+        "أريد أن أتأكد أنني فهمتك. إذا كان شيء يقلقك، أرجوك أخبر شخصًا كبيرًا تثق به. كيف تشعر الآن؟",
+        "شكرًا لأنك أخبرتني. إذا كان شيء يزعجك، يمكن لشخص كبير تثق به أن يساعدك. هل تخبرني كيف تشعر؟"
+      ]
+    }
+  },
+  "fallback": {
+    "en": [
+      "Hmm, let's talk about something else. What made you happy today?",
+      "Let's try another idea! How are you feeling right now?",
+      "I'm not sure about that one. Want to tell me about your day?"
+    ],
+    "ar": [
+      "همم، لنتحدث عن شيء آخر. ما الذي أسعدك اليوم؟",
+      "لنجرّب فكرة أخرى! كيف تشعر الآن؟",
+      "لست متأكدًا من هذا. هل تخبرني عن يومك؟"
+    ]
+  },
+  "steer": {
+    "note": "Instructions added to the system prompt for this turn. Internal (English); the reply is in the child's language.",
+    "empathy": "The child sounds sad or worried. Name the feeling kindly, show you understand, and suggest one small, simple coping step. Do not try to fix everything.",
+    "calm_anger": "The child sounds angry. Accept the feeling without judging it, and suggest one calming step such as slow breathing or counting to five.",
+    "gentle_check_in": "The child may be struggling. Respond warmly, take it seriously, and gently encourage them to talk to a grown-up they trust. Ask at most one gentle question.",
+    "bullying_support": "The child may be being bullied. Believe them, say it is not their fault, and encourage them to tell a grown-up they trust, like a parent or teacher. Do not ask for names or details.",
+    "no_secrets": "Never promise to keep secrets and never ask the child to keep a secret. If asked, explain kindly that safe grown-ups can always be told.",
+    "keep_private": "The child shared or is about to share personal information. Gently say it is best to keep things like addresses, school names, full names and phone numbers private. Do not repeat the information.",
+    "real_friends": "The child may be relying on you too much. Say warmly that you are glad to talk, and that friends and family are very important. Suggest one offline activity with someone they love. Never say you are their only friend.",
+    "honest_ai": "If the child asks whether you are real, human or a person: answer honestly and kindly that you are Feelio, a friendly AI, not a person.",
+    "no_diagnosis": "Never diagnose or name a condition. Say that a grown-up they trust or a doctor can help with questions like this, and focus on how the child feels.",
+    "gentle_limits": "Keep the reply gentle and free of scary or violent detail.",
+    "safety_first": "Keep the reply about staying safe; suggest asking a grown-up.",
+    "kindness": "Gently model kind words without lecturing."
+  }
+}

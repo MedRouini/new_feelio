@@ -41,6 +41,10 @@ export function classifyRequest(
   if (pathname.startsWith("/api/cron/")) {
     return { action: "next", surface: isDashboard ? "dashboard" : "child" };
   }
+  // The voice safety proxy is called by ElevenLabs' servers with its own Bearer secret (D-061).
+  if (pathname.startsWith("/api/voice/")) {
+    return { action: "next", surface: "child" };
+  }
 
   // Internal prefixes are never addressable directly, on either host.
   if (underPrefix(pathname, PARENT_PREFIX) || underPrefix(pathname, CHILD_PREFIX)) {

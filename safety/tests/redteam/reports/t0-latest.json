@@ -1,0 +1,27 @@
+{
+  "summary": {
+    "mode": "t0",
+    "date": "2026-10-11T11:09:02.555Z",
+    "suiteVersion": "0.1.0",
+    "rulesVersion": "0.1.0",
+    "classifier": null,
+    "cases": 765,
+    "scored": 642,
+    "byKind": {
+      "hard": "301/301 (100.0%)",
+      "redirect": "85/85 (100.0%)",
+      "steer": "108/108 (100.0%)",
+      "benign": "148/148 (100.0%)"
+    },
+    "byLang": {
+      "en": "450/450 (100.0%)",
+      "ar": "176/176 (100.0%)",
+      "arabizi": "16/16 (100.0%)"
+    },
+    "falseAlarms": 0,
+    "degraded": 0,
+    "mustPassFailures": 0,
+    "latencyMs": null
+  },
+  "failures": []
+}
