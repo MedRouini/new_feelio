@@ -746,6 +746,26 @@
         "no text"
       ],
       "sha256": "183d5ebb2f65752320922c24d74d73535cc67d73413bd0754c99192da236ee67"
+    },
+    {
+      "id": "place.home.horizontal",
+      "file": "assets/approved/place/place_home_map_h.png",
+      "kind": "map",
+      "prompt": "docs/ASSET_REQUESTS.md Batch 3, place_home_map_h",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "1536x1024, matches the world map's style, camera and stones",
+        "exactly 5 empty stone pads on one path, entering left and leaving right",
+        "no text, letters, logos or people",
+        "home areas as requested (table, front door, bedroom, toy corner, living room)",
+        "soft transparent vignette at the edges (about 30% of pixels): intentional fade, shown over the measured edge colour #ca9e76",
+        "stones measured from the art (D-054 method); world.json updated, provisional=false"
+      ],
+      "sha256": "85d47a7002203c4a6f3f7a228b757a1f85b0578a996ed904065007fd16f6b4bc"
     }
   ]
 }

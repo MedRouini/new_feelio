@@ -166,3 +166,14 @@ Fixed:
 2. Landscape uses two columns: star and Feelio, then the words, progress and button.
 
 Checked against §2: one main action per screen, big type, no panels or shadows, motion on delivered art only. The developer test box deliberately looks like a dev tool. To revisit when the place maps arrive: the stones' positions and the name sign over the art.
+
+**2026-10-11, Home's landscape map delivered.** Screenshot at 1180×820 (EN).
+
+Found:
+1. The level stones and the ring sit exactly on the painted pads (measured).
+2. Feelio and the character were cut off at the left edge beside stone 1.
+3. The name-sign placeholder covers the front door in the art.
+
+Fixed: 2. The characters now stand on the side facing the middle of the map.
+
+Recheck when `ui_sign_plate` arrives: the real sign is smaller, but may still need to move off the door, for example to the plain strip at the very top.

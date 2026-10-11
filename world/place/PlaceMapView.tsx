@@ -52,7 +52,7 @@ function deferred() {
  * each level's state (locked, available, in progress, completed); the glowing ring and the characters
  * mark the level to play next. Tapping a level opens it through the shared loading transition.
  * Until the place's art is delivered, the art is a grey TODO(PLACEHOLDER) box and the stones sit on a
- * provisional layout from world.json (`map.provisional`).
+ * provisional layout from world.json (`map.<orientation>.provisional`).
  */
 export function PlaceMapView({ place, progress, locale, avatar, fromLevelId, scenariosOn }: Props) {
   const t = useTranslations("child.place");
@@ -185,7 +185,7 @@ export function PlaceMapView({ place, progress, locale, avatar, fromLevelId, sce
           style={{ width: stage.w, height: stage.h, left: (area.w - stage.w) / 2, top: (area.h - stage.h) / 2 }}
           data-orientation={orientation}
           data-place={place.id}
-          data-provisional={place.map.provisional || undefined}
+          data-provisional={pm.provisional || undefined}
         >
           <AssetImage
             key={imgKey}
@@ -231,10 +231,11 @@ export function PlaceMapView({ place, progress, locale, avatar, fromLevelId, sce
             );
           })}
 
-          {/* The characters stand beside the stone (not on it), so its number stays visible and tappable */}
+          {/* The characters stand beside the stone (not on it), on the side facing the middle of the map,
+              so its number stays visible and tappable and they never fall off the edge */}
           <motion.div
             className={[mapStyles.marker, styles.marker].join(" ")}
-            style={{ left: markerLeft, top: markerTop, ["--beside" as string]: `${Math.round(stage.w * pm.stones[hereId].rx * 1.35)}px` }}
+            style={{ left: markerLeft, top: markerTop, ["--beside" as string]: `${(pm.stones[hereId].x < 0.5 ? -1 : 1) * Math.round(stage.w * pm.stones[hereId].rx * 1.35)}px` }}
             data-testid="place-marker"
           >
             <div className={mapStyles.markerInner} style={{ ["--marker" as string]: `${Math.round(Math.max(64, stage.w * pm.stones[hereId].rx * 1.1))}px` }}>

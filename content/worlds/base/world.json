@@ -399,84 +399,85 @@
         "ar": "الطفل في البيت في عالم فيليو."
       },
       "map": {
-        "provisional": true,
         "horizontal": {
           "asset": "place_home_map_h",
+          "provisional": false,
           "size": [
             1536,
             1024
           ],
-          "backdrop": "#a8d65a",
+          "backdrop": "#ca9e76",
           "path": [
             [
               0.0,
-              0.66
+              0.4614
             ],
             [
-              0.12,
-              0.66
+              0.0964,
+              0.4614
             ],
             [
-              0.31,
-              0.42
+              0.3047,
+              0.5513
             ],
             [
-              0.5,
-              0.62
+              0.498,
+              0.4517
             ],
             [
-              0.69,
-              0.4
+              0.6833,
+              0.5615
             ],
             [
-              0.88,
-              0.6
+              0.8936,
+              0.4673
             ],
             [
               1.0,
-              0.6
+              0.4673
             ]
           ],
           "stones": {
             "home-1": {
-              "x": 0.12,
-              "y": 0.66,
-              "rx": 0.06,
-              "ry": 0.06,
+              "x": 0.0964,
+              "y": 0.4614,
+              "rx": 0.05,
+              "ry": 0.0475,
               "pathIndex": 1
             },
             "home-2": {
-              "x": 0.31,
-              "y": 0.42,
-              "rx": 0.06,
-              "ry": 0.06,
+              "x": 0.3047,
+              "y": 0.5513,
+              "rx": 0.0516,
+              "ry": 0.0486,
               "pathIndex": 2
             },
             "home-3": {
-              "x": 0.5,
-              "y": 0.62,
-              "rx": 0.06,
-              "ry": 0.06,
+              "x": 0.498,
+              "y": 0.4517,
+              "rx": 0.0469,
+              "ry": 0.0475,
               "pathIndex": 3
             },
             "home-4": {
-              "x": 0.69,
-              "y": 0.4,
-              "rx": 0.06,
-              "ry": 0.06,
+              "x": 0.6833,
+              "y": 0.5615,
+              "rx": 0.052,
+              "ry": 0.0492,
               "pathIndex": 4
             },
             "home-5": {
-              "x": 0.88,
-              "y": 0.6,
-              "rx": 0.06,
-              "ry": 0.06,
+              "x": 0.8936,
+              "y": 0.4673,
+              "rx": 0.0473,
+              "ry": 0.0486,
               "pathIndex": 5
             }
           }
         },
         "vertical": {
           "asset": "place_home_map_v",
+          "provisional": true,
           "size": [
             1024,
             1536
@@ -665,9 +666,9 @@
         "ar": "الطفل في الحديقة في عالم فيليو."
       },
       "map": {
-        "provisional": true,
         "horizontal": {
           "asset": "place_park_map_h",
+          "provisional": true,
           "size": [
             1536,
             1024
@@ -743,6 +744,7 @@
         },
         "vertical": {
           "asset": "place_park_map_v",
+          "provisional": true,
           "size": [
             1024,
             1536
@@ -931,9 +933,9 @@
         "ar": "الطفل في المدرسة في عالم فيليو."
       },
       "map": {
-        "provisional": true,
         "horizontal": {
           "asset": "place_school_map_h",
+          "provisional": true,
           "size": [
             1536,
             1024
@@ -1009,6 +1011,7 @@
         },
         "vertical": {
           "asset": "place_school_map_v",
+          "provisional": true,
           "size": [
             1024,
             1536
@@ -1197,9 +1200,9 @@
         "ar": "الطفل في النادي في عالم فيليو."
       },
       "map": {
-        "provisional": true,
         "horizontal": {
           "asset": "place_club_map_h",
+          "provisional": true,
           "size": [
             1536,
             1024
@@ -1275,6 +1278,7 @@
         },
         "vertical": {
           "asset": "place_club_map_v",
+          "provisional": true,
           "size": [
             1024,
             1536
@@ -1463,9 +1467,9 @@
         "ar": "الطفل في السوق في عالم فيليو."
       },
       "map": {
-        "provisional": true,
         "horizontal": {
           "asset": "place_market_map_h",
+          "provisional": true,
           "size": [
             1536,
             1024
@@ -1541,6 +1545,7 @@
         },
         "vertical": {
           "asset": "place_market_map_v",
+          "provisional": true,
           "size": [
             1024,
             1536

@@ -109,7 +109,7 @@ One loading experience for the whole child app. It looks the same everywhere, an
   - a walking path
   - one stone per level: centre, oval and path index
 - **Fit:** fitted whole in the screen, like the world map (D-054). The glass dock floats over it (D-055). Horizontal map from tablet width up.
-- **`map.provisional: true`:** the stones are a temporary S-curve layout. When the art is delivered, Claude Code measures the 5 pads, updates the data and sets `provisional: false`. The schema checks there is exactly one stone per level.
+- **`map.<orientation>.provisional: true`** (per orientation, since one orientation can arrive first): the stones are a temporary S-curve layout. When the art is delivered, Claude Code measures the 5 pads, updates the data and sets `provisional: false`. The schema checks there is exactly one stone per level.
 - **The characters** stand beside the next level's stone, not on it, so its number stays visible and tappable. They ignore taps.
 
 ## 5. Asset slots: references are configuration (`design/asset-slots.ts`)

@@ -74,6 +74,8 @@ const level = z.object({
 const placeMapOrientation = z.object({
   /** Asset id of the art (no words in it, so one image serves every language). */
   asset: z.string(),
+  /** true while the stones are a temporary layout; false once measured from the delivered art. */
+  provisional: z.boolean(),
   size: z.tuple([z.number().int().positive(), z.number().int().positive()]),
   backdrop: z.string().regex(/^#[0-9a-f]{6}$/),
   /** Walking path through the stones, in map fractions. */
@@ -83,8 +85,6 @@ const placeMapOrientation = z.object({
 });
 
 const placeMap = z.object({
-  /** true while the stone positions are a temporary layout, before the art exists to measure them. */
-  provisional: z.boolean(),
   horizontal: placeMapOrientation,
   vertical: placeMapOrientation,
 });

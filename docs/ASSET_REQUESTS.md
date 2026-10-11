@@ -677,10 +677,10 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 | 5 | Park, School, Club, Market place maps | 8 | P2 (each place opens only after the one before) |
 | 6 | Their arrival pictures and level icons | 24 | P2 |
 
-**After a place map is delivered** Claude Code measures where its 5 stones are (as for the world map, D-054), writes them into `world.json` and sets `map.provisional` to false. So the map art needs **5 clear, empty round stone pads along a path**, nothing more precise.
+**After a place map is delivered** Claude Code measures where its 5 stones are (as for the world map, D-054), writes them into `world.json` and sets `map.<orientation>.provisional` to false. So the map art needs **5 clear, empty round stone pads along a path**, nothing more precise.
 
 ### Group 1: Home place maps (one chat)
-### place_home_map_h   status: requested (2026-10-11, D-056)
+### place_home_map_h   status: approved (2026-10-11): soft transparent edge fade, shown over its edge colour #ca9e76; stones measured
 - Used in: Place map of Home (landscape): `/place/home`
 - Purpose: The Home's own map; its 5 level stones sit on the pads
 - Size and ratio: 1536x1024 landscape
@@ -1157,7 +1157,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 | mascot_speaking_closed | 2026-10-10 | | | P3 (voice) |
 | mascot_speaking_open | 2026-10-10 | | | P3 (voice) |
 | dock_calm | 2026-10-10 | | | Dock, 5th button (D-055) |
-| place_home_map_h | 2026-10-11 | | | Batch 3, P1 (D-056) |
+| place_home_map_h | 2026-10-11 | 2026-10-11 | approved | Batch 3, P1 (D-056); stones measured, backdrop #ca9e76 |
 | place_home_map_v | 2026-10-11 | | | Batch 3, P1 (D-056) |
 | node_in_progress | 2026-10-11 | | | Batch 3, P1 (D-056) |
 | ui_celebrate_burst | 2026-10-11 | | | Batch 3, P1 (D-056) |

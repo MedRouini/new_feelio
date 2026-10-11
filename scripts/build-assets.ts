@@ -14,6 +14,7 @@ const INDEX_FILE = "design/asset-index.generated.json";
 const WIDTHS: Record<string, number[]> = {
   map: [768, 1024, 1536],
   world: [768, 1024, 1536],
+  place: [768, 1024, 1536],
   default: [128, 256, 512, 1024],
 };
 
@@ -60,7 +61,7 @@ async function main() {
       mkdirSync(dirname(out), { recursive: true });
       await sharp(baseBuf)
         .resize({ width: w })
-        .webp({ quality: cat === "map" ? 80 : 85, alphaQuality: 90, effort: 5 })
+        .webp({ quality: cat === "map" || cat === "place" ? 80 : 85, alphaQuality: 90, effort: 5 })
         .toFile(out);
       const kb = statSync(out).size / 1024;
       total += kb;
