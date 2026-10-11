@@ -38,6 +38,10 @@
   padding-inline-end: 72px; /* room for the grown-up door in the corner */
 }
 .say > * { inline-size: min(100%, 520px); }
+/* Landscape: the bubble sits to the right, so the garden gate in the middle stays visible (it opens at the end). */
+@media (orientation: landscape) {
+  .say { justify-content: flex-end; }
+}
 @media (orientation: portrait) {
   .say > * { inline-size: min(100%, 440px); }
 }

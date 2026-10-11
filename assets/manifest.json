@@ -766,6 +766,447 @@
         "stones measured from the art (D-054 method); world.json updated, provisional=false"
       ],
       "sha256": "85d47a7002203c4a6f3f7a228b757a1f85b0578a996ed904065007fd16f6b4bc"
+    },
+    {
+      "id": "mascot.mascot_listening",
+      "file": "assets/approved/mascot/mascot_listening.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: head and body tilted slightly to one side, one arm-flap raised and cupped near the side of the screen face as if listening carefully, leaning in a little toward the viewer] and [FACE: attentive open sparkle eyes, eyebrows gently raised, a small closed soft smile]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no sound waves, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "same character as the official mascot (orb, screen face, sparkle eyes, cheeks, belly heart, stubby limbs, colours)",
+        "pose reads as listening: arm cupped near the face, head tilted",
+        "clean alpha, not cropped, no text"
+      ],
+      "sha256": "ed89c292d6df8c726fc851d2f75ab06cc4f9ba2750bc75fad968f36fa9b78849"
+    },
+    {
+      "id": "mascot.mascot_pointing",
+      "file": "assets/approved/mascot/mascot_pointing.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing turned slightly to the side, one arm-flap stretched out pointing to the side, the other relaxed] and [FACE: bright, encouraging eyes looking in the pointing direction, small open smile]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "same character as the official mascot",
+        "one arm pointing to the side, eyes and smile towards it",
+        "clean alpha, not cropped, no text"
+      ],
+      "sha256": "14231920673e5eb7a17906dcc90fe269360ef18f26aef85d6dc80c5472b946d1"
+    },
+    {
+      "id": "mascot.mascot_making",
+      "file": "assets/approved/mascot/mascot_making.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: holding a small paintbrush up in one hand and a little toolbox in the other, as if busy building something, and a happy, focused face with a small smile on the screen face. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no text, no letters, no other characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "same character as the official mascot",
+        "paintbrush in one hand, toolbox in the other, focused smile",
+        "clean alpha, not cropped, no text"
+      ],
+      "sha256": "ef3ed4f41cc89d5bb00544b54a1251e55d5accfd90026b9ba4297e7a6e851c23"
+    },
+    {
+      "id": "ui.node_in_progress",
+      "file": "assets/approved/ui/node_in_progress.png",
+      "kind": "ui",
+      "prompt": "Edit the first attached image (the amber level stone). Keep the stone exactly identical in shape, size, position, outline and glossy style. Change only the colours: the left half of the top face stays warm amber, the right half becomes the soft green of the second attached stone, with a smooth soft blend in the middle, like a stone that is half done. Transparent background PNG (plain white if transparency fails). No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "same stone shape, outline and gloss as node_current and node_completed",
+        "half amber, half green with a soft blend",
+        "canvas 1383x1137 (not square); stone width share 94% vs 91-93% for the other stones, centred: lines up",
+        "clean alpha, no text"
+      ],
+      "sha256": "d4bc1beba72f324d0ea89ecd7ecec4619742221ec51e6f5d8bf59812e090e06e"
+    },
+    {
+      "id": "ui.ui_celebrate_burst",
+      "file": "assets/approved/ui/ui_celebrate_burst.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved star icon; match its style. A soft round burst of gentle light rays around an EMPTY centre (the star will sit there): 12 rounded rays alternating pale amber #FFE6BA and pale rose #FFD8E6, with a few small four-point sparkles in lilac and amber between them. Calm and soft, not neon, no glow halo around the outside, crisp edges. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "12 rounded rays, pale amber and rose, small sparkles, empty centre",
+        "no outer glow halo on a dark background",
+        "no text"
+      ],
+      "sha256": "3c036df6e4162699fbe4350421b1d2c46ee5fd3e8c1f2d046dfd9464365dc4ff"
+    },
+    {
+      "id": "ui.ui_grownup_door",
+      "file": "assets/approved/ui/ui_grownup_door.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single small cosy wooden door with a round top, a little golden key hanging from a hook beside it and a tiny round window, soft purple (#614194) door frame. Chunky and simple, easy to recognise at 64 px. Centred, filling about 80% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "rounded wooden door, round window, golden key on a hook, purple frame",
+        "reads at small size, clean alpha, no text"
+      ],
+      "sha256": "d4f0a5a654400c56932706b6ff7e796e19ce905b19c670552c8015e987c56f39"
+    },
+    {
+      "id": "ui.ui_sign_plate",
+      "file": "assets/approved/ui/ui_sign_plate.png",
+      "kind": "ui",
+      "prompt": "Create an image. Wide 3:2 landscape, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single friendly wooden sign seen from the front, exactly like the wooden signs on the attached map (same wood colour, same rounded plank shape, same posts), but wide and completely BLANK: a clean, smooth, light wooden board with nothing written on it, on two short posts. Centred, filling about 85% of the frame width, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "blank wooden board on two posts, matches the map signs",
+        "no letters on the board, clean alpha"
+      ],
+      "sha256": "2de99540bda4d37d838f128fec62071e2c92b9c3f598684b10f71d49082b60a6"
+    },
+    {
+      "id": "ui.ui_say_bubble",
+      "file": "assets/approved/ui/ui_say_bubble.png",
+      "kind": "ui",
+      "prompt": "Create an image. Wide 3:2 landscape, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single big, soft, rounded speech bubble, like a cloud-shaped balloon, cream-white (#FFFDF7) inside with a smooth dark navy (#322A6A) outline of even thickness, and a short rounded tail pointing straight DOWN from the bottom centre. The inside is completely empty. Flat, no gradient inside, no shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "cloud-shaped bubble, cream inside, even dark outline, tail pointing down near the centre",
+        "empty inside, clean alpha, no text"
+      ],
+      "sha256": "ea3db49fdf368a2626a17e503befc447f880b248cdacc4e51acf87f10eb770f1"
+    },
+    {
+      "id": "place.loading_place_home",
+      "file": "assets/approved/place/loading_place_home.png",
+      "kind": "place",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached our approved map and an approved icon; match their style. A single friendly object picture, centred, filling about 80% of the frame, no scene and no background shape: a friendly front door of a cosy house: a rounded wooden door with a small round window, a doormat, two flower pots on either side and a little porch light. Welcoming and calm. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "friendly front porch: rounded door, round window, doormat, two flower pots, porch light",
+        "object picture, no background scene, clean alpha, no text"
+      ],
+      "sha256": "6e4a8bf3272369936eb3a2801b90905003bf7c18118891cb7d78cf76af6cc7d0"
+    },
+    {
+      "id": "level.level_home_1",
+      "file": "assets/approved/level/level_home_1.png",
+      "kind": "level",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a small school backpack leaning against a rounded front door. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "backpack against a rounded front door (\"Leaving for school\")",
+        "clean alpha, no text"
+      ],
+      "sha256": "d3a99295d55ac10d88eaa9ec64077acd38e2a521a82b814f19f0d64bf817a662"
+    },
+    {
+      "id": "level.level_home_2",
+      "file": "assets/approved/level/level_home_2.png",
+      "kind": "level",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a round family dining table with four bowls and a jug of water. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "round family table, four bowls and a water jug",
+        "clean alpha, no text"
+      ],
+      "sha256": "daa80367ae6a90c04d0c1a2697e3b8397527a6f5b5a68e02611e41c2af5d451a"
+    },
+    {
+      "id": "level.level_home_3",
+      "file": "assets/approved/level/level_home_3.png",
+      "kind": "level",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: two soft toys sitting together on a small rug next to a box of building blocks. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "two soft toys on a rug with a box of blocks",
+        "clean alpha, no text"
+      ],
+      "sha256": "117a684e00e432d5f106cbcc880a5ffbafb6271b436007ac7add580f6e94d917"
+    },
+    {
+      "id": "level.level_home_4",
+      "file": "assets/approved/level/level_home_4.png",
+      "kind": "level",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a cosy small bed with a fluffy pillow, a soft night-light and a crescent moon in the window. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "cosy bed, pillow, night-light, crescent moon in the window; calm, not scary",
+        "clean alpha, no text"
+      ],
+      "sha256": "f0fa4c257cb1f64fdbf2d675dfdd5777808c7b1a94edd8645c24d8c358092340"
+    },
+    {
+      "id": "level.level_home_5",
+      "file": "assets/approved/level/level_home_5.png",
+      "kind": "level",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a colourful ball rolling out of an open garden gate. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "ball rolling out of an open garden gate",
+        "clean alpha, no text"
+      ],
+      "sha256": "d11091ed458f66a28e80d15389a0a9a3b61178fafe6957485663790b523117c3"
+    },
+    {
+      "id": "scene.scene_meadow_land_open",
+      "file": "assets/approved/world/scene_meadow_land_open.png",
+      "kind": "scene",
+      "prompt": "Edit the attached image. Keep everything exactly identical (same size, composition, path, grass, flowers, trees, sky, colours, art style, the stone gate pillars) and change only the two wooden gate doors: swing them wide open inwards, so through the open gateway we see a soft warm golden glow of light and a hint of green hills. Do not move, add or remove anything else. No text, no letters, no logos, no watermark, no people, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "edit of scene_meadow_land: gate doors open with a warm glow",
+        "gate pillars at the same place as the closed scene (the app reveals only the gate area)",
+        "opaque 1536x1024, no text, no people"
+      ],
+      "sha256": "c23fe5f3f2de2820014a40dd542edcb07c5e5391811e07fade5d69aae5273503"
+    },
+    {
+      "id": "scene.scene_meadow_port_open",
+      "file": "assets/approved/world/scene_meadow_port_open.png",
+      "kind": "scene",
+      "prompt": "Edit the attached image. Keep everything exactly identical (same size, composition, path, grass, flowers, trees, sky, colours, art style, the stone gate pillars) and change only the two wooden gate doors: swing them wide open inwards, so through the open gateway we see a soft warm golden glow of light and a hint of green hills. Do not move, add or remove anything else. No text, no letters, no logos, no watermark, no people, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "edit of scene_meadow_port: gate doors open with a warm glow",
+        "gate pillars at the same place as the closed scene",
+        "opaque 1024x1536, no text, no people"
+      ],
+      "sha256": "6a5bf8c7727262d5cc8e317e69939db1460c3272a70bd0fa0fe48620c72d6e99"
+    },
+    {
+      "id": "avatar.avatar_bun_rose_idle",
+      "file": "assets/approved/avatar/avatar_bun_rose_idle.png",
+      "kind": "avatar",
+      "prompt": "docs/ASSET_REQUESTS.md Group 4: recolour of avatar_bun_amber_idle (avatar_bun_rose_idle)",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "same bun character as avatar_bun_amber_idle, body recoloured rose",
+        "matching darker outline, clean alpha, no text"
+      ],
+      "sha256": "eb468c1ab386c7f8cbc1613874eb2649699e2df7cf67343d829385d2463b3072"
+    },
+    {
+      "id": "avatar.avatar_bun_lilac_idle",
+      "file": "assets/approved/avatar/avatar_bun_lilac_idle.png",
+      "kind": "avatar",
+      "prompt": "docs/ASSET_REQUESTS.md Group 4: recolour of avatar_bun_amber_idle (avatar_bun_lilac_idle)",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "same bun character as avatar_bun_amber_idle, body recoloured lilac",
+        "eyes slightly bluer than the amber one: minor, accepted",
+        "clean alpha, no text"
+      ],
+      "sha256": "93ef43f7a7b8be2e2428b3d22c5ed9c0d00ab18e2b8ce3131b4d82bc887069aa"
+    },
+    {
+      "id": "avatar.avatar_bun_sky_idle",
+      "file": "assets/approved/avatar/avatar_bun_sky_idle.png",
+      "kind": "avatar",
+      "prompt": "docs/ASSET_REQUESTS.md Group 4: recolour of avatar_bun_amber_idle (avatar_bun_sky_idle)",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "same bun character as avatar_bun_amber_idle, body recoloured sky blue",
+        "clean alpha, no text"
+      ],
+      "sha256": "be08d329861bb2228561f2f923db00b047262528785b3ca30d934dbf4e88f1c4"
+    },
+    {
+      "id": "ui.like_animals",
+      "file": "assets/approved/ui/like_animals.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a friendly cartoon puppy and kitten sitting side by side. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "puppy and kitten side by side, reads at 96 px",
+        "clean alpha, no text"
+      ],
+      "sha256": "3f29525e338b2f01fb58921b8cce59c42a8622440d23f5413c94567c965d08f5"
+    },
+    {
+      "id": "ui.like_space",
+      "file": "assets/approved/ui/like_space.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a small rounded rocket next to a ringed planet and two little stars. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "rocket, ringed planet, two stars",
+        "clean alpha, no text"
+      ],
+      "sha256": "83aef70074968501d834c258c133fb95b62aadafa95d90be4ffb42f5ec63674b"
+    },
+    {
+      "id": "ui.like_music",
+      "file": "assets/approved/ui/like_music.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a round drum with two drumsticks and a small xylophone. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "drum with sticks and a xylophone",
+        "clean alpha, no text"
+      ],
+      "sha256": "ce68d26683e55fd23f0da036ffa13867d4e14aefbba682877314fc49593058bb"
+    },
+    {
+      "id": "ui.like_drawing",
+      "file": "assets/approved/ui/like_drawing.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: three chunky crayons and a sheet of paper with a simple rainbow drawn on it. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "three crayons and a paper with a rainbow",
+        "clean alpha, no text"
+      ],
+      "sha256": "5a080d4f645d858435eb6f724d11efc3b9158b373ff599380103bacce56920eb"
+    },
+    {
+      "id": "ui.like_ballgames",
+      "file": "assets/approved/ui/like_ballgames.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a classic soccer ball and a small basketball side by side. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "soccer ball and basketball",
+        "clean alpha, no text"
+      ],
+      "sha256": "21bb5d3e81b7f5c959b797a6ad8369be6effc5ff19b46f16e7891d70fe5730a7"
+    },
+    {
+      "id": "ui.like_nature",
+      "file": "assets/approved/ui/like_nature.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a flower pot with a sprouting plant, a big leaf and a ladybird. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "flower pot with a sprout, a big leaf and a ladybird",
+        "clean alpha, no text"
+      ],
+      "sha256": "8585f62241f4661024cfe2c2b44821390380f5882acee4d45cd8cdd0e2a49865"
+    },
+    {
+      "id": "ui.like_blocks",
+      "file": "assets/approved/ui/like_blocks.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a small tower of chunky colourful building blocks. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "tower of chunky building blocks",
+        "clean alpha, no text"
+      ],
+      "sha256": "301740bd3f0732d0b3d6eb44addd972b4fcc0d0ea63faa0ad15ccc3ee7b41571"
+    },
+    {
+      "id": "ui.like_sea",
+      "file": "assets/approved/ui/like_sea.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: a friendly round fish, a curling wave and a seashell. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.",
+      "tool": "ChatGPT",
+      "date": "2026-10-11",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "friendly fish, curling wave, seashell",
+        "clean alpha, no text"
+      ],
+      "sha256": "5f899f7cfd211e55f7ae4a29f8e74a7c8b0cdaf3b2aea2eaffa3d83fe6a80f67"
     }
   ]
 }

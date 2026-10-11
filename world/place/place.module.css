@@ -72,7 +72,7 @@
   cursor: pointer;
 }
 .back:focus-visible { outline: 5px solid var(--focus); outline-offset: 4px; }
-.sign { inline-size: min(44vw, 300px); margin-inline: auto; }
+.sign { inline-size: min(34vw, 230px); margin-inline: auto; } /* small: the sign sits over the top of the place art */
 
 @media (prefers-reduced-motion: reduce) { .stone { transition: none; } .stone:active { transform: none; } }
 

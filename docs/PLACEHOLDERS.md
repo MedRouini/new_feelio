@@ -40,3 +40,10 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 | Crisis card and mascot mood in voice | Proxy (client tools) | Whether a custom LLM can trigger client tools is unverified (D-004) | Milestone 5 |
 | Child-side "tell a grown-up / something felt wrong" button | none yet | Belongs on the Talk screen, where it has context (D-066) | Milestone 5 |
 | Parent email verification is off | `auth/server.ts` | No email provider chosen | When you pick a provider |
+
+## Asset delivery, 2026-10-11
+27 assets approved and wired (Home level flow, signs and bubble, grown-up door, onboarding pictures, character colours, mascot pointing, listening and making). Still shown as grey boxes:
+- `place_home_map_v` (the Home map on phones): redo, see ASSET_REQUESTS
+- `ui_mic_object` (onboarding microphone stop): redo
+- `dock_calm` (Calm dock icon): redo
+- `mascot_thinking`, `mascot_speaking_*`: Talk screen poses (fall back to approved poses, no grey box)

@@ -34,3 +34,6 @@ design/audio-index.generated.json
 
 # Voice samples for choosing voices (not shipped)
 /voice-samples/
+
+# Delivered art that needs a redo (never shipped; see docs/ASSET_REQUESTS.md)
+assets/redo/

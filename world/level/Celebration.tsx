@@ -44,7 +44,7 @@ export function Celebration({ placeId, placeName, level, levels, locale, tint, p
       <div className={styles.celebrate}>
         <div className={styles.hero}>
           <div className={styles.starWrap}>
-            {burst ? <AssetImage id={burst} alt="" sizes="50vmin" className={styles.burst} /> : null}
+            {burst ? <AssetImage id={burst} alt="" sizes="50vmin" className={styles.burst} style={{ maxWidth: "none" }} /> : null}
             <AssetImage id={pick(CELEBRATE.star)} alt="" sizes="30vmin" className={styles.star} />
           </div>
           <Mascot pose={pick(CELEBRATE.mascot)} label={lines[0]} sizes="26vmin" className={styles.cheerMascot} />

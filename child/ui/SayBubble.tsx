@@ -33,6 +33,8 @@ export function SayBubble({
     <button
       type="button"
       className={[styles.say, className].filter(Boolean).join(" ")}
+      // Long lines get a smaller size so they stay inside the bubble.
+      data-length={text.length > 90 ? "long" : text.length > 55 ? "mid" : undefined}
       aria-label={`${replayLabel}: ${text}`}
       onClick={() => {
         if (ref.current) {
