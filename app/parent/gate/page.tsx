@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { getParent } from "@/auth/guards";
 import { Button } from "@/design/components/Button";
-import { Card } from "@/design/components/Card";
 import { Field } from "@/design/components/Field";
 import { gateAction } from "../actions";
 import { dashboardRedirect as redirect } from "../page-guard";
@@ -14,9 +13,9 @@ export default async function Gate({ searchParams }: { searchParams: Promise<{ e
   if (!parent) redirect(`/sign-in?next=${encodeURIComponent(next ?? "/")}`);
   const t = await getTranslations("parent");
   return (
-    <Card>
+    <div className={[styles.card, styles.panel].join(" ")}>
       <form action={gateAction} className={styles.stack}>
-        <h1 className={styles.h1}>{t("gateTitle")}</h1>
+        <h1 className={styles.pageTitle}>{t("gateTitle")}</h1>
         <p className={styles.muted}>{level === "sensitive" ? t("sensitiveGate") : t("gateBody")}</p>
         {error ? <p className={styles.error} role="alert">{t("gateWrong")}</p> : null}
         <input type="hidden" name="next" value={next ?? "/"} />
@@ -24,6 +23,6 @@ export default async function Gate({ searchParams }: { searchParams: Promise<{ e
         <Field label={t("password")} name="password" type="password" autoComplete="current-password" required />
         <Button type="submit">{t("gateButton")}</Button>
       </form>
-    </Card>
+    </div>
   );
 }

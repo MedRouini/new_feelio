@@ -1,6 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Button } from "@/design/components/Button";
-import { Card } from "@/design/components/Card";
 import { env } from "@/platform/env";
 import { getMarket } from "@/platform/markets";
 import { consentAction } from "../actions";
@@ -16,9 +15,9 @@ export default async function Consent({ searchParams }: { searchParams: Promise<
   const [t, locale] = await Promise.all([getTranslations("parent"), getLocale()]);
   const market = getMarket(env().DEFAULT_MARKET);
   return (
-    <Card>
+    <div className={[styles.card, styles.panel].join(" ")}>
       <form action={consentAction} className={styles.stack}>
-        <h1 className={styles.h1}>{t("consentTitle")}</h1>
+        <h1 className={styles.pageTitle}>{t("consentTitle")}</h1>
         <p className={styles.notice}>{t("consentPilot")}</p>
         <p>{t("consentIntro")}</p>
         <ul className={styles.scopes}>
@@ -36,6 +35,6 @@ export default async function Consent({ searchParams }: { searchParams: Promise<
         <BrowserTimezone />
         <Button type="submit">{t("consentButton")}</Button>
       </form>
-    </Card>
+    </div>
   );
 }

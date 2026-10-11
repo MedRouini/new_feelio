@@ -177,3 +177,56 @@ Found:
 Fixed: 2. The characters now stand on the side facing the middle of the map.
 
 Recheck when `ui_sign_plate` arrives: the real sign is smaller, but may still need to move off the door, for example to the plain strip at the very top.
+
+## 10. Parent dashboard (v2, D-067)
+**Brief (owner, 2026-10-11):**
+- Polished, modern and on-brand, without the mascot or many illustrations.
+- Organised into clear sections with simple navigation.
+- The real logo from `brand/`.
+- **No shadows at all.** Clean layout, good spacing, subtle borders, rounded components, clear hierarchy.
+
+**Tokens (brand only, no new colours except two border lines):**
+- **Text:** navy `#322A6A`; muted `#4B4380`.
+- **Actions and links:** purple `#614194`; hover `#5742A9`.
+- **"You are here" marker:** amber `#F3B03A`, the logo's heart colour. Used only for the current nav item and tab.
+- **Surfaces:** white; the sidebar is lilac `#F3ECFF`.
+- **Lines:** soft lilac `#E4D8F6` for cards and dividers (decorative); stronger `#8A7BB8` for form controls (3.6:1, WCAG 1.4.11).
+- **One area per brand tint,** shown only as small icon tiles:
+  - purple: overview and progress
+  - amber: time
+  - rose: safety
+  - blue: devices and sound
+- **Type:** Balsamiq Sans (brand body font) and Baloo Bhaijaan 2 (Arabic). Sizes: page title 30/700, section 19/700, body 16, small 14 (never smaller), big numbers 40/700.
+- **Radius by level:** sign-in panel 28, card 20, control 12, chips and status pills fully round.
+- **No shadows:** the `--shadow-soft` token is removed from the codebase.
+
+**Structure:**
+- **After the grown-up check:** a sidebar with the purple v1 logo (`brand/logotype/svg-no bg/logo color v1.svg`, copied to `public/brand/feelio-logo.svg` with only the empty frame trimmed; paths and colours untouched, checked by script). Sections: Home, one entry per child, Add a child, How Feelio works, Account, and Safety review (lead only). Language and sign-out sit at the foot.
+- **On phones** the sidebar becomes a top bar with a menu (`<details>`, no JavaScript).
+- **Before the check** (sign-in, sign-up, the check itself, consent): one centred panel under the logo, and nothing about any child is shown.
+- **Each child has 4 tabs:**
+  - Overview: today, last 7 days, levels finished, the week's bars, progress
+  - Controls: what's on, time and allowed hours, sound, and "remove this profile" set apart
+  - Safety: notes, plus "Something felt wrong?"
+  - Devices: set up a device, and the device list
+
+  This replaces the single long page.
+- **Components:** switches (real `role="switch"` checkboxes), a segmented choice for minutes, day chips, stat tiles with a thin meter, status pills ("Can play now" / "Resting now" / "Done for today"), and a calm danger zone.
+
+**Review (2026-10-11):** screenshots of 8 screens at desktop 1280×860, phone 390×844 and Arabic desktop.
+
+Found:
+1. On a phone the Devices tab was off-screen.
+2. The minutes control stretched to full width.
+3. On a phone the two time pickers overflowed the card.
+4. "30 minutes" wrapped.
+5. Arabic minute options used Western digits.
+
+All fixed:
+1. The tabs share the width, with the icon above the label.
+2. The control hugs its content.
+3. Two equal columns.
+4. One line per option.
+5. Arabic-Indic digits.
+
+Checked: no shadows anywhere (grep), the logo is not mirrored in Arabic, focus rings on every control, 44 px targets.

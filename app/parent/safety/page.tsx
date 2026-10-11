@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
+import { BarChart3, MessageSquareWarning, ShieldAlert } from "lucide-react";
 import { Button } from "@/design/components/Button";
-import { Card } from "@/design/components/Card";
 import { isSafetyLead, reviewQueue } from "@/parent/safety-lead";
 import { reviewEventAction, reviewReportAction } from "../actions";
 import { requireParentPage } from "../page-guard";
@@ -17,84 +17,105 @@ export default async function SafetyReview() {
 
   return (
     <>
-      <Card>
-        <div className={styles.stack}>
-          <h1 className={styles.h1}>{t("title")}</h1>
-          <p className={styles.muted}>{t("intro")}</p>
+      <header className={styles.pageHead}>
+        <h1 className={styles.pageTitle}>{t("title")}</h1>
+        <p className={styles.pageLead}>{t("intro")}</p>
+      </header>
+
+      <section className={styles.card} aria-labelledby="events-title">
+        <div className={styles.sectionHead}>
+          <span className={styles.iconTile} data-tone="rose">
+            <ShieldAlert size={20} aria-hidden />
+          </span>
+          <h2 id="events-title" className={styles.sectionTitle}>{t("eventsTitle", { n: q.events.length })}</h2>
         </div>
-      </Card>
-
-      <Card>
-        <section className={styles.stack} aria-labelledby="events-title">
-          <h2 id="events-title" className={styles.h1}>{t("eventsTitle", { n: q.events.length })}</h2>
-          {q.events.length === 0 ? <p className={styles.muted}>{t("none")}</p> : null}
-          <ul className={styles.list} data-testid="review-events">
-            {q.events.map((e) => (
-              <li key={e.id} className={styles.stack} data-restricted={e.restricted || undefined}>
-                <p>
-                  <strong>{e.category}</strong> · {t("level", { level: e.level, severity: e.severity })} · {e.feature} · {e.locale} · {when(e.createdAt)}
-                </p>
-                <p className={styles.muted}>
-                  {t("meta", { action: e.action, source: e.source, actor: e.actorClass ?? "n/a" })}
-                  {e.restricted ? <strong> · {t("restricted")}</strong> : null}
-                  {e.escalated ? <strong> · {t("escalated")}</strong> : null}
-                </p>
-                {e.excerpt ? <blockquote className={styles.excerpt}>{e.excerpt}</blockquote> : <p className={styles.muted}>{t("noExcerpt")}</p>}
-                <div className={styles.row}>
-                  <form action={reviewEventAction}>
-                    <input type="hidden" name="id" value={e.id} />
-                    <Button variant="secondary" type="submit">{t("markReviewed")}</Button>
-                  </form>
-                  <form action={reviewEventAction}>
-                    <input type="hidden" name="id" value={e.id} />
-                    <input type="hidden" name="decision" value="escalate" />
-                    <Button variant="quietDanger" type="submit">{t("escalate")}</Button>
-                  </form>
+        {q.events.length === 0 ? <p className={styles.muted}>{t("none")}</p> : null}
+        <ul className={styles.list} data-testid="review-events">
+          {q.events.map((e) => (
+            <li key={e.id} className={[styles.listRow, styles.stack].join(" ")} data-restricted={e.restricted || undefined}>
+              <div className={styles.stackTight}>
+                <span className={styles.listTitle}>{e.category}</span>
+                <div className={styles.meta}>
+                  <span className={styles.tag}>{t("level", { level: e.level, severity: e.severity })}</span>
+                  <span className={styles.tag}>{e.feature}</span>
+                  <span className={styles.tag}>{e.locale}</span>
+                  {e.restricted ? (
+                    <span className={styles.tag} data-tone="rose">
+                      {t("restricted")}
+                    </span>
+                  ) : null}
+                  {e.escalated ? (
+                    <span className={styles.tag} data-tone="rose">
+                      {t("escalated")}
+                    </span>
+                  ) : null}
                 </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </Card>
-
-      <Card>
-        <section className={styles.stack} aria-labelledby="reports-title">
-          <h2 id="reports-title" className={styles.h1}>{t("reportsTitle", { n: q.reports.length })}</h2>
-          {q.reports.length === 0 ? <p className={styles.muted}>{t("none")}</p> : null}
-          <ul className={styles.list} data-testid="review-reports">
-            {q.reports.map((r) => (
-              <li key={r.id} className={styles.stack}>
-                <p>
-                  <strong>{r.category}</strong> · {when(r.createdAt)}
-                </p>
-                {r.note ? <blockquote className={styles.excerpt}>{r.note}</blockquote> : null}
-                <form action={reviewReportAction}>
-                  <input type="hidden" name="id" value={r.id} />
+                <span className={[styles.muted, styles.small].join(" ")}>
+                  {when(e.createdAt)} · {t("meta", { action: e.action, source: e.source, actor: e.actorClass ?? "n/a" })}
+                </span>
+              </div>
+              {e.excerpt ? <blockquote className={styles.excerpt}>{e.excerpt}</blockquote> : <p className={[styles.muted, styles.small].join(" ")}>{t("noExcerpt")}</p>}
+              <div className={styles.actions}>
+                <form action={reviewEventAction}>
+                  <input type="hidden" name="id" value={e.id} />
                   <Button variant="secondary" type="submit">{t("markReviewed")}</Button>
                 </form>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </Card>
+                <form action={reviewEventAction}>
+                  <input type="hidden" name="id" value={e.id} />
+                  <input type="hidden" name="decision" value="escalate" />
+                  <Button variant="quietDanger" type="submit">{t("escalate")}</Button>
+                </form>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      <Card>
-        <section className={styles.stack} aria-labelledby="counts-title">
-          <h2 id="counts-title" className={styles.h1}>{t("countsTitle")}</h2>
-          {q.counts.length === 0 ? <p className={styles.muted}>{t("none")}</p> : null}
-          <table className={styles.table}>
-            <tbody>
-              {q.counts.map((c) => (
-                <tr key={c.category}>
-                  <th scope="row">{c.category}</th>
-                  <td>{c.total}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className={styles.muted}>{t("procedure")}</p>
-        </section>
-      </Card>
+      <section className={styles.card} aria-labelledby="reports-title">
+        <div className={styles.sectionHead}>
+          <span className={styles.iconTile} data-tone="amber">
+            <MessageSquareWarning size={20} aria-hidden />
+          </span>
+          <h2 id="reports-title" className={styles.sectionTitle}>{t("reportsTitle", { n: q.reports.length })}</h2>
+        </div>
+        {q.reports.length === 0 ? <p className={styles.muted}>{t("none")}</p> : null}
+        <ul className={styles.list} data-testid="review-reports">
+          {q.reports.map((r) => (
+            <li key={r.id} className={[styles.listRow, styles.stack].join(" ")}>
+              <div className={styles.stackTight}>
+                <span className={styles.listTitle}>{r.category}</span>
+                <span className={[styles.muted, styles.small].join(" ")}>{when(r.createdAt)}</span>
+              </div>
+              {r.note ? <blockquote className={styles.excerpt}>{r.note}</blockquote> : null}
+              <form action={reviewReportAction}>
+                <input type="hidden" name="id" value={r.id} />
+                <Button variant="secondary" type="submit">{t("markReviewed")}</Button>
+              </form>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className={styles.card} aria-labelledby="counts-title">
+        <div className={styles.sectionHead}>
+          <span className={styles.iconTile} data-tone="lilac">
+            <BarChart3 size={20} aria-hidden />
+          </span>
+          <h2 id="counts-title" className={styles.sectionTitle}>{t("countsTitle")}</h2>
+        </div>
+        {q.counts.length === 0 ? <p className={styles.muted}>{t("none")}</p> : null}
+        <table className={styles.table}>
+          <tbody>
+            {q.counts.map((c) => (
+              <tr key={c.category}>
+                <th scope="row">{c.category}</th>
+                <td>{c.total}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className={[styles.muted, styles.small].join(" ")}>{t("procedure")}</p>
+      </section>
     </>
   );
 }

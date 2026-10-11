@@ -287,7 +287,32 @@
         "title": "Tips",
         "body": "Ask your child about what they explored with Feelio. Feelings games work best as a starting point for talking together. If anything ever feels wrong, use \"Something felt wrong?\" on your child's page."
       }
-    }
+    },
+    "navChildren": "Children",
+    "menu": "Menu",
+    "homeLead": "Choose a child to see their day, change their controls or read safety notes.",
+    "todayShort": "{n} min today",
+    "statusOk": "Can play now",
+    "statusResting": "Resting now",
+    "statusTimeUp": "Done for today",
+    "tabOverview": "Overview",
+    "tabControls": "Controls",
+    "tabSafety": "Safety",
+    "tabDevices": "Devices",
+    "tabsLabel": "This child's sections",
+    "statToday": "Today",
+    "statWeek": "Last 7 days",
+    "statLevels": "Levels finished",
+    "ofLimit": "of {limit} min",
+    "ofTotal": "of {total}",
+    "minutesWord": "min",
+    "whatTitle": "What's on",
+    "timeSection": "Time",
+    "soundSection": "Sound",
+    "settingsSaved": "Controls saved.",
+    "setUpTitle": "Set up a device",
+    "reportNoteLabel": "Anything you'd like to add (optional)",
+    "reportNoteHint": "Please don't include names, addresses or phone numbers."
   },
   "ageBands": {
     "5-6": "5–6 years",

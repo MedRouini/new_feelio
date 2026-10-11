@@ -30,26 +30,30 @@ test("child page: time, week, progress, safety notes, report; settings: allowed 
   const f = fixture({ locale: "en", onboarded: true, timezone: "Asia/Dubai" });
   await signIn(page, f.email);
   await page.goto(`${DASH}/children/${f.childId}`);
-  await expect(page.getByTestId("today-time")).toContainText("0 of 45 minutes used today");
+  await expect(page.getByTestId("today-time")).toContainText("of 45 min");
+  await expect(page.getByTestId("child-status")).toHaveText("Can play now");
   await expect(page.getByTestId("week").locator("li")).toHaveCount(7);
   await expect(page.getByTestId("progress").locator("li")).toHaveCount(5);
   await expect(page.getByTestId("progress").locator('[data-place="home"]')).toContainText("0 of 5 levels finished");
-  await expect(page.getByText("Nothing to report. Feelio hasn't needed to step in.")).toBeVisible();
   await page.screenshot({ path: `${SHOTS}/child-page.png`, fullPage: true });
 
-  // "Something felt wrong?"
+  // Safety tab: notes and "Something felt wrong?"
+  await page.getByTestId("tab-safety").click();
+  await expect(page.getByText("Nothing to report. Feelio hasn't needed to step in.")).toBeVisible();
   const form = page.getByTestId("report-form");
   await form.getByRole("combobox").selectOption("acted_like_a_person");
   await form.getByRole("textbox").fill("It said it was a real person.");
   await form.getByRole("button", { name: "Send report" }).click();
   await expect(page.getByText("Thank you. Our safety team will look at this.")).toBeVisible();
+  await page.screenshot({ path: `${SHOTS}/child-safety.png`, fullPage: true });
 
   // Allowed hours: the times are in the family's time zone, shown on the page.
-  await page.goto(`${DASH}/children/${f.childId}/settings`);
+  await page.getByTestId("tab-controls").click();
+  await expect(page).toHaveURL(/\/children\/.+\/settings$/);
   await expect(page.getByTestId("allowed-hours")).toContainText("Asia/Dubai");
   await page.screenshot({ path: `${SHOTS}/settings.png`, fullPage: true });
   // no days selected: refused with a clear message, nothing saved
-  for (const box of await page.getByTestId("allowed-hours").getByRole("checkbox").all()) await box.uncheck();
+  for (const box of await page.getByTestId("allowed-hours").getByRole("checkbox").all()) await box.uncheck({ force: true });
   await page.getByRole("button", { name: "Save settings" }).click();
   await expect(page.getByText("Choose at least one day, and an end time after the start time.")).toBeVisible();
 });

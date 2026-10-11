@@ -693,3 +693,14 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - Adventures, Talk and Stories switches in one place.
   - The Talk button is now hidden when Talk is off, and the Talk screen refuses on the server (same as Stories).
 - **Additive migration** `0004_parent_reports` (new table, `safety_event.reviewed_by`).
+
+## D-067 Parent dashboard v2: on-brand, sectioned, no shadows
+**Status:** accepted (owner brief, 2026-10-11). Design note: DESIGN_SYSTEM §10.
+- **Visual language:** the brand palette, Balsamiq Sans, the real purple v1 logo (frame trimmed only), soft lilac borders, and radius by level. **Shadows removed from the whole codebase**, including the parent token D-042 had allowed.
+- **Navigation:**
+  - a sidebar (a top-bar menu on phones) with Home, each child, Add a child, How Feelio works, Account, and Safety review (lead only)
+  - each child gets 4 tabs: Overview, Controls, Safety, Devices
+  - routes: `/children/[id]`, `/settings`, `/safety`, `/devices`
+- **Setup flow:** add a child, then Controls (step 3), then Devices (step 4, hand the device over). Saving Controls otherwise stays on the tab with "Controls saved."
+- **Privacy:** the full shell, including the children's names in the sidebar, appears only after the grown-up check. Before it, a centred panel shows nothing about any child.
+- Static `brand/` files are served as-is by the host router (like `generated/`).

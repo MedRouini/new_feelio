@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
   const childId = String(form.get("childId") ?? "");
   const check = await checkParent({ gate: "area", needHousehold: true });
   if (!check.ok) {
-    const next = `/children/${encodeURIComponent(childId)}`;
+    const next = `/children/${encodeURIComponent(childId)}/devices`;
     const to = check.reason === "signed_out" ? `/sign-in?next=${next}` : check.reason === "gate_required" ? `/gate?next=${next}` : "/consent";
     return NextResponse.redirect(new URL(to, DASHBOARD_ORIGIN), 303);
   }

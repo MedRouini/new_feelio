@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/design/components/Button";
-import { Card } from "@/design/components/Card";
 import { Field } from "@/design/components/Field";
 import { signInAction } from "../actions";
 import styles from "../parent.module.css";
@@ -9,9 +8,9 @@ export default async function SignIn({ searchParams }: { searchParams: Promise<{
   const { error, next } = await searchParams;
   const t = await getTranslations("parent");
   return (
-    <Card>
+    <div className={[styles.card, styles.panel].join(" ")}>
       <form action={signInAction} className={styles.stack}>
-        <h1 className={styles.h1}>{t("signIn")}</h1>
+        <h1 className={styles.pageTitle}>{t("signIn")}</h1>
         {error ? <p className={styles.error} role="alert">{t("badCredentials")}</p> : null}
         <input type="hidden" name="next" value={next ?? "/"} />
         <Field label={t("email")} name="email" type="email" autoComplete="email" required />
@@ -19,6 +18,6 @@ export default async function SignIn({ searchParams }: { searchParams: Promise<{
         <Button type="submit">{t("signIn")}</Button>
         <a href="/sign-up">{t("noAccount")}</a>
       </form>
-    </Card>
+    </div>
   );
 }

@@ -54,8 +54,7 @@
   --r-input: 12px; --r-card: 20px; --r-sheet: 28px; --r-pill: 999px;
   --touch-child: 72px; /* DESIGN_SYSTEM §3: at least 72 px in the child app */
   --touch-parent: 44px;
-  /* Parent area only. The child app uses no shadows (D-042): colour, outline, layering, scale, motion. */
-  --shadow-soft: 0 6px 16px rgb(50 42 106 / 0.15);
+  /* No shadows anywhere in Feelio (D-042 child app, D-067 parent area): colour, borders, layering, scale. */
   --outline: 3px solid var(--navy-900);
 
   /* Child type scale: only three sizes, very little text (DESIGN_SYSTEM §3) */

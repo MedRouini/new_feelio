@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/design/components/Button";
-import { Card } from "@/design/components/Card";
 import { Field } from "@/design/components/Field";
 import { createChildAction } from "../../actions";
 import { requireParentPage } from "../../page-guard";
@@ -11,9 +10,9 @@ export default async function NewChild({ searchParams }: { searchParams: Promise
   const { error } = await searchParams;
   const [t, tc, ta] = await Promise.all([getTranslations("parent"), getTranslations("common"), getTranslations("ageBands")]);
   return (
-    <Card>
+    <div className={[styles.card, styles.panel].join(" ")}>
       <form action={createChildAction} className={styles.stack}>
-        <h1 className={styles.h1}>{t("addChild")}</h1>
+        <h1 className={styles.pageTitle}>{t("addChild")}</h1>
         {error ? <p className={styles.error} role="alert">{tc("error")}</p> : null}
         <Field label={t("nickname")} hint={t("nicknameHint")} name="nickname" maxLength={30} autoComplete="off" />
         <div>
@@ -33,6 +32,6 @@ export default async function NewChild({ searchParams }: { searchParams: Promise
         </div>
         <Button type="submit">{t("create")}</Button>
       </form>
-    </Card>
+    </div>
   );
 }

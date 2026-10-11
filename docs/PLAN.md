@@ -8,7 +8,7 @@
 | **1b Map, mascot shell, character onboarding** | **Code-complete (2026-10-10). Done when the 38 visible placeholder assets are delivered** (docs/PLACEHOLDERS.md) |
 | **1c Level flow and loading** (owner request) | **Code-complete (2026-10-11).** Place maps, level states, progress and unlocking, artifact architecture, loading system. Done when the Batch 3 P1 assets are delivered and Home's stones are measured (docs/LEVEL_FLOW.md) |
 | **2 Safety layer + voice-proxy spike** | **Built and tested (2026-10-11).** Live ElevenLabs call skipped by the owner (D-061). Model choice done (D-063: strict median 1.65 s to first words). Strict or gated is decided in Milestone 5, with end-to-end voice timings. Expert review deferred by the owner while in development |
-| **3 Parent dashboard** | **Done (2026-10-11).** Child page (time, week, progress, safety notes), allowed hours and time zones (Luxon), safety-lead review, parent reports, guide (D-065, D-066) |
+| **3 Parent dashboard** | **Done (2026-10-11).** Child page (time, week, progress, safety notes), allowed hours and time zones (Luxon), safety-lead review, parent reports, guide (D-065, D-066). **Redesigned to v2** (on-brand, sectioned, no shadows; D-067): verified with all 19 end-to-end tests and screenshots on desktop, phone and Arabic |
 
 ## Milestone 3 (parent dashboard): result
 **Built** (D-065, D-066):

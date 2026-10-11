@@ -56,7 +56,7 @@ test("Milestone 1: parent sign-up → consent → child → device setup → chi
   await expect(page.getByRole("heading", { name: "Settings for Laila" })).toBeVisible();
   await expect(page.getByText("Step 3 of 4")).toBeVisible();
   await page.getByRole("button", { name: "Save settings" }).click();
-  await expect(page.getByRole("heading", { name: "Laila" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Laila", exact: true })).toBeVisible();
   await expect(page.getByText(/Step 4 of 4/)).toBeVisible();
   await page.screenshot({ path: `${SHOTS}/04-child-detail.png`, fullPage: true });
 

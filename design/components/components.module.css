@@ -1,4 +1,4 @@
-/* Parent-area components (the child app uses child/ui instead: no shadows, D-042). */
+/* Parent-area components (the child app uses child/ui). No shadows anywhere (D-042, D-067): edges are soft borders. */
 .button {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
   border: 2px solid transparent; border-radius: var(--r-pill);
@@ -7,20 +7,23 @@
 }
 .button:active { transform: scale(0.97); }
 .button:disabled { opacity: 0.6; cursor: not-allowed; }
+.button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.primary:hover { background: var(--purple-600); }
+.secondary:hover { background: var(--lilac-50); }
 .parent { min-block-size: var(--touch-parent); padding-inline: var(--s6); font-size: var(--fs-body-parent); }
 .primary { background: var(--primary); color: var(--primary-text); }
 .secondary { background: var(--white); color: var(--primary); border-color: var(--primary); }
 .quietDanger { background: var(--white); color: var(--danger-quiet); border-color: var(--danger-quiet); }
 
-.card { background: var(--surface); border-radius: var(--r-card); box-shadow: var(--shadow-soft); padding: var(--s6); }
+.card { background: var(--surface); border: 1.5px solid #e4d8f6; border-radius: var(--r-card); padding: var(--s6); }
 
 .field { display: flex; flex-direction: column; gap: var(--s1); margin-block-end: var(--s4); }
 .field label { font-weight: 700; }
 .field input, .field select {
   min-block-size: var(--touch-parent); padding-inline: var(--s3); font: inherit; color: var(--text);
-  border: 2px solid var(--purple-100); border-radius: var(--r-input); background: var(--white);
+  border: 1.5px solid #8a7bb8; border-radius: var(--r-input); background: var(--white);
 }
-.field input:focus-visible { border-color: var(--focus); }
+.field input:focus-visible, .field select:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .field small { color: var(--text-muted); }
 
 /* TODO(PLACEHOLDER) box: deliberately plain grey so it can never pass for finished art. */

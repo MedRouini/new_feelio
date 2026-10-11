@@ -176,7 +176,7 @@ export async function updateSettingsAction(formData: FormData) {
       schedule: [window],
     },
   });
-  redirect(setup ? `/children/${childId}?setup=1` : `/children/${childId}`);
+  redirect(setup ? `/children/${childId}/devices?setup=1` : `/children/${childId}/settings?saved=1`);
 }
 
 export async function updateTimezoneAction(formData: FormData) {
@@ -191,7 +191,7 @@ export async function updateTimezoneAction(formData: FormData) {
 export async function deleteChildAction(formData: FormData) {
   const childId = String(formData.get("childId") ?? "");
   const check = await checkParent({ gate: "sensitive", needHousehold: true });
-  if (!check.ok) bounce(check, `/children/${childId}`, "sensitive");
+  if (!check.ok) bounce(check, `/children/${childId}/settings`, "sensitive");
   await deleteChild({ userId: check.parent.userId, householdId: check.parent.householdId!, childId });
   redirect("/");
 }
@@ -231,7 +231,7 @@ const reportSchema = z.object({
 export async function createReportAction(formData: FormData) {
   const parsed = reportSchema.safeParse(Object.fromEntries(formData));
   const childId = parsed.success && parsed.data.childId ? parsed.data.childId : null;
-  const back = childId ? `/children/${childId}` : "/";
+  const back = childId ? `/children/${childId}/safety` : "/";
   if (!parsed.success) redirect(`${back}?report=error`);
   const check = await checkParent({ gate: "area", needHousehold: true });
   if (!check.ok) bounce(check, back);
