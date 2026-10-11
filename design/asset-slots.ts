@@ -62,3 +62,26 @@ export const CELEBRATE = {
 
 /** "This adventure is still being made": honest, never a failure. */
 export const NOT_READY_MASCOT = ["mascot_making", "mascot_happy"] as const satisfies Slot;
+
+/**
+ * The mascot on the Talk screen (MASCOT.md voice states, D-068). Session states come from ElevenLabs;
+ * moods from the `set_mascot_state` client tool. Poses not delivered yet fall back to approved ones.
+ */
+export const TALK_MASCOT = {
+  idle: ["mascot_waving", "mascot_idle"],
+  connecting: ["mascot_thinking", "mascot_idle"],
+  listening: ["mascot_listening", "mascot_idle"],
+  speaking: ["mascot_speaking_open", "mascot_happy"],
+  happy: ["mascot_happy"],
+  excited: ["mascot_feel_excited", "mascot_excited"],
+  empathy: ["mascot_feel_sad", "mascot_idle"],
+  calm: ["mascot_idle"],
+} as const satisfies Record<string, Slot>;
+
+/** The feeling card (`show_feeling_card`): the brand's own feeling faces. */
+export const FEELING_FACE = {
+  happy: ["face_happy"],
+  sad: ["face_sad"],
+  angry: ["face_angry"],
+  excited: ["face_excited"],
+} as const satisfies Record<string, Slot>;

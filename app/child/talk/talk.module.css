@@ -1,0 +1,135 @@
+/* Talk (D-068, MASCOT.md "Talk"): a video-call feel. The big mascot in the centre, one big button, the
+   AI sign always visible, cards for what Feelio shows. No shadows; logical properties for Arabic. */
+
+.talk {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  /* The mascot row gives way first, so the big button always stays clear of the dock. */
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  justify-items: center;
+  gap: var(--s3);
+  padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + var(--s4));
+  padding-inline: 16px;
+}
+
+.aiChip {
+  margin: 0;
+  padding: var(--s2) var(--s4);
+  border-radius: var(--r-pill);
+  background: var(--white);
+  border: 2px solid var(--lilac-300);
+  color: var(--text);
+  font-size: var(--fs-word);
+  font-weight: 700;
+  text-align: center;
+  /* clear of the grown-up door in the top corner */
+  max-inline-size: calc(100vw - 2 * 84px);
+}
+
+.say { inline-size: min(78vw, 480px) !important; }
+
+.body {
+  --talk-scale: 1;
+  align-self: end;
+  block-size: 100%;
+  min-block-size: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transform: scale(var(--talk-scale));
+  transform-origin: 50% 100%;
+}
+.mascot { inline-size: auto; block-size: min(100%, 40vmin, 340px); aspect-ratio: 1; }
+
+.controls { display: grid; justify-items: center; gap: var(--s2); }
+.mic {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  min-block-size: 96px;
+  min-inline-size: 96px;
+  padding-inline: var(--s8);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--primary);
+  color: var(--primary-text);
+  font: inherit;
+  font-size: var(--fs-big);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--dur-ui) var(--ease-out);
+}
+.mic[data-live] { background: var(--navy-900); }
+.mic:active { transform: scale(0.96); }
+.mic:disabled { opacity: 0.7; cursor: progress; }
+.mic:focus-visible { outline: var(--outline); outline-offset: 4px; }
+.timeLeft { margin: 0; font-size: var(--fs-word); color: var(--text); font-weight: 700; }
+
+/* A card Feelio shows (feeling, breathing, a place, who can help). One at a time. */
+.card {
+  position: absolute;
+  inset-inline: 16px;
+  inset-block-start: 22%;
+  margin-inline: auto;
+  max-inline-size: 520px;
+  display: grid;
+  justify-items: center;
+  gap: var(--s4);
+  padding: var(--s8) var(--s6) var(--s6);
+  border-radius: var(--r-sheet);
+  background: var(--white);
+  border: 3px solid var(--lilac-300);
+  color: var(--text);
+  text-align: center;
+}
+.card[data-card="help"] { border-color: var(--accent); }
+.close {
+  position: absolute;
+  inset-block-start: var(--s2);
+  inset-inline-end: var(--s2);
+  inline-size: var(--touch-child);
+  block-size: var(--touch-child);
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--lilac-50);
+  color: var(--text);
+  cursor: pointer;
+}
+.close:focus-visible { outline: var(--outline); outline-offset: 2px; }
+
+.feeling { margin: 0; display: grid; justify-items: center; gap: var(--s3); font-size: var(--fs-big); font-weight: 700; }
+.face { inline-size: min(30vmin, 220px); }
+
+.breathing { display: grid; justify-items: center; gap: var(--s4); font-size: var(--fs-say); font-weight: 700; }
+.breathing p { margin: 0; }
+.breathBall { display: block; inline-size: min(24vmin, 180px); transition: transform 4s ease-in-out; transform: scale(0.8); }
+.breathing[data-phase="in"] .breathBall { transform: scale(1.15); }
+.breathing[data-phase="out"] .breathBall { transform: scale(0.8); }
+.breathing[data-phase="done"] .breathBall { transform: scale(1); }
+
+.place {
+  display: grid;
+  justify-items: center;
+  gap: var(--s3);
+  min-block-size: var(--touch-child);
+  padding: var(--s3) var(--s6);
+  border-radius: var(--r-card);
+  background: var(--accent);
+  color: var(--text);
+  font-size: var(--fs-big);
+  font-weight: 700;
+  text-decoration: none;
+}
+.place:focus-visible { outline: var(--outline); outline-offset: 3px; }
+.placeArt { inline-size: min(24vmin, 180px); }
+
+.help h2 { margin: 0 0 var(--s3); font-size: var(--fs-big); }
+.help ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s3); font-size: var(--fs-say); text-align: start; }
+
+@media (prefers-reduced-motion: reduce) {
+  .body { transform: none; }
+  .breathBall { transition: none; }
+}

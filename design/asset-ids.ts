@@ -19,6 +19,8 @@ const square = [
   "like_animals", "like_space", "like_music", "like_drawing", "like_ballgames", "like_nature", "like_blocks", "like_sea",
   // brand companions (exported from the official SVGs)
   "companion_heart", "companion_cloud", "companion_star",
+  // brand feeling faces (official exports, brand/feelings-expressions/png): the Talk feeling card (D-068)
+  "face_happy", "face_sad", "face_angry", "face_excited",
   // level flow and loading (Batch 3, D-056, docs/LEVEL_FLOW.md)
   "node_in_progress", "ui_celebrate_burst", "mascot_making",
 ] as const;

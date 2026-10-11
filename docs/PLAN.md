@@ -9,6 +9,7 @@
 | **1c Level flow and loading** (owner request) | **Code-complete (2026-10-11).** Place maps, level states, progress and unlocking, artifact architecture, loading system. Done when the Batch 3 P1 assets are delivered and Home's stones are measured (docs/LEVEL_FLOW.md) |
 | **2 Safety layer + voice-proxy spike** | **Built and tested (2026-10-11).** Live ElevenLabs call skipped by the owner (D-061). Model choice done (D-063: strict median 1.65 s to first words). Strict or gated is decided in Milestone 5, with end-to-end voice timings. Expert review deferred by the owner while in development |
 | **3 Parent dashboard** | **Done (2026-10-11).** Child page (time, week, progress, safety notes), allowed hours and time zones (Luxon), safety-lead review, parent reports, guide (D-065, D-066). **Redesigned to v2** (on-brand, sectioned, no shadows; D-067): verified with all 19 end-to-end tests and screenshots on desktop, phone and Arabic |
+| **5 Voice companion (voice first)** | **Built and verified live (2026-10-11), adult testing only (D-068).** Session gate, agent as code, proxy bound to sessions with child context and client tools, Talk screen. Verified by running it: a real ElevenLabs call (synthetic voice) through the tunnel; tools reached the screen; crisis path; 3 E2E + 3 integration + 6 unit tests. Waiting: your own spoken test on a real device, the `voice_session` retention approval, and mascot poses (listening, thinking, speaking). The text companion comes next on the same pipeline |
 
 ## Milestone 3 (parent dashboard): result
 **Built** (D-065, D-066):

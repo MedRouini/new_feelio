@@ -84,6 +84,10 @@ export async function* chatStream(opts: {
   temperature: number;
   timeoutMs: number;
   signal?: AbortSignal;
+  /** OpenAI-style function tools the model may call (voice client tools, D-068). */
+  tools?: unknown[];
+  /** Receives each complete tool call once the stream ends (arguments as the model wrote them, unchecked). */
+  onToolCall?: (name: string, args: string) => void;
 }): AsyncGenerator<string> {
   const { signal, done } = withTimeout(opts.timeoutMs, opts.signal);
   try {
@@ -95,6 +99,7 @@ export async function* chatStream(opts: {
         temperature: opts.temperature,
         reasoning: { enabled: false },
         stream: true,
+        ...(opts.tools?.length ? { tools: opts.tools, tool_choice: "auto" } : {}),
       },
       signal,
     );
@@ -102,6 +107,12 @@ export async function* chatStream(opts: {
     const reader = res.body.getReader();
     const dec = new TextDecoder();
     let buf = "";
+    // Tool calls arrive in pieces, keyed by index: the name first, then the arguments in fragments.
+    const calls: { name: string; args: string }[] = [];
+    const flushCalls = () => {
+      for (const c of calls) if (c?.name) opts.onToolCall?.(c.name, c.args);
+      calls.length = 0;
+    };
     for (;;) {
       const { value, done: end } = await reader.read();
       if (end) break;
@@ -112,15 +123,25 @@ export async function* chatStream(opts: {
         buf = buf.slice(nl + 1);
         if (!line.startsWith("data:")) continue;
         const payload = line.slice(5).trim();
-        if (payload === "[DONE]") return;
+        if (payload === "[DONE]") {
+          flushCalls();
+          return;
+        }
         try {
-          const delta = JSON.parse(payload)?.choices?.[0]?.delta?.content;
-          if (delta) yield delta as string;
+          const d = JSON.parse(payload)?.choices?.[0]?.delta;
+          for (const tc of (d?.tool_calls ?? []) as { index?: number; function?: { name?: string; arguments?: string } }[]) {
+            const i = tc.index ?? 0;
+            calls[i] ??= { name: "", args: "" };
+            if (tc.function?.name) calls[i].name += tc.function.name;
+            if (tc.function?.arguments) calls[i].args += tc.function.arguments;
+          }
+          if (d?.content) yield d.content as string;
         } catch {
           // a keep-alive or partial line: ignore
         }
       }
     }
+    flushCalls();
   } finally {
     done();
   }

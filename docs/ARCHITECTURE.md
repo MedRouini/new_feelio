@@ -101,12 +101,12 @@ If any check fails, the client gets a reason code and the Talk screen degrades (
 
 ### 4.3 The proxy route (`POST /api/voice/llm`, streaming SSE)
 1. Reject unless the Bearer secret matches. Strip `elevenlabs_extra_body`.
-2. Bind to our session: read the conversation id (via a `request_headers` dynamic variable `{system__conversation_id}`, **verify in M4**; fallback: an opaque session id in `custom_llm_extra_body`, looked up server-side). **Age band, locale and place come from our DB, never from the client.**
+2. Bind to our session. **Verified (D-068):** `request_headers` dynamic variables are *not* substituted, so the app passes our opaque session id in `customLlmExtraBody` (the agent allows only that override) and the proxy looks it up server-side. ElevenLabs calls `<url>/chat/completions`. **Age band, locale and place come from our DB, never from the client.**
 3. Time check: if `now − started_at ≥ allowed_seconds`, stream the static goodbye line and an `end_call` tool call.
 4. Take the latest user turn → `safety.checkInput` (T0 synchronous; a crisis hit short-circuits to a fixed script plus a `show_safety_resources` tool call plus `set_mascot_state: calm`).
 5. Start generation (Together, streaming) **in parallel** with the T1 input classification. Hold tokens until T1 returns. Then, in strict mode (the default for every age, D-018), each sentence also passes T1 before release (`docs/SAFETY_POLICY.md` §3).
 6. Split the stream into sentences. Each sentence passes T0 output rules (and T1 in strict mode) before it is written as an SSE chunk. A failure swaps in a reviewed fallback and drops the rest of the turn.
-7. Optionally emit `set_mascot_state` (empathy, happy, calm…) chosen by **our** router from the classification, not left to the model. Whether a custom LLM can trigger client tools by returning `tool_calls` is **not documented, so verify in M4**. Fallback: the client derives emotion from a tag we prepend and strip **(verify)**.
+7. Optionally emit `set_mascot_state` (empathy, happy, calm…) chosen by **our** router from the classification, not left to the model. **Verified (D-068):** `tool_calls` returned by the custom LLM reach the browser as client tool calls. The model may choose mood, feeling card, breathing and place tools (allowlisted, validated twice); the crisis tool comes only from the router.
 8. Buffer words: if T1 or the model is slow, stream "Hmm… " (with the trailing space ElevenLabs requires) and/or rely on the agent's `soft_timeout_config`. The first token must arrive within `cascade_timeout_seconds` (default 4 s, raise to 6–8).
 9. After the turn, a background T1 check of the full reply updates the session's risk state (switching strict mode on if needed).
 

@@ -23,9 +23,9 @@ function category(file: string): string {
   return file.split("/")[2] ?? "misc"; // assets/approved/<category>/<name>.png
 }
 
-// Approved world/UI art plus the brand companions (heart, cloud, star) used in the child app.
+// Approved world/UI art plus the brand companions (heart, cloud, star) and feeling faces used in the child app.
 function isWebAsset(file: string): boolean {
-  return file.startsWith("assets/approved/") || file.startsWith("brand/assets/png/");
+  return file.startsWith("assets/approved/") || file.startsWith("brand/assets/png/") || file.startsWith("brand/feelings-expressions/png/");
 }
 
 async function normaliseAlpha(input: Buffer): Promise<ReturnType<typeof sharp>> {

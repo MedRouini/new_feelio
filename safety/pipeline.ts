@@ -2,10 +2,11 @@ import config from "@/content/safety/config.json";
 import type { Classifier } from "./classify";
 import { crisisScript, fallbackLine, redirectLine, resources } from "./content";
 import { redact } from "./pii";
-import { systemPrompt } from "./prompts";
+import { systemPrompt, type CompanionContext } from "./prompts";
 import { route } from "./router";
 import { t0Input, t0Output } from "./rules";
 import type { Action, Decision, Finding, SafetyCtx } from "./types";
+import type { ToolCall } from "./voice-agent/tools";
 
 // The safety pipeline (SAFETY_POLICY §2.2, §3 design C "strict", D-018):
 //   input → normalise → T0 rules ──crisis──▶ reviewed script (no model at all)
@@ -15,11 +16,18 @@ import type { Action, Decision, Finding, SafetyCtx } from "./types";
 // Feature code never calls a provider; it calls checkInput() or respond() (CLAUDE.md rule 1).
 
 export type Message = { role: "system" | "user" | "assistant"; content: string };
-export type Generate = (messages: Message[], signal: AbortSignal) => AsyncIterable<string>;
+/** Streams the model's words. With `hooks.tools`, tool calls the model makes go to `hooks.onToolCall` (unchecked). */
+export type Generate = (
+  messages: Message[],
+  signal: AbortSignal,
+  hooks?: { tools: unknown[]; onToolCall: (name: string, args: string) => void },
+) => AsyncIterable<string>;
 
 export type TurnEvent =
   | { type: "say"; text: string; source: "model" | "script" | "line" | "fallback" }
   | { type: "crisis"; script: string; resources: ReturnType<typeof resources>; mascot: "calm" | "empathy" }
+  /** A screen-only client tool the model chose, validated against the allowlist; only after a fully released turn. */
+  | { type: "tool"; call: ToolCall }
   | { type: "end"; reason: "done" | "crisis" | "redirected" | "output_blocked" | "degraded"; decision: Decision; timings: Timings };
 
 export type Timings = { t0Ms: number; t1Ms: number | null; firstTokenMs: number | null; firstReleaseMs: number | null; totalMs: number; outputChecks: number };
@@ -34,6 +42,10 @@ export type RespondOptions = {
   record?: (ctx: SafetyCtx, decision: Decision, phase: "input" | "output") => Promise<void> | void;
   now?: () => number;
   pick?: () => number;
+  /** What the companion may know about this child (server data only, never the client's word). */
+  context?: CompanionContext;
+  /** Client tools offered to the model (D-068), and the check each call must pass. */
+  tools?: { defs: unknown[]; accept: (name: string, args: string) => ToolCall | null };
 };
 
 /** Steer notes that matter enough to restart generation when only T1 found them. */
@@ -155,7 +167,8 @@ export async function* respond(ctx: SafetyCtx, messages: Message[], opts: Respon
   const steer0 = t0.action.type === "steer" ? t0.action.notes : [];
   // The child's words go to the model redacted (no personal information).
   const history = messages.map((m, i) => (i === messages.length - 1 && m.role === "user" ? { ...m, content: t0.redacted } : m));
-  const turn = { count: 0, blocked: null as Decision | null };
+  const turn = { count: 0, blocked: null as Decision | null, broken: false };
+  const calls: { name: string; args: string }[] = [];
 
   /** Checks one sentence; yields it or a fallback. Returns false when the turn must stop. */
   async function* release(sentence: string): AsyncGenerator<TurnEvent, boolean> {
@@ -175,10 +188,13 @@ export async function* respond(ctx: SafetyCtx, messages: Message[], opts: Respon
   }
 
   let notes = steer0;
-  for (let attempt = 0; attempt < 2; attempt++) {
+  let toolsOff = false;
+  for (let attempt = 0; attempt < 3; attempt++) {
     const ctl = new AbortController();
-    const sys = systemPrompt({ ageBand: ctx.ageBand, locale: ctx.locale, feature: ctx.feature, steer: notes, place: ctx.placeId });
-    const stream = opts.generate([{ role: "system", content: sys }, ...history], ctl.signal);
+    const sys = systemPrompt({ ageBand: ctx.ageBand, locale: ctx.locale, feature: ctx.feature, steer: notes, place: ctx.placeId, context: opts.context, tools: Boolean(opts.tools) });
+    if (!toolsOff) calls.length = 0;
+    const hooks = opts.tools && !toolsOff ? { tools: opts.tools.defs, onToolCall: (name: string, args: string) => void calls.push({ name, args }) } : undefined;
+    const stream = opts.generate([{ role: "system", content: sys }, ...history], ctl.signal, hooks);
     let buf = "";
     const held: string[] = [];
     let go = attempt > 0; // a restart already has the verdict
@@ -223,6 +239,7 @@ export async function* respond(ctx: SafetyCtx, messages: Message[], opts: Respon
       // The model stream failed or timed out. Nothing unchecked was released; decide below, and
       // drop the unfinished fragment (a cut-off half sentence is never said).
       broken = true;
+      turn.broken = true;
     }
     ctl.abort();
 
@@ -239,6 +256,12 @@ export async function* respond(ctx: SafetyCtx, messages: Message[], opts: Respon
     }
     if (go && !broken && !turn.blocked && turn.count < maxSentences) {
       held.push(...takeSentences(buf, true).sentences);
+      // The model only used tools and said nothing: ask once more for words, with tools off. The calls
+      // it made are kept, and still run only if the words are released.
+      if (!held.length && turn.count === 0 && calls.length && !toolsOff) {
+        toolsOff = true;
+        continue;
+      }
       while (held.length && (yield* release(held.shift()!)));
     }
     break;
@@ -271,6 +294,17 @@ export async function* respond(ctx: SafetyCtx, messages: Message[], opts: Respon
     released();
     yield finish("degraded", decision);
     return;
+  }
+  // Tools only after a turn whose every sentence was released, so a blocked or cut turn never acts.
+  if (!turn.broken && opts.tools) {
+    const seen = new Set<string>();
+    for (const c of calls) {
+      const call = opts.tools.accept(c.name, c.args);
+      if (call && !seen.has(call.name)) {
+        seen.add(call.name);
+        yield { type: "tool", call };
+      }
+    }
   }
   yield finish("done", decision);
 }

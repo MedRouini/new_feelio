@@ -116,7 +116,44 @@
       "progress": "{done} of {total} finished"
     },
     "resting": "Feelio is resting now. Come back at {time}!",
-    "restingLater": "Feelio is resting now. See you next time!"
+    "restingLater": "Feelio is resting now. See you next time!",
+    "talk": {
+      "title": "Talk with Feelio",
+      "aiChip": "Feelio is an AI, not a person",
+      "start": "Talk to Feelio",
+      "stop": "Stop talking",
+      "intro": "Tap the big button and say hello! I'm an AI friend, not a person.",
+      "connecting": "Waking Feelio up…",
+      "listening": "Feelio is listening",
+      "speaking": "Feelio is talking",
+      "timeLeft": "{minutes, plural, =0 {Less than a minute left} one {# minute left} other {# minutes left}}",
+      "ended": "That was a lovely talk! You can talk again later.",
+      "goodbye": "That's our talk time for now. It was lovely talking with you. Bye for now!",
+      "trouble": "Hmm, let's try that again in a moment.",
+      "micNeeded": "I need the microphone to hear you. Ask a grown-up to help.",
+      "refused": {
+        "off": "Talking is resting right now. Let's explore the map!",
+        "not_approved": "Talking isn't ready for you yet. Let's explore the map!",
+        "talk_off": "Talking is switched off. Let's explore the map!",
+        "time_up": "That's all for today! See you tomorrow!",
+        "outside_hours": "Feelio is resting now. See you next time!",
+        "voice_time_up": "We talked a lot today! Let's play on the map instead.",
+        "busy": "We're already talking somewhere else. Close it there first.",
+        "unavailable": "I can't hear you right now. Let's try again in a little while."
+      },
+      "breatheIn": "Breathe in…",
+      "breatheOut": "…and breathe out",
+      "breatheDone": "Well done! You did it.",
+      "feelings": {
+        "happy": "Happy",
+        "sad": "Sad",
+        "angry": "Angry",
+        "excited": "Excited"
+      },
+      "helpTitle": "People who can help",
+      "visit": "Go to the {place}",
+      "close": "Close"
+    }
   },
   "parent": {
     "title": "Feelio for parents",

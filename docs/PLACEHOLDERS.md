@@ -27,7 +27,8 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 ## Open: functionality gaps (honest, visible, never faked)
 | Gap | Where | Why | Closes |
 |---|---|---|---|
-| Talk shows "coming soon" | `app/child/talk/page.tsx` (`TODO(PLACEHOLDER)`) | The voice companion is Milestone 5 | Milestone 5 |
+| Talk works only for adult testing | `child/voice.ts` (`not_approved` refusal) | ElevenLabs hasn't approved use by children (D-005); `VOICE_ADULT_TESTING=1` only while the owner tests | ElevenLabs approval |
+| Talk mascot poses: listening, thinking, speaking (3 mouth frames) | `design/asset-slots.ts` `TALK_MASCOT` | Not delivered; the screen falls back to approved poses (idle, happy) | When delivered |
 | Calm shows "coming soon" | `app/child/calm/page.tsx` (`TODO(PLACEHOLDER)`) | The calm corner (slow breathing with Feelio, static audio only) is not scheduled yet (D-055) | When you schedule it |
 | Stories shows "coming soon" | `app/child/stories/page.tsx` (`TODO(PLACEHOLDER)`) | The storybook generator is Milestone 6 | Milestone 6 |
 | Levels say "This adventure is still being made" | `world/level/LevelPlayer.tsx` | No artifacts built yet; the catalog is empty (`world/artifacts/catalog.ts`) | Milestone 4 |

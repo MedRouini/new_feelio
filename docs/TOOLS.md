@@ -55,3 +55,10 @@ Claude Code asks you to approve project MCP servers in `.mcp.json` the first tim
 
 ## Other tools used in Milestone 0 (not installed in the project)
 - **PyMuPDF 1.23.26**, installed only into the session scratchpad (not the repo) to render the brand PDF and read its vector fill colours. Nothing to remove from the project.
+
+## Milestone 5 additions
+| Item | Version / source | Why | Notes |
+|---|---|---|---|
+| `@elevenlabs/react` (+ `@elevenlabs/client`) | 1.16.0, MIT, github.com/elevenlabs/packages (released 2026-09-29) | The browser side of a voice talk (WebRTC, client tools) | Pinned exact. Imported only in `safety/voice-agent/useVoice.tsx` (lint rule) |
+| `cloudflared` quick tunnel | Cloudflare, already on this machine, no account | Gives ElevenLabs a public https URL for the proxy in development | Not in the project. The URL changes on restart |
+| Windows speech synthesis (System.Speech) | Built into Windows | A synthetic child's line for the live test call (no real voice) | Session scratchpad only |

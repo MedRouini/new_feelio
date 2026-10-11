@@ -704,3 +704,31 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Setup flow:** add a child, then Controls (step 3), then Devices (step 4, hand the device over). Saving Controls otherwise stays on the tab with "Controls saved."
 - **Privacy:** the full shell, including the children's names in the sidebar, appears only after the grown-up check. Before it, a centred panel shows nothing about any child.
 - Static `brand/` files are served as-is by the host router (like `generated/`).
+
+## D-068 Voice companion: live ElevenLabs agent through our safety proxy (Milestone 5, voice first)
+**Status:** accepted (owner, 2026-10-11): "voice is more important than text… almost real time and smart enough to connect with tools and have context"; legal work deferred while the owner is the only tester. Owner choices: Cloudflare quick tunnel; **faster mode for adult testing**; Turbo TTS; API key with Agents Write.
+- **Order changed:** voice before the text companion (PLAN §5 said text first). The text companion reuses the same pipeline later.
+- **Who can use it:** the session gate refuses unless `VOICE_ADULT_TESTING=1` (D-005: ElevenLabs hasn't approved use by children). The owner tests through a child profile. `VOICE_ENABLED=0` is the global kill switch (CR-11).
+- **Output check (owner decision "faster mode for adult testing"):** sessions opened under adult testing use the **gated** output check (T0 rules on each sentence; the T1 input check still runs on every turn). **Strict stays the default** (`config.json`, D-018) and applies to every session that is not an adult test. Switching children to gated would be a new "weaken a safety check" decision.
+- **TTS model:** the owner chose Turbo v2.5, but ElevenLabs refuses it for an English-only agent ("English Agents must use turbo or flash v2", checked 2026-10-11). The agent uses **`eleven_turbo_v2`** (same Turbo family, English). Turbo v2.5 comes back with Arabic, when the agent becomes multilingual. Voice: Jessica (D-064).
+- **Agent as code** (`safety/voice-agent/sync.ts`, dry run by default):
+  - custom LLM = our proxy, with a workspace secret as Bearer; backup LLM disabled; cascade 8 s
+  - `enable_auth` (only tokens our gate mints); `record_voice: false`, `retention_days: 0`, `delete_audio: true`; user memory off
+  - max 300 s per call (backstop), 30 s silence ends the call, turn timeout 7 s
+  - the only client override is `custom_llm_extra_body` (text-only and every other override off)
+  - fixed opening line with the AI disclosure and no name: "Hi, I'm Feelio! I'm an AI friend, not a person. How are you feeling today?"
+- **Session gate** (`POST /api/child/voice/session`, `child/voice.ts`): voice switched on, adult testing, Talk allowed, allowed hours, today's time, today's **voice minutes** (`voiceDailyMinutes`), one open session per child; at most 240 s per talk. New table `voice_session` (no words, no audio): child, household, conversation id, age band, locale, place, allowed seconds, adult-test flag, start and end. Retention: **90 days (*proposed*, awaiting the owner)**. On end, the seconds go into the usage ledger as `voice`.
+- **Binding each turn to a session (verified live):** ElevenLabs sends `request_headers` **without substituting** dynamic variables (`{{system__conversation_id}}` arrived literally), so the app passes our session id through the SDK's `customLlmExtraBody`, and the proxy finds the open session in our database. Age band, locale, place, name and time left come from the database, never from the request. A turn without a live session gets one fixed goodbye line and `end_call`, with no model involved.
+- **Also found live:** ElevenLabs appends `/chat/completions` to the custom-LLM URL. A second route at that path re-exports the same handler.
+- **Context for the model:** the name only when it is a word from the reviewed list (never the parent's typed nickname); interests and places as ids; levels finished; a wind-down note in the last minute; the last 8 turns of the conversation.
+- **Client tools (verified live: a custom LLM's `tool_calls` reach the browser as client tool calls):**
+  - `set_mascot_state`, `show_feeling_card` (the brand's own feeling faces), `start_breathing`, `suggest_place` (only a place this child has reached) are offered to the model
+  - `show_safety_resources` is emitted **only by the router** on a crisis, with the mascot calmed
+  - closed argument lists, validated in the proxy and again in the browser; a tool runs only after every sentence of the turn was released; screen-only, non-blocking (`expects_response: false`)
+- **Tool-only answers:** DeepSeek sometimes answered with tools and no words (2 of 3 times on one test sentence), which correctly fell back to a reviewed line. Now that turn is asked once more with tools off, and the first tool calls are kept. Unit-tested; then 4 of 4 live turns gave real replies.
+- **SDK:** `@elevenlabs/react` 1.16.0 (MIT, pinned, released 2026-09-29), used only in `safety/voice-agent/useVoice.tsx` (the lint rule keeps provider SDKs in `safety/`).
+- **Measured (2026-10-11, adult test, gated, dev server through the tunnel):**
+  - our proxy, Feelio's first words released: 0.52–1.03 s (4 turns); crisis script 70 ms
+  - ElevenLabs' own metrics on a live call: LLM time to first sentence 1.6–2.0 s (includes the tunnel); TTS first byte 0.16–0.35 s; the opening line played 3 s after the tap
+  - the input classifier (T1, about 0.5–1 s) is the largest single part; production (no tunnel) should be faster, to be measured on deploy
+- **Tunnel:** a Cloudflare quick tunnel (no account), URL in `VOICE_PUBLIC_URL`. It changes on every restart: re-run the sync. Development only.
