@@ -181,6 +181,31 @@ export const auditLog = pgTable(
   (t) => [index("audit_household_idx").on(t.householdId)],
 );
 
+// Voice sessions (ARCHITECTURE §4.1, D-068): issued by the server-side session gate, so every voice
+// turn is bound to a known child, age band and time allowance. Times and ids only: never audio,
+// never a transcript. Kept 90 days (like the usage ledger), deleted with the profile.
+export const voiceSession = pgTable(
+  "voice_session",
+  {
+    id: id(),
+    childId: text("child_id")
+      .notNull()
+      .references(() => childProfile.id, { onDelete: "cascade" }),
+    householdId: text("household_id").notNull(),
+    /** ElevenLabs' conversation id, returned with the token; the proxy binds each turn to it. */
+    conversationId: text("conversation_id").notNull(),
+    ageBand: ageBand("age_band").notNull(),
+    locale: locale("locale").notNull(),
+    placeId: text("place_id"),
+    allowedSeconds: integer("allowed_seconds").notNull(),
+    /** Adult testing only (D-005, D-068): relaxed output checks; never for a real child. */
+    adultTest: boolean("adult_test").notNull().default(false),
+    startedAt: timestamp("started_at", { withTimezone: true }).notNull().defaultNow(),
+    endedAt: timestamp("ended_at", { withTimezone: true }),
+  },
+  (t) => [uniqueIndex("voice_session_conversation_idx").on(t.conversationId), index("voice_session_child_idx").on(t.childId, t.startedAt)],
+);
+
 // Safety events (SAFETY_POLICY §1 G, §5, §7; retention approved by the owner 2026-10-11, D-058).
 // Minimal fields only: never the conversation, never audio. Kept 90 days. An excerpt (redacted, at
 // most 200 characters, encrypted) only for medium/high events, kept 30 days. "Restricted" events

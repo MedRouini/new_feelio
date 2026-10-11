@@ -1,7 +1,7 @@
 import "server-only";
 import { and, eq, isNotNull, lt } from "drizzle-orm";
 import { db } from "@/platform/db/client";
-import { adultGate, apikey, auditLog, parentReport, rateLimit, safetyEvent, session, usageLedger, verification } from "@/platform/db/schema";
+import { adultGate, apikey, auditLog, parentReport, rateLimit, safetyEvent, session, usageLedger, verification, voiceSession } from "@/platform/db/schema";
 
 // Retention table (CR-6). Proposals awaiting owner sign-off are in docs/ARCHITECTURE.md §7.
 // Safety data (SAFETY_POLICY §7, approved by the owner 2026-10-11, D-058): events 90 days, excerpts
@@ -15,6 +15,7 @@ export const RETENTION_DAYS = {
   safetyEvent: 90,
   restrictedSafetyEvent: 30,
   parentReport: 90,
+  voiceSession: 90,
 } as const;
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -43,7 +44,8 @@ export async function runRetention(now = Date.now()) {
       .where(and(isNotNull(safetyEvent.excerptUntil), lt(safetyEvent.excerptUntil, nowDate), eq(safetyEvent.escalated, false)))
       .returning({ id: safetyEvent.id }),
     db.delete(parentReport).where(lt(parentReport.createdAt, cutoff(RETENTION_DAYS.parentReport, now))).returning({ id: parentReport.id }),
+    db.delete(voiceSession).where(lt(voiceSession.startedAt, cutoff(RETENTION_DAYS.voiceSession, now))).returning({ id: voiceSession.id }),
   ]);
-  const [usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts, parentReports] = results.map((r) => r.length);
-  return { usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts, parentReports };
+  const [usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts, parentReports, voiceSessions] = results.map((r) => r.length);
+  return { usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts, parentReports, voiceSessions };
 }
