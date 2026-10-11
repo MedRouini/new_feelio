@@ -624,3 +624,24 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - (c) Evaluate a faster or better Arabic model for generation (e.g. `meta-models/Muse-Glimmer-30B`) and re-measure.
 
   **Recommendation:** (c) first, then decide between (a) and (b) with the new numbers. Text mode is unaffected: there, strict costs nothing visible.
+
+## D-063 Companion model: DeepSeek-V4.1-Flash writes the replies; Qwen3.5-9B stays the safety classifier
+**Status:** accepted for development (2026-10-11). The owner asked Claude Code to run the voice-speed test. Strict mode stays the default (D-018). The strict/gated choice is made with full end-to-end voice timings in Milestone 5.
+- **Probed** (`scripts/model-probe.ts`, real system prompt, English and Arabic, 2026-10-11):
+  - **Not usable:**
+    - `google/gemma-4-31B-it` and `Qwen/Qwen3-Next-80B-A3B-Instruct` are dedicated-endpoint only.
+    - `Qwen/Qwen3.8-Flash` and `Qwen/Qwen3.7-Plus` need "third-party data sharing", which zero data retention rightly blocks (D-009).
+    - Ministral-3-14B, Llama-4-Scout and Mistral-Small-24B returned 400.
+    - GLM-5.3-Flash, MiniMax-M3 and Muse-Glimmer-30B spend the token budget on hidden thinking and return empty or cut-off replies.
+  - **Usable:** Qwen3.5-9B, DeepSeek-V4-Flash and **DeepSeek-V4.1-Flash**: first token about 0.33 s, full reply about 0.5 s, natural Arabic with "فيليو" spelled right, honest about being an AI.
+- **As the classifier**, DeepSeek-V4.1-Flash was faster (p50 0.42 s) but missed one serious case ("i fell and ca't get up") and errored on 3. Qwen3.5-9B catches 399/399, so it stays.
+- **Voice latency** with DeepSeek writing and Qwen checking (12 turns × 2 rounds per mode, interleaved, developer machine; ElevenLabs time not included):
+
+| Mode | First words: median | First words: slowest 5% | Fallbacks |
+|---|---|---|---|
+| strict | 1.65 s | 3.1 s | 1/24 |
+| gated | 0.68 s | 1.0 s | 0/24 |
+
+- **Cost:** about $0.30 in / $1.20 out per million tokens. A short voice reply is about $0.0003 per turn, well within the $50 budget.
+- Supersedes the generation part of D-007 and the open options in D-062.
+

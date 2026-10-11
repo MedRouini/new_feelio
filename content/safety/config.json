@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "note": "Safety layer configuration (D-022): data, not code. Any change here must re-run the red-team suite before it ships. Model ids checked against Together's live model list on 2026-10-11.",
+  "note": "Safety layer configuration (D-022): data, not code. Any change here must re-run the red-team suite before it ships. Model ids checked against Together's live model list on 2026-10-11. Generation: DeepSeek-V4.1-Flash (fastest first words, best Arabic of the serverless models tried, D-063). Classifier: Qwen3.5-9B (the only one with 399/399 serious cases).",
   "classifier": {
     "impl": "llm-json",
     "provider": "together",
@@ -9,8 +9,20 @@
     "maxTokens": 120
   },
   "generation": {
-    "voice": { "provider": "together", "model": "Qwen/Qwen3.5-9B", "maxTokens": 90, "temperature": 0.6, "timeoutMs": 6000 },
-    "text": { "provider": "together", "model": "Qwen/Qwen3.5-9B", "maxTokens": 140, "temperature": 0.6, "timeoutMs": 8000 }
+    "voice": {
+      "provider": "together",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "maxTokens": 90,
+      "temperature": 0.6,
+      "timeoutMs": 6000
+    },
+    "text": {
+      "provider": "together",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "maxTokens": 140,
+      "temperature": 0.6,
+      "timeoutMs": 8000
+    }
   },
   "voice": {
     "outputCheck": "strict",

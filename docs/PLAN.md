@@ -7,7 +7,7 @@
 | **1 Foundation** | **Done (2026-10-10)**, see below |
 | **1b Map, mascot shell, character onboarding** | **Code-complete (2026-10-10). Done when the 38 visible placeholder assets are delivered** (docs/PLACEHOLDERS.md) |
 | **1c Level flow and loading** (owner request) | **Code-complete (2026-10-11).** Place maps, level states, progress and unlocking, artifact architecture, loading system. Done when the Batch 3 P1 assets are delivered and Home's stones are measured (docs/LEVEL_FLOW.md) |
-| **2 Safety layer + voice-proxy spike** | **Built and tested (2026-10-11).** Live ElevenLabs call skipped by the owner (D-061). Waiting on: the strict/gated latency decision (D-062), and expert review of scripts and rules (D-019 gate) |
+| **2 Safety layer + voice-proxy spike** | **Built and tested (2026-10-11).** Live ElevenLabs call skipped by the owner (D-061). Model choice done (D-063: strict median 1.65 s to first words). Strict or gated is decided in Milestone 5, with end-to-end voice timings. Expert review deferred by the owner while in development |
 
 ## Milestone 2 (safety layer + test suite + voice-proxy spike): result
 **Built** (`safety/`, `content/safety/`; decisions D-058 to D-062):
