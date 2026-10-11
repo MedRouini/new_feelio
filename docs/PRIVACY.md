@@ -27,6 +27,8 @@
 | Safety events (category, severity, actor class, feature, locale, time; no conversation, no audio) | Safety review; parent summaries (not for restricted events) | Neon | 90 days; restricted events 30 days unless escalated (approved D-058) | Daily retention job; cascades with the profile |
 | Safety-event excerpts (redacted, at most 200 characters, AES-256-GCM) | Reviewing whether a high or medium event was real | Neon | 30 days (approved D-058) | Daily job deletes the ciphertext |
 | Safety-event counts (day, category, severity, feature; no child) | Transparency reporting (SR-42) | Neon | Kept (no personal data) | n/a |
+| Parent reports ("something felt wrong": category, optional note of up to 500 characters, redacted, encrypted) | Safety review (SR-43) | Neon | 90 days (D-066) | Daily retention job; cascades with the household |
+| Household time zone and allowed hours | Enforcing the parent's daily limit and hours on the family's own clock | Neon | With the account | Cascades |
 | *Planned (M5)*: voice audio and transcripts | Live conversation | Processed by ElevenLabs; **not stored by Feelio** | ElevenLabs minimal retention (configured per agent) | Provider deletion API where available |
 | *Planned (M6)*: stories and generated images | The child's stories | Neon + blob storage (to be chosen) | 90 days (*proposed*) | Delete with the story or profile |
 

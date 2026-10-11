@@ -26,9 +26,9 @@ const END: Entry[] = [
 /**
  * The phone-style dock (SPEC §4.1, D-054, D-055): a glass bar floating over the world, with the Map as
  * the larger centre button. Settings and the parent area are never here; they sit behind the grown-up
- * door. Stories is left out when a parent has switched it off (also enforced on the server).
+ * door. Talk and Stories are left out when a parent has switched them off (also enforced on the server).
  */
-export function Dock({ active, stories = true }: { active: DockItem; stories?: boolean }) {
+export function Dock({ active, stories = true, talk = true }: { active: DockItem; stories?: boolean; talk?: boolean }) {
   const t = useTranslations("child.dock");
   const button = (item: Entry, main = false) => (
     <Link
@@ -49,7 +49,7 @@ export function Dock({ active, stories = true }: { active: DockItem; stories?: b
     <nav className={styles.dock} aria-label={t("nav")} data-dock>
       <div className={styles.tray}>
         <div className={styles.side} data-side="start">
-          {START.filter((item) => item.id !== "stories" || stories).map((item) => button(item))}
+          {START.filter((item) => (item.id !== "stories" || stories) && (item.id !== "talk" || talk)).map((item) => button(item))}
         </div>
         {button(MAIN, true)}
         <div className={styles.side} data-side="end">

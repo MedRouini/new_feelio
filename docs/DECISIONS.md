@@ -656,3 +656,40 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - an adult listens to every line
   - ElevenLabs' written under-18 approval (D-005)
 - Voice samples live in `voice-samples/` (git-ignored, never shipped).
+
+## D-065 Time zones with Luxon; allowed hours enforced on the server
+**Status:** accepted (owner, 2026-10-11: "use a reliable, well-maintained library for time zone management rather than custom logic")
+- **Library:** `luxon@3.7.2` (MIT; IANA zones through `Intl`, handles daylight saving) and `@types/luxon@3.7.5`. Both pinned exactly. The types use the previous release, because 3.7.6 was only 12 days old.
+  - `npm audit`: the 9 known issues are all in existing build tools (drizzle-kit's old esbuild, eslint-config-next). None are in Luxon, and none run in the deployed app.
+- **One module, `platform/time.ts`, does all clock and calendar work:** the family's day, the last 7 days, allowed-hours checks with the next opening time, and time formatting. Unit-tested with fixed instants, including a London daylight-saving change, and Dubai and Los Angeles day boundaries.
+- **The household's time zone** is captured from the parent's browser at consent (it was hard-coded to UTC before). It is validated by Luxon (anything unknown becomes UTC), can be changed in Account, and the change is audited.
+- **Screen time** is counted on the family's local day (it was UTC; this closes that placeholder).
+- **Allowed hours:**
+  - One window per child: chosen days, from/until, half-hour steps, "Midnight" as an end.
+  - Stored in the existing `child_settings.schedule` column. The default stays 07:00 to 20:00 every day.
+  - **No valid window means no play**, never "any time". An invalid window is refused with a message and never saved.
+- **Enforcement on the server:**
+  - one "pause" status (outside hours first, then today's time used up) drives every child screen, the heartbeat (no time counted while paused) and the level API (403 `outside_hours`)
+  - the child sees Feelio asleep: "Feelio is resting now. Come back at 4:00 PM!", or "See you next time!"
+  - the parent sees the reason on the child's page
+
+## D-066 Parent dashboard: what parents see, the safety lead's review, and "something felt wrong"
+**Status:** accepted (owner approved the feature list, 2026-10-11; "reset progress" dropped by the owner)
+- **The child's page:**
+  - today's minutes against the limit
+  - the last 7 days as a labelled bar list with the limit as a reference (one validated colour, numbers in text)
+  - progress per place
+  - safety notes for the last 30 days, written as plain sentences from the category: never the conversation, never an excerpt, **never a restricted event**
+- **"Something felt wrong?"** (SR-43): a category plus an optional note of up to 500 characters, with personal information redacted and the text encrypted. It goes to the safety lead's queue.
+  - **New data type, `parent_report`: kept 90 days** (the same as safety events, D-058), then deleted by the daily job; it cascades with the household.
+  - The child-side "tell a grown-up" version comes with the Talk screen (Milestone 5).
+- **Safety lead:**
+  - Access is controlled by user ids in `SAFETY_LEAD_USER_IDS`, never email addresses. The owner's account is set locally.
+  - The page needs a fresh password check (sensitive gate); everyone else gets 404.
+  - It shows unreviewed high, medium and restricted events with decrypted, redacted excerpts, plus parent reports and anonymous 30-day counts (test traffic excluded).
+  - Actions: mark reviewed (stores who and when) or escalate (kept past retention while handled).
+- **"How Feelio works"** (SR-24): a plain guide in English and Arabic. It states at policy level what parents see and don't, including the household-disclosure exception (SAFETY_POLICY §5 transparency). Not a legal or compliance text.
+- **Settings:**
+  - Adventures, Talk and Stories switches in one place.
+  - The Talk button is now hidden when Talk is off, and the Talk screen refuses on the server (same as Stories).
+- **Additive migration** `0004_parent_reports` (new table, `safety_event.reviewed_by`).

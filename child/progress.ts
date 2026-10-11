@@ -7,13 +7,13 @@ import { artifactsForLevel } from "@/world/artifacts/catalog";
 import { loadWorld } from "@/world/load";
 import type { World, WorldLevel, WorldPlace } from "@/world/schema";
 import { computeWorldState, diffUnlocks, type WorldState } from "@/world/unlock";
-import { isTimeUp } from "./usage";
+import { pauseFor } from "./usage";
 
 // Level progress (D-056), child scope, server-only. One `progress` row per (level, artifact):
 // "started" when the child opens it, "completed" when they finish it. A level is completed when
 // every one of its artifacts is. Every write is checked here, never trusted from the client:
 // the level must exist and be reachable, the artifact must belong to it, the parent must allow
-// scenarios, and today's time must not be used up.
+// scenarios, and the child must be inside allowed hours with time left today.
 
 const PACK = "base";
 
@@ -62,7 +62,7 @@ export function findLevel(world: World, levelId: string): { place: WorldPlace; l
   return null;
 }
 
-export type ProgressRefusal = "unknown" | "locked" | "disabled" | "time_up" | "not_in_level";
+export type ProgressRefusal = "unknown" | "locked" | "disabled" | "time_up" | "outside_hours" | "not_in_level";
 
 type Refused = { ok: false; reason: ProgressRefusal };
 const refuse = (reason: ProgressRefusal): Refused => ({ ok: false, reason });
@@ -74,7 +74,8 @@ export async function checkLevelAccess(child: ChildContext, levelId: string, art
   if (!found) return refuse("unknown");
   const [settings] = await db.select({ features: childSettings.features }).from(childSettings).where(eq(childSettings.childId, child.childId)).limit(1);
   if (settings && !settings.features.scenarios) return refuse("disabled");
-  if (await isTimeUp(child.childId)) return refuse("time_up");
+  const pause = await pauseFor(child.childId);
+  if (pause) return refuse(pause.reason);
   const s = summarise(world, await rows(child.childId));
   const state = computeWorldState(world, s.completedLevels, s.startedLevels);
   if (state.places[found.place.id].levels[levelId] === "locked") return refuse("locked");

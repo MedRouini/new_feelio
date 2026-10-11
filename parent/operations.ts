@@ -3,10 +3,11 @@ import { and, eq, inArray } from "drizzle-orm";
 import { auth } from "@/auth/server";
 import { CHILD_DEVICE_CONFIG_ID, CHILD_PERMISSIONS } from "@/auth/constants";
 import { db } from "@/platform/db/client";
-import { apikey, auditLog, childProfile, childSettings, consentRecord, household, user } from "@/platform/db/schema";
+import { apikey, auditLog, childProfile, childSettings, consentRecord, household, user, type ScheduleWindow } from "@/platform/db/schema";
 import { decryptField, encryptField } from "@/platform/crypto";
 import { env } from "@/platform/env";
 import { getMarket } from "@/platform/markets";
+import { isValidWindow, isValidZone } from "@/platform/time";
 
 // Parent-scope operations. Callers must have passed checkParent(); each function also takes the
 // parent's ids explicitly and scopes every query to that household (no cross-household access).
@@ -144,7 +145,16 @@ export async function deleteAccount(userId: string) {
   await db.batch([db.delete(apikey).where(eq(apikey.referenceId, userId)), db.delete(user).where(eq(user.id, userId))]);
 }
 
-export type SettingsInput = { talk: boolean; stories: boolean; dailyMinutes: 15 | 30 | 45; sound: boolean };
+export type SettingsInput = {
+  talk: boolean;
+  stories: boolean;
+  /** Adventures (the levels on the map). Kept as it is when not given. */
+  scenarios?: boolean;
+  dailyMinutes: 15 | 30 | 45;
+  sound: boolean;
+  /** Allowed hours in the family's time zone (D-065). Kept as they are when not given. */
+  schedule?: ScheduleWindow[];
+};
 
 export async function getSettings(householdId: string, childId: string) {
   if (!(await getChildInHousehold(householdId, childId))) return null;
@@ -160,7 +170,8 @@ export async function updateSettings(p: { userId: string; householdId: string; c
     db
       .update(childSettings)
       .set({
-        features: { ...current.features, talk: p.s.talk, stories: p.s.stories },
+        features: { ...current.features, talk: p.s.talk, stories: p.s.stories, scenarios: p.s.scenarios ?? current.features.scenarios },
+        ...(p.s.schedule ? { schedule: p.s.schedule.filter(isValidWindow) } : {}),
         dailyMinutes: p.s.dailyMinutes,
         sound: p.s.sound,
         updatedAt: new Date(),
@@ -168,4 +179,18 @@ export async function updateSettings(p: { userId: string; householdId: string; c
       .where(eq(childSettings.childId, p.childId)),
     db.insert(auditLog).values({ householdId: p.householdId, userId: p.userId, action: "settings.updated", detail: { childId: p.childId, ...p.s } }),
   ]);
+}
+
+/** The family's time zone (D-065): validated against the IANA list by Luxon, audited. */
+export async function updateHouseholdTimezone(p: { userId: string; householdId: string; timezone: string }) {
+  if (!isValidZone(p.timezone)) throw new Error("Unknown time zone");
+  await db.batch([
+    db.update(household).set({ timezone: p.timezone }).where(eq(household.id, p.householdId)),
+    db.insert(auditLog).values({ householdId: p.householdId, userId: p.userId, action: "household.timezone", detail: { timezone: p.timezone } }),
+  ]);
+}
+
+export async function getHousehold(householdId: string) {
+  const [h] = await db.select().from(household).where(eq(household.id, householdId)).limit(1);
+  return h ?? null;
 }

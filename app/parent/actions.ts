@@ -7,15 +7,19 @@ import { auth } from "@/auth/server";
 import { checkParent, passAdultGate, type GateLevel, type ParentCheck } from "@/auth/guards";
 import { LOCALE_COOKIE, isLocale } from "@/i18n/request";
 import { db } from "@/platform/db/client";
-import { adultGate, session as sessionTable } from "@/platform/db/schema";
+import { adultGate, PARENT_REPORT_CATEGORIES, session as sessionTable } from "@/platform/db/schema";
+import { isValidTime, isValidWindow, isValidZone, safeZone } from "@/platform/time";
 import {
   createChild,
   deleteAccount,
   deleteChild,
   recordConsentAndCreateHousehold,
   revokeDevice,
+  updateHouseholdTimezone,
   updateSettings,
 } from "@/parent/operations";
+import { createParentReport } from "@/parent/insights";
+import { isSafetyLead, reviewEvent, reviewReport } from "@/parent/safety-lead";
 import { dashboardRedirect as redirect } from "./page-guard";
 
 // Every action re-checks authorisation itself (server actions are reachable by direct POST).
@@ -111,7 +115,7 @@ export async function consentAction(formData: FormData) {
   await recordConsentAndCreateHousehold({
     userId: check.parent.userId,
     locale: isLocale(loc) ? loc : "en",
-    timezone: typeof tz === "string" && /^[A-Za-z_]+(\/[A-Za-z_+-]+)*$/.test(tz) ? tz : "UTC",
+    timezone: safeZone(typeof tz === "string" ? tz : null),
   });
   redirect("/");
 }
@@ -141,15 +145,22 @@ const settingsSchema = z.object({
   childId: z.string().min(1),
   talk: z.literal("on").optional(),
   stories: z.literal("on").optional(),
+  scenarios: z.literal("on").optional(),
   sound: z.literal("on").optional(),
   dailyMinutes: z.enum(["15", "30", "45"]),
+  // Allowed hours (D-065): one window, the same times on the chosen days, in the family's time zone.
+  start: z.string().refine(isValidTime),
+  end: z.string().refine((v) => v === "24:00" || isValidTime(v)),
   setup: z.literal("1").optional(),
 });
 
 export async function updateSettingsAction(formData: FormData) {
   const parsed = settingsSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) redirect("/");
-  const { childId, setup } = parsed.data;
+  const days = [...new Set(formData.getAll("day").map(Number))].filter((d) => Number.isInteger(d) && d >= 0 && d <= 6).sort();
+  const window = parsed.success ? { days, start: parsed.data.start, end: parsed.data.end } : null;
+  const childId = String(formData.get("childId") ?? "");
+  if (!parsed.success || !window || !isValidWindow(window)) redirect(childId ? `/children/${childId}/settings?error=hours` : "/");
+  const { setup } = parsed.data;
   const check = await checkParent({ gate: "area", needHousehold: true });
   if (!check.ok) bounce(check, `/children/${childId}/settings`);
   await updateSettings({
@@ -159,11 +170,22 @@ export async function updateSettingsAction(formData: FormData) {
     s: {
       talk: parsed.data.talk === "on",
       stories: parsed.data.stories === "on",
+      scenarios: parsed.data.scenarios === "on",
       sound: parsed.data.sound === "on",
       dailyMinutes: Number(parsed.data.dailyMinutes) as 15 | 30 | 45,
+      schedule: [window],
     },
   });
   redirect(setup ? `/children/${childId}?setup=1` : `/children/${childId}`);
+}
+
+export async function updateTimezoneAction(formData: FormData) {
+  const check = await checkParent({ gate: "area", needHousehold: true });
+  if (!check.ok) bounce(check, "/account");
+  const zone = String(formData.get("timezone") ?? "");
+  if (!isValidZone(zone)) redirect("/account?error=timezone");
+  await updateHouseholdTimezone({ userId: check.parent.userId, householdId: check.parent.householdId!, timezone: zone });
+  redirect("/account?saved=timezone");
 }
 
 export async function deleteChildAction(formData: FormData) {
@@ -197,4 +219,41 @@ export async function setLocaleAction(formData: FormData) {
     (await cookies()).set(LOCALE_COOKIE, loc, { sameSite: "lax", path: "/", maxAge: 365 * 24 * 60 * 60 });
   }
   redirect(safeNext(formData.get("next")));
+}
+
+const reportSchema = z.object({
+  childId: z.string().optional(),
+  category: z.enum(PARENT_REPORT_CATEGORIES),
+  note: z.string().max(500).optional().default(""),
+});
+
+/** "Something felt wrong" (SR-43): a parent's report goes to the safety lead's review queue. */
+export async function createReportAction(formData: FormData) {
+  const parsed = reportSchema.safeParse(Object.fromEntries(formData));
+  const childId = parsed.success && parsed.data.childId ? parsed.data.childId : null;
+  const back = childId ? `/children/${childId}` : "/";
+  if (!parsed.success) redirect(`${back}?report=error`);
+  const check = await checkParent({ gate: "area", needHousehold: true });
+  if (!check.ok) bounce(check, back);
+  await createParentReport({ userId: check.parent.userId, householdId: check.parent.householdId!, childId, category: parsed.data.category, note: parsed.data.note });
+  redirect(`${back}?report=sent`);
+}
+
+/** Safety lead only: mark an event reviewed, optionally escalating it (kept past retention while handled). */
+export async function reviewEventAction(formData: FormData) {
+  const check = await checkParent({ gate: "sensitive" });
+  if (!check.ok) bounce(check, "/safety", "sensitive");
+  if (!isSafetyLead(check.parent.userId)) redirect("/");
+  const id = String(formData.get("id") ?? "");
+  const decision = String(formData.get("decision") ?? "");
+  await reviewEvent(id, check.parent.userId, decision === "escalate" ? { escalate: true } : {});
+  redirect("/safety");
+}
+
+export async function reviewReportAction(formData: FormData) {
+  const check = await checkParent({ gate: "sensitive" });
+  if (!check.ok) bounce(check, "/safety", "sensitive");
+  if (!isSafetyLead(check.parent.userId)) redirect("/");
+  await reviewReport(String(formData.get("id") ?? ""), check.parent.userId);
+  redirect("/safety");
 }

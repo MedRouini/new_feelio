@@ -23,9 +23,10 @@ export async function ComingSoon({ item, art, line }: { item: DockItem; art: Ass
   if (!child) redirect("/");
   const view = await getChildView(child);
   if (!view?.onboarding.done) redirect("/");
-  if (view.timeUp) return <TimeUp />;
-  // Parent switched Stories off: the screen does not exist for this child (server-side, CR-2).
+  if (view.timeUp) return <TimeUp pause={view.pause} />;
+  // Parent switched Stories or Talk off: the screen does not exist for this child (server-side, CR-2).
   if (item === "stories" && !view.features.stories) redirect("/");
+  if (item === "talk" && !view.features.talk) redirect("/");
   const t = await getTranslations("child");
   return (
     <>
@@ -39,7 +40,7 @@ export async function ComingSoon({ item, art, line }: { item: DockItem; art: Ass
           </div>
         </div>
       </Scene>
-      <Dock active={item} stories={view.features.stories} />
+      <Dock active={item} stories={view.features.stories} talk={view.features.talk} />
     </>
   );
 }

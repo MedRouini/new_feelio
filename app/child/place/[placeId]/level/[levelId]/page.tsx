@@ -15,7 +15,7 @@ export default async function LevelPage({ params }: { params: Promise<{ placeId:
   if (!child) redirect("/");
   const view = await getChildView(child);
   if (!view?.onboarding.done) redirect("/");
-  if (view.timeUp) return <TimeUp />;
+  if (view.timeUp) return <TimeUp pause={view.pause} />;
 
   const { placeId, levelId } = await params;
   const access = await checkLevelAccess(child, levelId);

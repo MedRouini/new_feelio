@@ -351,3 +351,6 @@ Place maps, level states, artifacts, progress API and the loading system: see `d
 
 ## Safety layer (Milestone 2)
 Built as designed in SAFETY_POLICY §2–3: `safety/` (rules, classifier, router, pipeline, events, voice wiring, the only provider client) and `content/safety/` (reviewed data). Decisions D-058 to D-062. The proxy route is `app/api/voice/llm/route.ts` (adult-only spike).
+
+## Parent dashboard and time (Milestone 3)
+Time zones and allowed hours: `platform/time.ts` (Luxon), enforced in `child/usage.ts` (`pauseFor`). Parent overview: `parent/insights.ts`. Safety lead: `parent/safety-lead.ts`, page `app/parent/safety`. Decisions D-065, D-066.

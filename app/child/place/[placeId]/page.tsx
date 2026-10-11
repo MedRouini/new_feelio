@@ -15,7 +15,7 @@ export default async function PlacePage({ params, searchParams }: { params: Prom
   if (!child) redirect("/");
   const view = await getChildView(child);
   if (!view?.onboarding.done) redirect("/");
-  if (view.timeUp) return <TimeUp />;
+  if (view.timeUp) return <TimeUp pause={view.pause} />;
 
   const { placeId } = await params;
   const place = loadWorld("base").places.find((p) => p.id === placeId);
@@ -37,7 +37,7 @@ export default async function PlacePage({ params, searchParams }: { params: Prom
         fromLevelId={fromLevelId}
         scenariosOn={view.features.scenarios}
       />
-      <Dock active="map" stories={view.features.stories} />
+      <Dock active="map" stories={view.features.stories} talk={view.features.talk} />
     </>
   );
 }

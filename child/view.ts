@@ -6,7 +6,7 @@ import { childProfile, childSettings } from "@/platform/db/schema";
 import { decryptField } from "@/platform/crypto";
 import type { WorldState } from "@/world/unlock";
 import { getWorldState } from "./progress";
-import { isTimeUp } from "./usage";
+import { pauseFor, type Pause } from "./usage";
 import {
   DEFAULT_AVATAR,
   ONBOARDING_STEPS,
@@ -34,8 +34,9 @@ export type ChildView = {
   onboarding: { step: number; done: boolean };
   features: { talk: boolean; stories: boolean; scenarios: boolean };
   sound: boolean;
-  /** Today's screen time is used up (decided on the server). */
+  /** The child can't play right now: outside allowed hours or today's time used up (server-decided). */
   timeUp: boolean;
+  pause: Pause;
   world: WorldState;
 };
 
@@ -46,6 +47,7 @@ export async function getChildView(child: ChildContext): Promise<ChildView | nul
   const parentNick = p.nicknameEnc ? decryptField(p.nicknameEnc) : null;
   const avatar = avatarSchema.safeParse(p.avatar);
   const name = p.nicknameKey === "parent" ? parentNick : nicknameWord(p.nicknameKey, p.locale) ?? null;
+  const pause = await pauseFor(child.childId);
   const step = Math.min(p.onboarding?.step ?? 0, ONBOARDING_STEPS);
 
   return {
@@ -61,7 +63,8 @@ export async function getChildView(child: ChildContext): Promise<ChildView | nul
     onboarding: { step, done: Boolean(p.onboarding?.completedAt) },
     features: s?.features ?? { talk: false, stories: false, scenarios: false },
     sound: s?.sound ?? true,
-    timeUp: await isTimeUp(child.childId),
+    timeUp: pause !== null,
+    pause,
     world: await getWorldState(child.childId),
   };
 }

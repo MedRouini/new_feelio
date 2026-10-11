@@ -208,9 +208,31 @@ export const safetyEvent = pgTable(
     excerptUntil: timestamp("excerpt_until", { withTimezone: true }),
     escalated: boolean("escalated").notNull().default(false),
     reviewedAt: timestamp("reviewed_at", { withTimezone: true }),
+    /** The safety lead who reviewed it (a user id; D-066). */
+    reviewedBy: text("reviewed_by"),
     createdAt: createdAt(),
   },
   (t) => [index("safety_event_child_idx").on(t.childId, t.createdAt), index("safety_event_review_idx").on(t.reviewedAt, t.level)],
+);
+
+// "Something felt wrong" reports from parents (SR-43, D-066). A category, and an optional short note
+// (personal information redacted, encrypted). Goes to the safety lead's review queue. Kept 90 days.
+export const PARENT_REPORT_CATEGORIES = ["upsetting", "inappropriate", "acted_like_a_person", "personal_info", "other"] as const;
+export const parentReport = pgTable(
+  "parent_report",
+  {
+    id: id(),
+    householdId: text("household_id")
+      .notNull()
+      .references(() => household.id, { onDelete: "cascade" }),
+    childId: text("child_id").references(() => childProfile.id, { onDelete: "cascade" }),
+    category: text("category", { enum: PARENT_REPORT_CATEGORIES }).notNull(),
+    noteEnc: text("note_enc"),
+    reviewedAt: timestamp("reviewed_at", { withTimezone: true }),
+    reviewedBy: text("reviewed_by"),
+    createdAt: createdAt(),
+  },
+  (t) => [index("parent_report_review_idx").on(t.reviewedAt)],
 );
 
 // Aggregate counts for transparency reporting (SR-42): no child, no content. Kept indefinitely.

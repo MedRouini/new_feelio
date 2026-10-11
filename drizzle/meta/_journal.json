@@ -29,6 +29,13 @@
       "when": 1791673282797,
       "tag": "0003_safety_events",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791723724187,
+      "tag": "0004_parent_reports",
+      "breakpoints": true
     }
   ]
 }

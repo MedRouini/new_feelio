@@ -23,6 +23,8 @@ const schema = z.object({
   // Voice proxy (Milestone 2 spike, ARCHITECTURE §4.3): the Bearer secret the ElevenLabs agent sends,
   // and an explicit switch. The spike is adult-only and off unless VOICE_SPIKE_ENABLED=1 (D-061).
   VOICE_PROXY_SECRET: z.string().min(32).optional(),
+  // Comma-separated user ids of the safety lead(s) who may open the review queue (D-066). Never emails.
+  SAFETY_LEAD_USER_IDS: z.string().optional(),
   VOICE_SPIKE_ENABLED: z
     .enum(["0", "1"])
     .default("0")

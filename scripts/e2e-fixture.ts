@@ -18,6 +18,9 @@ type Opts = {
   dailyMinutes?: 15 | 30 | 45;
   usedSeconds?: number;
   onboarded?: boolean;
+  /** Household time zone (default UTC) and allowed hours (default: all day, so tests pass at any hour). */
+  timezone?: string;
+  schedule?: { days: number[]; start: string; end: string }[];
 };
 
 async function main() {
@@ -32,7 +35,7 @@ async function main() {
 
   const email = `test+e2e-fx-${crypto.randomUUID()}@example.test`;
   const res = await auth.api.signUpEmail({ body: { name: "E2E Fixture", email, password: "correct-horse-battery" } });
-  const householdId = await ops.recordConsentAndCreateHousehold({ userId: res.user.id, locale: o.locale ?? "en", timezone: "UTC" });
+  const householdId = await ops.recordConsentAndCreateHousehold({ userId: res.user.id, locale: o.locale ?? "en", timezone: o.timezone ?? "UTC" });
   const childId = await ops.createChild({
     userId: res.user.id,
     householdId,
@@ -46,6 +49,10 @@ async function main() {
     childId,
     s: { talk: o.talk ?? false, stories: o.stories ?? true, dailyMinutes: o.dailyMinutes ?? 45, sound: false },
   });
+  await db
+    .update(s.childSettings)
+    .set({ schedule: o.schedule ?? [{ days: [0, 1, 2, 3, 4, 5, 6], start: "00:00", end: "24:00" }] })
+    .where(eq(s.childSettings.childId, childId));
   if (o.onboarded) {
     await db
       .update(s.childProfile)

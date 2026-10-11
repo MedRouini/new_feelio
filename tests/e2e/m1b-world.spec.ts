@@ -133,7 +133,7 @@ test("map: places, locked 'not yet', place view, rotation, RTL dock order", asyn
 });
 
 test("map: the whole map fits every screen under the glass dock; Map is the centre button; the ring sits on the stone", async ({ page }) => {
-  const f = fixture({ locale: "en", onboarded: true });
+  const f = fixture({ locale: "en", onboarded: true, talk: true }); // Talk on: all five dock buttons
   await asChild(page, f);
   const sizes = [PORTRAIT, LANDSCAPE, { width: 768, height: 1024 }, { width: 360, height: 640 }, { width: 844, height: 390 }, { width: 820, height: 1180 }, { width: 1366, height: 768 }, { width: 1920, height: 1080 }, { width: 1024, height: 1366 }];
   await page.setViewportSize(sizes[0]);

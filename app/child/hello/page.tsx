@@ -13,7 +13,7 @@ export default async function Hello() {
   const view = await getChildView(child);
   if (!view) redirect("/");
   if (view.onboarding.done) redirect("/");
-  if (view.timeUp) return <TimeUp />;
+  if (view.timeUp) return <TimeUp pause={view.pause} />;
   return (
     <>
       <SoundSetting on={view.sound} />

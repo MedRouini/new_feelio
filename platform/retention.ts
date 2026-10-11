@@ -1,12 +1,12 @@
 import "server-only";
 import { and, eq, isNotNull, lt } from "drizzle-orm";
 import { db } from "@/platform/db/client";
-import { adultGate, apikey, auditLog, rateLimit, safetyEvent, session, usageLedger, verification } from "@/platform/db/schema";
+import { adultGate, apikey, auditLog, parentReport, rateLimit, safetyEvent, session, usageLedger, verification } from "@/platform/db/schema";
 
 // Retention table (CR-6). Proposals awaiting owner sign-off are in docs/ARCHITECTURE.md §7.
 // Safety data (SAFETY_POLICY §7, approved by the owner 2026-10-11, D-058): events 90 days, excerpts
 // 30 days (crypto-shredded by deleting the ciphertext), restricted events 30 days unless escalated.
-// Aggregate counts (safety_event_count) hold no child data and are kept.
+// Aggregate counts (safety_event_count) hold no child data and are kept. Parent reports: 90 days (D-066).
 export const RETENTION_DAYS = {
   usageLedger: 90,
   auditLog: 365,
@@ -14,6 +14,7 @@ export const RETENTION_DAYS = {
   rateLimit: 1,
   safetyEvent: 90,
   restrictedSafetyEvent: 30,
+  parentReport: 90,
 } as const;
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -41,7 +42,8 @@ export async function runRetention(now = Date.now()) {
       .set({ excerptEnc: null, excerptUntil: null })
       .where(and(isNotNull(safetyEvent.excerptUntil), lt(safetyEvent.excerptUntil, nowDate), eq(safetyEvent.escalated, false)))
       .returning({ id: safetyEvent.id }),
+    db.delete(parentReport).where(lt(parentReport.createdAt, cutoff(RETENTION_DAYS.parentReport, now))).returning({ id: parentReport.id }),
   ]);
-  const [usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts] = results.map((r) => r.length);
-  return { usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts };
+  const [usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts, parentReports] = results.map((r) => r.length);
+  return { usage, audit, gates, sessions, verifications, expiredKeys, disabledKeys, limits, safetyEvents, restrictedEvents, excerpts, parentReports };
 }

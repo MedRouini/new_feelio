@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { getParent } from "@/auth/guards";
 import { Button } from "@/design/components/Button";
+import { isSafetyLead } from "@/parent/safety-lead";
 import { setLocaleAction, signOutAction } from "./actions";
 import styles from "./parent.module.css";
 
@@ -10,6 +11,14 @@ export default async function ParentLayout({ children }: { children: React.React
     <div className={styles.shell}>
       <header className={styles.header}>
         <p className={styles.brand}>{t("title")}</p>
+        {parent ? (
+          <nav className={styles.nav} aria-label={t("navLabel")}>
+            <a href="/">{t("navHome")}</a>
+            <a href="/guide">{t("navGuide")}</a>
+            <a href="/account">{t("navAccount")}</a>
+            {isSafetyLead(parent.userId) ? <a href="/safety">{t("navSafety")}</a> : null}
+          </nav>
+        ) : null}
         <div className={styles.headerActions}>
           <form action={setLocaleAction}>
             <input type="hidden" name="locale" value={locale === "ar" ? "en" : "ar"} />

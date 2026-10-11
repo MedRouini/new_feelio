@@ -16,6 +16,8 @@ describe.skipIf(!process.env.DATABASE_URL)("level progress (integration, synthet
   const householdId = await ops.recordConsentAndCreateHousehold({ userId: res.user.id, locale: "en", timezone: "UTC" });
   const id = await ops.createChild({ userId: res.user.id, householdId, nickname: null, ageBand: "7-9", locale: "en" });
   const child = { childId: id, householdId, ageBand: "7-9" as const, locale: "en" as const, keyId: "k" };
+  // all-day hours, so the test doesn't depend on the time it runs (allowed hours are tested separately)
+  await db.update(s.childSettings).set({ schedule: [{ days: [0, 1, 2, 3, 4, 5, 6], start: "00:00", end: "24:00" }] }).where(eq(s.childSettings.childId, id));
   const A = DEV_TEST_ARTIFACT; // the only artifact while none are built (NODE_ENV=test)
 
   afterAll(async () => ops.deleteAccount(res.user.id));

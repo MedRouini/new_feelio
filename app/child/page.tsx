@@ -37,7 +37,7 @@ export default async function ChildHome({ searchParams }: { searchParams: Promis
   const view = await getChildView(child);
   if (!view) redirect("/");
   if (!view.onboarding.done) redirect("/hello");
-  if (view.timeUp) return <TimeUp />;
+  if (view.timeUp) return <TimeUp pause={view.pause} />;
   const { arrive } = await searchParams;
 
   return (
@@ -45,7 +45,7 @@ export default async function ChildHome({ searchParams }: { searchParams: Promis
       <SoundSetting on={view.sound} />
       <Heartbeat />
       <MapView world={loadWorld("base")} state={view.world} locale={view.locale} avatar={view.avatar} arriveFromStart={arrive === "1"} />
-      <Dock active="map" stories={view.features.stories} />
+      <Dock active="map" stories={view.features.stories} talk={view.features.talk} />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { Card } from "@/design/components/Card";
 import { env } from "@/platform/env";
 import { getMarket } from "@/platform/markets";
 import { consentAction } from "../actions";
+import { BrowserTimezone } from "../BrowserTimezone";
 import { dashboardRedirect as redirect, requireParentPage } from "../page-guard";
 import styles from "../parent.module.css";
 
@@ -32,7 +33,7 @@ export default async function Consent({ searchParams }: { searchParams: Promise<
           <span>{t("consentCheckbox")}</span>
         </label>
         <input type="hidden" name="locale" value={locale} />
-        <input type="hidden" name="timezone" value="UTC" />
+        <BrowserTimezone />
         <Button type="submit">{t("consentButton")}</Button>
       </form>
     </Card>

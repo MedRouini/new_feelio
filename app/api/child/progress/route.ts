@@ -13,7 +13,7 @@ const body = z.strictObject({
   artifactId: z.string().max(64),
 });
 
-const STATUS: Record<ProgressRefusal, number> = { unknown: 404, not_in_level: 400, locked: 403, disabled: 403, time_up: 403 };
+const STATUS: Record<ProgressRefusal, number> = { unknown: 404, not_in_level: 400, locked: 403, disabled: 403, time_up: 403, outside_hours: 403 };
 
 export async function POST(request: NextRequest) {
   if (request.headers.get("origin") !== env().APP_ORIGIN) {

@@ -114,7 +114,9 @@
       "placeOpen": "Now you can visit {place}!",
       "next": "Keep going",
       "progress": "{done} of {total} finished"
-    }
+    },
+    "resting": "Feelio is resting now. Come back at {time}!",
+    "restingLater": "Feelio is resting now. See you next time!"
   },
   "parent": {
     "title": "Feelio for parents",
@@ -182,7 +184,110 @@
     "soundSetting": "Sound effects",
     "saveSettings": "Save settings",
     "changeSettings": "Change settings",
-    "handOver": "Last step: give this device to {name}. Open this page on their tablet or phone and press the button below."
+    "handOver": "Last step: give this device to {name}. Open this page on their tablet or phone and press the button below.",
+    "scenariosSetting": "Adventures (the levels on the map)",
+    "hoursTitle": "Allowed hours",
+    "hoursNote": "Feelio can only be used on these days and between these times, in your time zone ({zone}). You can change the time zone in Account.",
+    "hoursFrom": "From",
+    "hoursTo": "Until",
+    "midnight": "Midnight",
+    "hoursError": "Choose at least one day, and an end time after the start time.",
+    "timezoneTitle": "Time zone",
+    "timezoneNote": "Daily limits and allowed hours follow this time zone.",
+    "saveTimezone": "Save time zone",
+    "timezoneSaved": "Time zone saved.",
+    "timezoneError": "Please choose a time zone from the list.",
+    "navLabel": "Dashboard",
+    "navHome": "Home",
+    "navGuide": "How Feelio works",
+    "navAccount": "Account",
+    "navSafety": "Safety review",
+    "todayUsed": "{used} of {limit} minutes used today",
+    "restingNow": "Feelio is resting now: it's outside the allowed hours.",
+    "restingUntil": "Feelio is resting now (outside the allowed hours). Next available at {time}.",
+    "timeUpNow": "Today's time is used up. Feelio will be back tomorrow.",
+    "weekTitle": "This week",
+    "weekLimit": "The dashed line is the daily limit: {n} minutes.",
+    "minutesShort": "{n} min",
+    "minutesOn": "{day}: {n} minutes",
+    "progressTitle": "Progress in Feelio's world",
+    "placeLocked": "Not open yet",
+    "placeDone": "Finished",
+    "placeProgress": "{done} of {total} levels finished",
+    "summariesTitle": "Safety notes (last 30 days)",
+    "summariesNone": "Nothing to report. Feelio hasn't needed to step in.",
+    "summariesNote": "These are short notes, never the conversation itself. A few very sensitive situations are handled by our safety team instead.",
+    "summary": {
+      "selfHarm": "Your child said something suggesting they might want to hurt themselves. Feelio stayed calm, encouraged them to talk to a trusted grown-up right away and showed where to get help. Please check in with your child gently today.",
+      "danger": "Your child described what sounded like an emergency. Feelio told them to get a grown-up or call the emergency number.",
+      "bullying": "Your child mentioned being hurt or bullied by other children. Feelio was supportive and encouraged them to tell a trusted grown-up.",
+      "worryOutside": "Your child shared something worrying about someone outside your home. Feelio said it wasn't their fault and encouraged them to talk to a trusted grown-up.",
+      "onlineSafety": "Your child described someone asking for secrets, photos or to meet. Feelio told them not to send anything and to tell a trusted grown-up. It may help to talk together about staying safe online.",
+      "friends": "Feelio encouraged time with friends and family.",
+      "steered": "Feelio gently steered the conversation away from a topic that isn't right for children."
+    },
+    "reportTitle": "Something felt wrong?",
+    "reportIntro": "If anything Feelio said or did worried you, tell us. Our safety team reviews every report.",
+    "reportCategory": "What happened?",
+    "reportCategories": {
+      "upsetting": "It said something upsetting or scary",
+      "inappropriate": "Something wasn't suitable for children",
+      "acted_like_a_person": "It acted like a real person",
+      "personal_info": "It asked for personal information",
+      "other": "Something else"
+    },
+    "reportNote": "Anything you'd like to add (optional). Please don't include names, addresses or phone numbers.",
+    "reportSend": "Send report",
+    "reportSent": "Thank you. Our safety team will look at this.",
+    "reportError": "Please choose what happened and try again.",
+    "safety": {
+      "title": "Safety review",
+      "intro": "Only you can see this page. It lists safety events and parent reports waiting for review, including restricted ones that parents never see. Excerpts are redacted and disappear after 30 days.",
+      "eventsTitle": "Safety events to review ({n})",
+      "reportsTitle": "Parent reports to review ({n})",
+      "none": "Nothing waiting.",
+      "level": "{level} (severity {severity})",
+      "meta": "Action: {action} · found by: {source} · about: {actor}",
+      "restricted": "restricted (not shown to the parent)",
+      "escalated": "escalated",
+      "noExcerpt": "No excerpt (none kept, or older than 30 days).",
+      "markReviewed": "Mark reviewed",
+      "escalate": "Escalate and keep",
+      "countsTitle": "All safety events, last 30 days (anonymous counts)",
+      "procedure": "For apparent exploitation or a child at risk, follow docs/REPORTING_PROCEDURE.md."
+    },
+    "guide": {
+      "title": "How Feelio works",
+      "pilot": "Feelio is in early testing. Some features are not available yet.",
+      "what": {
+        "title": "What Feelio is",
+        "body": "Feelio is a friendly AI companion that helps children aged 5 to 12 understand and talk about their feelings, through a playful world, short activities and stories. Feelio always tells children it is an AI, not a person."
+      },
+      "not": {
+        "title": "What Feelio is not",
+        "body": "Feelio is not a therapist, a doctor or an emergency service. It never diagnoses, never asks children to keep secrets, and always points them to trusted grown-ups: you, teachers and family."
+      },
+      "safe": {
+        "title": "How Feelio is designed to keep children safe",
+        "body": "Everything your child says, and everything Feelio wants to say back, is checked before it is shared. For serious moments, Feelio uses fixed, carefully written words instead of AI-generated ones. Personal details like addresses and phone numbers are hidden before anything is processed. Children cannot upload pictures or talk to other people through Feelio."
+      },
+      "see": {
+        "title": "What you can see",
+        "body": "Your child's progress, how much time they used each day, and short safety notes when Feelio had to step in. You never see the conversation itself, and voice is never recorded or stored by Feelio."
+      },
+      "exception": {
+        "title": "One important exception",
+        "body": "If a child says something suggesting that someone at home may be hurting them, Feelio reassures them, encourages them to talk to a trusted grown-up and shows where to find help. To keep children safe, this kind of note is not shown in the parent dashboard; it goes only to our safety team. This rule is part of our safety policy, which is still being reviewed by experts."
+      },
+      "controls": {
+        "title": "Your controls",
+        "body": "For each child you choose which parts are on (adventures, talking, stories), how many minutes a day, and the days and hours when Feelio can be used. You can remove a device or delete a child's data at any time."
+      },
+      "tips": {
+        "title": "Tips",
+        "body": "Ask your child about what they explored with Feelio. Feelings games work best as a starting point for talking together. If anything ever feels wrong, use \"Something felt wrong?\" on your child's page."
+      }
+    }
   },
   "ageBands": {
     "5-6": "5–6 years",

@@ -19,7 +19,7 @@ export default async function Collection() {
   if (!child) redirect("/");
   const view = await getChildView(child);
   if (!view?.onboarding.done) redirect("/");
-  if (view.timeUp) return <TimeUp />;
+  if (view.timeUp) return <TimeUp pause={view.pause} />;
   const t = await getTranslations("child.collection");
   return (
     <>
@@ -34,7 +34,7 @@ export default async function Collection() {
           </div>
         </div>
       </Scene>
-      <Dock active="collection" stories={view.features.stories} />
+      <Dock active="collection" stories={view.features.stories} talk={view.features.talk} />
     </>
   );
 }

@@ -28,4 +28,5 @@ export const VOICE_LINES: Record<string, string> = {
   collection_intro: "child.collection.intro",
   offline_line: "child.offline.line",
   time_up: "child.timeUp",
+  resting_later: "child.restingLater",
 };
