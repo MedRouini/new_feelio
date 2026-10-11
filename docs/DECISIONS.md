@@ -732,3 +732,14 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - ElevenLabs' own metrics on a live call: LLM time to first sentence 1.6–2.0 s (includes the tunnel); TTS first byte 0.16–0.35 s; the opening line played 3 s after the tap
   - the input classifier (T1, about 0.5–1 s) is the largest single part; production (no tunnel) should be faster, to be measured on deploy
 - **Tunnel:** a Cloudflare quick tunnel (no account), URL in `VOICE_PUBLIC_URL`. It changes on every restart: re-run the sync. Development only.
+
+## D-069 Onboarding journey and Talk voice room (redesign)
+**Status:** accepted (owner brief and answers, 2026-10-11). Proposal: docs/REDESIGN_ONBOARDING_TALK.md.
+- **Owner answers:** companion step removed and the companion **hidden everywhere** (data kept, default star, for a later reward); flat brand-colour shapes drawn in code are OK for interface elements (voice rings, name balloons, gate glow); **no new voice lines** for interests (captions only); build all of it.
+- **Onboarding is one continuous scene:** hello → character → name → likes → microphone (only if Talk is on) → gate; `ONBOARDING_STEPS` 5 → 6 (finished profiles keep `completedAt`, so nobody is sent back). The camera zooms toward the gate stop by stop, Feelio walks between stops, progress shows as the map's own stones. Choices never auto-advance: instant feedback, then the go stone appears.
+- **Pickers:** a shared stage carousel (swipe, arrows, dots, keys, RTL) for the character and the likes; names as balloons whose word lands on the character's one sign; likes go into three pick slots.
+- **Gate:** the open and closed meadow pictures are identical outside the gate (measured: mean difference 1–5/255), so the gate opens by a **whole-picture cross-fade** (no mask, nothing distorted), then a glow and a push into the map. Tap skips.
+- **Sign text:** placed in the board area measured from `ui_sign_plate` (22–67% of the height) with container-unit sizes, so it is centred and contained everywhere.
+- **Talk:** Feelio is the hero over the softly blurred meadow; rings breathe with the child's microphone level while listening and with Feelio's voice while speaking; "thinking" is shown from a pause after the child's speech (the provider reports the child's words too late for that); captions show only Feelio's checked words, never the child's; time left is an arc around the one button; mic refused, lost connection, silence and the end each have their own kind screen.
+- **Motion:** transforms and opacity only; everything honours reduced motion through a hydration-safe hook (`child/ui/useCalm.ts`); looping motion sits inside buttons so their boxes stay still.
+- **Verified by running it:** walkthroughs in EN and AR, landscape and portrait, full and reduced motion (screenshots); a live ElevenLabs call (synthetic voice) through every Talk state; lint, typecheck, 116 unit and integration tests, 22 end-to-end tests.

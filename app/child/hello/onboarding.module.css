@@ -1,34 +1,92 @@
-/* Onboarding layout (ONBOARDING.md §2). Landscape: mascot at the start side, choices in the middle.
-   Portrait: bubble on top, mascot, then choices. Logical properties, so Arabic composes right to left;
-   the art itself is never mirrored. No panels, no shadows. */
+/* Onboarding journey (ONBOARDING.md, redesign D-069). One continuous meadow scene with a camera that
+   walks toward the gate. Landscape: Feelio at the start side, the bubble and the stop's objects beside
+   it. Portrait: bubble, Feelio, objects. Logical properties, so Arabic composes right to left; the art
+   itself is never mirrored. Only transforms and opacity animate. No panels, no shadows. */
 
 .scene {
   position: fixed;
   inset: 0;
-  overflow: hidden;
+  overflow: clip; /* never scrolls, even when a focused control would ask it to */
   background: var(--lilac-50);
   color: var(--text);
   user-select: none;
   -webkit-user-select: none;
   display: grid;
-  /* Landscape: Feelio gets the full height of the start column; the bubble sits above the choices. */
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
-  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.65fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   grid-template-areas:
+    "progress progress"
     "mascot say"
     "mascot stage";
   column-gap: clamp(8px, 2vw, 32px);
-  padding-block: max(14px, env(safe-area-inset-top)) max(70px, env(safe-area-inset-bottom));
+  padding-block: max(10px, env(safe-area-inset-top)) max(64px, env(safe-area-inset-bottom));
   padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
 }
 @media (orientation: portrait) {
   .scene {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr;
-    grid-template-areas: "say" "mascot" "stage";
+    grid-template-columns: minmax(0, 1fr); /* never wider than the screen */
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    grid-template-areas: "progress" "say" "mascot" "stage";
   }
 }
 
+/* ---------- the camera: the meadow zooms toward the gate, stop by stop ---------- */
+.camera {
+  position: absolute;
+  inset: 0;
+  transform: scale(var(--zoom, 1));
+  transform-origin: 50% 24%; /* the garden gate, measured on both meadow pictures */
+  transition: transform 900ms cubic-bezier(0.45, 0, 0.2, 1);
+  will-change: transform;
+}
+.camera[data-push] { transition: transform 1100ms cubic-bezier(0.6, 0, 0.9, 0.4); }
+.openScene { position: absolute; inset: 0; transition: opacity 700ms ease-out; }
+/* light from beyond the open gate: a flat brand-amber glow (code shape, D-069) */
+.gateGlow {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 24%;
+  inline-size: 28vmin;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 236 186 / 0.95) 0%, rgb(243 176 58 / 0.45) 45%, rgb(243 176 58 / 0) 72%);
+  opacity: 0;
+  scale: 0.3;
+  transition: opacity 900ms ease-out 400ms, scale 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) 400ms;
+  pointer-events: none;
+}
+.gateGlow[data-on] { opacity: 1; scale: 1.6; }
+.camera[data-push] .gateGlow { scale: 5; }
+/* the last moment: warm light fills the screen, then the map arrives; a tap skips ahead */
+.pushVeil {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  border: 0;
+  background: #fff6e2;
+  animation: veil 1000ms ease-in 200ms both;
+  cursor: pointer;
+}
+@keyframes veil { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- progress: the map's own stones, lit as you go ---------- */
+.progress {
+  grid-area: progress;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.progress li { inline-size: clamp(26px, 4.4vmin, 40px); transition: transform 300ms var(--ease-spring); }
+.progress li[data-state="now"] { transform: scale(1.25); }
+.progress li[data-state="next"] { opacity: 0.7; }
+
+/* ---------- Feelio and the bubble ---------- */
 .say {
   grid-area: say;
   position: relative;
@@ -37,8 +95,11 @@
   justify-content: center;
   padding-inline-end: 72px; /* room for the grown-up door in the corner */
 }
-.say > * { inline-size: min(100%, 520px); }
-/* Landscape: the bubble sits to the right, so the garden gate in the middle stays visible (it opens at the end). */
+.say > * { inline-size: min(100%, 460px); }
+/* while the gate opens, the bubble steps aside so the gate is the only thing to look at */
+.scene[data-gate="opening"] .say, .scene[data-gate="push"] .say { opacity: 0; transform: translateY(-12px); }
+.say { transition: opacity 300ms, transform 300ms; }
+/* Landscape: the bubble sits to the end side, so the garden gate in the middle stays visible. */
 @media (orientation: landscape) {
   .say { justify-content: flex-end; }
 }
@@ -59,10 +120,19 @@
 .mascot { inline-size: min(42vmin, 340px); }
 @media (orientation: portrait) {
   .mascotSpot { flex-direction: row; justify-content: center; align-items: flex-end; }
-  .mascot { inline-size: min(30vmin, 220px); }
+  .mascot { inline-size: min(28vmin, 200px); }
 }
 .aiSign { inline-size: min(40vmin, 340px); }
+@media (prefers-reduced-motion: no-preference) {
+  /* walking to the next stop: a bouncy hop-walk on the walking pose */
+  .mascotSpot[data-walking] .mascot { animation: walk 325ms ease-in-out 2; }
+}
+@keyframes walk {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-7%) rotate(3deg); }
+}
 
+/* ---------- the stop's objects ---------- */
 .stage {
   grid-area: stage;
   position: relative;
@@ -72,9 +142,24 @@
   justify-content: center;
   min-block-size: 0;
 }
+.stopBox {
+  inline-size: 100%;
+  block-size: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2vmin, 20px);
+}
 
-/* the "go on" stepping stone with an arrow */
+/* the "go on" stone: pops in when there is something to confirm, then breathes */
+.goSlot { display: grid; place-items: center; min-block-size: clamp(96px, 15vmin, 128px); }
+.goWrap { display: grid; place-items: center; }
 .goStone { inline-size: clamp(96px, 15vmin, 128px); }
+@media (prefers-reduced-motion: no-preference) {
+  .goWrap .goStone > * { animation: breathe 1.8s ease-in-out 600ms infinite; } /* inside the button, so its box stays still */
+}
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 .goIcon {
   position: absolute;
   inset: 0;
@@ -84,38 +169,251 @@
   color: var(--navy-900);
 }
 
-/* stop 2 */
-.character { display: grid; justify-items: center; gap: var(--s4); inline-size: 100%; }
-.preview { inline-size: min(26vmin, 220px); }
-.choices { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: clamp(8px, 2.5vmin, 28px); }
-.choice { inline-size: clamp(88px, 17vmin, 150px); }
-.nameChoice { inline-size: clamp(120px, 22vmin, 190px); }
-.nameText {
+/* ---------- carousel (character and likes) ---------- */
+.carousel {
+  inline-size: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "prev track next" "dots dots dots";
+  align-items: center;
+  column-gap: var(--s2);
+}
+.carousel > .track { grid-area: track; }
+.carousel > .arrow[data-side="start"] { grid-area: prev; }
+.carousel > .arrow[data-side="end"] { grid-area: next; }
+.carousel > .dots { grid-area: dots; }
+/* phones: the stage gets the full width; the arrows sit beside the dots */
+@media (orientation: portrait) {
+  .carousel { grid-template-areas: "track track track" "prev dots next"; row-gap: var(--s2); }
+  .track { --slide: clamp(130px, 40vmin, 220px); }
+  .likesStop .track { --slide: clamp(110px, 33vmin, 190px); }
+  .likeButton { padding-inline: var(--s4); }
+}
+.stopBox > * { max-inline-size: 100%; min-inline-size: 0; }
+.track {
+  --slide: clamp(120px, 30vmin, 260px);
+  position: relative;
+  block-size: calc(var(--slide) * 1.12);
+  touch-action: pan-y;
+  overflow: visible;
+}
+.slide {
   position: absolute;
-  inset-inline: 10%;
-  inset-block-start: 22%;
-  text-align: center;
+  top: 0;
+  left: 50%;
+  inline-size: var(--slide);
+  margin-left: calc(var(--slide) / -2); /* physical: the motion offset is physical too */
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.slide[data-centre] { cursor: default; }
+.slide:focus-visible { outline: 4px solid var(--focus); outline-offset: 4px; border-radius: 28px; }
+.arrow {
+  inline-size: var(--touch-child);
+  block-size: var(--touch-child);
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--lilac-300);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.92);
+  color: var(--purple-500);
+  cursor: pointer;
+  z-index: 12;
+  transition: transform var(--m-pop) var(--ease-spring);
+}
+.arrow:active { transform: scale(0.9); }
+.arrow:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+.dots { display: flex; align-items: center; justify-content: center; gap: 0; margin-block-start: var(--s1); }
+.dot {
+  inline-size: clamp(18px, 4.6vw, 30px); /* fits 8 dots between the arrows on a phone */
+  block-size: 30px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.dot::before { content: ""; inline-size: 11px; block-size: 11px; border-radius: 50%; background: rgb(255 255 255 / 0.85); border: 2px solid var(--purple-500); transition: transform 200ms var(--ease-spring), background 200ms; }
+.dot[aria-current]::before { background: var(--purple-500); transform: scale(1.35); }
+
+/* character on its stage */
+.charSlide { position: relative; display: grid; place-items: end center; inline-size: 100%; padding-block-end: 16%; }
+/* the podium: the map's own stone, under the feet */
+.podium { position: absolute; inline-size: 96%; inset-block-end: 0; }
+.charBody { position: relative; inline-size: 80%; transform-origin: 50% 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  .charBody[data-hop], .nameAvatar[data-hop] { animation: hopSquash 640ms var(--ease-spring); }
+}
+@keyframes hopSquash {
+  0% { transform: scale(1.1, 0.88); }
+  35% { transform: translateY(-18%) scale(0.94, 1.08); }
+  70% { transform: translateY(0) scale(1.06, 0.94); }
+  100% { transform: none; }
+}
+
+/* sparkles: brand companions flying out of a fresh choice */
+.sparkles { position: absolute; inset: 0; pointer-events: none; display: grid; place-items: center; }
+.sparkle { position: absolute; inline-size: 22%; }
+
+/* ---------- name balloons ---------- */
+.nameStop { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s3); inline-size: 100%; block-size: 100%; }
+@media (orientation: portrait) { .nameStop { grid-template-columns: 1fr; justify-items: center; } }
+.balloons {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: clamp(10px, 2.4vmin, 22px) clamp(10px, 2vmin, 18px);
+}
+.balloons li { display: flex; flex-direction: column; align-items: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .balloons li { animation: bob 3.2s ease-in-out infinite; animation-delay: calc(var(--i) * -0.55s); }
+}
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-8px) rotate(1.5deg); } }
+/* a balloon: a soft egg shape in a brand tint with a little string (flat code shape, D-069) */
+.balloon {
+  position: relative;
+  min-inline-size: clamp(112px, 17vmin, 170px);
+  min-block-size: clamp(80px, 12vmin, 110px);
+  padding: 0.4em 1em;
+  border: 3px solid var(--tone-line);
+  border-radius: 50% 50% 47% 47% / 58% 58% 42% 42%;
+  background: var(--tone-fill);
+  color: var(--navy-900);
+  font: inherit;
   font-size: var(--fs-word);
   font-weight: 700;
-  color: #4a2a12;
-  pointer-events: none;
+  cursor: pointer;
+  transition: transform var(--m-pop) var(--ease-spring);
+}
+.balloon::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 100%;
+  inline-size: 2px;
+  block-size: 18px;
+  background: var(--tone-line);
+}
+.balloon[data-tone="0"] { --tone-fill: #ffe6ba; --tone-line: #e09a2a; }
+.balloon[data-tone="1"] { --tone-fill: #ffd8e6; --tone-line: #c4557c; }
+.balloon[data-tone="2"] { --tone-fill: #efcff8; --tone-line: #8a5bc4; }
+.balloon[data-tone="3"] { --tone-fill: #d4ecff; --tone-line: #4f8fc4; }
+.balloon:active { transform: scale(0.92); }
+.balloon:focus-visible { outline: 4px solid var(--focus); outline-offset: 4px; }
+.balloon[aria-pressed="true"] { transform: scale(1.12); border-width: 4px; }
+.nameMe { display: grid; justify-items: center; gap: 0; }
+.nameAvatar { inline-size: clamp(96px, 17vmin, 170px); transform-origin: 50% 100%; }
+.nameSign { inline-size: clamp(160px, 26vmin, 250px); margin-block-start: -8%; }
+.nameMe .goSlot { margin-block-start: var(--s2); }
+
+/* ---------- likes ---------- */
+.likesStop { display: flex; flex-direction: column; align-items: center; gap: var(--s2); inline-size: 100%; }
+.likesStop .track { --slide: clamp(96px, 21vmin, 190px); }
+.likeSlide { position: relative; display: grid; place-items: center; inline-size: 100%; }
+.likeArt { inline-size: 100%; }
+.likedMark {
+  position: absolute;
+  inset-block-start: 2%;
+  inset-inline-end: 4%;
+  display: grid;
+  place-items: center;
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid #c4557c;
+  color: #c4557c;
+}
+/* each picture's own little moment when it reaches the centre (transforms on the approved art only) */
+@media (prefers-reduced-motion: no-preference) {
+  .idle_space { animation: rocket 1.6s ease-in-out infinite; }
+  .idle_ballgames { animation: bounce 0.9s cubic-bezier(0.3, 0, 0.6, 1) infinite alternate; }
+  .idle_sea, .idle_nature { animation: sway 2.2s ease-in-out infinite; }
+  .idle_animals, .idle_drawing { animation: wiggle 1.4s ease-in-out infinite; }
+  .idle_music { animation: beat 0.6s ease-in-out infinite alternate; }
+  .idle_blocks { animation: squash 1.2s ease-in-out infinite; }
+}
+@keyframes rocket { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2%, -6%); } }
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-7%); } }
+@keyframes sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-2.5deg); } 75% { transform: rotate(2.5deg); } }
+@keyframes beat { from { transform: scale(1); } to { transform: scale(1.05); } }
+@keyframes squash { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.04, 0.96); } }
+
+.likeRow { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: clamp(12px, 3vmin, 32px); }
+.likeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-block-size: var(--touch-child);
+  padding-inline: var(--s6);
+  border: 3px solid #c4557c;
+  border-radius: var(--r-pill);
+  background: #c4557c;
+  color: var(--white);
+  font: inherit;
+  font-size: var(--fs-word);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--m-pop) var(--ease-spring);
+}
+.likeButton[aria-pressed="true"] { background: var(--white); color: #a8406a; }
+.likeButton:active { transform: scale(0.94); }
+.likeButton:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+.slots { display: flex; gap: var(--s2); margin: 0; padding: 0; list-style: none; }
+.slots li {
+  inline-size: clamp(64px, 10vmin, 86px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px dashed var(--lilac-300);
+  background: rgb(255 255 255 / 0.7);
+  display: grid;
+  place-items: center;
+}
+.slotItem { inline-size: 100%; block-size: 100%; display: grid; place-items: center; border: 0; padding: 8%; background: none; cursor: pointer; }
+.slotItem:focus-visible { outline: 4px solid var(--focus); outline-offset: 2px; border-radius: 50%; }
+
+/* ---------- microphone ---------- */
+.micStop { display: flex; flex-direction: column; align-items: center; gap: var(--s3); }
+.micWrap { position: relative; display: grid; place-items: center; }
+.micObject { inline-size: clamp(120px, 24vmin, 200px); position: relative; z-index: 1; }
+/* a soft ring that grows with the child's own voice (local only; flat brand shape, D-069) */
+.micRing {
+  position: absolute;
+  inline-size: 120%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(239 207 248 / 0.9) 0%, rgb(239 207 248 / 0.35) 55%, rgb(239 207 248 / 0) 72%);
+  transform: scale(calc(0.85 + var(--level, 0) * 0.6));
+  opacity: 0;
+  transition: transform 80ms linear, opacity 300ms;
+}
+.micWrap[data-live] .micRing { opacity: 1; }
+.later {
+  min-block-size: 48px;
+  padding-inline: var(--s4);
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--fs-word);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
 }
 
-/* stop 3 */
-.likes { display: grid; justify-items: center; gap: var(--s4); }
-.likeGrid { display: grid; grid-template-columns: repeat(4, auto); gap: clamp(8px, 2vmin, 20px); justify-content: center; }
-@media (orientation: portrait) { .likeGrid { grid-template-columns: repeat(4, auto); } }
-.like { inline-size: clamp(76px, 15vmin, 132px); }
-
-/* stop 4 */
-.mic { display: flex; align-items: flex-end; gap: clamp(16px, 5vmin, 60px); }
-.micObject { inline-size: clamp(110px, 22vmin, 190px); }
-
-/* stop 5: the open gate is revealed only around the gate itself (D-029 technique) */
-.gateReveal {
-  z-index: 0;
-  mask-image: radial-gradient(ellipse 13% 15% at 50% 26%, #000 75%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 13% 15% at 50% 26%, #000 75%, transparent 100%);
-  animation: reveal 700ms ease-out both;
+@media (prefers-reduced-motion: reduce) {
+  .camera, .openScene, .gateGlow { transition: opacity 300ms; }
+  .camera { transform: none; }
+  .gateGlow { scale: 1; }
+  .micRing { transition: none; }
 }
-@keyframes reveal { from { opacity: 0; } to { opacity: 1; } }

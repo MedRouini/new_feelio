@@ -1,4 +1,4 @@
-# Onboarding: "Arriving in Feelio's world" (v1.1, built in Milestone 1b; simplified by D-053)
+# Onboarding: "Arriving in Feelio's world" (v1.2: redesigned as one continuous journey by D-069; see docs/REDESIGN_ONBOARDING_TALK.md, which supersedes the stop details below where they differ)
 
 Two parts: a short **grown-up part** in the parent dashboard, then the **child's part** on the child's device, led by the mascot. Mostly voice and pictures; almost nothing to read.
 

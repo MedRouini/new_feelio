@@ -8,7 +8,7 @@ import { AVATAR_COLOURS, AVATAR_SHAPES } from "@/design/asset-ids";
 export const COMPANIONS = ["heart", "cloud", "star"] as const;
 export const INTERESTS = ["animals", "space", "music", "drawing", "ballgames", "nature", "blocks", "sea"] as const;
 export const MAX_INTERESTS = 3;
-export const ONBOARDING_STEPS = 5; // stops 1..5; step = number of stops finished
+export const ONBOARDING_STEPS = 6; // hello, character, name, likes, mic, gate (D-069); step = number of stops finished
 
 export type Companion = (typeof COMPANIONS)[number];
 export type Interest = (typeof INTERESTS)[number];

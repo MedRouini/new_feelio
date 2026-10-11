@@ -1,17 +1,28 @@
-/* Talk (D-068, MASCOT.md "Talk"): a video-call feel. The big mascot in the centre, one big button, the
-   AI sign always visible, cards for what Feelio shows. No shadows; logical properties for Arabic. */
+/* Talk (D-068, redesign D-069): a voice room in Feelio's world. Feelio is the hero, centred; soft
+   brand-colour rings breathe with the voice that is speaking (--v, 0..1, set every frame by code);
+   one big button with the time left as an arc around it. No shadows; logical properties for Arabic;
+   only transforms and opacity animate. */
 
-.talk {
-  position: absolute;
+.room {
+  position: fixed;
   inset: 0;
+  overflow: clip;
   display: grid;
-  /* The mascot row gives way first, so the big button always stays clear of the dock. */
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-areas: "chip" "say" "hero" "controls";
   justify-items: center;
-  gap: var(--s3);
-  padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + var(--s4));
+  gap: var(--s2);
+  padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + var(--s3));
   padding-inline: 16px;
+  color: var(--text);
+  background: var(--lilac-50);
 }
+
+/* the world, softly out of focus, and a lilac veil so Feelio stands out */
+.softWorld { filter: blur(7px) saturate(0.95); transform: scale(1.06); }
+.veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(243 236 255 / 0.55) 0%, rgb(243 236 255 / 0.15) 45%, rgb(243 236 255 / 0.5) 100%); }
+.room > :not(.veil):not([data-orient]) { position: relative; z-index: 1; }
 
 .aiChip {
   margin: 0;
@@ -23,56 +34,125 @@
   font-size: var(--fs-word);
   font-weight: 700;
   text-align: center;
-  /* clear of the grown-up door in the top corner */
-  max-inline-size: calc(100vw - 2 * 84px);
+  max-inline-size: calc(100vw - 2 * 84px); /* clear of the grown-up door in the top corner */
 }
 
-.say { inline-size: min(78vw, 480px) !important; }
+.aiChip { grid-area: chip; z-index: 3 !important; } /* the AI sign is never faded or covered */
+.say { z-index: 3 !important; }
+.say { grid-area: say; inline-size: min(78vw, 440px); }
+.say > * { inline-size: 100% !important; }
+.hero { grid-area: hero; }
+.controls { grid-area: controls; }
+/* landscape: Feelio in the middle, its words beside it, so neither crowds the other */
+@media (orientation: landscape) {
+  .room {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas: "chip chip chip" ". hero say" "controls controls controls";
+  }
+  .say { inline-size: min(100%, 430px); align-self: start; justify-self: start; margin-block-start: 4vh; }
+}
 
-.body {
-  --talk-scale: 1;
-  align-self: end;
-  block-size: 100%;
+/* ---------- Feelio and the aura ---------- */
+.hero {
+  --v: 0;
+  position: relative;
+  inline-size: 100%;
   min-block-size: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  transform: scale(var(--talk-scale));
-  transform-origin: 50% 100%;
+  display: grid;
+  place-items: center;
 }
-.mascot { inline-size: auto; block-size: min(100%, 40vmin, 340px); aspect-ratio: 1; }
+.aura { position: absolute; inset: 0; pointer-events: none; }
+.aura span {
+  --tint: 239 207 248; /* lilac */
+  position: absolute;
+  inset-block-start: 50%;
+  left: 50%; /* physical on purpose: centred on Feelio in both directions */
+  translate: -50% -50%;
+  inline-size: min(64vmin, 520px); /* clearly larger than Feelio, so the rings show around it */
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 255 255 / 0.6) 0%, rgb(var(--tint) / 0.8) 30%, rgb(var(--tint) / 0.35) 58%, rgb(var(--tint) / 0) 71%);
+  transform: scale(calc(0.8 + var(--v) * 0.55));
+  transition: transform 90ms linear;
+}
+.aura span:nth-child(2) { inline-size: min(82vmin, 660px); transform: scale(calc(0.78 + var(--v) * 0.4)); opacity: 0.7; }
+.aura span:nth-child(3) { inline-size: min(100vmin, 800px); transform: scale(calc(0.76 + var(--v) * 0.28)); opacity: 0.45; }
+.room[data-state="speaking"] .aura span { --tint: 255 230 186; } /* amber while Feelio speaks */
+.room[data-mood="empathy"] .aura span { --tint: 255 216 230; }
+.room[data-mood="calm"] .aura span { --tint: 212 236 255; }
+.room[data-mood="happy"] .aura span, .room[data-mood="excited"] .aura span { --tint: 255 230 186; }
+@media (prefers-reduced-motion: no-preference) {
+  /* a resting breath when nobody is speaking */
+  .room:is([data-state="idle"], [data-state="ended"], [data-state="thinking"], [data-state="connecting"], [data-state="problem"], [data-state="lost"]) .aura span { animation: rest 3.6s ease-in-out infinite; }
+  .room .aura span:nth-child(2) { animation-delay: -1.2s; }
+  .room .aura span:nth-child(3) { animation-delay: -2.4s; }
+}
+@keyframes rest { 0%, 100% { transform: scale(0.8); } 50% { transform: scale(0.92); } }
 
-.controls { display: grid; justify-items: center; gap: var(--s2); }
+.body { position: relative; display: grid; place-items: center; block-size: 100%; min-block-size: 0; transform-origin: 50% 100%; }
+.mascot { block-size: min(100%, 44vmin, 380px); inline-size: auto !important; aspect-ratio: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  /* no mouth frames yet: a gentle bounce with Feelio's voice */
+  .body[data-bounce] { transform: translateY(calc(var(--v) * -4%)) scale(calc(1 + var(--v) * 0.04)); }
+}
+.beat { position: absolute; inset-block-end: 2%; display: flex; gap: clamp(8px, 2vmin, 18px); }
+.beatItem { inline-size: clamp(30px, 6vmin, 52px); }
+@media (prefers-reduced-motion: no-preference) {
+  .beatItem { animation: beat 1200ms var(--ease-out) infinite; }
+  .beatItem:nth-child(2) { animation-delay: 200ms; }
+  .beatItem:nth-child(3) { animation-delay: 400ms; }
+}
+@keyframes beat { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-40%); } }
+
+/* ---------- the one button, with the time left around it ---------- */
+.controls { display: grid; justify-items: center; gap: var(--s1); }
+.micWrap { position: relative; display: grid; place-items: center; inline-size: 132px; aspect-ratio: 1; }
 .mic {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s3);
-  min-block-size: 96px;
-  min-inline-size: 96px;
-  padding-inline: var(--s8);
+  inline-size: 104px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
   border: 0;
-  border-radius: var(--r-pill);
+  border-radius: 50%;
   background: var(--primary);
   color: var(--primary-text);
-  font: inherit;
-  font-size: var(--fs-big);
-  font-weight: 700;
   cursor: pointer;
-  transition: transform var(--dur-ui) var(--ease-out);
+  transition: transform var(--dur-ui) var(--ease-out), background 200ms;
 }
 .mic[data-live] { background: var(--navy-900); }
-.mic:active { transform: scale(0.96); }
-.mic:disabled { opacity: 0.7; cursor: progress; }
-.mic:focus-visible { outline: var(--outline); outline-offset: 4px; }
-.timeLeft { margin: 0; font-size: var(--fs-word); color: var(--text); font-weight: 700; }
+.mic:active { transform: scale(0.94); }
+.mic:disabled { opacity: 0.75; cursor: progress; }
+.mic:focus-visible { outline: var(--outline); outline-offset: 6px; }
+@media (prefers-reduced-motion: no-preference) {
+  /* an invitation to tap: on the icon inside, so the button itself stays still */
+  .room:is([data-state="idle"], [data-state="ended"]) .mic > svg { animation: invite 2.4s ease-in-out infinite; }
+}
+@keyframes invite { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+.micLabel { font-size: var(--fs-word); font-weight: 700; }
+.arc { position: absolute; inset: 0; transform: rotate(-90deg); }
+.arcTrack { fill: none; stroke: rgb(255 255 255 / 0.85); stroke-width: 6; }
+.arcLeft { fill: none; stroke: var(--purple-500); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 500ms linear, stroke 300ms; }
+.arc[data-late] .arcLeft { stroke: var(--accent); }
+.srOnly { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-/* A card Feelio shows (feeling, breathing, a place, who can help). One at a time. */
-.card {
-  position: absolute;
+/* ---------- cards Feelio shows: they slide up over the world ---------- */
+/* Cards never cover the button: on phones they sit over the top of the room, on wide screens in the
+   free column beside Feelio. */
+.room > .cardLayer {
+  position: fixed;
+  z-index: 30;
   inset-inline: 16px;
-  inset-block-start: 22%;
-  margin-inline: auto;
-  max-inline-size: 520px;
+  inset-block-start: 12vh;
+  display: grid;
+  justify-items: center;
+}
+@media (orientation: landscape) {
+  .room > .cardLayer { inset-inline: 16px auto; inline-size: min(28vw, 380px); inset-block-start: 14vh; }
+}
+.card {
+  position: relative;
+  inline-size: min(100%, 520px);
   display: grid;
   justify-items: center;
   gap: var(--s4);
@@ -83,7 +163,7 @@
   color: var(--text);
   text-align: center;
 }
-.card[data-card="help"] { border-color: var(--accent); }
+.card[data-card="help"] { border-color: var(--accent); border-width: 4px; }
 .close {
   position: absolute;
   inset-block-start: var(--s2);
@@ -130,6 +210,6 @@
 .help ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s3); font-size: var(--fs-say); text-align: start; }
 
 @media (prefers-reduced-motion: reduce) {
-  .body { transform: none; }
+  .aura span, .body { transform: none !important; transition: none; }
   .breathBall { transition: none; }
 }

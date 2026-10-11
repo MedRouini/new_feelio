@@ -101,6 +101,7 @@
    frame then stretches to the box (a gentle vertical stretch of a cloud shape), never the text out of it.
    Padding (in % of the width) keeps the words inside the cream area and above the tail. */
 /* Padding is set on the grid items, whose percentages resolve against the bubble's own width. */
+.say { container-type: inline-size; } /* the words keep in by the bubble's own width */
 .say > *, .say::before { grid-area: 1 / 1; }
 .say::before { content: ""; padding-block-start: 66.667%; } /* at least 3:2 */
 .sayFrame { position: absolute; inset: 0; inline-size: 100% !important; block-size: 100% !important; max-inline-size: none !important; object-fit: fill; }
@@ -108,6 +109,7 @@
   position: relative;
   align-self: center;
   padding: 13% 14% 21%; /* inside the cream area of ui_say_bubble, above the tail */
+  text-wrap: balance;
   font-size: var(--fs-say);
   line-height: 1.3;
   font-weight: 700;
@@ -116,22 +118,33 @@ html[lang="ar"] .sayText { line-height: 1.7; }
 .say[data-length="mid"] .sayText { font-size: calc(var(--fs-say) * 0.86); }
 .say[data-length="long"] .sayText { font-size: calc(var(--fs-say) * 0.68); }
 /* A narrow bubble: the cloud's bumps take more of the edge, so the words keep further in. */
-@media (max-width: 520px) { .sayText { padding-inline: 17%; padding-block-start: 16%; } }
+@container (max-width: 440px) { .sayText { padding-inline: 17%; padding-block-start: 18%; } }
 
 /* ---------- Name sign: delivered blank wooden sign + code words ---------- */
-.sign { position: relative; display: inline-grid; inline-size: min(60vw, 420px); }
-.sign > * { grid-area: 1 / 1; }
-.signText {
-  align-self: start;
-  justify-self: center;
-  margin-block-start: 15%;
-  inline-size: 78%;
-  text-align: center;
-  font-weight: 700;
-  font-size: var(--fs-word);
-  line-height: 1.2;
-  color: #4a2a12; /* dark brown like the painted map signs; check contrast (≥ 4.5:1) when ui_sign_plate arrives */
+.sign { position: relative; display: inline-block; inline-size: min(60vw, 420px); }
+.sign > img { display: block; inline-size: 100%; }
+/* The board itself, measured from the art: inside its outline and rounded corners. */
+.signBoard {
+  position: absolute;
+  inset-block: 26% 36%;
+  inset-inline: 8%;
+  container-type: size;
+  display: grid;
+  place-items: center;
 }
+.signText {
+  max-inline-size: 100%;
+  text-align: center;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+  line-height: 1.12;
+  font-size: min(62cqh, 13cqw);
+  color: #4a2a12; /* dark brown like the painted map signs: about 9:1 on the light board */
+}
+.signText[data-length="mid"] { font-size: min(40cqh, 9.5cqw); }
+.signText[data-length="long"] { font-size: min(33cqh, 7.5cqw); }
+html[lang="ar"] .signText { line-height: 1.25; }
 
 /* ---------- Thing button: a delivered object you can touch ---------- */
 .thing {

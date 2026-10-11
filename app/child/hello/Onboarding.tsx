@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, SkipForward } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useCalm } from "@/child/ui/useCalm";
+import { ArrowLeft, ArrowRight, Check, Heart, SkipForward, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Avatar } from "@/child/ui/Avatar";
 import { Mascot, type MascotPose } from "@/child/ui/Mascot";
@@ -11,17 +13,26 @@ import { SayBubble } from "@/child/ui/SayBubble";
 import { ThingButton } from "@/child/ui/ThingButton";
 import { play } from "@/child/ui/sound";
 import uiStyles from "@/child/ui/ui.module.css";
-import { COMPANIONS, INTERESTS, MAX_INTERESTS, NICKNAMES, type Avatar as AvatarChoice, type Interest } from "@/child/options";
+import { INTERESTS, MAX_INTERESTS, NICKNAMES, type Avatar as AvatarChoice, type Interest } from "@/child/options";
 import { AssetImage } from "@/design/components/AssetImage";
 import { AVATAR_COLOURS, type AssetId } from "@/design/asset-ids";
+import { Carousel } from "./Carousel";
+import { Sparkles } from "./Sparkles";
 import styles from "./onboarding.module.css";
 
-// Onboarding "Arriving in Feelio's world" (docs/ONBOARDING.md). One scene, five stops, led by the mascot.
-// Saved on the server after each stop (resumable). Only fixed-list values are ever sent.
+// Onboarding "Arriving in Feelio's world" (docs/ONBOARDING.md, redesign D-069). One continuous scene:
+// the meadow never reloads; the camera walks toward the gate stop by stop and Feelio walks along.
+// Choices give instant feedback but never advance on their own: the "go on" stone appears once there
+// is a choice. Saved on the server after each stop (resumable). Only fixed-list values are ever sent.
 
-type Stop = "hello" | "character" | "likes" | "mic" | "gate";
-const STOPS: Stop[] = ["hello", "character", "likes", "mic", "gate"];
-type CharPart = "colour" | "companion" | "name";
+type Stop = "hello" | "character" | "name" | "likes" | "mic" | "gate";
+const ORDER: Stop[] = ["hello", "character", "name", "likes", "mic", "gate"];
+type Colour = (typeof AVATAR_COLOURS)[number];
+
+/** How close the camera is to the gate at each stop (scale of the meadow picture). */
+const ZOOM: Record<Stop, number> = { hello: 1, character: 1.04, name: 1.08, likes: 1.12, mic: 1.15, gate: 1.18 };
+const PUSH_ZOOM = 2.6;
+const WALK_MS = 650;
 
 type Props = {
   locale: "en" | "ar";
@@ -32,95 +43,145 @@ type Props = {
 };
 
 async function save(body: Record<string, unknown>) {
-  const res = await fetch("/api/child/onboarding", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(body),
-  });
+  const res = await fetch("/api/child/onboarding", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
   return res.ok;
 }
 
 export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabled, parentNickname }: Props) {
   const t = useTranslations("child.onb");
   const tc = useTranslations("colours");
-  const tco = useTranslations("companions");
   const ti = useTranslations("interests");
   const router = useRouter();
+  const reduce = useCalm();
+  const rtl = locale === "ar";
 
-  // What Feelio says and how it stands at each stop (set in the handlers that change the stop).
-  const entryFor = (st: Stop, pt: CharPart): { line: { text: string; key: string }; pose: MascotPose } => {
-    if (st === "hello") return { line: { text: t("hello"), key: "onb_hello" }, pose: "mascot_waving" };
-    if (st === "character") {
-      const k = pt === "colour" ? "pickColour" : pt === "companion" ? "pickCompanion" : "pickName";
-      return { line: { text: t(k), key: `onb_${k}` }, pose: "mascot_pointing" };
-    }
-    if (st === "likes") return { line: { text: t("likes"), key: "onb_likes" }, pose: "mascot_pointing" };
-    if (st === "mic") {
-      return {
-        line: talkEnabled ? { text: t("micAsk"), key: "onb_micAsk" } : { text: t("micOff"), key: "onb_micOff" },
-        pose: "mascot_listening",
-      };
-    }
-    return { line: { text: t("gate"), key: "onb_gate" }, pose: "mascot_happy" };
+  const stops = ORDER.filter((s) => s !== "mic" || talkEnabled);
+  const resumeAt = (): Stop => {
+    const s = ORDER[Math.min(startStep, ORDER.length - 1)];
+    return s === "mic" && !talkEnabled ? "gate" : s;
   };
-  const initialStop = STOPS[Math.min(startStep, STOPS.length - 1)];
-  const [stop, setStop] = useState<Stop>(initialStop);
-  const [part, setPart] = useState<CharPart>("colour");
-  const [avatar, setAvatar] = useState<AvatarChoice>(initialAvatar);
-  const [cheer, setCheer] = useState(false);
-  const [nickname, setNickname] = useState<string | null>(null);
-  const [likes, setLikes] = useState<Interest[]>([]);
-  const [line, setLine] = useState(() => entryFor(initialStop, "colour").line);
-  const [pose, setPose] = useState<MascotPose>(() => entryFor(initialStop, "colour").pose);
-  const enter = (st: Stop, pt: CharPart) => {
-    const e = entryFor(st, pt);
-    setLine(e.line);
-    setPose(e.pose);
+
+  const entry = (st: Stop): { line: { text: string; key: string }; pose: MascotPose } => {
+    switch (st) {
+      case "hello":
+        return { line: { text: t("hello"), key: "onb_hello" }, pose: "mascot_waving" };
+      case "character":
+        return { line: { text: t("pickColour"), key: "onb_pickColour" }, pose: "mascot_pointing" };
+      case "name":
+        return { line: { text: t("pickName"), key: "onb_pickName" }, pose: "mascot_pointing" };
+      case "likes":
+        return { line: { text: t("likes"), key: "onb_likes" }, pose: "mascot_pointing" };
+      case "mic":
+        return { line: { text: t("micAsk"), key: "onb_micAsk" }, pose: "mascot_listening" };
+      case "gate":
+        return { line: { text: talkEnabled ? t("gate") : `${t("micOff")} ${t("gate")}`, key: talkEnabled ? "onb_gate" : "" }, pose: "mascot_happy" };
+    }
   };
-  const [mic, setMic] = useState<"ask" | "listening" | "heard" | "no">("ask");
-  const [gateOpen, setGateOpen] = useState(false);
+
+  const [stop, setStop] = useState<Stop>(resumeAt);
+  const [walking, setWalking] = useState(false);
+  const [line, setLine] = useState(() => entry(resumeAt()).line);
+  const [pose, setPose] = useState<MascotPose>(() => entry(resumeAt()).pose);
   const [busy, setBusy] = useState(false);
+
+  const [avatar, setAvatar] = useState<AvatarChoice>(initialAvatar);
+  const [touched, setTouched] = useState(false);
+  const [burst, setBurst] = useState(0);
+  const [nickname, setNickname] = useState<{ key: string; word: string } | null>(null);
+  const [likeIndex, setLikeIndex] = useState(0);
+  const [likes, setLikes] = useState<Interest[]>([]);
+  const [mic, setMic] = useState<"ask" | "listening" | "heard" | "no">("ask");
+  const [level, setLevel] = useState(0);
+  const [gate, setGate] = useState<"closed" | "opening" | "push">("closed");
   const stopMic = useRef<() => void>(() => undefined);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const later = (ms: number, fn: () => void) => timers.current.push(setTimeout(fn, ms));
 
-  useEffect(() => () => stopMic.current(), []);
+  useEffect(() => () => {
+    stopMic.current();
+    timers.current.forEach(clearTimeout);
+  }, []);
 
-  const go = async (next: Stop, body: Record<string, unknown>) => {
+  /** Feelio reacts for a moment (a happy pose), then goes back to the stop's pose. */
+  const react = (text: string, key = "") => {
+    setLine({ text, key });
+    setPose("mascot_happy");
+    later(1100, () => setPose(entry(stop).pose));
+  };
+
+  /** Saves this stop, then walks to the next one: contents leave, the camera moves, Feelio walks. */
+  const go = async (body: Record<string, unknown> = {}) => {
+    if (busy) return;
+    const i = stops.indexOf(stop);
+    const next = stops[i + 1];
     setBusy(true);
-    const ok = await save(body);
+    const ok = await save({ step: ORDER.indexOf(next ?? "gate"), ...body });
     setBusy(false);
-    if (ok) {
-      play("whoosh");
+    if (!ok || !next) return;
+    play("whoosh");
+    stopMic.current();
+    if (reduce) {
       setStop(next);
-      enter(next, "colour");
+      setLine(entry(next).line);
+      setPose(entry(next).pose);
+      return;
     }
+    setWalking(true);
+    setPose(rtl ? "mascot_walking_left" : "mascot_walking_right");
+    later(WALK_MS, () => {
+      setWalking(false);
+      setStop(next);
+      setLine(entry(next).line);
+      setPose(entry(next).pose);
+    });
   };
 
   const skip = async () => {
     stopMic.current();
-    await save({ step: STOPS.length, skip: true });
+    await save({ step: ORDER.length, skip: true });
     router.replace("/");
   };
 
-  // ---------- stop 2 helpers ----------
-  const choose = (patch: Partial<AvatarChoice>, nextPart: CharPart | null) => {
-    setAvatar((a) => ({ ...a, ...patch }));
-    setCheer(true);
-    setTimeout(() => {
-      setCheer(false);
-      if (nextPart) {
-        setPart(nextPart);
-        enter("character", nextPart);
-      }
-    }, 900);
-  };
-  const chooseName = async (key: string, word: string) => {
-    setNickname(key);
-    setLine({ text: t("nameHello", { name: word }), key: "" });
-    setCheer(true);
-    setTimeout(() => setCheer(false), 900);
+  // ---------- stop: character ----------
+  const colourIndex = Math.max(0, AVATAR_COLOURS.indexOf(avatar.colour as Colour));
+  const pickColour = (i: number) => {
+    const colour = AVATAR_COLOURS[i];
+    setAvatar((a) => ({ ...a, colour }));
+    setTouched(true);
+    setBurst((b) => b + 1);
+    play("pick");
+    react(t("colourNice", { colour: tc(colour) }));
   };
 
-  // ---------- stop 4: local-only microphone test (nothing is sent anywhere) ----------
+  // ---------- stop: name ----------
+  const names = [...(parentNickname ? [{ key: "parent", word: parentNickname }] : []), ...NICKNAMES.slice(0, parentNickname ? 5 : 6).map((n) => ({ key: n.key, word: n[locale] }))];
+  const pickName = (n: { key: string; word: string }) => {
+    setNickname(n);
+    setBurst((b) => b + 1);
+    play("pick");
+    react(t("nameHello", { name: n.word }));
+  };
+
+  // ---------- stop: likes ----------
+  const centreLike = INTERESTS[likeIndex];
+  const liked = likes.includes(centreLike);
+  const toggleLike = (id: Interest) => {
+    if (likes.includes(id)) {
+      setLikes((l) => l.filter((x) => x !== id));
+      play("tap");
+      return;
+    }
+    if (likes.length >= MAX_INTERESTS) {
+      react(t("likesFull"));
+      return;
+    }
+    setLikes((l) => [...l, id]);
+    setBurst((b) => b + 1);
+    play("pick");
+    react(ti(id));
+  };
+
+  // ---------- stop: mic (local-only test; nothing is sent anywhere) ----------
   const startMic = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -137,11 +198,13 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
         analyser.getByteTimeDomainData(buf);
         let peak = 0;
         for (const v of buf) peak = Math.max(peak, Math.abs(v - 128));
+        setLevel(Math.min(1, peak / 64));
         if (!heard && peak > 28) {
           heard = true;
           setMic("heard");
           setPose("mascot_happy");
           setLine({ text: t("micHeard"), key: "onb_micHeard" });
+          setBurst((b) => b + 1);
           play("pick");
         }
         raf = requestAnimationFrame(loop);
@@ -151,6 +214,7 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
         cancelAnimationFrame(raf);
         stream.getTracks().forEach((tr) => tr.stop());
         void ctx.close();
+        setLevel(0);
       };
     } catch {
       setMic("no");
@@ -158,156 +222,289 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
     }
   };
 
-  const gateArt: { land: AssetId; port: AssetId } = gateOpen
-    ? { land: "scene_meadow_land_open", port: "scene_meadow_port_open" }
-    : { land: "scene_meadow_land", port: "scene_meadow_port" };
+  // ---------- stop: gate, entering the world ----------
+  const leave = () => router.replace("/?arrive=1");
+  const openGate = async () => {
+    if (busy || gate !== "closed") return;
+    setBusy(true);
+    const ok = await save({ step: ORDER.length });
+    if (!ok) {
+      setBusy(false);
+      return;
+    }
+    play("unlock");
+    setGate("opening");
+    setPose("mascot_pointing");
+    setLine({ text: t("welcome"), key: "onb_welcome" });
+    if (reduce) return later(1200, leave);
+    later(1300, () => setGate("push"));
+    later(2400, leave);
+  };
 
-  const nextLabel = t("next");
-  const NextIcon = locale === "ar" ? ArrowLeft : ArrowRight;
+  const zoom = gate === "push" ? PUSH_ZOOM : ZOOM[stop];
+  const NextIcon = rtl ? ArrowLeft : ArrowRight;
+  const shown = walking ? null : stop;
+  const stage = (key: string, children: React.ReactNode) => (
+    <motion.div
+      key={key}
+      className={styles.stopBox}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.94 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
+      transition={reduce ? { duration: 0.15 } : { type: "spring", stiffness: 300, damping: 26 }}
+    >
+      {children}
+    </motion.div>
+  );
 
   return (
-    <main className={styles.scene} data-testid="onboarding" data-stop={stop}>
-      {/* the welcome meadow; the gate-open version is revealed only around the gate (stop 5) */}
-      <div className={uiStyles.sceneBg} data-orient="land">
-        <AssetImage id="scene_meadow_land" alt="" sizes="100vw" className={uiStyles.sceneImg} priority />
-      </div>
-      <div className={uiStyles.sceneBg} data-orient="port">
-        <AssetImage id="scene_meadow_port" alt="" sizes="100vw" className={uiStyles.sceneImg} priority />
-      </div>
-      {gateOpen ? (
-        <>
-          <div className={`${uiStyles.sceneBg} ${styles.gateReveal}`} data-orient="land">
-            <AssetImage id={gateArt.land} alt="" sizes="100vw" className={uiStyles.sceneImg} />
+    <main className={styles.scene} data-testid="onboarding" data-stop={stop} data-gate={gate}>
+      {/* The meadow and its camera. Both pictures are approved art; the open one cross-fades in whole. */}
+      <div className={styles.camera} style={{ ["--zoom" as string]: String(zoom) }} data-push={gate === "push" || undefined}>
+        {(["land", "port"] as const).map((o) => (
+          <div key={o} className={uiStyles.sceneBg} data-orient={o}>
+            <AssetImage id={o === "land" ? "scene_meadow_land" : "scene_meadow_port"} alt="" sizes="100vw" className={uiStyles.sceneImg} priority />
+            <AssetImage
+              id={(o === "land" ? "scene_meadow_land_open" : "scene_meadow_port_open") as AssetId}
+              alt=""
+              sizes="100vw"
+              className={[uiStyles.sceneImg, styles.openScene].join(" ")}
+              style={{ opacity: gate === "closed" ? 0 : 1 }}
+            />
           </div>
-          <div className={`${uiStyles.sceneBg} ${styles.gateReveal}`} data-orient="port">
-            <AssetImage id={gateArt.port} alt="" sizes="100vw" className={uiStyles.sceneImg} />
-          </div>
-        </>
-      ) : null}
+        ))}
+        <span className={styles.gateGlow} data-on={gate !== "closed" || undefined} aria-hidden />
+      </div>
+      {gate === "push" ? <button type="button" className={styles.pushVeil} onClick={leave} aria-label={t("openGate")} /> : null}
+
+      <ol className={styles.progress} aria-label={t("progress", { n: stops.indexOf(stop) + 1, total: stops.length })}>
+        {stops.map((s, i) => {
+          const at = stops.indexOf(stop);
+          const art: AssetId = i < at ? "node_completed" : i === at ? "node_current" : "node_locked";
+          return (
+            <li key={s} data-state={i < at ? "done" : i === at ? "now" : "next"}>
+              <AssetImage id={art} alt="" sizes="40px" />
+            </li>
+          );
+        })}
+      </ol>
 
       <div className={styles.say}>
         <SayBubble text={line.text} audioKey={line.key || undefined} locale={locale} replayLabel={t("replay")} />
       </div>
 
-      <div className={styles.mascotSpot}>
-        {stop === "hello" ? <NameSign text={t("aiSign")} className={styles.aiSign} testId="ai-sign" /> : null}
-        <Mascot
-          pose={pose}
-          label={t("aiSign")}
-          className={[styles.mascot, mic === "heard" ? uiStyles.wobble : ""].join(" ")}
-          sizes="36vmin"
-          onTap={() => {
-            if (stop === "hello") void go("character", { step: 1 });
-          }}
-        />
+      <div className={styles.mascotSpot} data-walking={walking || undefined}>
+        <AnimatePresence>{stop === "hello" && !walking ? <motion.div key="sign" exit={{ opacity: 0, y: 20 }}><NameSign text={t("aiSign")} className={styles.aiSign} testId="ai-sign" /></motion.div> : null}</AnimatePresence>
+        <Mascot pose={pose} label={t("aiSign")} className={[styles.mascot, mic === "heard" ? uiStyles.wobble : ""].join(" ")} sizes="36vmin" onTap={() => (stop === "hello" ? void go() : undefined)} />
       </div>
 
       <div className={styles.stage}>
-        {stop === "hello" ? (
-          <ThingButton art="node_current" label={nextLabel} sizes="120px" className={styles.goStone} onPress={() => void go("character", { step: 1 })} testId="onb-next">
-            <span className={styles.goIcon} aria-hidden>
-              <NextIcon size={44} strokeWidth={3.5} />
-            </span>
-          </ThingButton>
-        ) : null}
+        <AnimatePresence mode="wait">
+          {shown === "hello"
+            ? stage(
+                "hello",
+                <GoStone label={t("next")} onPress={() => void go()} testId="onb-next">
+                  <NextIcon size={44} strokeWidth={3.5} />
+                </GoStone>,
+              )
+            : null}
 
-        {stop === "character" ? (
-          <div className={styles.character}>
-            <Avatar avatar={avatar} cheer={cheer} sizes="34vmin" className={styles.preview} />
-            <div className={styles.choices} data-part={part}>
-              {part === "colour"
-                ? AVATAR_COLOURS.map((colour) => (
-                    <ThingButton key={colour} art={`avatar_${avatar.shape}_${colour}_idle`} label={tc(colour)} sizes="16vmin" className={styles.choice}
-                      pressed={avatar.colour === colour} sound="pick" testId={`colour-${colour}`} onPress={() => choose({ colour }, "companion")} />
-                  ))
-                : null}
-              {part === "companion"
-                ? COMPANIONS.map((companion) => (
-                    <ThingButton key={companion} art={`companion_${companion}`} label={tco(companion)} sizes="16vmin" className={styles.choice}
-                      pressed={avatar.companion === companion} sound="pick" testId={`companion-${companion}`} onPress={() => choose({ companion }, "name")} />
-                  ))
-                : null}
-              {part === "name" ? (
+          {shown === "character"
+            ? stage(
+                "character",
                 <>
-                  {parentNickname ? (
-                    <ThingButton art="ui_sign_plate" label={parentNickname} sizes="24vmin" className={styles.nameChoice} pressed={nickname === "parent"} sound="pick"
-                      testId="name-parent" onPress={() => void chooseName("parent", parentNickname)}>
-                      <span className={styles.nameText} aria-hidden>{parentNickname}</span>
-                    </ThingButton>
+                  <Carousel
+                    items={AVATAR_COLOURS}
+                    index={colourIndex}
+                    onIndex={pickColour}
+                    rtl={rtl}
+                    spacing={0.3}
+                    label={t("characterLabel")}
+                    itemLabel={(c) => tc(c)}
+                    prevLabel={t("prevOne")}
+                    nextLabel={t("nextOne")}
+                    testId="character-picker"
+                    render={(c, centre) => (
+                      <span className={styles.charSlide}>
+                        {centre ? <AssetImage id="node_current" alt="" sizes="30vmin" className={styles.podium} /> : null}
+                        <span className={styles.charBody} key={centre ? `${c}-${burst}` : c} data-hop={centre && touched ? true : undefined}>
+                          <Avatar avatar={{ ...avatar, colour: c }} sizes="34vmin" />
+                        </span>
+                        {centre ? <Sparkles burst={burst} /> : null}
+                      </span>
+                    )}
+                  />
+                  <GoStone show={touched} label={t("thatsMe")} onPress={() => void go({ avatar })} testId="onb-next">
+                    <Check size={44} strokeWidth={3.5} />
+                  </GoStone>
+                </>,
+              )
+            : null}
+
+          {shown === "name"
+            ? stage(
+                "name",
+                <div className={styles.nameStop}>
+                  <ul className={styles.balloons} aria-label={t("pickName")}>
+                    {names.map((n, i) => (
+                      <li key={n.key} style={{ ["--i" as string]: i }}>
+                        <button
+                          type="button"
+                          className={styles.balloon}
+                          data-tone={i % 4}
+                          aria-pressed={nickname?.key === n.key}
+                          onClick={() => pickName(n)}
+                          data-testid={`name-${n.key}`}
+                        >
+                          {n.word}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className={styles.nameMe}>
+                    <span className={styles.nameAvatar} key={burst} data-hop={nickname ? true : undefined}>
+                      <Avatar avatar={avatar} sizes="22vmin" />
+                    </span>
+                    <AnimatePresence mode="popLayout">
+                      {nickname ? (
+                        <motion.div key={nickname.key} initial={reduce ? { opacity: 0 } : { y: -60, opacity: 0, rotate: -6 }} animate={{ y: 0, opacity: 1, rotate: 0 }} exit={{ opacity: 0, y: 10 }} transition={{ type: "spring", stiffness: 260, damping: 16 }}>
+                          <NameSign text={nickname.word} className={styles.nameSign} testId="chosen-name" />
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+                    <GoStone show={!!nickname} label={t("thatsMe")} onPress={() => void go({ nickname: nickname?.key })} testId="onb-next">
+                      <Check size={44} strokeWidth={3.5} />
+                    </GoStone>
+                  </div>
+                </div>,
+              )
+            : null}
+
+          {shown === "likes"
+            ? stage(
+                "likes",
+                <div className={styles.likesStop}>
+                  <Carousel
+                    items={INTERESTS}
+                    index={likeIndex}
+                    onIndex={(i) => {
+                      setLikeIndex(i);
+                      setLine({ text: ti(INTERESTS[i]), key: "" });
+                    }}
+                    rtl={rtl}
+                    spacing={0.3}
+                    reach={2}
+                    label={t("likesLabel")}
+                    itemLabel={(id) => `${ti(id)}${likes.includes(id) ? ` (${t("picked")})` : ""}`}
+                    prevLabel={t("prevOne")}
+                    nextLabel={t("nextOne")}
+                    testId="likes-picker"
+                    render={(id, centre) => (
+                      <span className={styles.likeSlide} data-liked={likes.includes(id) || undefined}>
+                        <AssetImage id={`like_${id}` as AssetId} alt="" sizes="30vmin" className={[styles.likeArt, centre ? styles[`idle_${id}`] : ""].join(" ")} />
+                        {likes.includes(id) ? (
+                          <span className={styles.likedMark} aria-hidden>
+                            <Heart size={26} fill="currentColor" />
+                          </span>
+                        ) : null}
+                        {centre ? <Sparkles burst={liked ? burst : 0} /> : null}
+                      </span>
+                    )}
+                  />
+                  <div className={styles.likeRow}>
+                    <button type="button" className={styles.likeButton} aria-pressed={liked} onClick={() => toggleLike(centreLike)} data-testid="like-toggle">
+                      {liked ? <X size={30} strokeWidth={3} aria-hidden /> : <Heart size={30} strokeWidth={3} aria-hidden />}
+                      <span>{liked ? t("notThisOne") : t("likeIt")}</span>
+                    </button>
+                    <ul className={styles.slots} aria-label={t("yourPicks")}>
+                      {Array.from({ length: MAX_INTERESTS }, (_, i) => likes[i]).map((id, i) => (
+                        <li key={i}>
+                          <AnimatePresence mode="popLayout">
+                            {id ? (
+                              <motion.button
+                                key={id}
+                                type="button"
+                                className={styles.slotItem}
+                                aria-label={`${ti(id)}: ${t("notThisOne")}`}
+                                onClick={() => toggleLike(id)}
+                                initial={reduce ? { opacity: 0 } : { scale: 0, rotate: -20 }}
+                                animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                                exit={{ scale: 0, opacity: 0 }}
+                                transition={{ type: "spring", stiffness: 380, damping: 18 }}
+                                data-testid={`picked-${id}`}
+                              >
+                                <AssetImage id={`like_${id}` as AssetId} alt="" sizes="80px" />
+                              </motion.button>
+                            ) : null}
+                          </AnimatePresence>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <GoStone label={t("next")} onPress={() => void go({ interests: likes })} testId="onb-next">
+                    <NextIcon size={44} strokeWidth={3.5} />
+                  </GoStone>
+                </div>,
+              )
+            : null}
+
+          {shown === "mic"
+            ? stage(
+                "mic",
+                <div className={styles.micStop}>
+                  {mic !== "no" ? (
+                    <span className={styles.micWrap} style={{ ["--level" as string]: String(level) }} data-live={mic !== "ask" || undefined}>
+                      <span className={styles.micRing} aria-hidden />
+                      <ThingButton art="ui_mic_object" label={t("micButton")} sizes="24vmin" className={styles.micObject} sound="pick" testId="mic" onPress={() => (mic === "ask" ? void startMic() : undefined)} />
+                    </span>
                   ) : null}
-                  {NICKNAMES.slice(0, parentNickname ? 5 : 6).map((n) => (
-                    <ThingButton key={n.key} art="ui_sign_plate" label={n[locale]} sizes="24vmin" className={styles.nameChoice} pressed={nickname === n.key} sound="pick"
-                      testId={`name-${n.key}`} onPress={() => void chooseName(n.key, n[locale])}>
-                      <span className={styles.nameText} aria-hidden>{n[locale]}</span>
-                    </ThingButton>
-                  ))}
-                </>
-              ) : null}
-            </div>
-            {part === "name" && nickname ? (
-              <ThingButton art="node_current" label={nextLabel} sizes="120px" className={styles.goStone} testId="onb-next"
-                onPress={() => void go("likes", { step: 2, avatar, nickname })}>
-                <span className={styles.goIcon} aria-hidden><NextIcon size={44} strokeWidth={3.5} /></span>
-              </ThingButton>
-            ) : null}
-          </div>
-        ) : null}
+                  <GoStone show={mic !== "ask" && mic !== "listening"} label={t("next")} onPress={() => void go()} testId="onb-next">
+                    <NextIcon size={44} strokeWidth={3.5} />
+                  </GoStone>
+                  {mic === "ask" || mic === "listening" ? (
+                    <button type="button" className={styles.later} onClick={() => void go()} data-testid="mic-later">
+                      {t("micLater")}
+                    </button>
+                  ) : null}
+                </div>,
+              )
+            : null}
 
-        {stop === "likes" ? (
-          <div className={styles.likes}>
-            <div className={styles.likeGrid}>
-              {INTERESTS.map((id) => {
-                const on = likes.includes(id);
-                return (
-                  <ThingButton key={id} art={`like_${id}`} label={ti(id)} sizes="16vmin" className={styles.like} pressed={on} sound="pick" testId={`like-${id}`}
-                    onPress={() => {
-                      setLine({ text: ti(id), key: "" });
-                      setLikes((l) => (on ? l.filter((x) => x !== id) : l.length < MAX_INTERESTS ? [...l, id] : l));
-                    }} />
-                );
-              })}
-            </div>
-            <ThingButton art="node_current" label={nextLabel} sizes="120px" className={styles.goStone} testId="onb-next"
-              onPress={() => void go("mic", { step: 3, interests: likes })}>
-              <span className={styles.goIcon} aria-hidden><NextIcon size={44} strokeWidth={3.5} /></span>
-            </ThingButton>
-          </div>
-        ) : null}
-
-        {stop === "mic" ? (
-          <div className={styles.mic}>
-            {talkEnabled && mic === "ask" ? (
-              <ThingButton art="ui_mic_object" label={t("micButton")} sizes="22vmin" className={styles.micObject} sound="pick" testId="mic" onPress={() => void startMic()} />
-            ) : null}
-            <ThingButton art="node_current" label={nextLabel} sizes="120px" className={styles.goStone} testId="onb-next"
-              onPress={() => {
-                stopMic.current();
-                void go("gate", { step: 4 });
-              }}>
-              <span className={styles.goIcon} aria-hidden><NextIcon size={44} strokeWidth={3.5} /></span>
-            </ThingButton>
-          </div>
-        ) : null}
-
-        {stop === "gate" ? (
-          <ThingButton art="node_current" label={t("openGate")} sizes="120px" className={styles.goStone} testId="onb-gate" sound="unlock"
-            onPress={async () => {
-              if (busy) return;
-              setGateOpen(true);
-              setLine({ text: t("welcome"), key: "onb_welcome" });
-              const ok = await save({ step: STOPS.length });
-              if (ok) setTimeout(() => router.replace("/?arrive=1"), 1400);
-            }}>
-            <span className={styles.goIcon} aria-hidden><NextIcon size={44} strokeWidth={3.5} /></span>
-          </ThingButton>
-        ) : null}
+          {shown === "gate"
+            ? stage(
+                "gate",
+                <GoStone show={gate === "closed"} label={t("openGate")} onPress={() => void openGate()} testId="onb-gate">
+                  <NextIcon size={44} strokeWidth={3.5} />
+                </GoStone>,
+              )
+            : null}
+        </AnimatePresence>
       </div>
 
       <button type="button" className={uiStyles.skip} onClick={() => void skip()} data-testid="onb-skip">
-        <SkipForward size={22} aria-hidden style={locale === "ar" ? { transform: "scaleX(-1)" } : undefined} />
+        <SkipForward size={22} aria-hidden style={rtl ? { transform: "scaleX(-1)" } : undefined} />
         {t("skip")}
       </button>
     </main>
   );
 }
 
+/** The "go on" stepping stone. It appears (a pop) only once there is something to confirm, then breathes. */
+function GoStone({ show = true, label, onPress, testId, children }: { show?: boolean; label: string; onPress: () => void; testId: string; children: React.ReactNode }) {
+  // The space is kept even while hidden, so nothing jumps when the stone appears.
+  return (
+    <div className={styles.goSlot}>
+    <AnimatePresence>
+      {show ? (
+        <motion.div key="go" className={styles.goWrap} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} transition={{ type: "spring", stiffness: 420, damping: 18 }}>
+          <ThingButton art="node_current" label={label} sizes="128px" className={styles.goStone} onPress={onPress} testId={testId}>
+            <span className={styles.goIcon} aria-hidden>
+              {children}
+            </span>
+          </ThingButton>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+    </div>
+  );
+}

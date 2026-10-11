@@ -56,7 +56,7 @@ async function main() {
   if (o.onboarded) {
     await db
       .update(s.childProfile)
-      .set({ avatar: { v: 1, shape: "bun", colour: "amber", companion: "star" }, nicknameKey: "pip", onboarding: { step: 5, completedAt: new Date().toISOString() } })
+      .set({ avatar: { v: 1, shape: "bun", colour: "amber", companion: "star" }, nicknameKey: "pip", onboarding: { step: 6, completedAt: new Date().toISOString() } })
       .where(eq(s.childProfile.id, childId));
   }
   if (o.usedSeconds) {

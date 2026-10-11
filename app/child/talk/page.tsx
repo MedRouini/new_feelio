@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import { getChild } from "@/auth/guards";
 import { getChildView } from "@/child/view";
 import { Dock } from "@/child/ui/Dock";
-import { Scene } from "@/child/ui/Scene";
 import { env } from "@/platform/env";
 import { resources } from "@/safety/content";
 import { RESOURCE_KINDS } from "@/safety/voice-agent/tools";
@@ -30,9 +29,9 @@ export default async function Talk() {
   return (
     <>
       <Heartbeat />
-      <Scene land="scene_meadow_land" port="scene_meadow_port" alt="" testId="talk">
+      <main data-testid="talk">
         <TalkScreen places={places} help={help} />
-      </Scene>
+      </main>
       <Dock active="talk" stories={view.features.stories} talk />
     </>
   );

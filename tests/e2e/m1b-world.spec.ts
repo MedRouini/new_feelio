@@ -35,6 +35,7 @@ for (const locale of ["en", "ar"] as const) {
   for (const [orient, viewport] of [["landscape", LANDSCAPE], ["portrait", PORTRAIT]] as const) {
     test(`onboarding → first map moment (${locale}, ${orient})`, async ({ page }) => {
       await page.setViewportSize(viewport);
+      if (orient === "portrait") await page.emulateMedia({ reducedMotion: "reduce" });
       const f = fixture({ locale, talk: locale === "en", nickname: locale === "ar" ? "ليلى" : null });
       await asChild(page, f);
 
@@ -47,13 +48,20 @@ for (const locale of ["en", "ar"] as const) {
       await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-1-hello.png` });
       await page.getByTestId("onb-next").click();
 
-      // Stop 2: character (colour → companion → name). One character for now (D-053).
+      // Stop 2: the character stage (D-069). Choosing gives feedback; only the stone moves on.
+      // Portrait runs with reduced motion, landscape with full motion: both paths are covered.
       await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "character");
-      await page.getByTestId("colour-sky").click();
-      await page.getByTestId("companion-heart").click();
+      await page.getByTestId("slide-sky").click();
+      await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "character"); // no auto-advance
       await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-2-character.png` });
-      if (locale === "ar") await page.getByTestId("name-parent").click();
-      else await page.getByTestId("name-pip").click();
+      await page.getByTestId("onb-next").click();
+
+      // Stop 3: name balloons; the chosen name lands on the character's sign.
+      await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "name");
+      await expect(page.getByTestId("onb-next")).toHaveCount(0); // nothing to confirm yet
+      await page.getByTestId(locale === "ar" ? "name-parent" : "name-pip").click({ force: true }); // balloons bob
+      await expect(page.getByTestId("chosen-name")).toContainText(locale === "ar" ? "ليلى" : "Pip");
+      await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-3-name.png` });
       await page.getByTestId("onb-next").click();
 
       // Resume: a reload mid-flow comes back to the next stop.
@@ -61,24 +69,30 @@ for (const locale of ["en", "ar"] as const) {
       await page.reload();
       await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "likes");
 
-      // Stop 3: likes (max three).
-      for (const id of ["space", "music", "sea", "animals"]) await page.getByTestId(`like-${id}`).click();
-      await expect(page.locator('[data-testid^="like-"][aria-pressed="true"]')).toHaveCount(3);
-      await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-3-likes.png` });
+      // Stop 4: explore the likes carousel; at most three picks.
+      const nextLike = page.locator("[data-testid=likes-picker] [data-side=end]");
+      for (let i = 0; i < 4; i++) {
+        await page.getByTestId("like-toggle").click();
+        await nextLike.click();
+      }
+      await expect(page.locator('[data-testid^="picked-"]')).toHaveCount(3);
+      await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-4-likes.png` });
       await page.getByTestId("onb-next").click();
 
-      // Stop 4: microphone moment only when the parent turned Talk on.
-      await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "mic");
-      await expect(page.getByTestId("mic")).toHaveCount(locale === "en" ? 1 : 0);
-      await page.getByTestId("onb-next").click();
+      // Stop 5: the microphone moment only when the parent turned Talk on.
+      if (locale === "en") {
+        await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "mic");
+        await expect(page.getByTestId("mic")).toHaveCount(1);
+        await page.getByTestId("mic-later").click();
+      }
 
-      // Stop 5: the gate → the map, characters walk to Home.
+      // Stop 6: the gate opens (whole-picture cross-fade, glow, push) → the map.
       await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "gate");
       await page.getByTestId("onb-gate").click();
       await expect(page).toHaveURL(`${APP}/?arrive=1`, { timeout: 15_000 });
       await expect(page.getByRole("region")).toBeVisible();
       await expect(page.getByTestId("map-marker").locator("[data-pose]")).toBeVisible();
-      await expect(page.locator("[data-avatar]").first()).toHaveAttribute("data-avatar", "bun-sky-heart");
+      await expect(page.locator("[data-avatar]").first()).toHaveAttribute("data-avatar", "bun-sky-star"); // companion no longer chosen (D-069)
       await expect(page.locator('[data-place="home"]')).toHaveAttribute("data-state", "current");
       await page.waitForTimeout(1500);
       await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-4-map.png` });

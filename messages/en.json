@@ -45,7 +45,20 @@
       "skip": "Skip",
       "replay": "Hear it again",
       "micButton": "Microphone",
-      "openGate": "Open the gate"
+      "openGate": "Open the gate",
+      "colourNice": "Ooh, {colour}! That's you!",
+      "thatsMe": "That's me!",
+      "characterLabel": "Your character",
+      "prevOne": "Previous",
+      "nextOne": "Next one",
+      "likesLabel": "Things you might like",
+      "picked": "picked",
+      "likeIt": "I like it!",
+      "notThisOne": "Not this one",
+      "yourPicks": "Your picks",
+      "likesFull": "That's three! Tap one of your picks to swap it.",
+      "micLater": "Maybe later",
+      "progress": "Step {n} of {total}"
     },
     "map": {
       "placeLocked": "{name}: not yet",
@@ -124,7 +137,7 @@
       "stop": "Stop talking",
       "intro": "Tap the big button and say hello! I'm an AI friend, not a person.",
       "connecting": "Waking Feelio up…",
-      "listening": "Feelio is listening",
+      "listening": "I'm listening…",
       "speaking": "Feelio is talking",
       "timeLeft": "{minutes, plural, =0 {Less than a minute left} one {# minute left} other {# minutes left}}",
       "ended": "That was a lovely talk! You can talk again later.",
@@ -152,7 +165,12 @@
       },
       "helpTitle": "People who can help",
       "visit": "Go to the {place}",
-      "close": "Close"
+      "close": "Close",
+      "thinking": "Hmm, let me think…",
+      "quiet": "I'm here when you're ready.",
+      "lost": "Oops, I lost you. Let's try again!",
+      "tryAgain": "Try again",
+      "talkAgain": "Talk again"
     }
   },
   "parent": {

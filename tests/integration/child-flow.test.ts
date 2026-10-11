@@ -40,7 +40,7 @@ describe.skipIf(!process.env.DATABASE_URL)("child flow (integration, synthetic d
   it("the step never goes backwards, and finishing marks it done", async () => {
     await applyOnboardingUpdate(childA, { step: 1 });
     expect((await getChildView(childA))?.onboarding.step).toBe(2);
-    await applyOnboardingUpdate(childA, { step: 5, interests: ["sea"] });
+    await applyOnboardingUpdate(childA, { step: 6, interests: ["sea"] });
     const v = await getChildView(childA);
     expect(v?.onboarding.done).toBe(true);
     expect(v?.interests).toEqual(["sea"]);

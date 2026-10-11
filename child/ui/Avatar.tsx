@@ -7,7 +7,8 @@ import styles from "./ui.module.css";
  * The child's own character (ONBOARDING.md §5, D-038): a composition of delivered images only, the
  * picture for the chosen colour plus the chosen brand companion floating beside it. "Cheer" is a code
  * hop on the same picture (D-053: one character, one pose, to keep art for what matters).
- * The same component is used on the map, Talk, stories and in My collection.
+ * The same component is used on the map, Talk, stories and in My collection. The companion is hidden
+ * by default since the companion step was removed (D-069); the data stays, for a later reward.
  */
 export function Avatar({
   avatar,
@@ -15,7 +16,7 @@ export function Avatar({
   sizes,
   className,
   style,
-  showCompanion = true,
+  showCompanion = false,
 }: {
   avatar: AvatarChoice;
   cheer?: boolean;
