@@ -1,20 +1,22 @@
 // Pre-generates Feelio's fixed voice lines as static MP3 files (D-037, CR-11: fixed phrases are static
 // audio, generated once, reviewed, never per use). Lives under safety/ because it calls a provider.
 //
-//   npx tsx safety/voice-lines/generate.ts          → dry run: lines, characters, estimated credits
-//   npx tsx safety/voice-lines/generate.ts --yes    → generates only new or changed lines
+//   npx tsx safety/voice-lines/generate.ts                 → dry run: lines, characters, estimated credits
+//   npx tsx safety/voice-lines/generate.ts --yes           → generates only new or changed lines
+//   npx tsx safety/voice-lines/generate.ts --locale en     → one language only (Arabic waits for a voice, D-064)
 //
-// Cost guard: Flash v2.5 (0.5–1 credit/char), unchanged lines are skipped (text hash in the lock file),
-// nothing is called without --yes. Adults-only testing until ElevenLabs approves under-18 use (D-005).
+// Cost guard: Multilingual v2 (about 1 credit/char; the owner found Flash not smooth enough, D-064),
+// unchanged lines are skipped (text and voice hash in the lock file), nothing is called without --yes.
+// Adults-only testing until ElevenLabs approves under-18 use (D-005).
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { VOICE_LINES } from "./lines";
 
-const MODEL = "eleven_flash_v2_5";
+const MODEL = "eleven_multilingual_v2";
 const FORMAT = "mp3_44100_64";
 const LOCK = "content/voice-lines.lock.json";
-const CREDITS_PER_CHAR = { low: 0.5, high: 1 };
+const CREDITS_PER_CHAR = { low: 1, high: 1 };
 
 function loadEnv() {
   if (!existsSync(".env")) return;
@@ -35,10 +37,13 @@ async function main() {
   const lock: Record<string, Record<string, string>> = existsSync(LOCK) ? JSON.parse(readFileSync(LOCK, "utf8")) : { en: {}, ar: {} };
   const todo: { locale: "en" | "ar"; key: string; text: string; hash: string }[] = [];
 
-  for (const locale of ["en", "ar"] as const) {
+  const only = process.argv.includes("--locale") ? process.argv[process.argv.indexOf("--locale") + 1] : null;
+  const voices = { en: process.env.ELEVENLABS_VOICE_ID_EN, ar: process.env.ELEVENLABS_VOICE_ID_AR };
+  for (const locale of (["en", "ar"] as const).filter((l) => !only || l === only)) {
     for (const [key, path] of Object.entries(VOICE_LINES)) {
       const text = message(locale, path);
-      const hash = createHash("sha256").update(`${MODEL}|${text}`).digest("hex").slice(0, 16);
+      // The voice is part of the hash, so changing the voice regenerates the lines.
+      const hash = createHash("sha256").update(`${MODEL}|${voices[locale] ?? ""}|${text}`).digest("hex").slice(0, 16);
       const file = join("public/audio", locale, `${key}.mp3`);
       if (lock[locale]?.[key] === hash && existsSync(file)) continue;
       todo.push({ locale, key, text, hash });
@@ -53,7 +58,6 @@ async function main() {
   }
 
   const key = process.env.ELEVENLABS_API_KEY;
-  const voices = { en: process.env.ELEVENLABS_VOICE_ID_EN, ar: process.env.ELEVENLABS_VOICE_ID_AR };
   if (!key) throw new Error("ELEVENLABS_API_KEY is not set");
   for (const l of todo) {
     const voice = voices[l.locale];

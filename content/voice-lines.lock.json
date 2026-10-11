@@ -1,0 +1,31 @@
+{
+  "en": {
+    "onb_hello": "0398a8e5cc3ee66a",
+    "onb_pickColour": "502b36cfed1ad985",
+    "onb_pickCompanion": "d327e20f0dcf3074",
+    "onb_pickName": "bf5d39ad26fdd3f7",
+    "onb_likes": "f6975237cc102a34",
+    "onb_micAsk": "f5070267711568cc",
+    "onb_micSay": "ce301aa932087520",
+    "onb_micHeard": "fd1131c1fd2a7d34",
+    "onb_micNo": "1e9fa1ebcf2f0ff4",
+    "onb_micOff": "34a402b1b8be43f1",
+    "onb_gate": "b10735738a63b70e",
+    "onb_welcome": "e6cd0b0e1855c25f",
+    "home_notSetUp": "97078b3386b5edd4",
+    "soon_talk": "c9e0630a2b9f3217",
+    "soon_stories": "d255ed49284125bc",
+    "soon_calm": "d607ca052fb05a28",
+    "loading_place": "dfa3200f0b517a23",
+    "loading_level": "46ba661f3a46ea89",
+    "loading_generic": "c640cf0d96b16b04",
+    "loading_slow": "270d5d9e49d0ede1",
+    "loading_problem": "f11793cad930ddcb",
+    "level_notReady": "9a6169c494c8e6f9",
+    "place_off": "55d4eb311e7ba1fd",
+    "collection_intro": "ad321363a6b7455c",
+    "offline_line": "cc5f29c4b170cee7",
+    "time_up": "e00b1e749790ba16"
+  },
+  "ar": {}
+}

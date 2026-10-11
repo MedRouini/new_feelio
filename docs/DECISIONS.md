@@ -645,3 +645,14 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Cost:** about $0.30 in / $1.20 out per million tokens. A short voice reply is about $0.0003 per turn, well within the $50 budget.
 - Supersedes the generation part of D-007 and the open options in D-062.
 
+## D-064 Feelio's English voice: Jessica; Arabic voice later
+**Status:** accepted (owner, 2026-10-11)
+- The owner listened to two rounds of samples (`safety/voice-lines/samples.ts`):
+  - **Round 1** (Flash v2.5, character-animation voices) was rejected: accents, not smooth.
+  - **Round 2** (Multilingual v2, top-rated female voices): the owner chose **Jessica** (`cgSgspJ2msm6clMCkdW9`), ElevenLabs' own "playful, bright, warm" voice, for English.
+- **Fixed voice lines now use `eleven_multilingual_v2`** (about 1 credit per character) instead of Flash v2.5, for smoothness. The voice is part of each line's hash, so changing the voice regenerates the lines.
+- **26 English lines generated, 1,218 characters (about 1.2k of 124k monthly credits).** Arabic stays caption-only until an Arabic voice is chosen. The owner said to ignore Arabic voice for now.
+- **Still required before children hear them:**
+  - an adult listens to every line
+  - ElevenLabs' written under-18 approval (D-005)
+- Voice samples live in `voice-samples/` (git-ignored, never shipped).
