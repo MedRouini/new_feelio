@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useCalm } from "@/child/ui/useCalm";
 import { Mic, RotateCcw, Square, X } from "lucide-react";
 import { Mascot, type MascotPose } from "@/child/ui/Mascot";
-import { SayBubble } from "@/child/ui/SayBubble";
+import { Caption } from "@/child/ui/Caption";
 import { play } from "@/child/ui/sound";
 import uiStyles from "@/child/ui/ui.module.css";
 import { AssetImage } from "@/design/components/AssetImage";
@@ -35,6 +35,16 @@ const BREATH_MS = 4000;
 /** A mood from the companion shows this long, then Feelio follows the talk again. */
 const MOOD_MS = 8000;
 const MOUTH = ["mascot_speaking_closed", "mascot_speaking_half", "mascot_speaking_open"] as const;
+/** Feelio's voice sparkles: brand companions (approved art), each with its own lane, pace and size. */
+const SPARKS: { id: "companion_star" | "companion_heart" | "companion_cloud"; x: string; y?: string; d: number; s: number }[] = [
+  { id: "companion_star", x: "-34%", y: "42%", d: 2.6, s: 0.9 },
+  { id: "companion_heart", x: "-18%", y: "66%", d: 3.1, s: 0.7 },
+  { id: "companion_cloud", x: "0%", y: "30%", d: 2.8, s: 1 },
+  { id: "companion_star", x: "17%", y: "70%", d: 3.4, s: 0.65 },
+  { id: "companion_heart", x: "32%", y: "46%", d: 2.5, s: 0.85 },
+  { id: "companion_cloud", x: "-26%", y: "24%", d: 3.6, s: 0.6 },
+  { id: "companion_star", x: "26%", y: "26%", d: 3, s: 0.75 },
+];
 
 export function TalkScreen(props: { places: Place[]; help: Help[] }) {
   return (
@@ -83,6 +93,9 @@ function Talk({ places, help }: { places: Place[]; help: Help[] }) {
   const voice = useFeelioVoice({ onTool });
   const { state, outputVolume, inputVolume } = voice;
   const live = state === "connecting" || state === "listening" || state === "thinking" || state === "speaking";
+  const nookLand = pickOptional(["scene_talk_nook_land"] as const);
+  const nookPort = pickOptional(["scene_talk_nook_port"] as const);
+  const nook = nookLand && nookPort ? { land: nookLand, port: nookPort } : null;
 
   useEffect(() => {
     if (!voice.deadline && !mood) return;
@@ -176,30 +189,34 @@ function Talk({ places, help }: { places: Place[]; help: Help[] }) {
 
   return (
     <div className={styles.room} data-state={problem ? "problem" : state} data-mood={moodNow ?? undefined}>
-      {/* Feelio's world, softly out of focus behind the talk (approved art, a CSS filter) */}
-      {(["land", "port"] as const).map((o) => (
-        <div key={o} className={uiStyles.sceneBg} data-orient={o} aria-hidden>
-          <AssetImage id={o === "land" ? "scene_meadow_land" : "scene_meadow_port"} alt="" sizes="100vw" className={[uiStyles.sceneImg, styles.softWorld].join(" ")} priority />
-        </div>
-      ))}
-      <div className={styles.veil} aria-hidden />
+      {/* Feelio's cosy nook (redesign v2). Its scene art drops in when delivered; until then a warm
+          dusk backdrop in flat brand colours with Feelio's lamp glow. Never a blurred picture. */}
+      {nook ? (
+        (["land", "port"] as const).map((o) => (
+          <div key={o} className={uiStyles.sceneBg} data-orient={o} aria-hidden>
+            <AssetImage id={o === "land" ? nook.land : nook.port} alt="" sizes="100vw" className={uiStyles.sceneImg} priority />
+          </div>
+        ))
+      ) : (
+        <div className={styles.dusk} aria-hidden />
+      )}
 
-      <p className={styles.aiChip} data-testid="ai-chip">
+      {/* The one AI notice in Talk (owner decision 2026-10-12: Talk and Story only): a quiet line, no badge. */}
+      <p className={styles.aiLine} data-testid="ai-chip">
         {t("aiChip")}
       </p>
 
-      <div className={styles.say} aria-live="polite">
-        <SayBubble text={line} locale={locale} replayLabel={tOnb("replay")} />
-      </div>
-
       <div ref={hero} className={styles.hero}>
-        <span className={styles.aura} aria-hidden>
-          <span />
-          <span />
-          <span />
+        <span className={styles.lamp} aria-hidden />
+        {/* Feelio's voice made visible: the brand companions rise from Feelio as it speaks, drift in
+            toward it while the child talks, and float lazily when nobody is speaking. */}
+        <span className={styles.sparkles} aria-hidden>
+          {SPARKS.map((sp, i) => (
+            <AssetImage key={i} id={sp.id} alt="" sizes="48px" className={styles.spark} style={{ ["--x" as string]: sp.x, ["--y" as string]: sp.y ?? "55%", ["--d" as string]: `${sp.d}s`, ["--s" as string]: sp.s }} />
+          ))}
         </span>
         <div className={styles.body} data-bounce={state === "speaking" && !hasMouth ? true : undefined}>
-          <Mascot pose={pose} label={tOnb("aiSign")} sizes="44vmin" className={styles.mascot} />
+          <Mascot pose={pose} label={tOnb("aiSign")} sizes="50vmin" className={styles.mascot} />
         </div>
         {state === "connecting" || state === "thinking" ? (
           <span className={styles.beat} aria-hidden>
@@ -209,6 +226,8 @@ function Talk({ places, help }: { places: Place[]; help: Help[] }) {
           </span>
         ) : null}
       </div>
+
+      <Caption text={line} locale={locale} replayLabel={tOnb("replay")} variant="float" className={styles.subtitle} testId="talk-words" />
 
       <div className={styles.controls}>
         <span className={styles.micWrap}>

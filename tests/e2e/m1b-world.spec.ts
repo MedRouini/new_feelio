@@ -27,8 +27,8 @@ async function asChild(page: Page, f: Fixture) {
 }
 
 const TEXT = {
-  en: { ai: "I'm Feelio, a friendly AI", gate: "Open the gate", next: "Next" },
-  ar: { ai: "أنا فيليو، ذكاء اصطناعي ودود", gate: "افتح البوابة", next: "التالي" },
+  en: { ai: "I'm a friendly AI", gate: "Open the gate", next: "Next" },
+  ar: { ai: "ذكاء اصطناعي ودود", gate: "افتح البوابة", next: "التالي" },
 } as const;
 
 for (const locale of ["en", "ar"] as const) {
@@ -43,8 +43,8 @@ for (const locale of ["en", "ar"] as const) {
       await expect(page).toHaveURL(`${APP}/hello`);
       await expect(page.locator("html")).toHaveAttribute("dir", locale === "ar" ? "rtl" : "ltr");
 
-      // Stop 1: the AI disclosure is visible on the sign and in what Feelio says.
-      await expect(page.getByTestId("ai-sign")).toContainText(TEXT[locale].ai);
+      // Stop 1: Feelio says it is an AI (D-071: no separate sign; Talk and Story show it again).
+      await expect(page.getByTestId("onb-line")).toContainText(TEXT[locale].ai);
       await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-1-hello.png` });
       await page.getByTestId("onb-next").click();
 

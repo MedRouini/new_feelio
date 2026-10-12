@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { Avatar } from "@/child/ui/Avatar";
 import { Mascot, type MascotPose } from "@/child/ui/Mascot";
 import { NameSign } from "@/child/ui/NameSign";
-import { SayBubble } from "@/child/ui/SayBubble";
+import { Caption } from "@/child/ui/Caption";
 import { play } from "@/child/ui/sound";
 import { LoadingScene } from "@/child/ui/loading/LoadingScene";
 import { useLoad } from "@/child/ui/loading/useLoad";
@@ -264,7 +264,7 @@ export function PlaceMapView({ place, progress, locale, avatar, fromLevelId, sce
 
       {say ? (
         <div className={mapStyles.sayWrap} key={say.key}>
-          <SayBubble text={say.text} locale={locale} replayLabel={tMap("close")} />
+          <Caption text={say.text} locale={locale} replayLabel={tMap("close")} variant="sign" />
         </div>
       ) : null}
 

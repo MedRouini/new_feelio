@@ -1,5 +1,6 @@
-/* Stories (D-070): the bookshelf. The meadow softly out of focus behind, Feelio with its bubble, the big
-   magic button, and the child's books as covers. No shadows; logical properties for Arabic. */
+/* Stories (D-070, redesign v2 D-071): the library. A warm wall (or the library scene when delivered),
+   Feelio reading on top of the shelves, the big magic button, and the child's books standing on wooden
+   shelves. No bubbles, no blur, no shadows; logical properties for Arabic. */
 
 .shelfRoom {
   position: fixed;
@@ -13,23 +14,18 @@
   padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + var(--s6));
   padding-inline: 16px;
   color: var(--text);
-  background: var(--lilac-50);
+  background: #fff1dc;
 }
-.softWorld { filter: blur(7px) saturate(0.95); transform: scale(1.06); }
-.veil { position: fixed; inset: 0; background: linear-gradient(180deg, rgb(243 236 255 / 0.6) 0%, rgb(243 236 255 / 0.25) 50%, rgb(243 236 255 / 0.6) 100%); }
-.shelfRoom > :not([data-veil]):not([data-orient]) { position: relative; z-index: 1; }
+.shelfRoom > :not([data-backdrop]):not([data-orient]) { position: relative; z-index: 1; }
 .shelfRoom > [data-orient] { position: fixed; }
 
-.aiChip {
-  margin: 0;
-  padding: var(--s2) var(--s4);
-  border-radius: var(--r-pill);
-  background: var(--white);
-  border: 2px solid var(--lilac-300);
-  font-size: calc(var(--fs-word) * 0.85);
-  font-weight: 700;
-  text-align: center;
-  max-inline-size: calc(100vw - 2 * 84px);
+/* the library wall, until its scene arrives: warm cream with soft wallpaper stripes and a wood skirting */
+.wall {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(0deg, #b9794a 0 18px, #d39a63 18px 26px, transparent 26px),
+    repeating-linear-gradient(90deg, #fff1dc 0 46px, #ffe8c8 46px 92px);
 }
 
 .shelfHead {
@@ -40,9 +36,10 @@
   inline-size: min(100%, 980px);
 }
 .shelfMascot { inline-size: clamp(110px, 20vmin, 180px); }
-.shelfSay { inline-size: min(100%, 440px) !important; align-self: center; }
+.shelfSay { inline-size: min(100%, 560px) !important; align-self: center; }
 @media (orientation: portrait) {
   .shelfHead { grid-template-columns: auto minmax(0, 1fr); }
+  .shelfHead > .shelfSay { inline-size: calc(100% - 64px) !important; justify-self: start; } /* clear of the exit door */
   .shelfHead > .magic { grid-column: 1 / -1; justify-self: center; }
 }
 
@@ -76,9 +73,30 @@
   padding: 0;
   list-style: none;
   inline-size: min(100%, 980px);
+  isolation: isolate;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(clamp(130px, 22vw, 190px), 1fr));
-  gap: clamp(16px, 3vmin, 28px);
+  gap: clamp(20px, 4vmin, 36px) 0;
+  overflow-x: clip;
+}
+.books > li {
+  position: relative;
+  display: grid;
+  align-items: end;
+  padding-inline: clamp(8px, 1.5vmin, 14px);
+  padding-block-end: 22px;
+}
+/* the plank: every book carries one as wide as the shelf, so a row always has a whole shelf under it
+   (the overlaps are identical, and the shelf clips the rest) */
+.books > li::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inline-size: 980px;
+  block-size: 22px;
+  z-index: -1;
+  background: linear-gradient(0deg, #9a5f35 0 14px, #c98b55 14px 22px);
 }
 .book { display: grid; gap: var(--s2); color: var(--text); text-decoration: none; }
 .book:focus-visible { outline: var(--outline); outline-offset: 4px; border-radius: 20px; }
@@ -112,4 +130,4 @@
   font-size: 15px;
   font-weight: 700;
 }
-.bookTitle { font-size: var(--fs-word); font-weight: 700; line-height: 1.2; text-align: center; text-wrap: balance; }
+.bookTitle { font-size: var(--fs-word); font-weight: 700; line-height: 1.2; text-align: center; text-wrap: balance; order: -1; }

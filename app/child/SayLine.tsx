@@ -1,11 +1,11 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { SayBubble } from "@/child/ui/SayBubble";
+import { Caption } from "@/child/ui/Caption";
 
-/** A mascot line inside a server-rendered scene (client wrapper around SayBubble). */
-export function SayLine({ text, audioKey, className }: { text: string; audioKey?: string; className?: string }) {
+/** A Feelio line inside a server-rendered scene: a caption in the form of the place (redesign v2). */
+export function SayLine({ text, audioKey, className, variant = "sign" }: { text: string; audioKey?: string; className?: string; variant?: "sign" | "float" | "title" }) {
   const locale = useLocale() === "ar" ? "ar" : "en";
   const t = useTranslations("child.onb");
-  return <SayBubble text={text} audioKey={audioKey} locale={locale} replayLabel={t("replay")} className={className} />;
+  return <Caption text={text} audioKey={audioKey} locale={locale} replayLabel={t("replay")} variant={variant} className={className} />;
 }

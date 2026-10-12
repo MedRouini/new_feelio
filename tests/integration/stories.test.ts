@@ -55,6 +55,16 @@ describe.skipIf(!process.env.DATABASE_URL)("stories (integration, synthetic data
     const book = await st.openBook(id, r.id);
     expect(book?.pages).toHaveLength(4);
     expect((await st.bookshelf(id))[0]).toMatchObject({ id: r.id, coverReady: true, read: true });
+    // The collection (D-071) shows the book and lights the story's feeling; no books when Stories are off.
+    const { collection } = await import("@/child/collection");
+    const { getWorldState } = await import("@/child/progress");
+    const world = await getWorldState(id);
+    const c = await collection(id, world, true);
+    expect(c.books?.map((x) => x.id)).toEqual([r.id]);
+    expect(c.feelings.filter((x) => x.met).map((x) => x.id)).toEqual(["worried"]);
+    expect(c.places.flatMap((p) => p.levels).some((l) => l.done)).toBe(false);
+    expect((await collection(id, world, false)).books).toBeNull();
+    expect((await collection("someone-else", world, true)).books).toEqual([]);
     // A parent deletes it: the row and the files are gone.
     expect(await st.deleteStory(householdId, r.id)).toBe(true);
     expect(await st.pictureFile(id, r.id, 0)).toBeNull();

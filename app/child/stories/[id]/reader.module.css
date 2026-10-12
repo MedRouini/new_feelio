@@ -12,7 +12,7 @@
   color: var(--text);
   background: var(--lilac-50);
 }
-.room > :not([data-veil]):not([data-orient]) { position: relative; z-index: 1; }
+.room > :not([data-backdrop]):not([data-orient]) { position: relative; z-index: 1; }
 
 .back {
   position: fixed !important;
@@ -149,7 +149,6 @@
 /* ---------- words ---------- */
 .coverText, .pageText, .endText { display: grid; align-content: center; gap: var(--s4); padding: clamp(16px, 4%, 48px); }
 .title { margin: 0; font-size: clamp(26px, 4.4vmin, 46px); line-height: 1.15; color: #614194; text-wrap: balance; }
-.byline { margin: 0; font-size: 16px; color: var(--text-muted); }
 .open {
   justify-self: start;
   display: inline-flex;

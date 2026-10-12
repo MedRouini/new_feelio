@@ -1,7 +1,7 @@
-/* Child screens built on Scene (DESIGN_SYSTEM.md): mascot standing in the world, a say-bubble, very
+/* Child screens built on Scene (DESIGN_SYSTEM.md): mascot standing in the world, its line as a caption, very
    little text, no panels or shadows. Logical properties so Arabic composes right to left. */
 
-.notSetUp, .soon, .collection {
+.notSetUp, .soon {
   position: absolute;
   inset: 0;
   display: grid;
@@ -11,7 +11,7 @@
   padding-block: max(16px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-bottom));
   padding-inline: 16px;
 }
-.soon, .collection { padding-block-end: 150px; } /* room for the dock */
+.soon { padding-block-end: 150px; } /* room for the dock */
 .notSetUpMascot { display: flex; align-items: flex-end; gap: var(--s4); }
 .notSetUpSign { inline-size: min(40vmin, 340px); margin-block-end: 6vmin; }
 .bigMascot { inline-size: min(40vmin, 340px); }
@@ -23,6 +23,3 @@
 .soonRow { display: flex; align-items: flex-end; gap: clamp(16px, 5vmin, 56px); }
 .soonDock { inline-size: min(22vmin, 170px); }
 
-.collectionRow { display: flex; align-items: flex-end; gap: clamp(16px, 6vmin, 72px); }
-.collectionAvatar { inline-size: min(36vmin, 300px); }
-.collectionName { inline-size: min(40vmin, 320px); }

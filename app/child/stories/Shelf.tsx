@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { motion } from "motion/react";
 import { WandSparkles } from "lucide-react";
 import { Mascot } from "@/child/ui/Mascot";
-import { SayBubble } from "@/child/ui/SayBubble";
+import { Caption } from "@/child/ui/Caption";
 import { useCalm } from "@/child/ui/useCalm";
 import uiStyles from "@/child/ui/ui.module.css";
 import { AssetImage } from "@/design/components/AssetImage";
@@ -15,9 +15,10 @@ import styles from "./stories.module.css";
 type Book = { id: string; title: string; coverReady: boolean; read: boolean };
 
 /**
- * My bookshelf (D-070): the child's books as covers (their own generated cover picture, or a soft brand
- * cover with the heart companion while it is being painted), newest first, and the big magic button to
- * make a new story with Feelio.
+ * My library (D-070, redesign v2 D-071): the child's books standing on wooden shelves (their own
+ * generated cover picture, or a brand cover with the heart companion while it is being painted), newest
+ * first, Feelio reading on top, and the big magic button to make a new story with Feelio. The AI notice
+ * lives in the story workshop, not here (owner decision 2026-10-12).
  */
 export function Shelf({ books, canMake, line }: { books: Book[]; canMake: boolean; line: string }) {
   const t = useTranslations("child.stories");
@@ -28,12 +29,11 @@ export function Shelf({ books, canMake, line }: { books: Book[]; canMake: boolea
 
   return (
     <div className={styles.shelfRoom}>
-      <World />
-      <p className={styles.aiChip}>{t("aiChip")}</p>
+      <Library />
 
       <div className={styles.shelfHead}>
         <Mascot pose={pick(STORY_ART.reader)} label={tOnb("aiSign")} sizes="22vmin" className={styles.shelfMascot} />
-        <SayBubble text={line} locale={locale} replayLabel={tOnb("replay")} className={styles.shelfSay} />
+        <Caption text={line} locale={locale} replayLabel={tOnb("replay")} variant="title" className={styles.shelfSay} testId="shelf-line" />
         {canMake ? (
           <a className={styles.magic} href="/stories/make" data-testid="make-story">
             {wand ? <AssetImage id={wand} alt="" sizes="64px" className={styles.magicArt} /> : <WandSparkles size={40} strokeWidth={2.4} aria-hidden />}
@@ -66,16 +66,22 @@ export function Shelf({ books, canMake, line }: { books: Book[]; canMake: boolea
   );
 }
 
-/** The world behind the stories screens: the meadow, softly out of focus (approved art, a CSS filter). */
-export function World() {
-  return (
-    <>
-      {(["land", "port"] as const).map((o) => (
-        <div key={o} className={uiStyles.sceneBg} data-orient={o} aria-hidden>
-          <AssetImage id={o === "land" ? "scene_meadow_land" : "scene_meadow_port"} alt="" sizes="100vw" className={[uiStyles.sceneImg, styles.softWorld].join(" ")} priority />
-        </div>
-      ))}
-      <div className={styles.veil} data-veil aria-hidden />
-    </>
-  );
+/**
+ * The library behind the stories screens (redesign v2): its scene art when delivered, until then a warm
+ * flat wall in brand colours. Never a blurred picture.
+ */
+export function Library() {
+  const land = pickOptional(["scene_library_land"] as const);
+  const port = pickOptional(["scene_library_port"] as const);
+  if (land && port)
+    return (
+      <>
+        {(["land", "port"] as const).map((o) => (
+          <div key={o} className={uiStyles.sceneBg} data-orient={o} aria-hidden>
+            <AssetImage id={o === "land" ? land : port} alt="" sizes="100vw" className={uiStyles.sceneImg} priority />
+          </div>
+        ))}
+      </>
+    );
+  return <div className={styles.wall} data-backdrop aria-hidden />;
 }

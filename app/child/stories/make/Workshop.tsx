@@ -8,15 +8,15 @@ import { Check, Mic, Square, WandSparkles } from "lucide-react";
 import { Carousel } from "@/app/child/hello/Carousel";
 import { Sparkles } from "@/app/child/hello/Sparkles";
 import { Mascot } from "@/child/ui/Mascot";
-import { SayBubble } from "@/child/ui/SayBubble";
+import { Caption } from "@/child/ui/Caption";
 import { play } from "@/child/ui/sound";
 import { useCalm } from "@/child/ui/useCalm";
+import uiStyles from "@/child/ui/ui.module.css";
 import { AssetImage } from "@/design/components/AssetImage";
 import { LOADING_BEAT, pick, pickOptional } from "@/design/asset-slots";
 import { VoiceProvider, useFeelioVoice } from "@/safety/voice-agent/useVoice";
 import type { ToolCall } from "@/safety/voice-agent/tools";
 import { SLOTS, type Slot } from "@/safety/stories/choices";
-import { World } from "../Shelf";
 import { STORY_ART, choiceArt } from "../art";
 import styles from "./workshop.module.css";
 
@@ -126,45 +126,97 @@ function WorkshopRoom({ lists, initial, voice }: { lists: Record<Slot, Item[]>; 
     router.push(`/stories/${data.id}?new=1`);
   }
 
-  const pose = making ? "mascot_making" : live && v.state === "listening" ? pick(["mascot_listening", "mascot_idle"] as const) : pick(STORY_ART.reader);
+  const pose = making ? "mascot_making" : live && v.state === "listening" ? pick(["mascot_listening", "mascot_idle"] as const) : pick(STORY_ART.director);
   const items = active ? lists[active] : [];
   const centre = active ? items[index[active]] : null;
+  const art = (slot: Slot, c?: Item) => (c ? pickOptional(choiceArt(slot, c.id)) : null);
+
+  /** One part of the stage: tap it to choose (or change) that part. */
+  const part = (slot: Slot, children: React.ReactNode) => (
+    <button
+      type="button"
+      className={styles.part}
+      data-part={slot}
+      data-active={active === slot || undefined}
+      data-filled={filled[slot] ? true : undefined}
+      onClick={() => openSlot(slot)}
+      aria-label={filled[slot] ? `${t(`slots.${slot}`)}: ${label(filled[slot]!)}` : t(`slots.${slot}`)}
+      data-testid={`slot-${slot}`}
+    >
+      {children}
+    </button>
+  );
+
+  const hallLand = pickOptional(["scene_story_stage_land"] as const);
+  const hallPort = pickOptional(["scene_story_stage_port"] as const);
+  const place = filled.place;
+  const hero = filled.hero;
+  const feeling = filled.feeling;
+  const adventure = filled.adventure;
+  const placeArt = art("place", place);
+  const heroArt = art("hero", hero);
+  const feelingArt = art("feeling", feeling);
 
   return (
     <div className={styles.room} data-making={making || undefined}>
-      <World />
-      <p className={styles.aiChip}>{t("aiChip")}</p>
+      {/* the theatre hall: its scene when delivered, until then flat brand colours (never a blurred picture) */}
+      {hallLand && hallPort ? (
+        (["land", "port"] as const).map((o) => (
+          <div key={o} className={uiStyles.sceneBg} data-orient={o} aria-hidden>
+            <AssetImage id={o === "land" ? hallLand : hallPort} alt="" sizes="100vw" className={uiStyles.sceneImg} priority />
+          </div>
+        ))
+      ) : (
+        <div className={styles.house} aria-hidden />
+      )}
+      {/* The one AI notice in stories (owner decision 2026-10-12: Talk and Story only). */}
+      <p className={styles.aiLine} data-testid="ai-line">{t("aiChip")}</p>
 
-      {/* the four slots: the story being built */}
-      <ol className={styles.slots} aria-label={t("make")}>
-        {SLOTS.map((s) => {
-          const c = filled[s];
-          const art = c ? pickOptional(choiceArt(s, c.id)) : null;
-          return (
-            <li key={s}>
-              <button type="button" className={styles.slot} data-active={active === s || undefined} data-filled={c ? true : undefined} onClick={() => openSlot(s)} aria-label={c ? `${t(`slots.${s}`)}: ${label(c)}` : t(`slots.${s}`)} data-testid={`slot-${s}`}>
-                <span className={styles.medal}>
-                  <AnimatePresence mode="popLayout">
-                    {c ? (
-                      <motion.span key={c.id} className={styles.medalInner} initial={calm ? { opacity: 0 } : { scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} transition={{ type: "spring", stiffness: 380, damping: 18 }}>
-                        {art ? <AssetImage id={art} alt="" sizes="90px" /> : <span className={styles.medalWord}>{label(c)}</span>}
-                      </motion.span>
-                    ) : null}
-                  </AnimatePresence>
-                </span>
-                <span className={styles.slotName}>{t(`slots.${s}`)}</span>
-              </button>
-            </li>
-          );
-        })}
-      </ol>
+      <Caption text={line} locale={locale} replayLabel={tOnb("replay")} variant="title" className={styles.question} testId="workshop-line" />
 
-      <div className={styles.feelio}>
-        <Mascot pose={pose} label={tOnb("aiSign")} sizes="24vmin" className={styles.mascot} />
-        <SayBubble text={line} locale={locale} replayLabel={tOnb("replay")} className={styles.say} />
+      {/* The stage: the story being built. Place = the backdrop, hero = in the spotlight, feeling = the
+          colour of the lights, adventure = the banner. */}
+      <div className={styles.theatre}>
+        <div className={styles.stage} data-place={place && !placeArt ? place.id : undefined} data-feeling={feeling?.id}>
+          {part(
+            "place",
+            <span className={styles.backdrop}>
+              {placeArt ? <AssetImage id={placeArt} alt="" sizes="60vw" className={styles.backdropArt} /> : null}
+              <span className={styles.partLabel}>{place ? label(place) : t("slots.place")}</span>
+            </span>,
+          )}
+          <span className={styles.lights} aria-hidden />
+          {part(
+            "feeling",
+            <span className={styles.lamp}>
+              {feelingArt ? <AssetImage id={feelingArt} alt="" sizes="80px" /> : null}
+              <span className={styles.partLabel}>{feeling ? label(feeling) : t("slots.feeling")}</span>
+            </span>,
+          )}
+          {part(
+            "hero",
+            <AnimatePresence mode="popLayout">
+              <motion.span key={hero?.id ?? "empty"} className={styles.actor} initial={calm ? { opacity: 0 } : { x: rtl ? -80 : 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ type: "spring", stiffness: 220, damping: 20 }}>
+                {heroArt ? <AssetImage id={heroArt} alt="" sizes="24vmin" className={styles.actorArt} /> : null}
+                <span className={styles.partLabel}>{hero ? label(hero) : t("slots.hero")}</span>
+                {hero ? <Sparkles burst={burst} /> : null}
+              </motion.span>
+            </AnimatePresence>,
+          )}
+          {part(
+            "adventure",
+            <span className={styles.banner}>
+              <span className={styles.partLabel}>{adventure ? label(adventure) : t("slots.adventure")}</span>
+            </span>,
+          )}
+          {/* the curtains: they close while the story is being written */}
+          <span className={styles.curtain} data-side="start" aria-hidden />
+          <span className={styles.curtain} data-side="end" aria-hidden />
+        </div>
+        <Mascot pose={pose} label={tOnb("aiSign")} sizes="20vmin" className={styles.director} />
       </div>
 
-      <div className={styles.stage}>
+      <div className={styles.props}>
         <AnimatePresence mode="wait">
           {making ? (
             <motion.div key="making" className={styles.making} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -175,27 +227,26 @@ function WorkshopRoom({ lists, initial, voice }: { lists: Record<Slot, Item[]>; 
               </span>
             </motion.div>
           ) : active ? (
-            <motion.div key={active} className={styles.pick} initial={calm ? { opacity: 0 } : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ type: "spring", stiffness: 300, damping: 26 }}>
+            <motion.div key={active} className={styles.pick} initial={calm ? { opacity: 0 } : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} transition={{ type: "spring", stiffness: 300, damping: 26 }}>
               <Carousel
                 items={items.map((c) => c.id)}
                 index={index[active]}
                 onIndex={(i) => setIndex((x) => ({ ...x, [active]: i }))}
                 rtl={rtl}
-                spacing={0.3}
+                spacing={0.26}
                 reach={2}
                 label={t(`ask.${active}`)}
                 itemLabel={(id) => label(items.find((c) => c.id === id)!)}
                 prevLabel={tOnb("prevOne")}
                 nextLabel={tOnb("nextOne")}
                 testId="choice-picker"
-                render={(id, isCentre) => {
+                render={(id) => {
                   const c = items.find((x) => x.id === id)!;
-                  const art = pickOptional(choiceArt(active, id));
+                  const a = pickOptional(choiceArt(active, id));
                   return (
-                    <span className={styles.choice} data-word={art ? undefined : true}>
-                      {art ? <AssetImage id={art} alt="" sizes="28vmin" className={styles.choiceArt} /> : <span className={styles.choiceWord}>{label(c)}</span>}
-                      {art ? <span className={styles.choiceCaption}>{label(c)}</span> : null}
-                      {isCentre ? <Sparkles burst={filled[active]?.id === id ? burst : 0} /> : null}
+                    <span className={styles.prop} data-slot={active} data-id={id} data-word={a ? undefined : true}>
+                      {a ? <AssetImage id={a} alt="" sizes="20vmin" className={styles.propArt} /> : null}
+                      <span className={styles.propWord}>{label(c)}</span>
                     </span>
                   );
                 }}

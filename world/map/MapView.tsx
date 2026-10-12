@@ -6,7 +6,7 @@ import { useGesture } from "@use-gesture/react";
 import { useTranslations } from "next-intl";
 import { Avatar } from "@/child/ui/Avatar";
 import { Mascot, type MascotPose } from "@/child/ui/Mascot";
-import { SayBubble } from "@/child/ui/SayBubble";
+import { Caption } from "@/child/ui/Caption";
 import { play } from "@/child/ui/sound";
 import uiStyles from "@/child/ui/ui.module.css";
 import type { Avatar as AvatarChoice } from "@/child/options";
@@ -328,7 +328,7 @@ export function MapView({ world, state, locale, avatar, arriveFromStart, onMasco
 
       {say ? (
         <div className={styles.sayWrap} key={say.key}>
-          <SayBubble text={say.text} locale={locale} replayLabel={t("close")} />
+          <Caption text={say.text} locale={locale} replayLabel={t("close")} variant="sign" />
         </div>
       ) : null}
     </>

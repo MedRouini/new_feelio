@@ -29,8 +29,10 @@ test("workshop: four slots by tapping, then the magic button appears (nothing ma
   await page.setViewportSize(LANDSCAPE);
   await asChild(page, fixture({ locale: "en", onboarded: true, stories: true }));
   await page.goto(`${APP}/stories`);
+  await expect(page.getByTestId("ai-line")).toHaveCount(0); // the library carries no AI notice (D-071)
   await page.getByTestId("make-story").click();
   await expect(page).toHaveURL(/\/stories\/make$/);
+  await expect(page.getByTestId("ai-line")).toContainText("AI"); // the workshop does: one quiet line (D-071)
   await expect(page.getByTestId("make-it")).toHaveCount(0);
   const ask = { hero: "Who is the hero of our story?", place: "Where does the story happen?", feeling: "How does our hero feel in the adventure?", adventure: "What happens in the story?" };
   for (const slot of ["hero", "place", "feeling", "adventure"] as const) {
@@ -82,4 +84,28 @@ test("Stories off: the bookshelf and the workshop don't exist for this child", a
   await expect(page).toHaveURL(`${APP}/`);
   await page.goto(`${APP}/stories/make`);
   await expect(page).toHaveURL(`${APP}/`);
+});
+
+test("collection: the album shows the child's book and the feeling they met (D-071)", async ({ page }) => {
+  await page.setViewportSize(LANDSCAPE);
+  const f = fixture({ locale: "en", onboarded: true, stories: true, story: true });
+  await asChild(page, f);
+  await page.goto(`${APP}/collection`);
+  await expect(page.getByTestId("collection")).toBeVisible();
+  await expect(page.getByTestId("page-stars")).toBeVisible();
+  await expect(page.getByTestId("star")).toHaveCount(0); // no levels finished yet: only friendly empty spots
+  await page.getByTestId("album-books").click();
+  await expect(page.getByTestId("album-book")).toHaveCount(1);
+  await expect(page.getByTestId("album-book")).toHaveAttribute("href", `/stories/${f.storyId}`);
+  await page.getByTestId("album-feelings").click();
+  await expect(page.getByTestId("feeling-met")).toHaveCount(1); // the fixture story is about feeling worried
+  await page.screenshot({ path: `${SHOTS}/collection-feelings.png` });
+});
+
+test("collection: no books page when the parent has Stories off", async ({ page }) => {
+  await page.setViewportSize(LANDSCAPE);
+  await asChild(page, fixture({ locale: "en", onboarded: true, stories: false, story: true }));
+  await page.goto(`${APP}/collection`);
+  await expect(page.getByTestId("album-stars")).toBeVisible();
+  await expect(page.getByTestId("album-books")).toHaveCount(0);
 });

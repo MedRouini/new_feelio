@@ -1,7 +1,6 @@
-/* Talk (D-068, redesign D-069): a voice room in Feelio's world. Feelio is the hero, centred; soft
-   brand-colour rings breathe with the voice that is speaking (--v, 0..1, set every frame by code);
-   one big button with the time left as an arc around it. No shadows; logical properties for Arabic;
-   only transforms and opacity animate. */
+/* Talk (D-068, redesign v2 docs/REDESIGN_V2.md): Feelio's cosy nook. Feelio close and big; its voice is
+   made visible by brand companions rising and dancing (--v, 0..1, set every frame by code); its words
+   float up as subtitles; one big button. No blur, no badges, no bubble. Transforms and opacity only. */
 
 .room {
   position: fixed;
@@ -9,89 +8,102 @@
   overflow: clip;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
-  grid-template-areas: "chip" "say" "hero" "controls";
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  grid-template-areas: "ai" "hero" "words" "controls";
   justify-items: center;
   gap: var(--s2);
-  padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + var(--s3));
+  padding-block: max(10px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + var(--s3));
   padding-inline: 16px;
   color: var(--text);
-  background: var(--lilac-50);
+  background: #3b2a75;
+}
+.room > :not(.dusk):not([data-orient]) { position: relative; z-index: 1; }
+
+/* the nook at dusk, until its scene is delivered: a deep lilac sky melting into warm lamp-light (flat
+   brand colours, no picture, no blur) */
+.dusk {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 58%, rgb(255 214 150 / 0.55) 0%, rgb(255 214 150 / 0) 70%),
+    linear-gradient(180deg, #3b2a75 0%, #614194 45%, #c4557c 82%, #f3b03a 100%);
 }
 
-/* the world, softly out of focus, and a lilac veil so Feelio stands out */
-.softWorld { filter: blur(7px) saturate(0.95); transform: scale(1.06); }
-.veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(243 236 255 / 0.55) 0%, rgb(243 236 255 / 0.15) 45%, rgb(243 236 255 / 0.5) 100%); }
-.room > :not(.veil):not([data-orient]) { position: relative; z-index: 1; }
-
-.aiChip {
+/* the one AI notice (Talk and Story only): a quiet line of text */
+.aiLine {
+  grid-area: ai;
   margin: 0;
-  padding: var(--s2) var(--s4);
-  border-radius: var(--r-pill);
-  background: var(--white);
-  border: 2px solid var(--lilac-300);
-  color: var(--text);
-  font-size: var(--fs-word);
+  font-size: 15px;
   font-weight: 700;
+  color: rgb(255 255 255 / 0.9);
   text-align: center;
-  max-inline-size: calc(100vw - 2 * 84px); /* clear of the grown-up door in the top corner */
+  max-inline-size: calc(100vw - 2 * 84px);
 }
 
-.aiChip { grid-area: chip; z-index: 3 !important; } /* the AI sign is never faded or covered */
-.say { z-index: 3 !important; }
-.say { grid-area: say; inline-size: min(78vw, 440px); }
-.say > * { inline-size: 100% !important; }
-.hero { grid-area: hero; }
-.controls { grid-area: controls; }
-/* landscape: Feelio in the middle, its words beside it, so neither crowds the other */
-@media (orientation: landscape) {
-  .room {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    grid-template-areas: "chip chip chip" ". hero say" "controls controls controls";
-  }
-  .say { inline-size: min(100%, 430px); align-self: start; justify-self: start; margin-block-start: 4vh; }
-}
-
-/* ---------- Feelio and the aura ---------- */
+/* ---------- Feelio, its lamp, and its voice ---------- */
 .hero {
   --v: 0;
+  grid-area: hero;
   position: relative;
   inline-size: 100%;
   min-block-size: 0;
   display: grid;
   place-items: center;
 }
-.aura { position: absolute; inset: 0; pointer-events: none; }
-.aura span {
-  --tint: 239 207 248; /* lilac */
+/* the warm lamp-light around Feelio, breathing with whoever speaks */
+.lamp {
   position: absolute;
-  inset-block-start: 50%;
-  left: 50%; /* physical on purpose: centred on Feelio in both directions */
+  left: 50%;
+  top: 52%;
   translate: -50% -50%;
-  inline-size: min(64vmin, 520px); /* clearly larger than Feelio, so the rings show around it */
+  inline-size: min(78vmin, 640px);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgb(255 255 255 / 0.6) 0%, rgb(var(--tint) / 0.8) 30%, rgb(var(--tint) / 0.35) 58%, rgb(var(--tint) / 0) 71%);
-  transform: scale(calc(0.8 + var(--v) * 0.55));
+  background: radial-gradient(circle, rgb(255 236 186 / 0.85) 0%, rgb(255 216 230 / 0.45) 40%, rgb(255 216 230 / 0) 70%);
+  transform: scale(calc(0.85 + var(--v) * 0.3));
   transition: transform 90ms linear;
+  pointer-events: none;
 }
-.aura span:nth-child(2) { inline-size: min(82vmin, 660px); transform: scale(calc(0.78 + var(--v) * 0.4)); opacity: 0.7; }
-.aura span:nth-child(3) { inline-size: min(100vmin, 800px); transform: scale(calc(0.76 + var(--v) * 0.28)); opacity: 0.45; }
-.room[data-state="speaking"] .aura span { --tint: 255 230 186; } /* amber while Feelio speaks */
-.room[data-mood="empathy"] .aura span { --tint: 255 216 230; }
-.room[data-mood="calm"] .aura span { --tint: 212 236 255; }
-.room[data-mood="happy"] .aura span, .room[data-mood="excited"] .aura span { --tint: 255 230 186; }
+.room[data-state="listening"] .lamp { background: radial-gradient(circle, rgb(212 236 255 / 0.85) 0%, rgb(239 207 248 / 0.4) 40%, rgb(239 207 248 / 0) 70%); }
+.room[data-mood="empathy"] .lamp { background: radial-gradient(circle, rgb(255 216 230 / 0.9) 0%, rgb(255 216 230 / 0.35) 45%, rgb(255 216 230 / 0) 70%); }
+
+.sparkles { position: absolute; inset: 0; pointer-events: none; }
+.spark {
+  position: absolute;
+  left: calc(50% + var(--x));
+  top: var(--y, 55%);
+  inline-size: clamp(26px, 5vmin, 46px) !important;
+  translate: -50% -50%;
+  opacity: 0;
+}
 @media (prefers-reduced-motion: no-preference) {
-  /* a resting breath when nobody is speaking */
-  .room:is([data-state="idle"], [data-state="ended"], [data-state="thinking"], [data-state="connecting"], [data-state="problem"], [data-state="lost"]) .aura span { animation: rest 3.6s ease-in-out infinite; }
-  .room .aura span:nth-child(2) { animation-delay: -1.2s; }
-  .room .aura span:nth-child(3) { animation-delay: -2.4s; }
+  /* idle: a few companions float lazily around Feelio */
+  .room:is([data-state="idle"], [data-state="ended"], [data-state="thinking"], [data-state="connecting"]) .spark { animation: drift calc(var(--d) * 1.6) ease-in-out infinite; }
+  /* Feelio speaks: they rise from Feelio, faster and bigger the louder it is */
+  .room[data-state="speaking"] .spark { animation: rise var(--d) ease-out infinite; }
+  /* the child speaks: they drift in toward Feelio, listening */
+  .room[data-state="listening"] .spark { animation: gather var(--d) ease-in infinite; }
+  .spark:nth-child(2n) { animation-delay: -0.9s !important; }
+  .spark:nth-child(3n) { animation-delay: -1.7s !important; }
 }
-@keyframes rest { 0%, 100% { transform: scale(0.8); } 50% { transform: scale(0.92); } }
+@keyframes drift {
+  0%, 100% { opacity: 0.55; transform: translate(0, -60%) scale(var(--s)); }
+  50% { opacity: 0.85; transform: translate(6%, -85%) scale(var(--s)) rotate(8deg); }
+}
+@keyframes rise {
+  0% { opacity: 0; transform: translate(0, 0) scale(calc(var(--s) * 0.4)); }
+  25% { opacity: calc(0.45 + var(--v) * 0.55); }
+  100% { opacity: 0; transform: translate(calc(var(--x) * 0.6), -520%) scale(calc(var(--s) * (0.8 + var(--v) * 0.8))) rotate(25deg); }
+}
+@keyframes gather {
+  0% { opacity: 0; transform: translate(calc(var(--x) * 3), -380%) scale(calc(var(--s) * 0.9)); }
+  40% { opacity: calc(0.4 + var(--v) * 0.6); }
+  100% { opacity: 0; transform: translate(0, -40%) scale(calc(var(--s) * 0.4)); }
+}
 
 .body { position: relative; display: grid; place-items: center; block-size: 100%; min-block-size: 0; transform-origin: 50% 100%; }
-.mascot { block-size: min(100%, 44vmin, 380px); inline-size: auto !important; aspect-ratio: 1; }
+.mascot { block-size: min(100%, 50vmin, 440px); inline-size: auto !important; aspect-ratio: 1; }
+@media (orientation: portrait) { .mascot { block-size: min(100%, 72vmin, 440px); } }
 @media (prefers-reduced-motion: no-preference) {
   /* no mouth frames yet: a gentle bounce with Feelio's voice */
   .body[data-bounce] { transform: translateY(calc(var(--v) * -4%)) scale(calc(1 + var(--v) * 0.04)); }
@@ -105,8 +117,11 @@
 }
 @keyframes beat { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-40%); } }
 
+/* Feelio's words: floating subtitles, no box */
+.subtitle { grid-area: words; min-block-size: 3.2em; align-content: center; }
+
 /* ---------- the one button, with the time left around it ---------- */
-.controls { display: grid; justify-items: center; gap: var(--s1); }
+.controls { grid-area: controls; display: grid; justify-items: center; gap: var(--s1); }
 .micWrap { position: relative; display: grid; place-items: center; inline-size: 132px; aspect-ratio: 1; }
 .mic {
   inline-size: 104px;
@@ -129,7 +144,7 @@
   .room:is([data-state="idle"], [data-state="ended"]) .mic > svg { animation: invite 2.4s ease-in-out infinite; }
 }
 @keyframes invite { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
-.micLabel { font-size: var(--fs-word); font-weight: 700; }
+.micLabel { font-size: var(--fs-word); font-weight: 700; color: var(--white); }
 .arc { position: absolute; inset: 0; transform: rotate(-90deg); }
 .arcTrack { fill: none; stroke: rgb(255 255 255 / 0.85); stroke-width: 6; }
 .arcLeft { fill: none; stroke: var(--purple-500); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 500ms linear, stroke 300ms; }
@@ -210,6 +225,7 @@
 .help ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s3); font-size: var(--fs-say); text-align: start; }
 
 @media (prefers-reduced-motion: reduce) {
-  .aura span, .body { transform: none !important; transition: none; }
+  .lamp, .body { transform: none !important; transition: none; }
+  .spark { opacity: 0.6; transform: translate(0, -70%) scale(var(--s)); }
   .breathBall { transition: none; }
 }

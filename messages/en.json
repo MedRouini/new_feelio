@@ -86,7 +86,15 @@
     },
     "collection": {
       "title": "My collection",
-      "intro": "This is you and your friend!"
+      "intro": "This is you and your friend!",
+      "pages": {
+        "stars": "My stars",
+        "books": "My books",
+        "feelings": "Feelings I met"
+      },
+      "emptyStars": "Play in the world and stars will land here!",
+      "emptyBooks": "Make a story and your book will be here!",
+      "emptyFeelings": "Feelings from your stories will light up here."
     },
     "grownup": {
       "door": "For grown-ups: press and hold",
@@ -135,7 +143,7 @@
       "aiChip": "Feelio is an AI, not a person",
       "start": "Talk to Feelio",
       "stop": "Stop talking",
-      "intro": "Tap the big button and say hello! I'm an AI friend, not a person.",
+      "intro": "Tap the big button and say hello!",
       "connecting": "Waking Feelio up…",
       "listening": "I'm listening…",
       "speaking": "Feelio is talking",

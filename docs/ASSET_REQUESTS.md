@@ -1191,6 +1191,36 @@ Prompt (paste THING from the table):
 | `face_lonely.png` | lonely: eyes looking down to the side, small sad mouth |
 | `face_jealous.png` | jealous: eyes looking sideways, small pout |
 
+## Batch 5 (redesign v2: each page its own place), written 2026-10-12 (D-071, docs/REDESIGN_V2.md)
+Everything here is optional: every page already works with flat brand colours in its place, and each
+file replaces that stand-in the moment it is approved (no code change). A scene is only used once BOTH
+its landscape and portrait files are approved. Priority: Group 1 (scenes), then 2 (album), then 3 (poses).
+
+### Group 1: four scenes (one chat per scene; upload `scene_meadow_land` (approved) each time for the style)
+Prompt (paste PLACE from the table; make the landscape file first, then ask for the same scene in portrait):
+> Create an image. Opaque, in the size and shape given. I attached our approved meadow scene: match its art style, colours, light and level of detail exactly. PLACE. Keep the middle of the picture calm and open: our app puts characters, words and buttons there, so no important detail in the centre and nothing busy behind it. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.
+
+| Save as (`assets/approved/world/`, 1536x1024 landscape and 1024x1536 portrait) | Used on | PLACE |
+|---|---|---|
+| `scene_talk_nook_land.png`, `scene_talk_nook_port.png` | Talk | a cosy little nook at dusk: a round window with a deep lilac evening sky and first stars, a big soft floor cushion, a warm glowing lamp to one side, a few hanging paper stars. Quiet and safe |
+| `scene_story_stage_land.png`, `scene_story_stage_port.png` | Story workshop | the inside of a small, friendly puppet theatre hall seen from the audience: deep plum walls, warm amber wall lamps, rose velvet drapes gathered at the far left and right edges, the tops of a few round seats along the very bottom. NO stage in the middle: the middle is a plain, softly lit plum wall |
+| `scene_library_land.png`, `scene_library_port.png` | Bookshelf, storybook | a warm, cosy children's library room: cream walls with soft stripes, a round window with daylight, a reading rug, a little ladder and plants at the sides, warm honey wood floor. NO bookshelves in the middle: the middle is a plain cream wall (our shelves go there) |
+| `scene_treasure_room_land.png`, `scene_treasure_room_port.png` | My collection | a magical treasure room for a child's keepsakes: plum walls with soft gold arches, a few small open treasure chests with gentle light and stars at the far sides, a soft rose rug on a warm floor. The middle is calm and open |
+
+### Group 2: the sticker album (one chat; upload `dock_collection` (approved) for the style)
+| Save as | Shape | THING |
+|---|---|---|
+| `assets/approved/ui/ui_sticker_album_open.png` | 1536x1024 landscape | an open sticker album seen straight from the front, filling the whole frame edge to edge: a soft purple (#614194) padded cover around two EMPTY cream pages, a gentle fold at the spine, three tiny decorative stars only in the corners of the cover. The pages are completely blank |
+
+Prompt: the Batch 4 Group 1 prompt (single object), with THING from the table, filling about 95% of the frame.
+
+### Group 3: two mascot poses (mascot chat; upload the OFFICIAL MASCOT and `mascot_idle` as references)
+Use the standard mascot prompt in docs/MASCOT.md with:
+| Save as (`assets/approved/mascot/`) | POSE | FACE |
+|---|---|---|
+| `mascot_directing.png` | standing side-on, one arm-flap raised and pointing forward like a friendly play director, the other on its hip | excited, sparkly eyes, big open smile |
+| `mascot_holding_album.png` | hugging a small closed purple album to its chest with both arm-flaps | proud and happy, eyes curved, warm smile |
+
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
@@ -1271,3 +1301,4 @@ Prompt (paste THING from the table):
 | level_market_3 | 2026-10-11 | | | Batch 3, P2 (D-056) |
 | level_market_4 | 2026-10-11 | | | Batch 3, P2 (D-056) |
 | level_market_5 | 2026-10-11 | | | Batch 3, P2 (D-056) |
+| batch-5 redesign v2 | 2026-10-12 | | | 4 scenes (land + port), sticker album, 2 mascot poses (D-071). Optional: pages use flat brand colours until approved |

@@ -290,11 +290,10 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
       </ol>
 
       <div className={styles.say}>
-        <SayBubble text={line.text} audioKey={line.key || undefined} locale={locale} replayLabel={t("replay")} />
+        <SayBubble text={line.text} audioKey={line.key || undefined} locale={locale} replayLabel={t("replay")} testId="onb-line" />
       </div>
 
       <div className={styles.mascotSpot} data-walking={walking || undefined}>
-        <AnimatePresence>{stop === "hello" && !walking ? <motion.div key="sign" exit={{ opacity: 0, y: 20 }}><NameSign text={t("aiSign")} className={styles.aiSign} testId="ai-sign" /></motion.div> : null}</AnimatePresence>
         <Mascot pose={pose} label={t("aiSign")} className={[styles.mascot, mic === "heard" ? uiStyles.wobble : ""].join(" ")} sizes="36vmin" onTap={() => (stop === "hello" ? void go() : undefined)} />
       </div>
 

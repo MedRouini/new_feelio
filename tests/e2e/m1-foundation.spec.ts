@@ -11,10 +11,10 @@ test("Milestone 1: parent sign-up → consent → child → device setup → chi
   const email = `test+e2e-${Date.now()}@example.test`;
   const password = "correct-horse-battery";
 
-  // 1. Child host without a device key: friendly "ask a grown-up" screen with the AI disclosure.
+  // 1. Child host without a device key: friendly "ask a grown-up" screen.
   await page.goto(APP);
   await expect(page.getByTestId("not-set-up")).toBeVisible();
-  await expect(page.getByTestId("ai-sign")).toContainText("I'm Feelio, a friendly AI");
+  await expect(page.getByTestId("not-set-up")).toContainText("A grown-up needs to set me up");
   await expect(page.getByTestId("grownup-door")).toBeVisible();
   await page.screenshot({ path: `${SHOTS}/01-child-not-set-up.png` });
 
@@ -65,7 +65,8 @@ test("Milestone 1: parent sign-up → consent → child → device setup → chi
   await expect(page).toHaveURL(APP + "/hello");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
   await expect(page.locator("html")).toHaveAttribute("lang", "ar");
-  await expect(page.getByTestId("ai-sign")).toContainText("أنا فيليو، ذكاء اصطناعي ودود");
+  // Feelio's first words say it is an AI (D-071: said once in onboarding, then shown on Talk and Story).
+  await expect(page.getByTestId("onb-line")).toContainText("ذكاء اصطناعي ودود");
   await page.screenshot({ path: `${SHOTS}/05-child-home-ar.png` });
 
   // 7. The device cookie is httpOnly, host-only on the child host.

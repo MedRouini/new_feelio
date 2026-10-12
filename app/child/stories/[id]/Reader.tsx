@@ -10,7 +10,7 @@ import { useCalm } from "@/child/ui/useCalm";
 import { AssetImage } from "@/design/components/AssetImage";
 import { LOADING_BEAT, pick } from "@/design/asset-slots";
 import type { Book } from "@/child/stories";
-import { World } from "../Shelf";
+import { Library } from "../Shelf";
 import { STORY_ART } from "../art";
 import styles from "./reader.module.css";
 
@@ -136,7 +136,6 @@ export function Reader({ book, narration }: { book: Book; narration: boolean }) 
         end: (
           <div className={styles.coverText}>
             <h1 className={styles.title}>{book.title}</h1>
-            <p className={styles.byline}>{t("aiChip")}</p>
             <button type="button" className={styles.open} onClick={() => go(1)} data-testid="open-book">
               <BookOpen size={30} aria-hidden />
               <span>{t("open")}</span>
@@ -205,7 +204,7 @@ export function Reader({ book, narration }: { book: Book; narration: boolean }) 
 
   return (
     <div className={styles.room}>
-      <World />
+      <Library />
       <a className={styles.back} href="/stories" aria-label={t("shelf")}>
         <Home size={30} aria-hidden />
       </a>

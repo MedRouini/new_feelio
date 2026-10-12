@@ -15,12 +15,14 @@ export function SayBubble({
   locale,
   replayLabel,
   className,
+  testId,
 }: {
   text: string;
   audioKey?: string;
   locale: "en" | "ar";
   replayLabel: string;
   className?: string;
+  testId?: string;
 }) {
   const hasAudio = !!audioKey && (audioIndex as Record<string, string[]>)[locale]?.includes(audioKey);
   const ref = useRef<HTMLAudioElement>(null);
@@ -33,6 +35,7 @@ export function SayBubble({
     <button
       type="button"
       className={[styles.say, className].filter(Boolean).join(" ")}
+      data-testid={testId}
       // Long lines get a smaller size so they stay inside the bubble.
       data-length={text.length > 90 ? "long" : text.length > 55 ? "mid" : undefined}
       aria-label={`${replayLabel}: ${text}`}

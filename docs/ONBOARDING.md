@@ -90,7 +90,7 @@ The child's part happens in **one place: the welcome meadow**. It's a scene in t
   - names come from a reviewed list
   - typing is off until M2, and when on it goes through `safety/` (PII and abuse check) before saving
   - the microphone test is local only
-- **The AI disclosure** is visible (the name sign) and audible (the voice line) at stop 1, and it stays on the Talk screen afterwards (SR-20).
+- **The AI disclosure** is in Feelio's first words at stop 1, heard and shown; afterwards one quiet line on Talk and on the story workshop (SR-20, D-071).
 - **Data stored** (all child-scope, deleted with the profile, visible to the parent):
   - `avatar` {shape, colour, companion}
   - `nickname` (either a list key, which is not personal, or the parent's encrypted nickname)

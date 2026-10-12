@@ -22,14 +22,9 @@
   block-size: var(--dock-h);
   padding-inline: var(--dock-pad);
   border-radius: var(--dock-radius);
-  /* glass: the world shows through, softened */
-  background: rgb(236 226 255 / 0.5);
-  border: 2px solid rgb(255 255 255 / 0.55);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  backdrop-filter: blur(16px) saturate(1.4);
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .tray { background: rgb(236 226 255 / 0.92); }
+  /* a solid lilac tray (redesign v2: nothing blurred) */
+  background: #ece2ff;
+  border: 3px solid var(--white);
 }
 .side { display: flex; align-items: end; justify-content: space-evenly; block-size: 100%; }
 

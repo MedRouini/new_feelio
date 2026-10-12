@@ -4,7 +4,6 @@ import { getChild } from "@/auth/guards";
 import { getChildView } from "@/child/view";
 import { Dock } from "@/child/ui/Dock";
 import { Mascot } from "@/child/ui/Mascot";
-import { NameSign } from "@/child/ui/NameSign";
 import { Scene } from "@/child/ui/Scene";
 import { loadWorld } from "@/world/load";
 import { MapView } from "@/world/map/MapView";
@@ -26,7 +25,6 @@ export default async function ChildHome({ searchParams }: { searchParams: Promis
         <div className={styles.notSetUp}>
           <SayLine text={`${t("notSetUpTitle")} ${t("notSetUpBody")}`} audioKey="home_notSetUp" />
           <div className={styles.notSetUpMascot}>
-            <NameSign text={t("onb.aiSign")} className={styles.notSetUpSign} testId="ai-sign" />
             <Mascot pose="mascot_waving" label={t("onb.aiSign")} sizes="34vmin" className={styles.bigMascot} />
           </div>
         </div>

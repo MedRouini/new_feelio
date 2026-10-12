@@ -1,0 +1,58 @@
+/* Feelio's captions (redesign v2): one per place, never the same bubble everywhere. No shadows; the
+   outlined text uses a stroke painted under the letters (paint-order), the way game titles do. */
+
+.caption {
+  position: relative;
+  display: grid;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.caption:focus-visible { outline: var(--outline); outline-offset: 4px; border-radius: 18px; }
+.caption > * { grid-area: 1 / 1; }
+.words { display: block; font-weight: 700; text-wrap: balance; }
+
+/* ---------- sign: painted on the wooden plate (board area measured from the art: 22-67% high) ---------- */
+.caption[data-variant="sign"] { inline-size: min(80vw, 520px); }
+.plate { display: block; inline-size: 100%; }
+.caption[data-variant="sign"] .board {
+  position: absolute;
+  inset-block: 25% 35%;
+  inset-inline: 8%;
+  container-type: size;
+  display: grid;
+  place-items: center;
+}
+.caption[data-variant="sign"] .words { color: #4a2a12; line-height: 1.12; font-size: min(30cqh, 6.4cqw); }
+.caption[data-variant="sign"][data-length="mid"] .words { font-size: min(25cqh, 5.4cqw); }
+.caption[data-variant="sign"][data-length="long"] .words { font-size: min(20cqh, 4.4cqw); }
+
+/* ---------- float: glowing words with no box (Talk) ---------- */
+.caption[data-variant="float"] { inline-size: min(90vw, 560px); }
+.caption[data-variant="float"] .words {
+  font-size: clamp(22px, 3.4vmin + 8px, 36px);
+  line-height: 1.3;
+  color: var(--white);
+  -webkit-text-stroke: 7px #3b2a75;
+  paint-order: stroke fill;
+}
+.caption[data-variant="float"][data-length="long"] .words { font-size: clamp(19px, 2.6vmin + 8px, 28px); }
+
+/* ---------- title: bold display words set on the scene ---------- */
+.caption[data-variant="title"] { inline-size: min(92vw, 720px); }
+.caption[data-variant="title"] .words {
+  font-size: clamp(26px, 4.4vmin + 10px, 50px);
+  line-height: 1.12;
+  color: var(--navy-900);
+  -webkit-text-stroke: 8px var(--white);
+  paint-order: stroke fill;
+  letter-spacing: 0.01em;
+}
+.caption[data-variant="title"][data-length="mid"] .words { font-size: clamp(22px, 3.4vmin + 9px, 40px); }
+.caption[data-variant="title"][data-length="long"] .words { font-size: clamp(19px, 2.6vmin + 8px, 30px); }
+:global(html[lang="ar"]) .words { line-height: 1.45; }
