@@ -10,6 +10,7 @@ import type { SafetyCtx } from "@/safety/types";
 import { conversationToken, voiceConfigured } from "@/safety/voice-agent/provider";
 import { nicknameWord } from "./options";
 import { getWorldState } from "./progress";
+import { getDraft, storyGate } from "./stories";
 import { pauseFor, secondsToday } from "./usage";
 
 // The voice session gate (ARCHITECTURE §4.1, D-068), child scope, server-only. A voice session starts
@@ -67,7 +68,7 @@ export async function voiceSecondsToday(childId: string, now = new Date()): Prom
 
 export async function startVoiceSession(
   child: ChildContext,
-  opts: { placeId?: string | null } = {},
+  opts: { placeId?: string | null; purpose?: "talk" | "story" } = {},
   now = new Date(),
 ): Promise<{ ok: true; token: string; sessionId: string; allowedSeconds: number } | { ok: false; reason: VoiceRefusal }> {
   const e = env();
@@ -77,6 +78,8 @@ export async function startVoiceSession(
 
   const [s] = await db.select().from(childSettings).where(eq(childSettings.childId, child.childId)).limit(1);
   if (!s?.features.talk) return { ok: false, reason: "talk_off" };
+  // Making a story by voice also needs Stories allowed and story making available (D-070).
+  if (opts.purpose === "story" && (await storyGate(child.childId, now))) return { ok: false, reason: "unavailable" };
   const pause = await pauseFor(child.childId, now);
   if (pause) return { ok: false, reason: pause.reason };
 
@@ -108,6 +111,7 @@ export async function startVoiceSession(
       placeId: opts.placeId ?? null,
       allowedSeconds,
       adultTest: e.VOICE_ADULT_TESTING,
+      purpose: opts.purpose ?? "talk",
       startedAt: now,
     })
     .returning({ id: voiceSession.id });
@@ -192,6 +196,7 @@ export async function proxyTurn(by: { sessionId?: string | null; conversationId?
     placesOpen: places.map(([id]) => id),
     levelsDone: places.reduce((n, [, v]) => n + v.completedCount, 0),
     secondsLeft,
+    ...(s.purpose === "story" ? { story: Object.fromEntries(Object.entries(await getDraft(s.childId)).map(([k, v]) => [k, s.locale === "ar" ? v.ar : v.en])) } : {}),
   };
   return { ok: true, stop: secondsLeft <= 5 || paused ? "time_up" : null, session: s, ctx, context, secondsLeft };
 }

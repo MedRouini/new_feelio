@@ -4,6 +4,7 @@ import { cookies, headers } from "next/headers";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { auth } from "@/auth/server";
+import { deleteStory } from "@/child/stories";
 import { checkParent, passAdultGate, type GateLevel, type ParentCheck } from "@/auth/guards";
 import { LOCALE_COOKIE, isLocale } from "@/i18n/request";
 import { db } from "@/platform/db/client";
@@ -256,4 +257,14 @@ export async function reviewReportAction(formData: FormData) {
   if (!isSafetyLead(check.parent.userId)) redirect("/");
   await reviewReport(String(formData.get("id") ?? ""), check.parent.userId);
   redirect("/safety");
+}
+
+/** Deletes one of the household's stories with its pictures and narration (D-070). */
+export async function deleteStoryAction(formData: FormData) {
+  const storyId = String(formData.get("storyId") ?? "");
+  const back = safeNext(formData.get("next"));
+  const check = await checkParent({ gate: "area", needHousehold: true });
+  if (!check.ok) bounce(check, back);
+  await deleteStory(check.parent.householdId!, storyId);
+  redirect(`${back}?deleted=1`);
 }

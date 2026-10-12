@@ -18,7 +18,7 @@ const TURNS = process.env.VOICE_CHECK_TURNS ? (JSON.parse(process.env.VOICE_CHEC
   "yes, can we do the breathing game",
   "I'm bored, what can I do",
 ];
-const OFFERED = ["end_call", "set_mascot_state", "show_feeling_card", "start_breathing", "suggest_place", "show_safety_resources"];
+const OFFERED = ["end_call", "set_mascot_state", "show_feeling_card", "start_breathing", "suggest_place", "show_safety_resources", "show_story_choice"];
 
 async function main() {
   const base = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
@@ -36,10 +36,12 @@ async function main() {
     .limit(1);
   if (!kid) throw new Error("No synthetic test child found (create one with a test+…@example.test parent).");
 
+  const { storyDraft } = await import("../platform/db/schema");
+  if (process.env.VOICE_CHECK_PURPOSE === "story") await db.delete(storyDraft).where(eq(storyDraft.childId, kid.id));
   const conversationId = `conv_selftest_${crypto.randomUUID().slice(0, 8)}`;
   const [row] = await db
     .insert(voiceSession)
-    .values({ childId: kid.id, householdId: kid.householdId, conversationId, ageBand: kid.ageBand, locale: "en", allowedSeconds: 180, adultTest: true })
+    .values({ childId: kid.id, householdId: kid.householdId, conversationId, ageBand: kid.ageBand, locale: "en", allowedSeconds: 180, adultTest: true, purpose: process.env.VOICE_CHECK_PURPOSE === "story" ? "story" : "talk" })
     .returning({ id: voiceSession.id });
 
   try {

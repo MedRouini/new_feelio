@@ -23,6 +23,12 @@ const square = [
   "face_happy", "face_sad", "face_angry", "face_excited",
   // level flow and loading (Batch 3, D-056, docs/LEVEL_FLOW.md)
   "node_in_progress", "ui_celebrate_burst", "mascot_making",
+  // stories (Batch 4, D-070, docs/STORIES.md): optional art; screens work without it
+  "mascot_reading", "ui_story_slot", "ui_story_wand",
+  "face_worried", "face_proud", "face_lonely", "face_jealous",
+  "story_hero_fox", "story_hero_bear", "story_hero_bunny", "story_hero_owl", "story_hero_turtle", "story_hero_dragon", "story_hero_cat", "story_hero_penguin",
+  "story_place_forest", "story_place_beach", "story_place_space", "story_place_castle", "story_place_garden", "story_place_underwater",
+  "story_adv_lost_toy", "story_adv_new_friend", "story_adv_big_race", "story_adv_birthday", "story_adv_storm", "story_adv_first_day",
 ] as const;
 
 // Per-place assets (Batch 3, D-056): place ids of the base world. world.json refers to these by id;
@@ -39,8 +45,8 @@ const placeLandscape = WORLD_PLACE_IDS.map((p) => `place_${p}_map_h` as const);
 const placePortrait = WORLD_PLACE_IDS.map((p) => `place_${p}_map_v` as const);
 
 const wide = ["ui_sign_plate", "ui_say_bubble"] as const;
-const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open"] as const;
-const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open"] as const;
+const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open", "story_book_open", "story_shelf", "scene_story_corner_land"] as const;
+const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open", "story_page_paper", "story_book_cover", "scene_story_corner_port"] as const;
 
 // D-053 (owner, 2026-10-10): one character for now ("bun"), four colours, one pose. Its "yay" is a
 // code hop. The approved bean/puff bases stay in assets/ for later but are not used.

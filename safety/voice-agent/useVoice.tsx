@@ -30,7 +30,7 @@ export function VoiceProvider({ children }: { children: ReactNode }) {
   return <ConversationProvider>{children}</ConversationProvider>;
 }
 
-export function useFeelioVoice({ onTool }: { onTool: (call: ToolCall) => void }) {
+export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: ToolCall) => void; purpose?: "talk" | "story" }) {
   const conv = useConversation();
   const [state, setState] = useState<VoiceState>("idle");
   const [deadline, setDeadline] = useState<number | null>(null);
@@ -74,7 +74,7 @@ export function useFeelioVoice({ onTool }: { onTool: (call: ToolCall) => void })
       }
       let res: Response;
       try {
-        res = await post({ action: "start", ...(placeId ? { placeId } : {}) });
+        res = await post({ action: "start", purpose, ...(placeId ? { placeId } : {}) });
       } catch {
         setState("idle");
         return { ok: false, reason: "unavailable" };
@@ -126,8 +126,11 @@ export function useFeelioVoice({ onTool }: { onTool: (call: ToolCall) => void })
       });
       return { ok: true };
     },
-    [conv, finish],
+    [conv, finish, purpose],
   );
+
+  /** Tells Feelio something the child did on screen (a fact for context; Feelio doesn't answer it). */
+  const context = useCallback((text: string) => conv.sendContextualUpdate(text), [conv]);
 
   const stop = useCallback(() => {
     conv.endSession();
@@ -175,5 +178,5 @@ export function useFeelioVoice({ onTool }: { onTool: (call: ToolCall) => void })
   // Leaving the screen ends the talk.
   useEffect(() => () => void (session.current && post({ action: "end", sessionId: session.current }).catch(() => {})), []);
 
-  return { state, deadline, allowed, caption, quiet, start, stop, outputVolume: conv.getOutputVolume, inputVolume: conv.getInputVolume };
+  return { state, deadline, allowed, caption, quiet, start, stop, context, outputVolume: conv.getOutputVolume, inputVolume: conv.getInputVolume };
 }

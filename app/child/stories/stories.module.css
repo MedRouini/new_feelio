@@ -1,0 +1,115 @@
+/* Stories (D-070): the bookshelf. The meadow softly out of focus behind, Feelio with its bubble, the big
+   magic button, and the child's books as covers. No shadows; logical properties for Arabic. */
+
+.shelfRoom {
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: var(--s4);
+  padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + var(--s6));
+  padding-inline: 16px;
+  color: var(--text);
+  background: var(--lilac-50);
+}
+.softWorld { filter: blur(7px) saturate(0.95); transform: scale(1.06); }
+.veil { position: fixed; inset: 0; background: linear-gradient(180deg, rgb(243 236 255 / 0.6) 0%, rgb(243 236 255 / 0.25) 50%, rgb(243 236 255 / 0.6) 100%); }
+.shelfRoom > :not([data-veil]):not([data-orient]) { position: relative; z-index: 1; }
+.shelfRoom > [data-orient] { position: fixed; }
+
+.aiChip {
+  margin: 0;
+  padding: var(--s2) var(--s4);
+  border-radius: var(--r-pill);
+  background: var(--white);
+  border: 2px solid var(--lilac-300);
+  font-size: calc(var(--fs-word) * 0.85);
+  font-weight: 700;
+  text-align: center;
+  max-inline-size: calc(100vw - 2 * 84px);
+}
+
+.shelfHead {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--s4);
+  inline-size: min(100%, 980px);
+}
+.shelfMascot { inline-size: clamp(110px, 20vmin, 180px); }
+.shelfSay { inline-size: min(100%, 440px) !important; align-self: center; }
+@media (orientation: portrait) {
+  .shelfHead { grid-template-columns: auto minmax(0, 1fr); }
+  .shelfHead > .magic { grid-column: 1 / -1; justify-self: center; }
+}
+
+/* the big magic button: the one primary action */
+.magic {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s3);
+  min-block-size: 88px;
+  padding-inline: var(--s6) var(--s8);
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--navy-900);
+  font-size: var(--fs-big);
+  font-weight: 700;
+  text-decoration: none;
+  border: 4px solid #e09a2a;
+  transition: transform var(--m-pop) var(--ease-spring);
+}
+.magic:active { transform: scale(0.95); }
+.magic:focus-visible { outline: var(--outline); outline-offset: 4px; }
+.magicArt { inline-size: 64px; }
+@media (prefers-reduced-motion: no-preference) {
+  .magic > :first-child { animation: twinkle 2.4s ease-in-out infinite; }
+}
+@keyframes twinkle { 0%, 100% { transform: rotate(-6deg) scale(1); } 50% { transform: rotate(8deg) scale(1.1); } }
+
+/* the books */
+.books {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  inline-size: min(100%, 980px);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(130px, 22vw, 190px), 1fr));
+  gap: clamp(16px, 3vmin, 28px);
+}
+.book { display: grid; gap: var(--s2); color: var(--text); text-decoration: none; }
+.book:focus-visible { outline: var(--outline); outline-offset: 4px; border-radius: 20px; }
+.cover {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px 22px 22px 10px; /* a book: the spine side is tighter */
+  border-inline-start: 10px solid var(--tone-spine);
+  background: var(--tone-cover);
+  overflow: hidden;
+  transition: transform var(--m-pop) var(--ease-spring);
+}
+.book:active .cover { transform: scale(0.96) rotate(-1deg); }
+@media (hover: hover) { .book:hover .cover { transform: translateY(-4px) rotate(-1.5deg); } }
+.cover[data-tone="0"] { --tone-cover: #efcff8; --tone-spine: #614194; }
+.cover[data-tone="1"] { --tone-cover: #ffe6ba; --tone-spine: #e09a2a; }
+.cover[data-tone="2"] { --tone-cover: #ffd8e6; --tone-spine: #c4557c; }
+.cover[data-tone="3"] { --tone-cover: #d4ecff; --tone-spine: #4f8fc4; }
+.coverImg { inline-size: 100%; block-size: 100%; object-fit: cover; }
+.coverEmblem { inline-size: 46%; }
+.newBadge {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--navy-900);
+  font-size: 15px;
+  font-weight: 700;
+}
+.bookTitle { font-size: var(--fs-word); font-weight: 700; line-height: 1.2; text-align: center; text-wrap: balance; }

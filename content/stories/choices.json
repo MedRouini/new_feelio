@@ -1,0 +1,183 @@
+{
+  "version": "0.1.0",
+  "reviewStatus": "draft_requires_expert_review",
+  "note": "Story building blocks (D-070). The 'describe' text is what the picture and story models see: vetted, brand-style, no humans. Free ideas from children are safety-checked and mapped to the same kind of short vetted description (safety/stories/ideas.ts).",
+  "slots": {
+    "hero": [
+      {
+        "id": "fox",
+        "en": "a brave fox",
+        "ar": "ثعلب شجاع",
+        "describe": "a small orange fox with a fluffy white-tipped tail and big kind eyes"
+      },
+      {
+        "id": "bear",
+        "en": "a gentle bear",
+        "ar": "دب لطيف",
+        "describe": "a round, cuddly brown bear cub with soft cheeks"
+      },
+      {
+        "id": "bunny",
+        "en": "a quick bunny",
+        "ar": "أرنب سريع",
+        "describe": "a little white bunny with long floppy ears and a pink nose"
+      },
+      {
+        "id": "owl",
+        "en": "a wise owl",
+        "ar": "بومة حكيمة",
+        "describe": "a small fluffy grey owl with big round amber eyes"
+      },
+      {
+        "id": "turtle",
+        "en": "a calm turtle",
+        "ar": "سلحفاة هادئة",
+        "describe": "a little green turtle with a shiny patterned shell"
+      },
+      {
+        "id": "dragon",
+        "en": "a tiny dragon",
+        "ar": "تنين صغير",
+        "describe": "a tiny friendly purple dragon with small round wings and no sharp teeth"
+      },
+      {
+        "id": "cat",
+        "en": "a curious cat",
+        "ar": "قطة فضولية",
+        "describe": "a small striped grey kitten with a curly tail"
+      },
+      {
+        "id": "penguin",
+        "en": "a cheerful penguin",
+        "ar": "بطريق مرح",
+        "describe": "a small round penguin with a sky-blue scarf"
+      }
+    ],
+    "place": [
+      {
+        "id": "forest",
+        "en": "a magic forest",
+        "ar": "غابة سحرية",
+        "describe": "a sunny forest with tall soft trees, mushrooms and glowing flowers"
+      },
+      {
+        "id": "beach",
+        "en": "a sunny beach",
+        "ar": "شاطئ مشمس",
+        "describe": "a sunny beach with gentle waves, shells and a striped umbrella"
+      },
+      {
+        "id": "space",
+        "en": "outer space",
+        "ar": "الفضاء",
+        "describe": "outer space with friendly planets, twinkling stars and a little rocket"
+      },
+      {
+        "id": "castle",
+        "en": "a cloud castle",
+        "ar": "قلعة الغيوم",
+        "describe": "a pastel castle floating on soft clouds"
+      },
+      {
+        "id": "garden",
+        "en": "a flower garden",
+        "ar": "حديقة الزهور",
+        "describe": "a colourful flower garden with a small pond and butterflies"
+      },
+      {
+        "id": "underwater",
+        "en": "under the sea",
+        "ar": "تحت البحر",
+        "describe": "a bright underwater reef with coral, bubbles and friendly fish"
+      }
+    ],
+    "feeling": [
+      {
+        "id": "happy",
+        "en": "happy",
+        "ar": "سعيد",
+        "describe": "happy"
+      },
+      {
+        "id": "sad",
+        "en": "sad",
+        "ar": "حزين",
+        "describe": "sad"
+      },
+      {
+        "id": "angry",
+        "en": "angry",
+        "ar": "غاضب",
+        "describe": "angry"
+      },
+      {
+        "id": "worried",
+        "en": "worried",
+        "ar": "قلق",
+        "describe": "worried"
+      },
+      {
+        "id": "jealous",
+        "en": "jealous",
+        "ar": "غيران",
+        "describe": "jealous"
+      },
+      {
+        "id": "proud",
+        "en": "proud",
+        "ar": "فخور",
+        "describe": "proud"
+      },
+      {
+        "id": "lonely",
+        "en": "lonely",
+        "ar": "وحيد",
+        "describe": "lonely"
+      },
+      {
+        "id": "excited",
+        "en": "excited",
+        "ar": "متحمس",
+        "describe": "excited"
+      }
+    ],
+    "adventure": [
+      {
+        "id": "lost_toy",
+        "en": "a lost toy",
+        "ar": "لعبة ضائعة",
+        "describe": "looking for a lost favourite toy"
+      },
+      {
+        "id": "new_friend",
+        "en": "a new friend",
+        "ar": "صديق جديد",
+        "describe": "meeting someone new and making a friend"
+      },
+      {
+        "id": "big_race",
+        "en": "a big race",
+        "ar": "سباق كبير",
+        "describe": "taking part in a big friendly race"
+      },
+      {
+        "id": "birthday",
+        "en": "a birthday party",
+        "ar": "حفلة عيد ميلاد",
+        "describe": "getting ready for a birthday party"
+      },
+      {
+        "id": "storm",
+        "en": "a stormy night",
+        "ar": "ليلة عاصفة",
+        "describe": "a noisy storm outside at night"
+      },
+      {
+        "id": "first_day",
+        "en": "a first day",
+        "ar": "اليوم الأول",
+        "describe": "a first day somewhere new"
+      }
+    ]
+  }
+}

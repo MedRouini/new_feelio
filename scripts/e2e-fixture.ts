@@ -21,6 +21,8 @@ type Opts = {
   /** Household time zone (default UTC) and allowed hours (default: all day, so tests pass at any hour). */
   timezone?: string;
   schedule?: { days: number[]; start: string; end: string }[];
+  /** Seed one finished story (the reviewed fallback text, stand-in pictures): no model, no credits. */
+  story?: boolean;
 };
 
 async function main() {
@@ -62,8 +64,30 @@ async function main() {
   if (o.usedSeconds) {
     await db.insert(s.usageLedger).values({ childId, householdId, day: new Date().toISOString().slice(0, 10), feature: "app", seconds: o.usedSeconds });
   }
+  let storyId: string | null = null;
+  if (o.story) {
+    const { fallbackStory } = await import("../safety/stories/write");
+    const { choice } = await import("../safety/stories/choices");
+    const f = fallbackStory(o.locale ?? "en");
+    const [row] = await db
+      .insert(s.story)
+      .values({
+        childId,
+        householdId,
+        locale: o.locale ?? "en",
+        ageBand: "7-9",
+        choices: { hero: choice("hero", "fox")!, place: choice("place", "forest")!, feeling: choice("feeling", "worried")!, adventure: choice("adventure", "lost_toy")! },
+        content: { title: f.title, heroLook: f.heroLook, pages: f.pages, question: f.question },
+        source: "fallback",
+        pictures: Array.from({ length: 5 }, () => ({ state: "fallback" as const })),
+        seed: 1,
+        versions: { fixture: "e2e" },
+      })
+      .returning({ id: s.story.id });
+    storyId = row.id;
+  }
   const { key } = await ops.createDeviceKey({ userId: res.user.id, householdId, childId, label: "e2e" });
-  process.stdout.write(JSON.stringify({ email, key, childId, locale: o.locale ?? "en" }));
+  process.stdout.write(JSON.stringify({ email, key, childId, storyId, locale: o.locale ?? "en" }));
 }
 
 main().catch((e) => {

@@ -30,7 +30,8 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 | Talk works only for adult testing | `child/voice.ts` (`not_approved` refusal) | ElevenLabs hasn't approved use by children (D-005); `VOICE_ADULT_TESTING=1` only while the owner tests | ElevenLabs approval |
 | Talk mascot poses: listening, thinking, speaking (3 mouth frames) | `design/asset-slots.ts` `TALK_MASCOT` | Not delivered; the screen falls back to approved poses (idle, happy) | When delivered |
 | Calm shows "coming soon" | `app/child/calm/page.tsx` (`TODO(PLACEHOLDER)`) | The calm corner (slow breathing with Feelio, static audio only) is not scheduled yet (D-055) | When you schedule it |
-| Stories shows "coming soon" | `app/child/stories/page.tsx` (`TODO(PLACEHOLDER)`) | The storybook generator is Milestone 6 | Milestone 6 |
+| Story art (book, shelf, choice pictures, extra feeling faces, `mascot_reading`) | `app/child/stories/art.ts`, `design/asset-ids.ts` | Optional Batch 4 art; until delivered the screens use words, brand shapes and approved poses (no grey boxes) | When delivered |
+| Arabic story narration | `safety/voice-lines/tts.ts` | No Arabic voice chosen yet (D-064); the button is hidden for Arabic stories | When an Arabic voice is chosen |
 | Levels say "This adventure is still being made" | `world/level/LevelPlayer.tsx` | No artifacts built yet; the catalog is empty (`world/artifacts/catalog.ts`) | Milestone 4 |
 | Developer test artifact (dev and test runs only) | `world/artifacts/dev/DevTestArtifact.tsx` | Lets the level flow run end to end before real artifacts exist. Never in production (unit-tested) | Removed or kept as a dev tool when Milestone 4 adds real artifacts |
 | Place-map stone positions are provisional | `content/worlds/base/world.json` (`map.<orientation>.provisional: true`; Home landscape measured 2026-10-11) | No place-map art to measure yet | When each place map is delivered |

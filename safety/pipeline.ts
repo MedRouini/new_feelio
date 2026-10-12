@@ -46,6 +46,8 @@ export type RespondOptions = {
   context?: CompanionContext;
   /** Client tools offered to the model (D-068), and the check each call must pass. */
   tools?: { defs: unknown[]; accept: (name: string, args: string) => ToolCall | null };
+  /** "story": the story workshop's guide prompt (D-070). */
+  mode?: "talk" | "story";
 };
 
 /** Steer notes that matter enough to restart generation when only T1 found them. */
@@ -191,7 +193,7 @@ export async function* respond(ctx: SafetyCtx, messages: Message[], opts: Respon
   let toolsOff = false;
   for (let attempt = 0; attempt < 3; attempt++) {
     const ctl = new AbortController();
-    const sys = systemPrompt({ ageBand: ctx.ageBand, locale: ctx.locale, feature: ctx.feature, steer: notes, place: ctx.placeId, context: opts.context, tools: Boolean(opts.tools) });
+    const sys = systemPrompt({ ageBand: ctx.ageBand, locale: ctx.locale, feature: ctx.feature, steer: notes, place: ctx.placeId, context: opts.context, tools: Boolean(opts.tools), mode: opts.mode });
     if (!toolsOff) calls.length = 0;
     const hooks = opts.tools && !toolsOff ? { tools: opts.tools.defs, onToolCall: (name: string, args: string) => void calls.push({ name, args }) } : undefined;
     const stream = opts.generate([{ role: "system", content: sys }, ...history], ctl.signal, hooks);

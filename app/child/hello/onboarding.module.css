@@ -208,6 +208,8 @@
   border: 0;
   padding: 0;
   background: none;
+  color: var(--text);
+  font: inherit; /* the brand font, not the browser's button font */
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }

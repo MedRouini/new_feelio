@@ -1,16 +1,17 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, ShieldCheck, SlidersHorizontal, TabletSmartphone } from "lucide-react";
+import { BookOpen, LayoutDashboard, ShieldCheck, SlidersHorizontal, TabletSmartphone } from "lucide-react";
 import styles from "../../parent.module.css";
 
-/** A child's four areas, so nothing is crammed onto one page (D-067). */
-export function ChildTabs({ childId, labels }: { childId: string; labels: { overview: string; controls: string; safety: string; devices: string; nav: string } }) {
+/** A child's areas, so nothing is crammed onto one page (D-067; Stories added by D-070). */
+export function ChildTabs({ childId, labels }: { childId: string; labels: { overview: string; controls: string; stories: string; safety: string; devices: string; nav: string } }) {
   const path = (usePathname() ?? "").replace(/^\/parent(?=\/|$)/, "");
   const base = `/children/${childId}`;
   const tabs = [
     { key: "overview", href: base, label: labels.overview, Icon: LayoutDashboard },
     { key: "controls", href: `${base}/settings`, label: labels.controls, Icon: SlidersHorizontal },
+    { key: "stories", href: `${base}/stories`, label: labels.stories, Icon: BookOpen },
     { key: "safety", href: `${base}/safety`, label: labels.safety, Icon: ShieldCheck },
     { key: "devices", href: `${base}/devices`, label: labels.devices, Icon: TabletSmartphone },
   ];

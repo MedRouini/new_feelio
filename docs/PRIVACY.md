@@ -32,7 +32,10 @@
 | Voice conversations at ElevenLabs (transcript while the call runs) | Speech to text and text to speech | ElevenLabs | Audio not recorded (`record_voice: false`, `delete_audio: true`); `retention_days: 0` (D-068). A data-processing agreement is needed before real children use it | Agent settings in `safety/voice-agent/sync.ts` |
 | Household time zone and allowed hours | Enforcing the parent's daily limit and hours on the family's own clock | Neon | With the account | Cascades |
 | *Planned (M5)*: voice audio and transcripts | Live conversation | Processed by ElevenLabs; **not stored by Feelio** | ElevenLabs minimal retention (configured per agent) | Provider deletion API where available |
-| *Planned (M6)*: stories and generated images | The child's stories | Neon + blob storage (to be chosen) | 90 days (*proposed*) | Delete with the story or profile |
+| Stories (the 4 vetted choices as short labels, the checked story text, picture states, provenance; never the child's own words) | The child's bookshelf; the parent's Stories tab | Neon | **Until a parent deletes it** (owner decision 2026-10-11, D-070) | Parent dashboard → child → Stories → Delete; cascades with the profile and the account |
+| Story pictures and narration audio | The storybook | Private Vercel Blob store (`.data/` in local development) | With the story | Deleted with the story, the profile or the account (`child/stories.ts`) |
+| Story workshop slots (`story_draft`) | Making the next story | Neon | Until the story is made (then cleared) | Cascades with the profile |
+| Picture prompts sent to the image provider (Together → the model's maker, third-party data sharing ON since 2026-10-11) | Drawing the pictures | Together / Black Forest Labs | Provider's terms | Vetted descriptions only: no child words, voice, name or identifier ever reach them (SR-19) |
 
 **Cookies.** Parent session cookie: host-only on the dashboard host, httpOnly, Secure in production. Child device key: httpOnly, host-only on the child host, 30 days. Language: a non-secret preference cookie. No analytics, advertising or third-party cookies.
 

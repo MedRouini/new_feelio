@@ -4,6 +4,9 @@ import ar from "@/messages/ar.json";
 import en from "@/messages/en.json";
 import { proxyTurn } from "@/child/voice";
 import { env } from "@/platform/env";
+import { setDraftChoice, setDraftListChoice } from "@/child/stories";
+import { namedChoices, type Slot } from "@/safety/stories/choices";
+import { mapIdea } from "@/safety/stories/ideas";
 import { companionTurn, conversationOf } from "@/safety/voice";
 import type { ToolCall } from "@/safety/voice-agent/tools";
 import type { SafetyCtx } from "@/safety/types";
@@ -96,10 +99,11 @@ export async function POST(request: NextRequest) {
               outputCheck: turn.session.adultTest ? "gated" : "strict",
               countAs: turn.session.adultTest ? "test" : undefined,
               context: turn.context,
-              tools: true,
+              tools: turn.session.purpose === "story" ? "story" : "talk",
             }
           : { countAs: "test" });
         const tools: ToolCall[] = [];
+        const serverCalls: Extract<ToolCall, { name: "set_story_choice" | "story_idea" }>[] = [];
         for await (const ev of events) {
           if (ev.type === "say") send(chunk({ content: ev.text + " " }));
           // Crisis: the router (never the model) shows who can help, and calms the mascot.
@@ -108,10 +112,37 @@ export async function POST(request: NextRequest) {
             tools.push({ name: "set_mascot_state", args: { mood: ev.mascot === "empathy" ? "empathy" : "calm" } });
           }
           // A place suggestion only for a place this child can reach (the server's world state).
-          if (ev.type === "tool" && !(ev.call.name === "suggest_place" && turn.ok && !turn.context.placesOpen?.includes(ev.call.args.place))) tools.push(ev.call);
+          if (ev.type === "tool" && (ev.call.name === "set_story_choice" || ev.call.name === "story_idea")) serverCalls.push(ev.call);
+          else if (ev.type === "tool" && !(ev.call.name === "suggest_place" && turn.ok && !turn.context.placesOpen?.includes(ev.call.args.place))) tools.push(ev.call);
           if (ev.type === "end") {
             const t = ev.timings;
             send(`: feelio ${ev.reason} t0=${t.t0Ms.toFixed(0)} t1=${t.t1Ms?.toFixed(0)} first_token=${t.firstTokenMs?.toFixed(0)} first_release=${t.firstReleaseMs?.toFixed(0)} total=${t.totalMs.toFixed(0)}\n\n`);
+          }
+        }
+        // Story workshop (D-070): the server fills the slot (a free idea is checked first), then tells the
+        // screen. A declined idea gets a fixed, kind line: the child picks from the pictures instead.
+        if (turn.ok && turn.session.purpose === "story") {
+          // Safety net: a list choice the child clearly named, for a slot the model didn't fill this turn
+          // (ids from our lists only). Ideas (free words) always go through story_idea and its checks.
+          const named = namedChoices(messages[messages.length - 1].content);
+          const called = new Set(serverCalls.map((c) => c.args.slot));
+          for (const [slot, id] of Object.entries(named) as [Slot, string][]) {
+            if (!called.has(slot)) serverCalls.push({ name: "set_story_choice", args: { slot, id } });
+          }
+          for (const c of serverCalls) {
+            if (c.name === "set_story_choice") {
+              const draft = await setDraftListChoice(turn.session.childId, c.args.slot, c.args.id);
+              const ch = draft?.[c.args.slot];
+              if (ch) tools.push({ name: "show_story_choice", args: { slot: c.args.slot, id: ch.id, en: ch.en, ar: ch.ar } });
+            } else if (c.name === "story_idea") {
+              const r = await mapIdea(ctx, c.args.slot, c.args.idea);
+              if (r.ok) {
+                await setDraftChoice(turn.session.childId, c.args.slot, r.choice);
+                tools.push({ name: "show_story_choice", args: { slot: c.args.slot, id: r.choice.id, en: r.choice.en, ar: r.choice.ar } });
+              } else {
+                send(chunk({ content: LINES[locale].ideaDeclined + " " }));
+              }
+            }
           }
         }
         for (const c of tools) send(toolChunk(c.name, c.args));

@@ -1126,6 +1126,71 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a small bouquet of flowers tied with a ribbon. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
+## Batch 4 (stories: workshop, bookshelf, storybook), written 2026-10-11 (D-070, docs/STORIES.md)
+Everything here is optional: the story screens already work with approved art and words; each file
+replaces a stand-in the moment it is approved (no code change). Priority: Group 1, then 2, then 3.
+
+### Group 1: the book and the shelf (one chat; upload `dock_stories` (approved) for the style)
+| Save as | Shape | What to draw (paste into the prompt below as THING) |
+|---|---|---|
+| `assets/approved/ui/story_book_open.png` | 1536x1024 landscape | an open hardcover storybook seen straight from the front, two blank cream pages, a soft purple (#614194) cover edge around them, a gentle fold at the spine |
+| `assets/approved/ui/story_page_paper.png` | 1024x1536 portrait | a single blank cream storybook page with soft deckled edges, slightly curled bottom corner |
+| `assets/approved/ui/story_book_cover.png` | 1024x1536 portrait | a closed hardcover book, front view, soft purple cover with a small gold heart emblem at the top and an EMPTY area in the middle |
+| `assets/approved/ui/story_shelf.png` | 1536x1024 landscape | a cosy rounded wooden bookshelf with two EMPTY shelves, warm honey wood, a small potted plant on top |
+| `assets/approved/ui/ui_story_slot.png` | 1024x1024 square | an empty round medallion frame with a soft gold rim and a cream inside, like a badge waiting for a picture |
+| `assets/approved/ui/ui_story_wand.png` | 1024x1024 square | a friendly magic wand with a soft amber star on top and three tiny sparkles |
+| `assets/approved/mascot/mascot_reading.png` | 1024x1024 square | (mascot chat, upload the OFFICIAL MASCOT) the mascot holding an open storybook with both arm-flaps, looking up happily |
+
+Prompt (Group 1, except the mascot):
+> Create an image. Transparent background PNG (plain white if transparency fails), in the size and shape given. I attached an approved game icon; match its style, outline and glossy finish. A single object: THING. Centred, filling about 85% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.
+
+Prompt (mascot_reading): use the standard mascot prompt in docs/MASCOT.md with POSE "holding an open storybook in front of its belly with both arm-flaps" and FACE "happy, sparkly eyes looking up, small open smile".
+
+### Group 2: the story corner scene (one chat; upload `scene_meadow_land` (approved))
+| Save as | Shape |
+|---|---|
+| `assets/approved/world/scene_story_corner_land.png` | 1536x1024 landscape |
+| `assets/approved/world/scene_story_corner_port.png` | 1024x1536 portrait |
+
+> Create an image. Opaque, in the size and shape given. I attached our approved meadow scene: match its art style, colours, light and level of detail exactly. A cosy reading corner in the same meadow: a big soft tree with a round reading nook at its foot, two plump cushions, a little lantern and a few books with blank covers, open grassy space in front for characters. Calm and warm. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.
+
+### Group 3: story choices (one chat per row group; upload `like_animals` (approved) each time, so they match the "What do you like?" pictures)
+Prompt (paste THING from the table):
+> Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish exactly. A single chunky icon picture: THING. Bold, simple, big shapes, easy to recognise at 96 px. Centred, filling about 80% of the frame, no tile behind it, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.
+
+| Save as (`assets/approved/ui/`) | THING |
+|---|---|
+| `story_hero_fox.png` | a small orange fox with a fluffy white-tipped tail, standing proudly |
+| `story_hero_bear.png` | a round, cuddly brown bear cub waving |
+| `story_hero_bunny.png` | a little white bunny with long floppy ears, mid-hop |
+| `story_hero_owl.png` | a small fluffy grey owl with big round amber eyes |
+| `story_hero_turtle.png` | a little green turtle with a shiny patterned shell |
+| `story_hero_dragon.png` | a tiny friendly purple dragon with small round wings, no sharp teeth |
+| `story_hero_cat.png` | a small striped grey kitten with a curly tail |
+| `story_hero_penguin.png` | a small round penguin with a sky-blue scarf |
+| `story_place_forest.png` | three soft round trees with a glowing flower and a mushroom |
+| `story_place_beach.png` | a striped beach umbrella on sand with a gentle wave and a shell |
+| `story_place_space.png` | a ringed planet, a little rocket and two stars |
+| `story_place_castle.png` | a small pastel castle floating on a soft cloud |
+| `story_place_garden.png` | a flower bed with a tiny pond and a butterfly |
+| `story_place_underwater.png` | coral, bubbles and a small friendly fish |
+| `story_adv_lost_toy.png` | a soft teddy bear peeking out from behind a big green leaf |
+| `story_adv_new_friend.png` | two different little animals waving hello to each other |
+| `story_adv_big_race.png` | a small finish ribbon stretched between two little flags |
+| `story_adv_birthday.png` | a small cake with one candle, two balloons and a wrapped present |
+| `story_adv_storm.png` | a cosy little house window with rain and a soft lightning cloud outside, warm light inside |
+| `story_adv_first_day.png` | a small backpack next to an open door with sunshine coming in |
+
+### Group 4: four more feeling faces (one chat; upload the brand face `face_happy` and `face_sad`)
+> Create an image. Square 1:1, transparent background. I attached two official brand feeling faces; keep exactly their design (the dark blue rounded screen-face shape, outline, sparkle eyes, pink cheeks, glossy finish). Change only the expression to FEELING. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.
+
+| Save as (`brand/feelings-expressions/png/`) | FEELING |
+|---|---|
+| `face_worried.png` | worried: eyebrows raised in the middle, small wobbly mouth |
+| `face_proud.png` | proud: eyes happily closed, big confident smile |
+| `face_lonely.png` | lonely: eyes looking down to the side, small sad mouth |
+| `face_jealous.png` | jealous: eyes looking sideways, small pout |
+
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|

@@ -53,6 +53,8 @@ export async function chatJson<T>(opts: {
   maxTokens: number;
   timeoutMs: number;
   signal?: AbortSignal;
+  /** 0 by default (classification); a little more for creative writing. */
+  temperature?: number;
 }): Promise<{ value: T; usage: Usage | null }> {
   const { signal, done } = withTimeout(opts.timeoutMs, opts.signal);
   try {
@@ -61,7 +63,7 @@ export async function chatJson<T>(opts: {
         model: opts.model,
         messages: opts.messages,
         max_tokens: opts.maxTokens,
-        temperature: 0,
+        temperature: opts.temperature ?? 0,
         reasoning: { enabled: false },
         response_format: { type: "json_schema", json_schema: { name: "verdict", strict: true, schema: opts.schema } },
       },
@@ -142,6 +144,90 @@ export async function* chatStream(opts: {
       }
     }
     flushCalls();
+  } finally {
+    done();
+  }
+}
+
+/**
+ * One picture (Together Images API, checked 2026-10-11: POST /v1/images/generations; FLUX.2 takes
+ * `reference_images` as URLs; the NSFW checker is on unless disabled, and a block returns HTTP 422).
+ * Returns a short-lived URL to the picture (usable as a reference for the next ones) and its bytes.
+ */
+export async function generateImage(opts: {
+  model: string;
+  prompt: string;
+  width: number;
+  height: number;
+  steps?: number;
+  seed?: number;
+  referenceImages?: string[];
+  timeoutMs: number;
+}): Promise<{ url: string; bytes: Buffer; contentType: string } | { blocked: true }> {
+  const { signal, done } = withTimeout(opts.timeoutMs);
+  try {
+    const res = await fetch(`${BASE}/images/generations`, {
+      method: "POST",
+      headers: { authorization: `Bearer ${key()}`, "content-type": "application/json" },
+      body: JSON.stringify({
+        model: opts.model,
+        prompt: opts.prompt,
+        width: opts.width,
+        height: opts.height,
+        n: 1,
+        response_format: "url",
+        output_format: "jpeg",
+        ...(opts.steps ? { steps: opts.steps } : {}),
+        ...(opts.seed !== undefined ? { seed: opts.seed } : {}),
+        ...(opts.referenceImages?.length ? { reference_images: opts.referenceImages } : {}),
+        // The provider's own NSFW checker stays on (SR-13: ours runs as well).
+        disable_safety_checker: false,
+      }),
+      signal,
+    });
+    if (res.status === 422) return { blocked: true };
+    if (!res.ok) throw new ProviderError(`Together images returned ${res.status}`, res.status);
+    const data = (await res.json()) as { data?: { url?: string }[] };
+    const url = data.data?.[0]?.url;
+    if (!url) throw new ProviderError("no image");
+    const img = await fetch(url, { signal });
+    if (!img.ok) throw new ProviderError(`image download returned ${img.status}`, img.status);
+    return { url, bytes: Buffer.from(await img.arrayBuffer()), contentType: img.headers.get("content-type") ?? "image/jpeg" };
+  } finally {
+    done();
+  }
+}
+
+/** One structured answer from a vision model about one picture (the picture safety check). */
+export async function visionJson<T>(opts: {
+  model: string;
+  system: string;
+  question: string;
+  imageUrl: string;
+  schema: Record<string, unknown>;
+  maxTokens: number;
+  timeoutMs: number;
+}): Promise<T> {
+  const { signal, done } = withTimeout(opts.timeoutMs);
+  try {
+    const res = await post(
+      {
+        model: opts.model,
+        messages: [
+          { role: "system", content: opts.system },
+          { role: "user", content: [{ type: "text", text: opts.question }, { type: "image_url", image_url: { url: opts.imageUrl } }] },
+        ],
+        max_tokens: opts.maxTokens,
+        temperature: 0,
+        reasoning: { enabled: false },
+        response_format: { type: "json_schema", json_schema: { name: "verdict", strict: true, schema: opts.schema } },
+      },
+      signal,
+    );
+    const data = await res.json();
+    const text: string | undefined = data?.choices?.[0]?.message?.content;
+    if (!text) throw new ProviderError("empty response");
+    return JSON.parse(text) as T;
   } finally {
     done();
   }

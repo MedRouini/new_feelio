@@ -1,4 +1,5 @@
 import "server-only";
+import { deleteChildStoryFiles } from "@/child/stories";
 import { and, eq, inArray } from "drizzle-orm";
 import { auth } from "@/auth/server";
 import { CHILD_DEVICE_CONFIG_ID, CHILD_PERMISSIONS } from "@/auth/constants";
@@ -131,6 +132,8 @@ export async function deleteChild(p: { userId: string; householdId: string; chil
   if (!(await getChildInHousehold(p.householdId, p.childId))) throw new Error("Child not found in household");
   const keyIds = (await listDevices(p)).filter((d) => d.meta.childId === p.childId).map((d) => d.id);
   if (keyIds.length) await db.delete(apikey).where(inArray(apikey.id, keyIds));
+  // Story pictures and narration live in private storage, outside the database cascade (D-070).
+  await deleteChildStoryFiles(p.childId);
   await db.batch([
     db.delete(childProfile).where(and(eq(childProfile.id, p.childId), eq(childProfile.householdId, p.householdId))),
     db.insert(auditLog).values({ householdId: p.householdId, userId: p.userId, action: "child.deleted", detail: { childId: p.childId } }),
@@ -142,6 +145,12 @@ export async function deleteChild(p: { userId: string; householdId: string; chil
  * cascades to sessions, household, consent, children, settings, progress, usage and audit log.
  */
 export async function deleteAccount(userId: string) {
+  const kids = await db
+    .select({ id: childProfile.id })
+    .from(childProfile)
+    .innerJoin(household, eq(household.id, childProfile.householdId))
+    .where(eq(household.ownerUserId, userId));
+  for (const k of kids) await deleteChildStoryFiles(k.id);
   await db.batch([db.delete(apikey).where(eq(apikey.referenceId, userId)), db.delete(user).where(eq(user.id, userId))]);
 }
 

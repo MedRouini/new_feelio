@@ -37,3 +37,6 @@ design/audio-index.generated.json
 
 # Delivered art that needs a redo (never shipped; see docs/ASSET_REQUESTS.md)
 assets/redo/
+
+# Local development storage when no Vercel Blob token is set (platform/storage.ts)
+.data/

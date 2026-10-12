@@ -1,0 +1,73 @@
+{
+  "version": "0.1.0",
+  "reviewStatus": "draft_requires_expert_review",
+  "note": "Shown only when a generated story can't be made safe and complete twice in a row (D-070). Pictures for it come from the same picture pipeline using these scenes.",
+  "en": {
+    "title": "Little Fox and the Brave Breath",
+    "heroLook": "a small orange fox with a fluffy white-tipped tail, big kind eyes and soft round ears",
+    "pages": [
+      {
+        "text": "Little Fox lived at the edge of a sunny forest. Every morning she said hello to the flowers.",
+        "scene": "a small orange fox waving at bright flowers at the edge of a sunny forest",
+        "feelio": "happy"
+      },
+      {
+        "text": "One day her favourite ball rolled away. Little Fox felt worried. Her tummy felt tight.",
+        "scene": "a small orange fox looking worried as a red ball rolls away between tall trees",
+        "feelio": "empathy"
+      },
+      {
+        "text": "Little Fox stopped. She took a slow, deep breath in, and a long breath out. Then she asked her friend Owl to help.",
+        "scene": "a small orange fox breathing calmly with eyes closed beside a fluffy grey owl on a branch",
+        "feelio": "calm"
+      },
+      {
+        "text": "Together they found the ball under a big leaf. It is okay to feel worried. Asking for help can make it smaller.",
+        "scene": "a happy orange fox and a grey owl finding a red ball under a big green leaf",
+        "feelio": "happy"
+      }
+    ],
+    "question": {
+      "text": "What helped Little Fox when she felt worried?",
+      "answers": [
+        "A slow, deep breath",
+        "Asking a friend",
+        "Looking together"
+      ]
+    }
+  },
+  "ar": {
+    "title": "الثعلبة الصغيرة والنفس الشجاع",
+    "heroLook": "a small orange fox with a fluffy white-tipped tail, big kind eyes and soft round ears",
+    "pages": [
+      {
+        "text": "عاشت الثعلبة الصغيرة على طرف غابة مشمسة. وكل صباح كانت تحيّي الزهور.",
+        "scene": "a small orange fox waving at bright flowers at the edge of a sunny forest",
+        "feelio": "happy"
+      },
+      {
+        "text": "في أحد الأيام تدحرجت كرتها المفضلة بعيدًا. شعرت الثعلبة الصغيرة بالقلق، وشعرت بضيق في بطنها.",
+        "scene": "a small orange fox looking worried as a red ball rolls away between tall trees",
+        "feelio": "empathy"
+      },
+      {
+        "text": "توقفت الثعلبة الصغيرة. أخذت نفسًا عميقًا وبطيئًا، ثم أخرجته طويلًا. ثم طلبت من صديقتها البومة أن تساعدها.",
+        "scene": "a small orange fox breathing calmly with eyes closed beside a fluffy grey owl on a branch",
+        "feelio": "calm"
+      },
+      {
+        "text": "وجدتا الكرة معًا تحت ورقة كبيرة. لا بأس أن نشعر بالقلق، وطلب المساعدة يجعله أصغر.",
+        "scene": "a happy orange fox and a grey owl finding a red ball under a big green leaf",
+        "feelio": "happy"
+      }
+    ],
+    "question": {
+      "text": "ما الذي ساعد الثعلبة الصغيرة عندما شعرت بالقلق؟",
+      "answers": [
+        "نفس عميق وبطيء",
+        "طلب المساعدة من صديقة",
+        "البحث معًا"
+      ]
+    }
+  }
+}

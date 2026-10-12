@@ -31,7 +31,7 @@ export default async function ChildLayout({ children, params }: { children: Reac
           </span>
         </div>
       </header>
-      <ChildTabs childId={id} labels={{ overview: t("tabOverview"), controls: t("tabControls"), safety: t("tabSafety"), devices: t("tabDevices"), nav: t("tabsLabel") }} />
+      <ChildTabs childId={id} labels={{ overview: t("tabOverview"), controls: t("tabControls"), stories: t("tabStories"), safety: t("tabSafety"), devices: t("tabDevices"), nav: t("tabsLabel") }} />
       <div className={styles.content}>{children}</div>
     </div>
   );

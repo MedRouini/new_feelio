@@ -26,7 +26,7 @@ const TTS_MODEL = "eleven_turbo_v2";
 const FIRST_MESSAGE = "Hi, I'm Feelio! I'm an AI friend, not a person. How are you feeling today?";
 /** Backstop only: our own per-session limit (the session gate) is shorter and ends the call first. */
 const MAX_DURATION_S = 300;
-const CLIENT_TOOLS: ToolName[] = [...MODEL_TOOLS, "show_safety_resources"];
+const CLIENT_TOOLS: ToolName[] = [...MODEL_TOOLS, "show_safety_resources", "show_story_choice"];
 
 function loadEnv() {
   if (!existsSync(".env")) return;

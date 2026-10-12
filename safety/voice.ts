@@ -6,7 +6,7 @@ import { respond, type Generate, type Message, type TurnEvent } from "./pipeline
 import type { CompanionContext } from "./prompts";
 import { chatStream } from "./providers/together";
 import type { SafetyCtx } from "./types";
-import { modelTools, parseToolCall } from "./voice-agent/tools";
+import { MODEL_TOOLS, STORY_MODEL_TOOLS, modelTools, parseToolCall } from "./voice-agent/tools";
 
 // One companion turn for voice or text, wired to the configured classifier and model (D-003, D-018).
 // Routes call this; they never import a provider (CLAUDE.md rule 1).
@@ -44,8 +44,8 @@ export async function* companionTurn(
     /** Record statistics under another feature (adult tests: "test"). */
     countAs?: SafetyCtx["feature"];
     context?: CompanionContext;
-    /** Offer the screen-only client tools to the model (voice, D-068). */
-    tools?: boolean;
+    /** Offer tools to the model: the talk's screen tools (D-068) or the story workshop's (D-070). */
+    tools?: "talk" | "story";
   } = {},
 ): AsyncGenerator<TurnEvent> {
   const classifier = await configuredClassifier();
@@ -54,7 +54,13 @@ export async function* companionTurn(
     generate: together(ctx.feature === "voice" ? "voice" : "text"),
     outputCheck: opts.outputCheck,
     context: opts.context,
-    tools: opts.tools ? { defs: modelTools(), accept: (name, args) => parseToolCall(name, args) } : undefined,
+    mode: opts.tools === "story" ? "story" : "talk",
+    tools: opts.tools
+      ? {
+          defs: modelTools(opts.tools === "story" ? STORY_MODEL_TOOLS : MODEL_TOOLS),
+          accept: (name, args) => parseToolCall(name, args, opts.tools === "story" ? STORY_MODEL_TOOLS : MODEL_TOOLS),
+        }
+      : undefined,
     record: (c, decision, phase) => recordDecision(opts.countAs ? { ...c, feature: opts.countAs } : c, decision, phase),
   });
 }

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { WORLD_PLACE_IDS } from "@/design/asset-ids";
+import { CHOICE_IDS } from "../stories/choices";
 
 // The voice companion's client tools (ARCHITECTURE §4.2, MASCOT.md, D-068): the one contract shared by
 // the agent sync script (what ElevenLabs knows), the safety proxy (what it may emit) and the Talk screen
@@ -16,6 +17,19 @@ export const TOOL_ARGS = {
   start_breathing: z.strictObject({ rounds: z.number().int().min(1).max(3) }),
   suggest_place: z.strictObject({ place: z.enum(WORLD_PLACE_IDS) }),
   show_safety_resources: z.strictObject({ kinds: z.array(z.enum(RESOURCE_KINDS)).min(1).max(RESOURCE_KINDS.length) }),
+  /** Story workshop, server tools (D-070): handled by our proxy, never sent to the app. */
+  set_story_choice: z.strictObject({
+    slot: z.enum(["hero", "place", "feeling", "adventure"]),
+    id: z.enum([...CHOICE_IDS.hero, ...CHOICE_IDS.place, ...CHOICE_IDS.feeling, ...CHOICE_IDS.adventure] as [string, ...string[]]),
+  }),
+  story_idea: z.strictObject({ slot: z.enum(["hero", "place", "adventure"]), idea: z.string().min(1).max(160) }),
+  /** Story workshop (D-070): the server filled a slot (list choice or checked idea); the screen shows it. */
+  show_story_choice: z.strictObject({
+    slot: z.enum(["hero", "place", "feeling", "adventure"]),
+    id: z.string().regex(/^(idea:[0-9a-f]{12}|[a-z_]{2,24})$/),
+    en: z.string().min(1).max(60),
+    ar: z.string().min(1).max(60),
+  }),
 } as const;
 
 export type ToolName = keyof typeof TOOL_ARGS;
@@ -23,6 +37,10 @@ export type ToolCall = { [K in ToolName]: { name: K; args: z.infer<(typeof TOOL_
 
 /** Tools the model may choose. `show_safety_resources` is never offered: only the router emits it (crisis). */
 export const MODEL_TOOLS = ["set_mascot_state", "show_feeling_card", "start_breathing", "suggest_place"] as const satisfies readonly ToolName[];
+/** In the story workshop: the mood, and the two server tools that fill the story's slots. */
+export const STORY_MODEL_TOOLS = ["set_mascot_state", "set_story_choice", "story_idea"] as const satisfies readonly ToolName[];
+/** Tools the proxy handles itself (never forwarded to ElevenLabs or the app). */
+export const SERVER_TOOLS = ["set_story_choice", "story_idea"] as const satisfies readonly ToolName[];
 
 type JsonSchema = { type: "object"; properties: Record<string, unknown>; required: string[] };
 
@@ -59,6 +77,41 @@ export const TOOL_DEFS: Record<ToolName, { description: string; parameters: Json
       required: ["place"],
     },
   },
+  set_story_choice: {
+    description: "Saves the child's choice for one part of the story, from the lists you were given (use the exact id).",
+    parameters: {
+      type: "object",
+      properties: {
+        slot: { type: "string", enum: ["hero", "place", "feeling", "adventure"], description: "Which part of the story." },
+        id: { type: "string", enum: [...CHOICE_IDS.hero, ...CHOICE_IDS.place, ...CHOICE_IDS.feeling, ...CHOICE_IDS.adventure], description: "The id of the chosen item from that part's list." },
+      },
+      required: ["slot", "id"],
+    },
+  },
+  story_idea: {
+    description: "The child said their own idea for the hero, the place or the adventure (not in the lists). Pass the idea in a few words; it will be checked and made into a story ingredient.",
+    parameters: {
+      type: "object",
+      properties: {
+        slot: { type: "string", enum: ["hero", "place", "adventure"], description: "Which part of the story." },
+        idea: { type: "string", description: "The child's idea, in a few words." },
+      },
+      required: ["slot", "idea"],
+    },
+  },
+  show_story_choice: {
+    description: "Shows a story choice in its slot on the child's screen. Only the server uses this (story workshop).",
+    parameters: {
+      type: "object",
+      properties: {
+        slot: { type: "string", enum: ["hero", "place", "feeling", "adventure"], description: "Which slot." },
+        id: { type: "string", description: "The choice id." },
+        en: { type: "string", description: "English label." },
+        ar: { type: "string", description: "Arabic label." },
+      },
+      required: ["slot", "id", "en", "ar"],
+    },
+  },
   show_safety_resources: {
     description: "Shows the child who can help them (trusted grown-ups, emergency help). Only the safety layer uses this.",
     parameters: {
@@ -69,9 +122,9 @@ export const TOOL_DEFS: Record<ToolName, { description: string; parameters: Json
   },
 };
 
-/** OpenAI-style function tools for the model (only MODEL_TOOLS). */
-export function modelTools() {
-  return MODEL_TOOLS.map((name) => ({ type: "function" as const, function: { name, description: TOOL_DEFS[name].description, parameters: TOOL_DEFS[name].parameters } }));
+/** OpenAI-style function tools for the model (the talk tools, or the story workshop's). */
+export function modelTools(names: readonly ToolName[] = MODEL_TOOLS) {
+  return names.map((name) => ({ type: "function" as const, function: { name, description: TOOL_DEFS[name].description, parameters: TOOL_DEFS[name].parameters } }));
 }
 
 /** Validates one tool call by name and JSON (or object) arguments; null when it isn't allowed. */

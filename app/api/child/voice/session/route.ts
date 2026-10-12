@@ -8,7 +8,7 @@ import { WORLD_PLACE_IDS } from "@/design/asset-ids";
 // Child scope: the voice session gate (ARCHITECTURE §4.1, D-068). Every check runs on the server
 // (child/voice.ts). The client sends only ids; it never chooses its age band, locale or time.
 const body = z.discriminatedUnion("action", [
-  z.strictObject({ action: z.literal("start"), placeId: z.enum(WORLD_PLACE_IDS).optional() }),
+  z.strictObject({ action: z.literal("start"), placeId: z.enum(WORLD_PLACE_IDS).optional(), purpose: z.enum(["talk", "story"]).optional() }),
   z.strictObject({ action: z.literal("bind"), sessionId: z.uuid(), conversationId: z.string().regex(/^[A-Za-z0-9_-]{4,128}$/) }),
   z.strictObject({ action: z.literal("end"), sessionId: z.uuid() }),
 ]);
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
   const b = parsed.data;
 
   if (b.action === "start") {
-    const r = await startVoiceSession(child, { placeId: b.placeId });
+    const r = await startVoiceSession(child, { placeId: b.placeId, purpose: b.purpose });
     if (!r.ok) return NextResponse.json({ error: r.reason }, { status: STATUS[r.reason] });
     return NextResponse.json(r, { headers: { "cache-control": "no-store" } });
   }

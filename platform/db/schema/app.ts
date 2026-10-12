@@ -200,10 +200,75 @@ export const voiceSession = pgTable(
     allowedSeconds: integer("allowed_seconds").notNull(),
     /** Adult testing only (D-005, D-068): relaxed output checks; never for a real child. */
     adultTest: boolean("adult_test").notNull().default(false),
+    /** What the talk is for: free talk, or making a story with Feelio (D-070). */
+    purpose: text("purpose", { enum: ["talk", "story"] }).notNull().default("talk"),
     startedAt: timestamp("started_at", { withTimezone: true }).notNull().defaultNow(),
     endedAt: timestamp("ended_at", { withTimezone: true }),
   },
   (t) => [uniqueIndex("voice_session_conversation_idx").on(t.conversationId), index("voice_session_child_idx").on(t.childId, t.startedAt)],
+);
+
+// Stories (SPEC §5.2, D-070). The four vetted choices (list ids or checked ideas: short safe labels
+// and descriptions, never the child's own words), the checked text, and where each picture is. Kept
+// until a parent deletes the story or the profile (owner decision 2026-10-11); pictures and narration
+// live in private storage under stories/<childId>/<storyId>/ and are deleted with the row.
+export type StoryChoices = Record<"hero" | "place" | "feeling" | "adventure", { id: string; en: string; ar: string; describe: string }>;
+export type StoryContent = {
+  title: string;
+  heroLook: string;
+  pages: { text: string; scene: string; feelio: string }[];
+  question: { text: string; answers: string[] };
+};
+/** Picture n (0 = cover, 1..4 = pages): its state, and the provider URL of the cover for consistency. */
+export type StoryPicture = { state: "waiting" | "drawing" | "ready" | "fallback"; at?: string };
+export const story = pgTable(
+  "story",
+  {
+    id: id(),
+    childId: text("child_id")
+      .notNull()
+      .references(() => childProfile.id, { onDelete: "cascade" }),
+    householdId: text("household_id").notNull(),
+    locale: locale("locale").notNull(),
+    ageBand: ageBand("age_band").notNull(),
+    choices: jsonb("choices").$type<StoryChoices>().notNull(),
+    content: jsonb("content").$type<StoryContent>().notNull(),
+    /** "model" or "fallback" (the reviewed story). */
+    source: text("source").notNull(),
+    pictures: jsonb("pictures").$type<StoryPicture[]>().notNull(),
+    /** The cover's short-lived provider URL, the style reference for the pages (no child data). */
+    referenceUrl: text("reference_url"),
+    seed: integer("seed").notNull(),
+    /** Provenance (SAFETY_POLICY §6): which prompt versions and models made it. */
+    versions: jsonb("versions").$type<Record<string, string>>().notNull(),
+    readAt: timestamp("read_at", { withTimezone: true }),
+    createdAt: createdAt(),
+  },
+  (t) => [index("story_child_idx").on(t.childId, t.createdAt)],
+);
+
+// The story workshop's slots while a story is being made (one per child; replaced by the next).
+export const storyDraft = pgTable("story_draft", {
+  childId: text("child_id")
+    .primaryKey()
+    .references(() => childProfile.id, { onDelete: "cascade" }),
+  choices: jsonb("choices").$type<Partial<StoryChoices>>().notNull().default({}),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+// Narration made for a story (cost cap: one new narrated story per child per day; replays are free).
+export const storyNarration = pgTable(
+  "story_narration",
+  {
+    storyId: text("story_id")
+      .primaryKey()
+      .references(() => story.id, { onDelete: "cascade" }),
+    childId: text("child_id").notNull(),
+    day: date("day").notNull(),
+    pages: integer("pages").notNull().default(0),
+    createdAt: createdAt(),
+  },
+  (t) => [index("story_narration_child_day_idx").on(t.childId, t.day)],
 );
 
 // Safety events (SAFETY_POLICY §1 G, §5, §7; retention approved by the owner 2026-10-11, D-058).

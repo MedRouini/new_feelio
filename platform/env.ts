@@ -23,6 +23,9 @@ const schema = z.object({
   // Voice proxy (Milestone 2 spike, ARCHITECTURE §4.3): the Bearer secret the ElevenLabs agent sends,
   // and an explicit switch. The spike is adult-only and off unless VOICE_SPIKE_ENABLED=1 (D-061).
   VOICE_PROXY_SECRET: z.string().min(32).optional(),
+  // Feelio's voices (D-064): used for fixed lines and for story narration (D-070). Not secrets.
+  ELEVENLABS_VOICE_ID_EN: z.string().optional(),
+  ELEVENLABS_VOICE_ID_AR: z.string().optional(),
   // Voice companion (Milestone 5, D-068). The agent id is written by safety/voice-agent/sync.ts.
   ELEVENLABS_AGENT_ID: z.string().optional(),
   /** Public base URL ElevenLabs uses to reach /api/voice/llm (a tunnel in development, the site in production). */
@@ -31,6 +34,11 @@ const schema = z.object({
   VOICE_ENABLED: z.enum(["0", "1"]).default("1").transform((v) => v === "1"),
   /** "1" lets the owner test voice through a child profile before ElevenLabs approves use by children (D-005). */
   VOICE_ADULT_TESTING: z.enum(["0", "1"]).default("0").transform((v) => v === "1"),
+  // Stories (D-070). A PRIVATE Vercel Blob store; on Vercel the connected store authenticates by OIDC,
+  // elsewhere (local development, scripts) by this token. Without either, development writes to .data/.
+  BLOB_READ_WRITE_TOKEN: z.string().optional(),
+  /** Global switch (CR-11): "0" turns story making off everywhere (the bookshelf still opens). */
+  STORIES_ENABLED: z.enum(["0", "1"]).default("1").transform((v) => v === "1"),
   // Comma-separated user ids of the safety lead(s) who may open the review queue (D-066). Never emails.
   SAFETY_LEAD_USER_IDS: z.string().optional(),
   VOICE_SPIKE_ENABLED: z

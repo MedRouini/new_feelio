@@ -170,7 +170,58 @@
       "quiet": "I'm here when you're ready.",
       "lost": "Oops, I lost you. Let's try again!",
       "tryAgain": "Try again",
-      "talkAgain": "Talk again"
+      "talkAgain": "Talk again",
+      "ideaDeclined": "Hmm, that one doesn't fit our story. Let's pick one from the pictures!"
+    },
+    "stories": {
+      "title": "My stories",
+      "make": "Make a story",
+      "makeWith": "Make a story with Feelio",
+      "empty": "No stories yet. Shall we make one together?",
+      "shelfLabel": "Your books",
+      "newBook": "New",
+      "hello": "Let's make a story together! I'll ask you four little questions.",
+      "ask": {
+        "hero": "Who is the hero of our story?",
+        "place": "Where does the story happen?",
+        "feeling": "How does our hero feel in the adventure?",
+        "adventure": "What happens in the story?"
+      },
+      "nice": "{choice}! Great choice!",
+      "ready": "Our story is ready to make! Tap the magic button.",
+      "slots": {
+        "hero": "Hero",
+        "place": "Place",
+        "feeling": "Feeling",
+        "adventure": "Adventure"
+      },
+      "chooseThis": "Choose this",
+      "change": "Change {slot}",
+      "makeIt": "Make my story!",
+      "writing": "Feelio is writing your story…",
+      "painting": "Painting the pictures…",
+      "refused": {
+        "off": "Making stories is resting right now. Let's read one from your shelf!",
+        "stories_off": "Stories are switched off. Ask a grown-up.",
+        "daily_cap": "That's three new stories today! Let's read one from your shelf.",
+        "time_up": "That's all for today! See you tomorrow!",
+        "outside_hours": "Feelio is resting now. See you next time!",
+        "incomplete": "Let's finish choosing first!",
+        "unavailable": "Hmm, that didn't work. Let's try again in a moment."
+      },
+      "open": "Open the book",
+      "nextPage": "Next page",
+      "prevPage": "Previous page",
+      "theEnd": "The end",
+      "another": "Make another story",
+      "shelf": "Back to my shelf",
+      "pageOf": "Page {n} of {total}",
+      "pictureComing": "Painting this picture…",
+      "readToMe": "Read it to me",
+      "stopReading": "Stop reading",
+      "aiChip": "Feelio, an AI friend, helps write these stories",
+      "tellFeelio": "Tell Feelio",
+      "stopTalking": "Stop talking"
     }
   },
   "parent": {
@@ -367,7 +418,14 @@
     "settingsSaved": "Controls saved.",
     "setUpTitle": "Set up a device",
     "reportNoteLabel": "Anything you'd like to add (optional)",
-    "reportNoteHint": "Please don't include names, addresses or phone numbers."
+    "reportNoteHint": "Please don't include names, addresses or phone numbers.",
+    "tabStories": "Stories",
+    "storiesTitle": "Stories {name} made",
+    "storiesNote": "Stories are made with Feelio from picture choices. Only the words and pictures shown here are kept, until you delete them. Deleting removes the story, its pictures and its narration.",
+    "storiesNone": "No stories yet.",
+    "storyTheme": "{hero} · feeling {feeling}",
+    "deleteStory": "Delete",
+    "storyDeleted": "Story deleted."
   },
   "ageBands": {
     "5-6": "5–6 years",

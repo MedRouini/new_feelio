@@ -28,5 +28,37 @@
     "outputCheck": "strict",
     "note": "D-018: strict (every sentence classified before release) is the default for every age band. Relaxing to 'gated' is a 'weaken a safety check' decision for the owner, with measured latency."
   },
-  "failClosed": true
+  "failClosed": true,
+  "stories": {
+    "provider": "together",
+    "writer": {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "maxTokens": 1600,
+      "temperature": 0.8,
+      "timeoutMs": 30000
+    },
+    "ideas": {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "maxTokens": 200,
+      "timeoutMs": 8000
+    },
+    "note": "D-070: DeepSeek-V4.1-Flash writes stories through json_schema. GLM-5.3-Flash (planned in Milestone 0) was dropped on 2026-10-11: it reasons even with reasoning off (≈740 reasoning characters for a one-line JSON), which truncated stories within the token budget. Every page, the title and the question pass the strict output check; scenes pass the image-prompt check."
+  },
+  "images": {
+    "generator": {
+      "provider": "together",
+      "model": "black-forest-labs/FLUX.2-dev",
+      "width": 1024,
+      "height": 768,
+      "steps": 28,
+      "timeoutMs": 60000
+    },
+    "checker": {
+      "provider": "together",
+      "model": "Qwen/Qwen3.5-9B",
+      "maxTokens": 120,
+      "timeoutMs": 25000
+    },
+    "note": "D-070: pictures from vetted text only (SR-19); provider NSFW checker on; every picture checked by a vision model before display (Qwen3.5-9B, serverless and multimodal; the Qwen-VL models are dedicated-only on Together, checked 2026-10-11); unsafe → retry once → Feelio stand-in."
+  }
 }
