@@ -30,7 +30,7 @@ async function main() {
     const t = performance.now();
     const story = await writeStory(ctx, recipe);
     const seed = 1000 + n;
-    const pics = [await makePicture({ heroLook: story.heroLook, scene: recipe.place.describe, kind: "cover", seed })];
+    const pics = [await makePicture({ heroLook: story.heroLook, scene: story.source === "fallback" ? story.pages[0].scene : recipe.place.describe, kind: "cover", seed })];
     for (const p of story.pages) pics.push(await makePicture({ heroLook: story.heroLook, scene: p.scene, kind: "page", seed }));
     const imgs = pics.map((p, i) => {
       if (!p.ok) return `<div class="miss">${i === 0 ? "cover" : `page ${i}`}: ${p.reason}</div>`;

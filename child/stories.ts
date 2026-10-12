@@ -144,7 +144,8 @@ export async function drawPicture(childId: string, storyId: string, n: number): 
   const content = s.content;
   const pic = await makePicture({
     heroLook: content.heroLook,
-    scene: n === 0 ? s.choices.place.describe : content.pages[n - 1].scene,
+    // The cover's hint of place: the chosen place, or for the reviewed fallback story its own first scene.
+    scene: n === 0 ? (s.source === "fallback" ? content.pages[0].scene : s.choices.place.describe) : content.pages[n - 1].scene,
     kind: n === 0 ? "cover" : "page",
     // Pages are drawn from the character description and the story's own seed: a reference picture made
     // FLUX.2 copy the cover's whole scene onto every page (tested 2026-10-11, D-070).
