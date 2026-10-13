@@ -233,7 +233,7 @@
       "choose": "اختر",
       "steps": {
         "label": "قصتك حتى الآن",
-        "done": "{slot}: {choice}",
+        "done": "{slot}: اخترت {choice}",
         "now": "{slot}: اختر الآن",
         "next": "{slot}: التالي"
       },
