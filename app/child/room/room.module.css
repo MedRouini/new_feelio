@@ -95,6 +95,8 @@
   .mirrorMe { inline-size: 40vw; }
 }
 .rails { display: grid; gap: var(--s3); }
+/* on wide screens the five rails sit in two columns so all of them fit without scrolling */
+@media (orientation: landscape) and (min-width: 900px) { .rails { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3) var(--s4); } .tiles { gap: 8px; } }
 .rail { display: grid; gap: var(--s1); }
 .railName { margin: 0; font-size: var(--fs-word); color: var(--purple-500); }
 .tiles { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }

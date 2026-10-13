@@ -4,7 +4,8 @@ import type { RoomUpdate } from "@/child/room";
 export async function saveRoom(update: RoomUpdate): Promise<{ ok: boolean; opened?: string }> {
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
-      const res = await fetch("/api/child/room", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(update) });
+      // keepalive: a change still saves when the child taps and leaves the room straight away
+      const res = await fetch("/api/child/room", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(update), keepalive: true });
       if (res.ok) return { ok: true, ...((await res.json()) as { opened?: string }) };
       if (res.status === 400) return { ok: false }; // refused (e.g. locked): no retry
     } catch {

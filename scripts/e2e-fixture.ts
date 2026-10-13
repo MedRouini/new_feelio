@@ -19,6 +19,8 @@ type Opts = {
   draft?: boolean;
   /** Levels to mark completed (whole-level rows), e.g. to unlock later places. */
   completedLevels?: string[];
+  /** Insert this many fallback stories (feelings worried, happy, sad, proud in turn). */
+  storyCount?: number;
   dailyMinutes?: 15 | 30 | 45;
   usedSeconds?: number;
   onboarded?: boolean;
@@ -96,6 +98,26 @@ async function main() {
   }
   if (o.completedLevels?.length) {
     await db.insert(s.progress).values(o.completedLevels.map((levelId) => ({ childId, packId: "base", levelId, scenarioId: "", status: "completed" as const })));
+  }
+  if (o.storyCount) {
+    const { fallbackStory } = await import("../safety/stories/write");
+    const { choice } = await import("../safety/stories/choices");
+    const feelings = ["worried", "happy", "sad", "proud"];
+    for (let i = 0; i < o.storyCount; i++) {
+      const f = fallbackStory(o.locale ?? "en");
+      await db.insert(s.story).values({
+        childId,
+        householdId,
+        locale: o.locale ?? "en",
+        ageBand: "7-9",
+        choices: { hero: choice("hero", "fox")!, place: choice("place", "forest")!, feeling: choice("feeling", feelings[i % feelings.length])!, adventure: choice("adventure", "lost_toy")! },
+        content: { title: f.title, heroLook: f.heroLook, pages: f.pages, question: f.question },
+        source: "fallback",
+        pictures: Array.from({ length: 5 }, () => ({ state: "fallback" as const })),
+        seed: 1,
+        versions: { fixture: "e2e" },
+      });
+    }
   }
   const { key } = await ops.createDeviceKey({ userId: res.user.id, householdId, childId, label: "e2e" });
   process.stdout.write(JSON.stringify({ email, key, childId, storyId, locale: o.locale ?? "en" }));
