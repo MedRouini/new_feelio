@@ -1252,6 +1252,19 @@ Made with Codex from the job list `assets/requests/batch6/jobs.json` (full promp
 | `wear_balloon` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a single round amber balloon with a shine and a curly string |
 
 
+## Batch 7 (story experience: action objects and step icons), written 2026-10-13 (D-075, docs/superpowers/specs/2026-10-13-story-experience-design.md)
+Made with Codex from `assets/requests/batch7/jobs.json` (brief: `assets/requests/batch7/CODEX.md`) into the git-ignored `assets/incoming/batch7/`, checked by `npx tsx scripts/check-incoming.ts batch7`, then reviewed by Claude Code. The feeling step uses the approved brand face `face_happy`.
+
+| id | Used for | What to draw |
+|---|---|---|
+| `ui_btn_make_story` | Library: make a new story | a magic wand with an amber star on top, hovering over an open storybook whose blank pages glow softly, with three tiny sparkles |
+| `ui_btn_curtain_rope` | Theatre: pull to make the story | a thick golden theatre curtain rope hanging straight down, ending in a big fluffy golden tassel, with two tiny sparkles beside it |
+| `ui_btn_read_aloud` | Storybook: read it to me | a friendly golden gramophone-style speaker horn with three soft rounded sound waves coming out of it |
+| `ui_step_hero` | Step ticket: hero | a shining golden star wearing a tiny rose cape, standing proudly |
+| `ui_step_place` | Step ticket: place | a tiny painted stage backdrop on a small wooden stand, showing rolling green hills and a round sun |
+| `ui_step_adventure` | Step ticket: adventure | a rolled-open treasure map with a dotted path and a small round compass resting on it |
+
+
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
@@ -1337,3 +1350,4 @@ Made with Codex from the job list `assets/requests/batch6/jobs.json` (full promp
 | ui_mic_object | 2026-10-10 | 2026-10-13 | 2026-10-13 | Redo delivered: a handheld microphone |
 | no longer needed | 2026-10-11 | | | Removed from `design/asset-ids.ts` 2026-10-13 (unused since the redesign, D-071): `story_shelf`, `scene_story_corner_land/_port`, `story_book_open`, `story_page_paper`, `story_book_cover`, `ui_story_slot` |
 | batch-6 my room | 2026-10-13 | 2026-10-13 | 2026-10-13 | 2 scenes, 6 room objects, 16 wearable items (D-074); via Codex from assets/requests/batch6/jobs.json into assets/incoming/batch6/ | All 24 approved (reviewed by Claude Code); positions and placements measured |
+| batch-7 story experience | 2026-10-13 | | | 3 action objects + 3 step icons (D-075); via Codex from assets/requests/batch7/jobs.json into assets/incoming/batch7/ |
