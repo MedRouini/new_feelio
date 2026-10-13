@@ -1,0 +1,20 @@
+/* Choice discs (D-075): a picture on a round pool of stage light (a flat radial gradient). */
+.disc {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  inline-size: 100%;
+  border-radius: 50%;
+  border: 4px solid var(--lilac-300);
+  background: radial-gradient(circle at 50% 40%, #fff8ec 0%, #ffe6ba 55%, #f6d4a0 100%);
+  padding: 12%;
+}
+.disc[data-selected] { border: 6px solid var(--accent); }
+.art { inline-size: 100%; }
+.word { font-size: clamp(16px, 2.6vmin + 4px, 26px); font-weight: 700; color: var(--navy-900); text-align: center; line-height: 1.15; text-wrap: balance; }
+.check { position: absolute; inset-block-start: 2%; inset-inline-end: 2%; display: grid; place-items: center; inline-size: 34px; block-size: 34px; border-radius: 50%; background: var(--accent); color: var(--navy-900); }
+@media (prefers-reduced-motion: no-preference) {
+  .disc[data-selected] { animation: bob 2.4s ease-in-out infinite; }
+}
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
