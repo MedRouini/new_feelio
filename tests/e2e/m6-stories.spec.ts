@@ -36,16 +36,16 @@ test("workshop: four slots by tapping, then the magic button appears (nothing ma
   await expect(page.getByTestId("make-it")).toHaveCount(0);
   const ask = { hero: "Who is the hero of our story?", place: "Where does the story happen?", feeling: "How does our hero feel in the adventure?", adventure: "What happens in the story?" };
   for (const slot of ["hero", "place", "feeling", "adventure"] as const) {
-    await expect(page.getByTestId(`slot-${slot}`)).toHaveAttribute("data-active", "true");
+    await expect(page.getByTestId(`slot-${slot}`)).toHaveAttribute("aria-current", "step");
     await expect(page.getByTestId("choice-picker")).toHaveAttribute("aria-label", ask[slot]); // this slot's picker has arrived
     await page.getByTestId("choose-this").click();
-    await expect(page.getByTestId(`slot-${slot}`)).toHaveAttribute("data-filled", "true");
+    await expect(page.getByTestId(`slot-${slot}`)).toHaveAttribute("data-selected");
   }
   await expect(page.getByTestId("make-it")).toBeVisible();
   await page.screenshot({ path: `${SHOTS}/workshop-ready.png` });
   // Tapping a filled slot opens it again to change it.
   await page.getByTestId("slot-hero").click();
-  await expect(page.getByTestId("slot-hero")).toHaveAttribute("data-active", "true");
+  await expect(page.getByTestId("slot-hero")).toHaveAttribute("aria-current", "step");
 });
 
 for (const [name, viewport, reduce] of [["spread", LANDSCAPE, false], ["phone-reduced", PORTRAIT, true]] as const) {

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "motion/react";
-import { useRouter } from "next/navigation";
 import { ActionObject } from "@/child/ui/ActionObject";
 import { Caption } from "@/child/ui/Caption";
 import { Mascot } from "@/child/ui/Mascot";
@@ -28,15 +27,16 @@ export function Shelf({ books, makeState, line, lineAudio }: { books: Book[]; ma
   const tOnb = useTranslations("child.onb");
   const locale = useLocale() === "ar" ? "ar" : "en";
   const calm = useCalm();
-  const router = useRouter();
   const [say, setSay] = useState(line);
   const [opening, setOpening] = useState<string | null>(null);
 
+  /** The tapped book slides out of the shelf, then opens (at once when calm). */
   const open = (id: string) => {
     play("whoosh");
-    if (calm) return router.push(`/stories/${id}`);
+    const go = () => window.location.assign(`/stories/${id}`);
+    if (calm) return go();
     setOpening(id);
-    setTimeout(() => router.push(`/stories/${id}`), 220);
+    setTimeout(go, 220);
   };
 
   return (

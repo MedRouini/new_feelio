@@ -101,9 +101,9 @@
 .picWord { padding: 6px 14px; border-radius: 14px; background: rgb(255 255 255 / 0.92); font-weight: 700; font-size: clamp(15px, 1.6vmin + 8px, 22px); text-align: center; }
 .ghost { opacity: 0.35; }
 
-.part[data-part="place"] { z-index: 0; inset-block: 12% 26%; inset-inline: 22%; }
+.part[data-part="place"] { z-index: 0; inset-block: 6% 54%; inset-inline: 32%; }
 .set { display: grid; place-items: center; inline-size: 100%; block-size: 100%; }
-.setArt { inline-size: min(100%, 26vmin) !important; opacity: 0.9; }
+.setArt { inline-size: auto !important; block-size: 100% !important; max-inline-size: 100%; opacity: 0.9; }
 .part[data-part="feeling"] { z-index: 3; inset-block-start: 5%; inset-inline-start: 50%; translate: -50% 0; inline-size: clamp(54px, 9vmin, 84px); }
 :global(html[dir="rtl"]) .part[data-part="feeling"] { translate: 50% 0; }
 .lamp { inline-size: 100%; aspect-ratio: 1; border-radius: 50%; background: rgb(255 255 255 / 0.75); display: grid; place-items: center; padding: 10%; }
@@ -127,7 +127,7 @@
 /* ---------- the choices ---------- */
 .picker { grid-area: picker; inline-size: 100%; min-block-size: 0; display: grid; place-items: center; }
 .pickerInner { inline-size: 100%; }
-@media (orientation: portrait) { .picker :global([data-testid="carousel-track"]) { block-size: 120px; } .picker :global([data-testid^="slide-"]) { inline-size: 112px; } }
+@media (orientation: portrait) { .picker :global([data-testid="carousel-track"]) { block-size: 104px; } .picker :global([data-testid^="slide-"]) { inline-size: 100px; } .aiLine { font-size: 13px; } }
 .making { display: grid; place-items: center; }
 .beat { display: flex; gap: clamp(10px, 2.5vmin, 22px); }
 .beatItem { inline-size: clamp(40px, 8vmin, 72px); }
@@ -144,6 +144,6 @@
 .mic { inline-size: clamp(84px, 11vmin, 120px); }
 .rope { inline-size: clamp(100px, 15vmin, 160px); }
 .mic :global(span[class*="plate"]), .rope :global(span[class*="plate"]) { font-size: clamp(15px, 1.4vmin + 8px, 20px); }
-@media (orientation: portrait) { .mic { inline-size: 84px; } .rope { inline-size: 96px; } }
+@media (orientation: portrait) { .mic { inline-size: 64px; } .rope { inline-size: 84px; } .actions { gap: var(--s4); } }
 @media (prefers-reduced-motion: reduce) { .curtain { transition: none; } }
 .srOnly { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }

@@ -96,11 +96,12 @@ export function StageCarousel({
   const Prev = rtl ? ChevronRight : ChevronLeft;
   const Next = rtl ? ChevronLeft : ChevronRight;
   const spring = calm ? { duration: 0 } : { type: "spring" as const, stiffness: 280, damping: 28 };
-  const spacing = Math.min(0.22, 170 / Math.max(width, 1));
+  /** Where a neighbour sits: beside the middle disc, never on top of it (a share of the track width). */
+  const spacing = Math.min(0.36, 175 / Math.max(width, 1));
 
   return (
     <div className={styles.carousel} role="group" aria-roledescription="carousel" aria-label={label} data-testid={testId}>
-      <Pressable shape="round" tone="plain" label={prevLabel} icon={<Prev size={34} strokeWidth={3} aria-hidden />} onPress={() => step(-1)} className={styles.arrow} testId="carousel-prev" />
+      <Pressable shape="round" tone="plain" label={prevLabel} icon={<Prev size={34} strokeWidth={3} aria-hidden />} onPress={() => step(-1)} className={styles.prev} testId="carousel-prev" />
       <div
         ref={track}
         className={styles.track}
@@ -114,7 +115,7 @@ export function StageCarousel({
       >
         {items.map((it, i) => {
           const o = offsetFrom(i, index, n);
-          const shown = Math.abs(o) <= 2;
+          const shown = Math.abs(o) <= 1;
           const mid = o === 0;
           return (
             <motion.button
@@ -142,8 +143,8 @@ export function StageCarousel({
               initial={false}
               animate={{
                 x: (rtl ? -o : o) * spacing * width,
-                scale: mid ? 1 : Math.abs(o) === 1 ? 0.62 : 0.42,
-                opacity: shown ? (mid ? 1 : Math.abs(o) === 1 ? 0.92 : 0.5) : 0,
+                scale: mid ? 1 : 0.58,
+                opacity: shown ? (mid ? 1 : 0.85) : 0,
                 zIndex: 10 - Math.abs(o),
               }}
               transition={spring}
@@ -155,7 +156,7 @@ export function StageCarousel({
           );
         })}
       </div>
-      <Pressable shape="round" tone="plain" label={nextLabel} icon={<Next size={34} strokeWidth={3} aria-hidden />} onPress={() => step(1)} className={styles.arrow} testId="carousel-next" />
+      <Pressable shape="round" tone="plain" label={nextLabel} icon={<Next size={34} strokeWidth={3} aria-hidden />} onPress={() => step(1)} className={styles.next} testId="carousel-next" />
       <div className={styles.under}>
         <span className={styles.name}>{centre.word}</span>
         <Pressable tone="primary" label={chooseLabel} onPress={() => onPick(centre)} testId="choose-this" />
