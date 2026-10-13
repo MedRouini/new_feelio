@@ -33,7 +33,10 @@
     "room_steps1": "cddbbb342dd58635",
     "room_steps2": "c9d753c58b8c8471",
     "room_steps3": "386e4bdaef7a85d2",
-    "room_allOpen": "9c2095638109bc69"
+    "room_allOpen": "9c2095638109bc69",
+    "stories_firstStory": "f7b2e4a6f9c6ffac",
+    "stories_hello": "91fea5c70d666014",
+    "stories_ready": "bc9a15eb1b244f9c"
   },
   "ar": {}
 }

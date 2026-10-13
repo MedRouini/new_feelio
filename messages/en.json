@@ -196,7 +196,7 @@
         "adventure": "What happens in the story?"
       },
       "nice": "{choice}! Great choice!",
-      "ready": "Our story is ready to make! Tap the magic button.",
+      "ready": "Our story is ready! Pull the golden rope to make it.",
       "slots": {
         "hero": "Hero",
         "place": "Place",
@@ -229,7 +229,24 @@
       "stopReading": "Stop reading",
       "aiChip": "Feelio, an AI friend, helps write these stories",
       "tellFeelio": "Tell Feelio",
-      "stopTalking": "Stop talking"
+      "stopTalking": "Stop talking",
+      "choose": "Choose",
+      "steps": {
+        "label": "Your story so far",
+        "done": "{slot}: {choice}",
+        "now": "{slot}: choose now",
+        "next": "{slot}: next"
+      },
+      "rope": "Make my story!",
+      "makeNew": "Make a new story",
+      "myBooks": "My books",
+      "firstStory": "Let's make your very first story!",
+      "openBook": "Open",
+      "readAloud": "Read it to me",
+      "stop": "Stop",
+      "bookmark": "Page {n}",
+      "home": "Back to my books",
+      "resting": "Not right now"
     },
     "room": {
       "intro": "This is your room! Tap anything to look inside.",
