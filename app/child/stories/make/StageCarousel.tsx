@@ -55,8 +55,7 @@ export function StageCarousel({
     const el = track.current;
     if (!el) return;
     const ro = new ResizeObserver(() => setWidth(el.clientWidth));
-    ro.observe(el);
-    setWidth(el.clientWidth);
+    ro.observe(el); // the observer reports the first size itself
     return () => ro.disconnect();
   }, [track]);
   const go = (to: number) => {
