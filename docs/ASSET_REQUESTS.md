@@ -139,7 +139,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon for style and three small brand characters (a heart, a cloud and a star with cute faces). A single game icon, centred, filling about 80% of the frame, no tile or background shape: a rounded keepsake box in soft rose (#FFD8E6 with #C4557C trim), lid open, with the three attached characters peeking out happily, kept identical to the attachments in shape, colour and face. Chunky, rounded, easy to read at small size, same glossy finish as the attached icon. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no other characters.
 
-### dock_calm   status: redo (2026-10-11): The three lilac breath swirls read as question marks ("?"), which a child can take as "something is wrong" or as a symbol to read.
+### dock_calm   status: approved (2026-10-13; the 2026-10-11 redo reason, swirls reading as "?", is fixed)
 - Used in: phone-style dock, "Calm" button (the calm corner: slow breathing with Feelio)
 - Purpose: icon for a quiet, calming place
 - Size and ratio: 1024×1024 square
@@ -359,9 +359,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot, an approved pose of it, and its official happy face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing facing the viewer, one arm-flap raised a little in a friendly explaining gesture, the other relaxed] and [FACE: warm open sparkle eyes, mouth half open as if in the middle of saying a word]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no speech bubble, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_speaking_closed   status: redo (2026-10-13)
-- **Redo reason (2026-10-13):** the delivered frame was regenerated as a whole picture, so the body, outline, eyes and antenna shift slightly against `mascot_speaking_half` (thousands of pixels differ strongly outside the mouth). Swapped several times a second in Talk, that shimmers. Only the mouth may change.
-- **How to make it this time:** in ChatGPT, open `mascot_speaking_half.png` (approved), use **Select** (the brush) to paint over the mouth only, then paste the prompt below. Check that the rest of the picture is unchanged before sending it; if ChatGPT redraws the whole picture, try again.
+### mascot_speaking_closed   status: approved (2026-10-13, owner decision: kept although the body is not pixel-aligned with `mascot_speaking_half`; retrying gave the same result)
 - Used in: Talk screen mouth frame at low output volume
 - Purpose: lip-sync frame (swapped by audio level in code)
 - Size and ratio: 1024×1024 square, **pixel-aligned with `mascot_speaking_half`**
@@ -371,9 +369,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Edit the attached image. Same pose and body as the attached pose image, only the mouth changes: closed, a small soft smile. Keep everything else exactly identical: same size, same position in the frame, same eyes, cheeks, colours and highlights. Transparent background PNG (plain white if transparency fails), 1024×1024. No text, no letters, no other changes.
 
-### mascot_speaking_open   status: redo (2026-10-13)
-- **Redo reason (2026-10-13):** the delivered frame was regenerated as a whole picture, so the body, outline, eyes and antenna shift slightly against `mascot_speaking_half` (thousands of pixels differ strongly outside the mouth). Swapped several times a second in Talk, that shimmers. Only the mouth may change.
-- **How to make it this time:** in ChatGPT, open `mascot_speaking_half.png` (approved), use **Select** (the brush) to paint over the mouth only, then paste the prompt below. Check that the rest of the picture is unchanged before sending it; if ChatGPT redraws the whole picture, try again.
+### mascot_speaking_open   status: approved (2026-10-13, owner decision: kept although the body is not pixel-aligned with `mascot_speaking_half`; retrying gave the same result)
 - Used in: Talk screen mouth frame at high output volume
 - Purpose: lip-sync frame
 - Size and ratio: 1024×1024 square, **pixel-aligned with `mascot_speaking_half`**
@@ -491,7 +487,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single small cosy wooden door with a round top, a little golden key hanging from a hook beside it and a tiny round window, soft purple (#614194) door frame. Chunky and simple, easy to recognise at 64 px. Centred, filling about 80% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### ui_mic_object   status: redo (2026-10-11): The amber holder with two side handles on a round base reads as a trophy cup, not a microphone; a 5-year-old must recognise it as a mic at a glance.
+### ui_mic_object   status: approved (2026-10-13; the 2026-10-11 redo reason, reading as a trophy, is fixed)
 - Used in: Onboarding stop 4 and the Talk screen: the big friendly microphone
 - Purpose: A tappable microphone object
 - Size and ratio: 1024x1024 square
@@ -698,7 +694,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Wide 3:2 landscape game map, opaque (no transparency needed). I attached our approved world map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. This is the inside map of one place, the Home: a cosy family house with a garden, seen from above: the front door with a doormat, a dining table visible on a sunny patio, a small toy corner on a rug under a tree, a bedroom window with curtains, and a garden gate leading out to the lawn. A single wide, smooth light-beige path enters at the middle of the left edge and leaves at the middle of the right edge, winding gently up and down. Along the path are exactly 5 large, flat, EMPTY round stone pads (the same stone pads as on the attached map), evenly spaced, with nothing standing on them and open space around each pad. Leave a calm, mostly plain strip at the very top for a name sign. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### place_home_map_v   status: redo (2026-10-11): not delivered. "Cozy Cottage Garden Pathway.png" came back landscape (1536x1024) and shows the house from outside, while the approved landscape Home map shows the inside; kept in assets/redo/
+### place_home_map_v   status: approved (2026-10-13; portrait, the inside of the house; stones measured)
 - Used in: Place map of Home (portrait): `/place/home`
 - Purpose: The Home's own map; its 5 level stones sit on the pads
 - Size and ratio: 1024x1536 portrait
@@ -1259,11 +1255,11 @@ Use the standard mascot prompt in docs/MASCOT.md with:
 | mascot_listening | 2026-10-10 | | | P3 (voice) |
 | mascot_thinking | 2026-10-10 | 2026-10-12 | 2026-10-13 | P3 (voice) |
 | mascot_speaking_half | 2026-10-10 | 2026-10-12 | 2026-10-13 | P3 (voice), base for the mouth frames |
-| mascot_speaking_closed | 2026-10-10 | 2026-10-12 | | P3 (voice). **Redo 2026-10-13:** not pixel-aligned with the half frame (body shifts) |
-| mascot_speaking_open | 2026-10-10 | 2026-10-12 | | P3 (voice). **Redo 2026-10-13:** not pixel-aligned with the half frame (body shifts) |
-| dock_calm | 2026-10-10 | | | Dock, 5th button (D-055) |
+| mascot_speaking_closed | 2026-10-10 | 2026-10-12 | 2026-10-13 | P3 (voice). Kept by owner decision 2026-10-13 (body not pixel-aligned; retry gave the same) |
+| mascot_speaking_open | 2026-10-10 | 2026-10-12 | 2026-10-13 | P3 (voice). Kept by owner decision 2026-10-13 (body not pixel-aligned; retry gave the same) |
+| dock_calm | 2026-10-10 | 2026-10-13 | 2026-10-13 | Dock, 5th button (D-055) (redo delivered) |
 | place_home_map_h | 2026-10-11 | 2026-10-11 | approved | Batch 3, P1 (D-056); stones measured, backdrop #ca9e76 |
-| place_home_map_v | 2026-10-11 | | | Batch 3, P1 (D-056) |
+| place_home_map_v | 2026-10-11 | 2026-10-13 | 2026-10-13 | Batch 3, P1 (D-056) (redo delivered; stones measured) |
 | node_in_progress | 2026-10-11 | | | Batch 3, P1 (D-056) |
 | ui_celebrate_burst | 2026-10-11 | | | Batch 3, P1 (D-056) |
 | loading_place_home | 2026-10-11 | | | Batch 3, P1 (D-056) |
@@ -1307,3 +1303,5 @@ Use the standard mascot prompt in docs/MASCOT.md with:
 | level_market_5 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
 | batch-5 redesign v2 | 2026-10-12 | 2026-10-12 | 2026-10-13 | 4 scenes (land + port), sticker album, 2 mascot poses (D-071). Optional: pages use flat brand colours until approved |
 | batch-4 stories (heroes, places, adventures, faces, wand, mascot_reading) | 2026-10-11 | 2026-10-12 | 2026-10-13 | All 26 approved (colleague, OpenAI image tool via Codex; reviewed by Claude Code). `story_shelf`, `scene_story_corner_*`, `story_book_*`, `story_page_paper`, `ui_story_slot` no longer needed after the redesign (D-071) |
+| ui_mic_object | 2026-10-10 | 2026-10-13 | 2026-10-13 | Redo delivered: a handheld microphone |
+| no longer needed | 2026-10-11 | | | Removed from `design/asset-ids.ts` 2026-10-13 (unused since the redesign, D-071): `story_shelf`, `scene_story_corner_land/_port`, `story_book_open`, `story_page_paper`, `story_book_cover`, `ui_story_slot` |

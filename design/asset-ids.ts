@@ -24,7 +24,7 @@ const square = [
   // level flow and loading (Batch 3, D-056, docs/LEVEL_FLOW.md)
   "node_in_progress", "ui_celebrate_burst", "mascot_making",
   // stories (Batch 4, D-070, docs/STORIES.md): optional art; screens work without it
-  "mascot_reading", "ui_story_slot", "ui_story_wand",
+  "mascot_reading", "ui_story_wand",
   // redesign v2 (Batch 5, docs/REDESIGN_V2.md): optional art; pages work without it
   "mascot_directing", "mascot_holding_album",
   "face_worried", "face_proud", "face_lonely", "face_jealous",
@@ -47,8 +47,8 @@ const placeLandscape = WORLD_PLACE_IDS.map((p) => `place_${p}_map_h` as const);
 const placePortrait = WORLD_PLACE_IDS.map((p) => `place_${p}_map_v` as const);
 
 const wide = ["ui_sign_plate", "ui_say_bubble"] as const;
-const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open", "story_book_open", "story_shelf", "scene_story_corner_land", "scene_talk_nook_land", "scene_story_stage_land", "scene_library_land", "scene_treasure_room_land", "ui_sticker_album_open"] as const;
-const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open", "story_page_paper", "story_book_cover", "scene_story_corner_port", "scene_talk_nook_port", "scene_story_stage_port", "scene_library_port", "scene_treasure_room_port"] as const;
+const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open", "scene_talk_nook_land", "scene_story_stage_land", "scene_library_land", "scene_treasure_room_land", "ui_sticker_album_open"] as const;
+const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open", "scene_talk_nook_port", "scene_story_stage_port", "scene_library_port", "scene_treasure_room_port"] as const;
 
 // D-053 (owner, 2026-10-10): one character for now ("bun"), four colours, one pose. Its "yay" is a
 // code hop. The approved bean/puff bases stay in assets/ for later but are not used.

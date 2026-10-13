@@ -103,6 +103,7 @@
 
 .body { position: relative; display: grid; place-items: center; block-size: 100%; min-block-size: 0; transform-origin: 50% 100%; }
 .mascot { block-size: min(100%, 50vmin, 440px); inline-size: auto !important; aspect-ratio: 1; }
+.preload { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
 @media (orientation: portrait) { .mascot { block-size: min(100%, 72vmin, 440px); } }
 @media (prefers-reduced-motion: no-preference) {
   /* no mouth frames yet: a gentle bounce with Feelio's voice */

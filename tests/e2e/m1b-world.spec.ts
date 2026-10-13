@@ -83,6 +83,7 @@ for (const locale of ["en", "ar"] as const) {
       if (locale === "en") {
         await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "mic");
         await expect(page.getByTestId("mic")).toHaveCount(1);
+        await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-5-mic.png` });
         await page.getByTestId("mic-later").click();
       }
 

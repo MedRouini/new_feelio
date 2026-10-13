@@ -217,6 +217,14 @@ function Talk({ places, help }: { places: Place[]; help: Help[] }) {
         </span>
         <div className={styles.body} data-bounce={state === "speaking" && !hasMouth ? true : undefined}>
           <Mascot pose={pose} label={tOnb("aiSign")} sizes="50vmin" className={styles.mascot} />
+          {/* the mouth frames load up front (same sizes, so the same file), so lip-sync never blinks */}
+          {hasMouth ? (
+            <span className={styles.preload} aria-hidden>
+              {MOUTH.map((id) => (
+                <AssetImage key={id} id={id} alt="" sizes="50vmin" priority />
+              ))}
+            </span>
+          ) : null}
         </div>
         {state === "connecting" || state === "thinking" ? (
           <span className={styles.beat} aria-hidden>

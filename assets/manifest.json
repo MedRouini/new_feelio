@@ -2836,6 +2836,105 @@
         "clean alpha, subject not cut off"
       ],
       "sha256": "b2c29b66380d4b3f13d08037942e536f83a056b7e22943db58c521ff9103b3f7"
+    },
+    {
+      "id": "ui.dock_calm",
+      "file": "assets/approved/ui/dock_calm.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached three approved icons; match their style, outline and glossy finish exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a soft round sky-blue (#D4ECFF with #79B1DE shading) cushion floating gently, with two soft lilac (#EFCFF8) breeze lines above it: smooth, gentle, horizontal WAVY lines like a calm breath of air, each one a simple wave. One tiny amber (#F3B03A) four-point sparkle. IMPORTANT: no curls, no hooks, no spirals, nothing that looks like a question mark, a letter or a number. Calm, sleepy and cosy, not busy. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No face, no text, no letters, no numbers, no logos, no watermark, no characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "no text, letters or numbers",
+        "nothing cut off",
+        "redo of 2026-10-11 fixed: a soft cloud with breath lines, no question-mark swirls",
+        "matches the other dock icons",
+        "clean alpha"
+      ],
+      "sha256": "c04910e9eb431708f1541a3b8f84e5229e121e60b795288b97c21e096f954b79"
+    },
+    {
+      "id": "ui.ui_mic_object",
+      "file": "assets/approved/ui/ui_mic_object.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single chunky, friendly HANDHELD microphone, the classic singer's microphone shape everyone recognises: a big round soft-lilac (#EFCFF8) mesh ball on top, a purple (#614194) ring band under the ball, and one straight, slim, rounded amber (#F3B03A) handle going straight down from it, tilted about 15 degrees to the right. IMPORTANT: no stand, no base, no side handles, no cup shape; it must not look like a trophy. Glossy highlight on the upper left of the ball. No face. Centred, filling about 75% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "no text, letters or numbers",
+        "nothing cut off",
+        "redo of 2026-10-11 fixed: a handheld microphone, no longer reads as a trophy",
+        "clean alpha"
+      ],
+      "sha256": "50326cd33e5652f8ce7e6ca3934f5b18fc9ad6fe898252fc6915bf80769b7bca"
+    },
+    {
+      "id": "place.place_home_map_v",
+      "file": "assets/approved/place/place_home_map_v.png",
+      "kind": "place",
+      "prompt": "Create an image. TALL PORTRAIT 2:3, exactly 1024x1536 (taller than wide), opaque, no transparency needed. I attached two images: first, our approved landscape map of the inside of the Home; second, our approved tall world map. Make the TALL version of the first image: the same cosy house INTERIOR seen from above, same art style, colours, warm wooden floor, soft three-quarter top-down camera and lighting from the top-left. Keep the same rooms and objects, rearranged to fit a tall frame: the dining table with chairs, the front door with a doormat, the bedroom with the bed, the toy corner on a purple rug with a teddy bear, the living room with the blue sofa. A single wide, smooth light-beige path enters at the middle of the bottom edge and leaves at the middle of the top edge, winding gently left and right. Along the path are exactly 5 large, flat, EMPTY round stone pads, identical to the pads on the first image, evenly spaced from bottom to top, with nothing standing on them and open floor around each pad. Leave a calm, mostly plain strip at the very top for a name sign. Not the outside of the house, no garden, no lawn. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.",
+      "tool": "ChatGPT",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "no text, letters or numbers",
+        "nothing cut off",
+        "redo of 2026-10-11 fixed: portrait 1024x1536, the inside of the house like the landscape Home map",
+        "five stones on a path, measured into world.json",
+        "opaque full scene"
+      ],
+      "sha256": "4954ee32616943d9d7867933bbc39e5e1e4b9abf0e391f50a5086e09cc9c52a0"
+    },
+    {
+      "id": "mascot.speaking_closed",
+      "file": "assets/approved/mascot/mascot_speaking_closed.png",
+      "kind": "mascot-pose",
+      "prompt": "Edit the attached image. Same pose and body as the attached pose image, only the mouth changes: closed, a small soft smile. Keep everything else exactly identical: same size, same position in the frame, same eyes, cheeks, colours and highlights. Transparent background PNG (plain white if transparency fails), 1024×1024. No text, no letters, no other changes. Output exactly 1024x1024 pixels as a PNG at the highest available quality. Use genuine alpha transparency, never a drawn checkerboard or white background.",
+      "tool": "OpenAI image tool via Codex (colleague's fork Minyar-Meksi/new_feelio, commit 0560529)",
+      "date": "2026-10-12",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "no text, letters or numbers",
+        "nothing cut off",
+        "on-model mouth frame",
+        "owner decision 2026-10-13: kept although the body is not pixel-aligned with mascot_speaking_half (the owner got the same result on retrying)",
+        "clean alpha"
+      ],
+      "sha256": "800abb97740a3179ce42326b6d8b1f5eae022592407195669432c9845ca7471c"
+    },
+    {
+      "id": "mascot.speaking_open",
+      "file": "assets/approved/mascot/mascot_speaking_open.png",
+      "kind": "mascot-pose",
+      "prompt": "Edit the attached image. Same pose and body as the attached pose image, only the mouth changes: wide open in a round, happy speaking shape. Keep everything else exactly identical: same size, same position in the frame, same eyes, cheeks, colours and highlights. Transparent background PNG (plain white if transparency fails), 1024×1024. No text, no letters, no other changes. Output exactly 1024x1024 pixels as a PNG at the highest available quality. Use genuine alpha transparency, never a drawn checkerboard or white background.",
+      "tool": "OpenAI image tool via Codex (colleague's fork Minyar-Meksi/new_feelio, commit 0560529)",
+      "date": "2026-10-12",
+      "chat_link": null,
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "no text, letters or numbers",
+        "nothing cut off",
+        "on-model mouth frame",
+        "owner decision 2026-10-13: kept although the body is not pixel-aligned with mascot_speaking_half (the owner got the same result on retrying)",
+        "clean alpha"
+      ],
+      "sha256": "2495d2400684abb96f931a15279b9d64e3fc33e6d654823b26e2748efc03e06a"
     }
   ]
 }

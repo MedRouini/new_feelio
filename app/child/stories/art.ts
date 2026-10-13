@@ -7,7 +7,6 @@ export const STORY_ART = {
   reader: ["mascot_reading", "mascot_pointing", "mascot_happy"],
   director: ["mascot_directing", "mascot_pointing", "mascot_happy"],
   wand: ["ui_story_wand"],
-  slot: ["ui_story_slot"],
   feelioMood: {
     happy: ["mascot_happy"],
     excited: ["mascot_feel_excited", "mascot_excited"],
@@ -15,7 +14,7 @@ export const STORY_ART = {
     calm: ["mascot_idle"],
     thinking: ["mascot_thinking", "mascot_idle"],
   },
-} as const satisfies { reader: AssetSlot; director: AssetSlot; wand: AssetSlot; slot: AssetSlot; feelioMood: Record<string, AssetSlot> };
+} as const satisfies { reader: AssetSlot; director: AssetSlot; wand: AssetSlot; feelioMood: Record<string, AssetSlot> };
 
 /** The picture for one choice of a slot, if one is delivered (feelings use the brand faces). */
 export function choiceArt(slot: "hero" | "place" | "feeling" | "adventure", id: string): AssetId[] {
