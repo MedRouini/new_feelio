@@ -1350,4 +1350,4 @@ Made with Codex from `assets/requests/batch7/jobs.json` (brief: `assets/requests
 | ui_mic_object | 2026-10-10 | 2026-10-13 | 2026-10-13 | Redo delivered: a handheld microphone |
 | no longer needed | 2026-10-11 | | | Removed from `design/asset-ids.ts` 2026-10-13 (unused since the redesign, D-071): `story_shelf`, `scene_story_corner_land/_port`, `story_book_open`, `story_page_paper`, `story_book_cover`, `ui_story_slot` |
 | batch-6 my room | 2026-10-13 | 2026-10-13 | 2026-10-13 | 2 scenes, 6 room objects, 16 wearable items (D-074); via Codex from assets/requests/batch6/jobs.json into assets/incoming/batch6/ | All 24 approved (reviewed by Claude Code); positions and placements measured |
-| batch-7 story experience | 2026-10-13 | | | 3 action objects + 3 step icons (D-075); via Codex from assets/requests/batch7/jobs.json into assets/incoming/batch7/ |
+| batch-7 story experience | 2026-10-13 | 2026-10-13 | 2026-10-13 | 3 action objects + 3 step icons (D-075); via Codex from assets/requests/batch7/jobs.json into assets/incoming/batch7/ |

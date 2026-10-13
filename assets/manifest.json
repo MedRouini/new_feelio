@@ -3496,6 +3496,144 @@
         "only the item, no character drawn"
       ],
       "sha256": "364e5e70fd63fcce374127a76782abc6693107d6bf9f5ab02b10f59434e4e4e7"
+    },
+    {
+      "id": "ui.ui_btn_make_story",
+      "file": "assets/approved/ui/ui_btn_make_story.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a magic wand with an amber star on top, hovering over an open storybook whose blank pages glow softly, with three tiny sparkles. It must read clearly as a button-sized object at 96 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 7 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_stories.png",
+        "assets/approved/ui/ui_story_wand.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested object",
+        "no text, letters or numbers; no people",
+        "the object alone: no frame, button shape or background",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "bc52949e16cde9e832a3b28d7ac42ffef56732db87ca2e93a988e88956a0ce8f"
+    },
+    {
+      "id": "ui.ui_btn_curtain_rope",
+      "file": "assets/approved/ui/ui_btn_curtain_rope.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a thick golden theatre curtain rope hanging straight down, ending in a big fluffy golden tassel, with two tiny sparkles beside it. It must read clearly as a button-sized object at 96 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 7 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_stories.png",
+        "assets/approved/ui/ui_mic_object.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested object",
+        "no text, letters or numbers; no people",
+        "the object alone: no frame, button shape or background",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "d90fde96fcf979f20673cd62b73fef885c328b3e0d37682a8fe75614974cae31"
+    },
+    {
+      "id": "ui.ui_btn_read_aloud",
+      "file": "assets/approved/ui/ui_btn_read_aloud.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a friendly golden gramophone-style speaker horn with three soft rounded sound waves coming out of it. It must read clearly as a button-sized object at 96 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 7 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_stories.png",
+        "assets/approved/ui/ui_mic_object.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested object",
+        "no text, letters or numbers; no people",
+        "the object alone: no frame, button shape or background",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "9e609695a3a7334ceeae0f07dd9bec33dd2aece927fdb8704f1f0373bb35f940"
+    },
+    {
+      "id": "ui.ui_step_hero",
+      "file": "assets/approved/ui/ui_step_hero.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single small icon picture: a shining golden star wearing a tiny rose cape, standing proudly. Very simple and bold, easy to recognise at 56 px. Centred, filling about 80% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 7 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_stories.png",
+        "assets/approved/ui/ui_story_wand.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested object",
+        "no text, letters or numbers; no people",
+        "the object alone: no frame, button shape or background",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "e0731ebdaa61393b617c4695916b6225d3b3a39dae7facc91dad6eda22b381cc"
+    },
+    {
+      "id": "ui.ui_step_place",
+      "file": "assets/approved/ui/ui_step_place.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single small icon picture: a tiny painted stage backdrop on a small wooden stand, showing rolling green hills and a round sun. Very simple and bold, easy to recognise at 56 px. Centred, filling about 80% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 7 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_stories.png",
+        "assets/approved/ui/ui_story_wand.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested object",
+        "no text, letters or numbers; no people",
+        "the object alone: no frame, button shape or background",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "09ffadb0072e5d22303feb6f8f4a9e4652d7259a7ac868114fb5216210687ed6"
+    },
+    {
+      "id": "ui.ui_step_adventure",
+      "file": "assets/approved/ui/ui_step_adventure.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single small icon picture: a rolled-open treasure map with a dotted path and a small round compass resting on it. Very simple and bold, easy to recognise at 56 px. Centred, filling about 80% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 7 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_stories.png",
+        "assets/approved/ui/ui_story_wand.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested object",
+        "no text, letters or numbers; no people",
+        "the object alone: no frame, button shape or background",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "b1e5ad218de047e58291857e7f5a553e9e3e0631a04119274c555532154848ef"
     }
   ]
 }
