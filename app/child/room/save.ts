@@ -1,7 +1,14 @@
 import type { RoomUpdate } from "@/child/room";
+import { serial } from "./serial";
 
-/** Saves a room change; retries once after a short pause. The child never sees an error. */
-export async function saveRoom(update: RoomUpdate): Promise<{ ok: boolean; opened?: string }> {
+const queue = serial();
+
+/** Saves a room change after the ones before it (never out of order); retries once. The child never sees an error. */
+export function saveRoom(update: RoomUpdate): Promise<{ ok: boolean; opened?: string }> {
+  return queue(() => send(update));
+}
+
+async function send(update: RoomUpdate): Promise<{ ok: boolean; opened?: string }> {
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       // keepalive: a change still saves when the child taps and leaves the room straight away

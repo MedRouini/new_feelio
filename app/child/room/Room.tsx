@@ -30,6 +30,8 @@ export type RoomObject = "wardrobe" | "gift" | "shelf" | "jar" | "pinboard" | "b
 const ART: Record<RoomObject, AssetId> = { wardrobe: "room_wardrobe", gift: "room_gift_box", shelf: "room_star_shelf", jar: "room_feelings_jar", pinboard: "room_pinboard", books: "room_book_stack" };
 type Pos = { x: number; y: number; w: number };
 const LAND = layout.land.objects as Record<RoomObject, Pos>;
+/** Fixed room lines with pre-generated voice (room_<key>.mp3, D-037); other lines are captions only. */
+const LINE_AUDIO = ["intro", "surprise", "locked", "steps1", "steps2", "steps3", "allOpen"] as const;
 
 /**
  * My room (D-074): the child's bedroom. Their character in the middle wears its items; the objects
@@ -53,6 +55,7 @@ export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: bo
   const c = layout.land.character;
   const cp = layout.port.character;
   const close = () => setOpen(null);
+  const lineKey = LINE_AUDIO.find((k) => t(k) === line);
 
   const object = (id: RoomObject) => {
     const p = LAND[id];
@@ -85,7 +88,10 @@ export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: bo
         {...common}
         onClick={() => {
           play("tap");
-          if (id === "gift" && !giftReady) setLine(state.stepsToNext === null ? t("allOpen") : t("steps", { n: state.stepsToNext }));
+          if (id === "gift" && !giftReady) {
+            const n = state.stepsToNext;
+            setLine(n === null ? t("allOpen") : n === 1 ? t("steps1") : n === 2 ? t("steps2") : n === 3 ? t("steps3") : t("steps", { n }));
+          }
           setOpen(id);
         }}
         aria-label={t(`objects.${id}`)}
@@ -104,7 +110,7 @@ export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: bo
       ))}
       <Caption
         text={line}
-        audioKey={line === t("intro") ? "room_intro" : line === t("surprise") ? "room_surprise" : undefined}
+        audioKey={lineKey ? `room_${lineKey}` : undefined}
         locale={locale}
         replayLabel={tOnb("replay")}
         variant="title"

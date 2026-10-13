@@ -248,7 +248,7 @@
       "starLabel": "{place}: level {n}",
       "wearOn": "Put it on",
       "wearOff": "Take it off",
-      "locked": "Make more stories to open this!",
+      "locked": "Keep playing to open this!",
       "colours": "Colours",
       "steps": "{n, plural, one {One more step to your next surprise!} other {# more steps to your next surprise!}}",
       "allOpen": "You opened every surprise. Amazing!",
@@ -261,7 +261,10 @@
         "face": "Glasses",
         "neck": "Neck",
         "back": "Back"
-      }
+      },
+      "steps1": "One more step to your next surprise!",
+      "steps2": "Two more steps to your next surprise!",
+      "steps3": "Three more steps to your next surprise!"
     }
   },
   "parent": {

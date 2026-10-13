@@ -8,8 +8,8 @@
 .say :global(span) { color: var(--white) !important; -webkit-text-stroke-color: #3b2a75 !important; }
 
 /* the character and name, centred on its spot */
-.me { position: absolute; z-index: 2; inset-inline-start: calc(var(--x) * 100%); inset-block-start: calc(var(--y) * 100%); inline-size: min(calc(var(--w) * 100vw), calc(var(--w) * 150vh)); translate: -50% -50%; display: grid; justify-items: center; gap: var(--s1); }
-:global(html[dir="rtl"]) .me { translate: 50% -50%; }
+/* positions are on the room art, which never mirrors: physical left/top on purpose (text still flows RTL) */
+.me { position: absolute; z-index: 2; left: calc(var(--x) * 100%); inset-block-start: calc(var(--y) * 100%); inline-size: min(calc(var(--w) * 100vw), calc(var(--w) * 150vh)); translate: -50% -50%; display: grid; justify-items: center; gap: var(--s1); }
 .character { border: 0; padding: 0; background: none; cursor: pointer; inline-size: 100%; min-block-size: var(--touch-child); }
 .character:focus-visible, .nameButton:focus-visible, .object:focus-visible { outline: var(--outline); outline-offset: 4px; border-radius: 20px; }
 .characterInner { display: block; }
@@ -22,8 +22,8 @@
 .objects { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .object {
   position: absolute;
-  inset-inline-start: calc(var(--x) * 100%);
-  inset-block-start: calc(var(--y) * 100%);
+  left: calc(var(--x) * 100%);
+  top: calc(var(--y) * 100%);
   inline-size: max(min(calc(var(--w) * 100vw), calc(var(--w) * 150vh)), var(--touch-child));
   translate: -50% -50%;
   display: grid;
@@ -39,7 +39,6 @@
   pointer-events: auto;
   transition: scale var(--m-pop) var(--ease-spring);
 }
-:global(html[dir="rtl"]) .object { translate: 50% -50%; }
 .object:active { scale: 0.94; }
 .objectArt { inline-size: 100%; }
 .objectWord { padding: 2px 12px; border-radius: var(--r-pill); background: rgb(255 255 255 / 0.92); font-size: clamp(14px, 1.6vmin + 6px, 19px); font-weight: 700; white-space: nowrap; }
@@ -51,10 +50,9 @@
 
 /* portrait: character at the top, the objects as a row of big picture buttons above the dock */
 @media (orientation: portrait) {
-  .me { inset-inline-start: calc(var(--px) * 100%); inset-block-start: calc(var(--py) * 100%); inline-size: min(calc(var(--pw) * 100vw), 34vh); }
+  .me { left: calc(var(--px) * 100%); inset-block-start: calc(var(--py) * 100%); inline-size: min(calc(var(--pw) * 100vw), 34vh); }
   .objects { inset: auto 12px calc(var(--dock-space, 110px) + 10px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 8px; pointer-events: none; }
-  .object { position: relative; inset: auto; translate: none; inline-size: 100%; min-inline-size: 0; }
-  :global(html[dir="rtl"]) .object { translate: none; }
+  .object { position: relative; inset: auto; left: auto; top: auto; translate: none; inline-size: 100%; min-inline-size: 0; }
   .objectArt { inline-size: min(64%, 11vh); }
   .objectWord { max-inline-size: 100%; white-space: normal; text-align: center; line-height: 1.15; font-size: 14px; padding-inline: 8px; }
   .feelio { display: none; }

@@ -84,6 +84,33 @@ describe.skipIf(!process.env.DATABASE_URL)("my room (integration, synthetic data
     expect(st.points).toBeGreaterThan(0);
   });
 
+  it("review fix: onboarding can never put on or take off wardrobe items", async () => {
+    const { applyOnboardingUpdate } = await import("@/child/view");
+    const child = { childId: id, householdId, ageBand: "7-9" as const, locale: "en" as const, keyId: "k" };
+    for (const slot of ["head", "face", "neck", "back"] as const) await room.applyRoomUpdate(id, { action: "wear", slot, item: null });
+    await room.applyRoomUpdate(id, { action: "wear", slot: "head", item: "party_hat" });
+    // a locked item smuggled in through the onboarding route is ignored, and the worn hat stays
+    await applyOnboardingUpdate(child, { step: 6, avatar: { v: 1, shape: "bun", colour: "sky", companion: "star", wear: { back: "butterfly_wings" } } as never });
+    const st = await room.roomState(id, true);
+    expect(st.avatar.wear).toEqual({ head: "party_hat" });
+    expect(st.avatar.colour).toBe("sky");
+    await room.applyRoomUpdate(id, { action: "wear", slot: "head", item: null });
+  });
+
+  it("review fix: quick changes in a row all stick (no lost updates)", async () => {
+    for (const slot of ["head", "face", "neck", "back"] as const) await room.applyRoomUpdate(id, { action: "wear", slot, item: null });
+    await Promise.all([
+      room.applyRoomUpdate(id, { action: "wear", slot: "head", item: "party_hat" }),
+      room.applyRoomUpdate(id, { action: "wear", slot: "face", item: "round_glasses" }),
+      room.applyRoomUpdate(id, { action: "colour", colour: "lilac" }),
+    ]);
+    const st = await room.roomState(id, true);
+    expect(st.avatar.wear).toEqual({ head: "party_hat", face: "round_glasses" });
+    expect(st.avatar.colour).toBe("lilac");
+    await room.applyRoomUpdate(id, { action: "wear", slot: "head", item: null });
+    await room.applyRoomUpdate(id, { action: "wear", slot: "face", item: null });
+  });
+
   it("changes colour, name (list or the parent's nickname only) and likes", async () => {
     expect(await room.applyRoomUpdate(id, { action: "colour", colour: "rose" })).toEqual({ ok: true });
     expect(await room.applyRoomUpdate(id, { action: "nickname", nickname: "parent" })).toEqual({ ok: false }); // no parent nickname

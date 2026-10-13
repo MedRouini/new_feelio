@@ -33,7 +33,8 @@ test("dress up: wear a free item, take it off, a locked item stays locked", asyn
   expect((await saved).status()).toBe(200);
   await expect(page.getByTestId("wear-scarf")).toHaveAttribute("data-locked", "true");
   await page.getByTestId("wear-scarf").click();
-  await expect(page.getByTestId("room-line")).toContainText("Make more stories");
+  await expect(page.getByTestId("room-line")).toContainText("Keep playing to open this"); // review fix: true even with Stories off
+  await expect(page.locator('[data-testid="room-line"] audio')).toHaveAttribute("src", /room_locked\.mp3$/); // review fix: heard, not only read
   await page.screenshot({ path: `${SHOTS}/wardrobe.png` });
   await page.getByTestId("closeup-back").click();
   await page.reload();
@@ -65,7 +66,7 @@ test("name and likes change from the room", async ({ page }) => {
   await page.getByTestId("room-name").click();
   const balloon = page.locator('[data-testid^="name-"]').nth(1);
   const word = (await balloon.textContent())!.trim();
-  await balloon.click({ force: true });
+  await balloon.evaluate((el: HTMLElement) => el.click()); // the balloons bob: click this exact one, not a screen point
   await page.getByTestId("closeup-back").click();
   await expect(page.getByTestId("room-name")).toContainText(word);
   await page.getByTestId("room-pinboard").click();
@@ -119,3 +120,19 @@ for (const locale of ["en", "ar"] as const) {
     });
   }
 }
+
+test("review fix: objects stay on the same spot of the room art in Arabic (the art never mirrors)", async ({ browser }) => {
+  const centres: Record<string, Record<string, number>> = {};
+  for (const locale of ["en", "ar"] as const) {
+    const page = await browser.newPage({ viewport: { width: 1180, height: 820 } });
+    await asChild(page, fixture({ locale, onboarded: true, stories: true }));
+    await page.goto(`${APP}/room`);
+    centres[locale] = {};
+    for (const id of ["wardrobe", "shelf", "gift"]) {
+      const b = (await page.getByTestId(`room-${id}`).boundingBox())!;
+      centres[locale][id] = b.x + b.width / 2;
+    }
+    await page.close();
+  }
+  for (const id of ["wardrobe", "shelf", "gift"]) expect(Math.abs(centres.en[id] - centres.ar[id]), id).toBeLessThan(4);
+});

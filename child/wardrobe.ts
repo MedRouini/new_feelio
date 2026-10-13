@@ -41,15 +41,17 @@ export function stepsToNext(points: number, reached: number): number | null {
 
 const idsFor = (slot: WearSlot) => WEAR_ITEMS.filter((i) => i.slot === slot).map((i) => i.id) as [string, ...string[]];
 
-/** What the character wears: at most one item per body area, each from that area's list. */
-export const wearSchema = z
-  .object({
-    head: z.enum(idsFor("head")).optional(),
-    face: z.enum(idsFor("face")).optional(),
-    neck: z.enum(idsFor("neck")).optional(),
-    back: z.enum(idsFor("back")).optional(),
-  })
-  .strict();
+/**
+ * What the character wears: at most one item per body area, each from that area's list. Tolerant on
+ * purpose: an id that is unknown or in the wrong area (an item renamed in wardrobe.json) is dropped, so
+ * it never invalidates the whole character. Writes are checked strictly by the room route.
+ */
+export const wearSchema = z.object({
+  head: z.enum(idsFor("head")).optional().catch(undefined),
+  face: z.enum(idsFor("face")).optional().catch(undefined),
+  neck: z.enum(idsFor("neck")).optional().catch(undefined),
+  back: z.enum(idsFor("back")).optional().catch(undefined),
+});
 export type Wear = z.infer<typeof wearSchema>;
 
 /** The worn items to draw, behind and in front of the body; items without delivered art are left out. */

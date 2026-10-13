@@ -32,7 +32,8 @@ export const DEFAULT_AVATAR: Avatar = { v: 1, shape: "bun", colour: "amber", com
 export const onboardingUpdateSchema = z
   .object({
     step: z.number().int().min(0).max(ONBOARDING_STEPS),
-    avatar: avatarSchema.optional(),
+    /** Onboarding sets colour and shape only; worn items change only through My room (D-074). */
+    avatar: avatarSchema.omit({ wear: true }).optional(),
     /** A key from the nickname list, or "parent" to use the nickname the parent typed. */
     nickname: z.union([z.enum(NICKNAME_KEYS as [string, ...string[]]), z.literal("parent")]).optional(),
     interests: z.array(z.enum(INTERESTS)).max(MAX_INTERESTS).optional(),

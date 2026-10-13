@@ -85,28 +85,32 @@ export async function roomState(childId: string, storiesOn: boolean): Promise<Ro
   };
 }
 
+/** The saved character, or the default one when none is stored yet (as jsonb, for in-place updates). */
+const avatarOrDefault = sql`coalesce(${childProfile.avatar}, ${JSON.stringify(DEFAULT_AVATAR)}::jsonb)`;
+
 export async function applyRoomUpdate(childId: string, u: RoomUpdate): Promise<{ ok: true; opened?: string } | { ok: false }> {
   const p = await profile(childId);
-  const current = avatarSchema.safeParse(p.avatar);
-  const avatar: Avatar = current.success ? current.data : DEFAULT_AVATAR;
   switch (u.action) {
+    // Wear and colour change only their own part of the saved character, in one statement, so quick
+    // changes in a row never overwrite each other with a stale copy.
     case "wear": {
-      const wear = { ...(avatar.wear ?? {}) };
       if (u.item === null) {
-        delete wear[u.slot];
-      } else {
-        const item = itemById(u.item);
-        await refresh(childId);
-        const reached = Math.max((await profile(childId)).rewardsReached, FREE_ITEMS);
-        const index = WEAR_ITEMS.findIndex((i) => i.id === u.item);
-        if (!item || item.slot !== u.slot || index >= reached) return { ok: false };
-        wear[u.slot] = item.id;
+        await db.update(childProfile).set({ avatar: sql`${avatarOrDefault} #- ${`{wear,${u.slot}}`}::text[]` }).where(eq(childProfile.id, childId));
+        return { ok: true };
       }
-      await db.update(childProfile).set({ avatar: { ...avatar, wear } }).where(eq(childProfile.id, childId));
+      const item = itemById(u.item);
+      await refresh(childId);
+      const reached = Math.max((await profile(childId)).rewardsReached, FREE_ITEMS);
+      const index = WEAR_ITEMS.findIndex((i) => i.id === u.item);
+      if (!item || item.slot !== u.slot || index >= reached) return { ok: false };
+      await db
+        .update(childProfile)
+        .set({ avatar: sql`jsonb_set(${avatarOrDefault}, '{wear}', coalesce(${avatarOrDefault} -> 'wear', '{}'::jsonb) || jsonb_build_object(${u.slot}::text, ${item.id}::text))` })
+        .where(eq(childProfile.id, childId));
       return { ok: true };
     }
     case "colour":
-      await db.update(childProfile).set({ avatar: { ...avatar, colour: u.colour } }).where(eq(childProfile.id, childId));
+      await db.update(childProfile).set({ avatar: sql`jsonb_set(${avatarOrDefault}, '{colour}', to_jsonb(${u.colour}::text))` }).where(eq(childProfile.id, childId));
       return { ok: true };
     case "nickname":
       if (u.nickname === "parent" && !p.nicknameEnc) return { ok: false };

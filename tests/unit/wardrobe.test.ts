@@ -48,11 +48,11 @@ describe("unlock maths", () => {
 });
 
 describe("wearSchema", () => {
-  it("accepts items in their own body area only", () => {
-    expect(wearSchema.safeParse({ head: "party_hat", back: "cape" }).success).toBe(true);
-    expect(wearSchema.safeParse({}).success).toBe(true);
-    expect(wearSchema.safeParse({ head: "cape" }).success).toBe(false);
-    expect(wearSchema.safeParse({ tail: "cape" }).success).toBe(false);
+  it("keeps items in their own body area and drops anything else", () => {
+    expect(wearSchema.parse({ head: "party_hat", back: "cape" })).toEqual({ head: "party_hat", back: "cape" });
+    expect(wearSchema.parse({})).toEqual({});
+    expect(wearSchema.parse({ head: "cape" }).head).toBeUndefined();
+    expect(wearSchema.parse({ tail: "cape" })).toEqual({});
   });
 });
 
@@ -60,7 +60,7 @@ describe("avatar with items", () => {
   it("keeps version 1 records valid and accepts wear", () => {
     expect(avatarSchema.safeParse({ v: 1, shape: "bun", colour: "amber", companion: "star" }).success).toBe(true);
     expect(avatarSchema.safeParse({ v: 1, shape: "bun", colour: "amber", companion: "star", wear: { head: "party_hat" } }).success).toBe(true);
-    expect(avatarSchema.safeParse({ v: 1, shape: "bun", colour: "amber", companion: "star", wear: { head: "cape" } }).success).toBe(false);
+    expect(avatarSchema.parse({ v: 1, shape: "bun", colour: "amber", companion: "star", wear: { head: "cape" } }).wear?.head).toBeUndefined();
   });
   it("splits worn items into behind and front layers, leaving out undelivered art", () => {
     const all = () => true;
@@ -69,5 +69,16 @@ describe("avatar with items", () => {
     expect(l.front.map((i) => i.id)).toEqual(["party_hat"]);
     expect(wornLayers({ head: "party_hat" }, () => false)).toEqual({ behind: [], front: [] });
     expect(wornLayers(undefined, all)).toEqual({ behind: [], front: [] });
+  });
+});
+
+describe("review fix: an unknown worn item never resets the character", () => {
+  it("drops only the unknown item and keeps the colour", () => {
+    const r = avatarSchema.safeParse({ v: 1, shape: "bun", colour: "rose", companion: "star", wear: { head: "old_renamed_hat", face: "round_glasses" } });
+    expect(r.success).toBe(true);
+    if (r.success) {
+      expect(r.data.colour).toBe("rose");
+      expect(r.data.wear).toEqual({ face: "round_glasses" });
+    }
   });
 });

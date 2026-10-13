@@ -28,8 +28,12 @@
     "time_up": "e00b1e749790ba16",
     "room_intro": "b0a142bdfb8cd19a",
     "room_surprise": "03449431724dac7b",
-    "room_locked": "25134b653d943477",
-    "resting_later": "75fcee8e1086b859"
+    "room_locked": "fdc488fa2e47168a",
+    "resting_later": "75fcee8e1086b859",
+    "room_steps1": "cddbbb342dd58635",
+    "room_steps2": "c9d753c58b8c8471",
+    "room_steps3": "386e4bdaef7a85d2",
+    "room_allOpen": "9c2095638109bc69"
   },
   "ar": {}
 }
