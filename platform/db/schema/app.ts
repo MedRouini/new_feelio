@@ -73,6 +73,10 @@ export const childProfile = pgTable(
     nicknameKey: text("nickname_key"),
     interests: text("interests").array().notNull().default([]),
     onboarding: jsonb("onboarding").$type<OnboardingState>().notNull().default({ step: 0 }),
+    // My room (D-074): the highest unlock count ever reached (never goes down) and how many unlocks the
+    // child has watched open. Deleted with the profile.
+    rewardsReached: integer("rewards_reached").notNull().default(0),
+    rewardsSeen: integer("rewards_seen").notNull().default(0),
     createdAt: createdAt(),
   },
   (t) => [index("child_household_idx").on(t.householdId)],
