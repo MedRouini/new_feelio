@@ -2935,6 +2935,567 @@
         "clean alpha"
       ],
       "sha256": "2495d2400684abb96f931a15279b9d64e3fc33e6d654823b26e2748efc03e06a"
+    },
+    {
+      "id": "world.scene_my_room_land",
+      "file": "assets/approved/world/scene_my_room_land.png",
+      "kind": "world",
+      "prompt": "Create an image. Opaque PNG, 1536x1024 landscape. I attached our approved meadow scene: match its art style, colours, light and level of detail exactly. A cosy, calm child's bedroom seen from the front at the child's eye level: a soft round rug in the middle with open floor space for a character standing on it; an empty floor corner on the left for a wardrobe; an empty wall space on the left for a pinboard; an empty wall space on the right for a shelf; an empty floor spot on the right; a small round bedside table near the rug on the left; a window with soft daylight and a bed with a quilt at the far back. Keep these floor and wall spaces empty: our app places objects there. Keep the middle calm and open. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/world/scene_meadow_land.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "opaque full scene at the exact size; empty wall and floor spaces for the room objects, open rug for the character"
+      ],
+      "sha256": "2958c47dd5a8976b476aa3647c6ec5f617613dd3b0d01f673381926e08e679dd"
+    },
+    {
+      "id": "world.scene_my_room_port",
+      "file": "assets/approved/world/scene_my_room_port.png",
+      "kind": "world",
+      "prompt": "Create an image. Opaque PNG, 1024x1536 portrait (taller than wide). I attached two images: first our approved meadow scene (match its art style exactly), second the same bedroom in landscape. Recompose that same bedroom into portrait, keeping the room, furniture, colours and light: the rug in the lower middle with open floor for a character, the bed and window at the back, and empty floor along the bottom. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/world/scene_meadow_land.png",
+        "assets/incoming/batch6/scene_my_room_land.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "opaque full scene at the exact size; empty wall and floor spaces for the room objects, open rug for the character"
+      ],
+      "sha256": "5f43294e403da728338e9e06bc0fac0fd53ec37e1c69256a7ec6cfc7fc4544ae"
+    },
+    {
+      "id": "ui.room_wardrobe",
+      "file": "assets/approved/ui/room_wardrobe.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: a small rounded wooden wardrobe with its two doors slightly open and a soft lilac glow inside. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "e88ee8bc6ae29b4fb626551d75c7cb2403bf30266426b1a7b9bbc72df7c2ca41"
+    },
+    {
+      "id": "ui.room_gift_box",
+      "file": "assets/approved/ui/room_gift_box.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: a big gift box in purple with a rose ribbon and a large bow, lid closed. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "1516156ca646da4c6b9895baddd07ad584eb86368822ba39ea567e0f439c6438"
+    },
+    {
+      "id": "ui.room_star_shelf",
+      "file": "assets/approved/ui/room_star_shelf.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: an empty floating wooden wall shelf with two small rounded brackets. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "fa08ad923afe222da741ae72e1170079760191b878210ffd96f5a490e694b75c"
+    },
+    {
+      "id": "ui.room_feelings_jar",
+      "file": "assets/approved/ui/room_feelings_jar.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: an empty round glass jar with a cork lid and a soft warm glow inside. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "c3d549f8223311caef140d672c9f999890e7e4d3801a1e8bf1e4aa3e7f85f44a"
+    },
+    {
+      "id": "ui.room_pinboard",
+      "file": "assets/approved/ui/room_pinboard.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: an empty cork pinboard with a rounded wooden frame and four coloured pins in the corners. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "3e086917c6850c85b47864bf81284c727787fe889bef31ac321f0cbc1be5033e"
+    },
+    {
+      "id": "ui.room_book_stack",
+      "file": "assets/approved/ui/room_book_stack.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: a small stack of three books with blank, plain covers on a tiny round wooden table. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "7673e4fe85698ee7afecc66dabab2c66839f74c14a195c4aa88c954e5418922f"
+    },
+    {
+      "id": "ui.wear_party_hat",
+      "file": "assets/approved/ui/wear_party_hat.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small striped party hat in rose and amber with a fluffy pompom on top. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "6636fad5cef87143544a1bf1b86381936c16fa36b4c1e4c40cfdd3a6bcfcac2d"
+    },
+    {
+      "id": "ui.wear_flower_crown",
+      "file": "assets/approved/ui/wear_flower_crown.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a ring of small pastel flowers and green leaves worn on top of the head, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "96036837ed3d15ba2c50b7e38a7e9ff03a69a963b26741d18874fefdb2046d21"
+    },
+    {
+      "id": "ui.wear_wizard_hat",
+      "file": "assets/approved/ui/wear_wizard_hat.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small purple wizard hat with a soft brim, dotted with tiny amber stars. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "d6413e70ffbe8c0ba45f830adc5339256c196c1a80eed29b6cb5cee96f59a881"
+    },
+    {
+      "id": "ui.wear_beanie",
+      "file": "assets/approved/ui/wear_beanie.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a cosy knitted beanie in sky blue with a white pompom. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "9c79c0ad8addaac0682bf3d499ae9938576d5fda044da03ab19a334d1c17a0f3"
+    },
+    {
+      "id": "ui.wear_round_glasses",
+      "file": "assets/approved/ui/wear_round_glasses.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of round glasses with purple frames and clear lenses, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "836e9b07f8d982f3d18d59c44782b45794457f13fa43d46ea5e18c5895d0a89d"
+    },
+    {
+      "id": "ui.wear_star_glasses",
+      "file": "assets/approved/ui/wear_star_glasses.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of fun star-shaped glasses with amber frames, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "ffd51f60cf3a7c3db1a3edb9dbe8dd18d1d3c165ff1010224e1d3feddcf56119"
+    },
+    {
+      "id": "ui.wear_heart_glasses",
+      "file": "assets/approved/ui/wear_heart_glasses.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of heart-shaped glasses with rose frames and light pink lenses, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "b22174ba542c706c7db362b845edd51fdcdefff1ec91ad5d1e8fd1773fece009"
+    },
+    {
+      "id": "ui.wear_sunglasses",
+      "file": "assets/approved/ui/wear_sunglasses.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of rounded sunglasses with sky-blue frames and dark lilac lenses, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "0c9b9f53cfb09631c29657d1f4f1784c3a91b6736c5a403caed8ca84f12a2765"
+    },
+    {
+      "id": "ui.wear_scarf",
+      "file": "assets/approved/ui/wear_scarf.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a cosy knitted scarf in amber and rose stripes, wrapped like a collar with one end hanging down. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "bbe23f3385cd4308bc091c7f31facb7108ba6dab2df6b203f01cd91f439564c4"
+    },
+    {
+      "id": "ui.wear_bow_tie",
+      "file": "assets/approved/ui/wear_bow_tie.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small purple bow tie with white polka dots. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "c6c2057e3de9b42955e4b16f08d5fb5b660563fde118ad1011e2c7eac8f3a688"
+    },
+    {
+      "id": "ui.wear_flower_garland",
+      "file": "assets/approved/ui/wear_flower_garland.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a soft garland of small pastel flowers hanging in a U shape like a necklace. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "9562a80028511f5eac9729034372825337edbc0c372faa67cb795f5b59d34636"
+    },
+    {
+      "id": "ui.wear_star_medal",
+      "file": "assets/approved/ui/wear_star_medal.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a round gold medal with a raised star in the middle, hanging from a short rose ribbon loop. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "baf9788da6dfd6f5f2d9eb219f1714d9402599683d59d6c3d35814304bf9a518"
+    },
+    {
+      "id": "ui.wear_backpack",
+      "file": "assets/approved/ui/wear_backpack.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small rounded backpack in sky blue with an amber flap, seen from the front with both straps. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "0f58550e52a8e07b30ba9b81a4df441cadd197fd67e3c3b510c892361b1de7cf"
+    },
+    {
+      "id": "ui.wear_cape",
+      "file": "assets/approved/ui/wear_cape.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small hero cape in rose with a gold round clasp at the top, spread open as seen from the front. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "eb5d29d7bb93cda961e3391cb9daecc2163bd4c362e2a14de55664fb5f186472"
+    },
+    {
+      "id": "ui.wear_butterfly_wings",
+      "file": "assets/approved/ui/wear_butterfly_wings.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of soft butterfly wings in lilac and sky blue with gentle round patterns, spread open. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "530c4b74943e9c4b661133e5c07442208557b146adb364679f80cd8898cb2987"
+    },
+    {
+      "id": "ui.wear_balloon",
+      "file": "assets/approved/ui/wear_balloon.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a single round amber balloon with a shine and a curly string. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 6 job list",
+      "date": "2026-10-13",
+      "chat_link": null,
+      "references": [
+        "assets/approved/avatar/avatar_bun_amber_idle.png",
+        "assets/approved/ui/dock_collection.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-13",
+        "matches the requested subject",
+        "no text, letters or numbers; no people",
+        "on-style with its references; nothing scary",
+        "clean alpha, subject not cut off (scripts/check-incoming.ts ok)",
+        "only the item, no character drawn"
+      ],
+      "sha256": "364e5e70fd63fcce374127a76782abc6693107d6bf9f5ab02b10f59434e4e4e7"
     }
   ]
 }

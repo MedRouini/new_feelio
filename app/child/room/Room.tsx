@@ -9,7 +9,6 @@ import { Mascot } from "@/child/ui/Mascot";
 import { NameSign } from "@/child/ui/NameSign";
 import { play } from "@/child/ui/sound";
 import { useCalm } from "@/child/ui/useCalm";
-import uiStyles from "@/child/ui/ui.module.css";
 import { AssetImage } from "@/design/components/AssetImage";
 import { pick, pickOptional } from "@/design/asset-slots";
 import type { AssetId } from "@/design/asset-ids";
@@ -54,6 +53,7 @@ export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: bo
   const giftReady = state.reached > state.seen;
   const c = layout.land.character;
   const cp = layout.port.character;
+  const f = layout.land.feelio;
   const close = () => setOpen(null);
   const lineKey = LINE_AUDIO.find((k) => t(k) === line);
 
@@ -103,11 +103,6 @@ export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: bo
 
   return (
     <div className={styles.room} data-testid="room">
-      {(["land", "port"] as const).map((o) => (
-        <div key={o} className={uiStyles.sceneBg} data-orient={o} aria-hidden>
-          <AssetImage id={o === "land" ? sceneLand : scenePort} alt="" sizes="100vw" className={uiStyles.sceneImg} priority />
-        </div>
-      ))}
       <Caption
         text={line}
         audioKey={lineKey ? `room_${lineKey}` : undefined}
@@ -119,6 +114,12 @@ export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: bo
       />
 
       <LayoutGroup>
+        {/* The stage is the whole room picture, always fully visible (spare space is the room's own wall
+            and floor colours): every object sits on its furniture at every screen size. */}
+        <div className={styles.stage}>
+        {(["land", "port"] as const).map((o) => (
+          <AssetImage key={o} id={o === "land" ? sceneLand : scenePort} alt="" sizes="100vw" className={[styles.stageImg, o === "land" ? styles.stageLand : styles.stagePort].join(" ")} priority />
+        ))}
         <div
           className={styles.me}
           style={{ ["--x" as string]: c.x, ["--y" as string]: c.y, ["--w" as string]: c.w, ["--px" as string]: cp.x, ["--py" as string]: cp.y, ["--pw" as string]: cp.w }}
@@ -152,9 +153,10 @@ export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: bo
             {state.name ? <NameSign text={state.name} className={styles.name} /> : <span className={styles.nameEmpty}>{t("nameAsk")}</span>}
           </motion.button>
         </div>
-        <Mascot pose={pick(["mascot_holding_album", "mascot_happy"] as const)} label={tOnb("aiSign")} sizes="12vmin" className={styles.feelio} />
+        <Mascot pose={pick(["mascot_holding_album", "mascot_happy"] as const)} label={tOnb("aiSign")} sizes="12vmin" className={styles.feelio} style={{ ["--x" as string]: f.x, ["--y" as string]: f.y, ["--w" as string]: f.w }} />
 
         <div className={styles.objects}>{objects.map(object)}</div>
+        </div>
 
         <AnimatePresence>
           {open === "shelf" ? (

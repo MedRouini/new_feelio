@@ -2,21 +2,39 @@
    them (content/room/layout.json). No bubbles, no blur, no shadows; logical properties for Arabic.
    Only transform and opacity animate. */
 
-.room { position: fixed; inset: 0; overflow: clip; color: var(--text); background: #3b2a75; }
-.room > [data-orient] { position: fixed; }
+/* the spare space around the stage continues the room: wall, skirting and floor colours measured from
+   the edges of the art (like the place maps' backdrop, D-054); nothing drawn */
+.room {
+  position: fixed;
+  inset: 0;
+  overflow: clip;
+  color: var(--text);
+  background: linear-gradient(180deg, #fde1d3 0%, #fde1d3 41%, #eec6eb 44%, #e8c1e9 56%, #f09951 62%, #f19553 100%);
+}
+@media (orientation: portrait) {
+  .room { background: linear-gradient(180deg, #fcbc84 0%, #fde1c9 18%, #fde1c9 30%, #edc7e9 35%, #f3d4c7 45%, #fdb759 52%, #f19449 100%); }
+}
+
+/* the stage: the whole room picture, as large as fits, centred; everything on it is placed in fractions
+   of the picture, so it stays on its furniture at every size (physical left/top: the art never mirrors) */
+.stage { position: absolute; inset: 0; margin: auto; inline-size: min(100vw, 150vh); block-size: min(100vh, 66.667vw); }
+@media (orientation: portrait) { .stage { inline-size: min(100vw, 66.667vh); block-size: min(100vh, 150vw); } }
+.stageImg { position: absolute; inset: 0; inline-size: 100% !important; block-size: 100% !important; max-width: none !important; }
+.stagePort { display: none; }
+@media (orientation: portrait) { .stageLand { display: none; } .stagePort { display: block; } }
 .say { position: absolute; inset-block-start: max(10px, env(safe-area-inset-top)); inset-inline: 0; margin-inline: auto; inline-size: min(100% - 2 * 84px, 760px) !important; z-index: 3; }
 .say :global(span) { color: var(--white) !important; -webkit-text-stroke-color: #3b2a75 !important; }
 
 /* the character and name, centred on its spot */
 /* positions are on the room art, which never mirrors: physical left/top on purpose (text still flows RTL) */
-.me { position: absolute; z-index: 2; left: calc(var(--x) * 100%); inset-block-start: calc(var(--y) * 100%); inline-size: min(calc(var(--w) * 100vw), calc(var(--w) * 150vh)); translate: -50% -50%; display: grid; justify-items: center; gap: var(--s1); }
+.me { position: absolute; z-index: 2; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); inline-size: calc(var(--w) * 100%); translate: -50% -50%; display: grid; justify-items: center; gap: var(--s1); }
 .character { border: 0; padding: 0; background: none; cursor: pointer; inline-size: 100%; min-block-size: var(--touch-child); }
 .character:focus-visible, .nameButton:focus-visible, .object:focus-visible { outline: var(--outline); outline-offset: 4px; border-radius: 20px; }
 .characterInner { display: block; }
 .nameButton { border: 0; padding: 0; background: none; cursor: pointer; inline-size: 82%; min-block-size: var(--touch-child); }
 .name { inline-size: 100%; }
 .nameEmpty { display: inline-block; padding: 10px 18px; border-radius: var(--r-pill); background: var(--white); font-weight: 700; }
-.feelio { position: absolute; z-index: 2; inset-block-end: calc(var(--dock-space, 110px) + 8px); inset-inline-end: 3%; inline-size: clamp(70px, 11vmin, 120px); }
+.feelio { position: absolute; z-index: 2; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); inline-size: calc(var(--w) * 100%); translate: -50% -50%; }
 
 /* the objects */
 .objects { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
@@ -24,7 +42,7 @@
   position: absolute;
   left: calc(var(--x) * 100%);
   top: calc(var(--y) * 100%);
-  inline-size: max(min(calc(var(--w) * 100vw), calc(var(--w) * 150vh)), var(--touch-child));
+  inline-size: max(calc(var(--w) * 100%), var(--touch-child));
   translate: -50% -50%;
   display: grid;
   justify-items: center;
@@ -50,8 +68,8 @@
 
 /* portrait: character at the top, the objects as a row of big picture buttons above the dock */
 @media (orientation: portrait) {
-  .me { left: calc(var(--px) * 100%); inset-block-start: calc(var(--py) * 100%); inline-size: min(calc(var(--pw) * 100vw), 34vh); }
-  .objects { inset: auto 12px calc(var(--dock-space, 110px) + 10px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 8px; pointer-events: none; }
+  .me { left: calc(var(--px) * 100%); top: calc(var(--py) * 100%); inline-size: min(calc(var(--pw) * 100%), 34vh); }
+  .objects { position: fixed; inset: auto 12px calc(var(--dock-space, 110px) + 10px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 8px; pointer-events: none; }
   .object { position: relative; inset: auto; left: auto; top: auto; translate: none; inline-size: 100%; min-inline-size: 0; }
   .objectArt { inline-size: min(64%, 11vh); }
   .objectWord { max-inline-size: 100%; white-space: normal; text-align: center; line-height: 1.15; font-size: 14px; padding-inline: 8px; }

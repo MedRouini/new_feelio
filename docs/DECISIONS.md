@@ -822,3 +822,23 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - 140 unit and integration tests, including the room maths, the server refusals, and "a deletion never lowers reached".
 - **All 36 browser tests**, including 10 for the room: dress-up saved across a reload, the gift box opening one surprise, name and likes, Stories off, and **no overlaps at 1180×820, 1920×920 and 390×844 in English and Arabic**.
 - Screenshots reviewed.
+- **Final review (fresh reviewer, 2026-10-13), fixed with failing tests first:**
+  - Onboarding can no longer set worn items, which had bypassed the unlock check.
+  - Wear and colour are written in place with jsonb in one statement, and the browser queues saves, so quick taps never revert.
+  - An unknown or renamed item id is dropped instead of resetting the character.
+  - The locked line is neutral ("Keep playing") and spoken; step counts and "all open" have fixed voice lines.
+  - Room positions are physical, because the room art never mirrors in Arabic.
+- **Deferred minors** (in the ledger):
+  - The character's accessible name falls back to Feelio's AI label when no name is set.
+  - A refused "parent" name isn't rolled back.
+  - The gift box stays lit when another tab opened the surprise.
+  - Wardrobe tiles unlock from "reached", not "seen".
+  - No wardrobe sparkle yet.
+  - Each write loads up to 60 story rows.
+  - The room route has no screen-time check, the same as onboarding.
+- **Batch 6 approved (24, by Codex from the job list).** The room is now a **stage**: the whole room picture, as large as fits and always fully visible, with spare space filled by the wall, skirting and floor colours measured from the art's edges. Every object is placed in fractions of that picture (`content/room/layout.json`, measured 2026-10-13), so it stays on its furniture at every size:
+  - pinboard and shelf on the wall panels
+  - feelings jar on the bedside table
+  - wardrobe, books and gift box on the floor
+  - the character on the rug, Feelio by the bed
+- **Item placements** on the character (`wardrobe.json`) were measured from each item's visible area against `avatar_bun_amber_idle`, previewed on all 16 and adjusted. Hats sit on the head, glasses on the eyes, neck items under the mouth, and back items behind the body.

@@ -127,6 +127,8 @@ test("review fix: objects stay on the same spot of the room art in Arabic (the a
     const page = await browser.newPage({ viewport: { width: 1180, height: 820 } });
     await asChild(page, fixture({ locale, onboarded: true, stories: true }));
     await page.goto(`${APP}/room`);
+    await expect(page.getByTestId("room-wardrobe")).toBeVisible();
+    await page.waitForTimeout(800); // the opening layout animation settles first
     centres[locale] = {};
     for (const id of ["wardrobe", "shelf", "gift"]) {
       const b = (await page.getByTestId(`room-${id}`).boundingBox())!;
