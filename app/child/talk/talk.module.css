@@ -144,7 +144,8 @@
   .room:is([data-state="idle"], [data-state="ended"]) .mic > svg { animation: invite 2.4s ease-in-out infinite; }
 }
 @keyframes invite { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
-.micLabel { font-size: var(--fs-word); font-weight: 700; color: var(--white); }
+/* outlined like the captions so it reads on any part of the nook scene */
+.micLabel { font-size: var(--fs-word); font-weight: 700; color: var(--white); -webkit-text-stroke: 6px #3b2a75; paint-order: stroke fill; }
 .arc { position: absolute; inset: 0; transform: rotate(-90deg); }
 .arcTrack { fill: none; stroke: rgb(255 255 255 / 0.85); stroke-width: 6; }
 .arcLeft { fill: none; stroke: var(--purple-500); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 500ms linear, stroke 300ms; }

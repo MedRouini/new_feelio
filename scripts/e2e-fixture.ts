@@ -17,6 +17,8 @@ type Opts = {
   stories?: boolean;
   /** Seed a complete story draft (the workshop's four choices). */
   draft?: boolean;
+  /** Levels to mark completed (whole-level rows), e.g. to unlock later places. */
+  completedLevels?: string[];
   dailyMinutes?: 15 | 30 | 45;
   usedSeconds?: number;
   onboarded?: boolean;
@@ -91,6 +93,9 @@ async function main() {
   if (o.draft) {
     const { choice } = await import("../safety/stories/choices");
     await db.insert(s.storyDraft).values({ childId, choices: { hero: choice("hero", "fox")!, place: choice("place", "forest")!, feeling: choice("feeling", "worried")!, adventure: choice("adventure", "lost_toy")! } });
+  }
+  if (o.completedLevels?.length) {
+    await db.insert(s.progress).values(o.completedLevels.map((levelId) => ({ childId, packId: "base", levelId, scenarioId: "", status: "completed" as const })));
   }
   const { key } = await ops.createDeviceKey({ userId: res.user.id, householdId, childId, label: "e2e" });
   process.stdout.write(JSON.stringify({ email, key, childId, storyId, locale: o.locale ?? "en" }));

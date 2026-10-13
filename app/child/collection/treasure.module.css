@@ -101,8 +101,19 @@
   perspective: 1400px;
   overflow: hidden;
 }
-.album[data-art] .spread { border-color: transparent; background: none; }
-@media (orientation: portrait) { .spread { background: #fff8ec; } }
+/* with the album art (3:2): keep its shape and set the pages inside its painted page area */
+.album[data-art] { align-self: center; inline-size: min(100%, 760px, calc((100vh - 290px) * 1.5)); }
+.album[data-art] .spread { aspect-ratio: 3 / 2; border-color: transparent; background: none; }
+.album[data-art] .page { padding: 8.5% 8% 9%; }
+.album[data-art] .albumArt { inset: 60px 0 auto; block-size: auto !important; aspect-ratio: 3 / 2; }
+@media (orientation: portrait) {
+  .spread { background: #fff8ec; }
+  /* the art is a landscape spread: on a phone the album is one tall page in flat colours instead */
+  .albumArt { display: none; }
+  .album[data-art] { align-self: start; inline-size: 100%; }
+  .album[data-art] .spread { aspect-ratio: auto; border-color: #614194; background: #fff8ec; }
+  .album[data-art] .page { padding: clamp(14px, 3vmin, 28px); }
+}
 
 .page { block-size: 100%; overflow: auto; overscroll-behavior: contain; padding: clamp(14px, 3vmin, 28px); display: grid; align-content: start; gap: var(--s3); transform-origin: center; }
 @media (orientation: portrait) { .page { block-size: auto; overflow: visible; } }
