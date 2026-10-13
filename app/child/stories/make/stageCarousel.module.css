@@ -1,0 +1,10 @@
+/* The theatre carousel (D-075): the middle disc is big and lit; neighbours shrink and fade. The arrows are
+   pressables on either side; the chosen name and the "Choose" plate sit under the middle. */
+.carousel { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto auto; align-items: center; justify-items: center; gap: var(--s2) var(--s3); inline-size: 100%; }
+.track { position: relative; grid-column: 2; inline-size: 100%; block-size: clamp(130px, 22vmin, 210px); display: grid; place-items: center; touch-action: pan-y; outline: none; }
+.track:focus-visible { outline: 4px solid var(--white); outline-offset: 6px; border-radius: 28px; }
+.slide { position: absolute; inline-size: clamp(120px, 20vmin, 190px); border: 0; padding: 0; background: none; cursor: pointer; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.slide:focus-visible { outline: none; }
+.arrow { grid-row: 1; }
+.under { grid-column: 1 / -1; grid-row: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--s3); }
+.name { font-size: var(--fs-word); font-weight: 700; color: var(--white); -webkit-text-stroke: 5px #3b2a75; paint-order: stroke fill; }
