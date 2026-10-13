@@ -15,7 +15,13 @@ import { pick, pickOptional } from "@/design/asset-slots";
 import type { AssetId } from "@/design/asset-ids";
 import type { RoomState } from "@/child/room";
 import layout from "@/content/room/layout.json";
+import { MAX_INTERESTS } from "@/child/options";
+import { LikesPicker } from "../hello/LikesPicker";
+import { NamePicker, nameChoices } from "../hello/NamePicker";
 import { CloseUp } from "./CloseUp";
+import { GiftBox } from "./GiftBox";
+import { saveRoom } from "./save";
+import { Wardrobe } from "./Wardrobe";
 import { FeelingsJar } from "./FeelingsJar";
 import { StarShelf } from "./StarShelf";
 import styles from "./room.module.css";
@@ -32,10 +38,11 @@ const LAND = layout.land.objects as Record<RoomObject, Pos>;
 export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: boolean }) {
   const t = useTranslations("child.room");
   const tOnb = useTranslations("child.onb");
+  const ti = useTranslations("interests");
   const locale = useLocale() === "ar" ? "ar" : "en";
   const rtl = locale === "ar";
   const calm = useCalm();
-  const [state] = useState(initial);
+  const [state, setState] = useState(initial);
   const [open, setOpen] = useState<RoomObject | "name" | null>(null);
   const [line, setLine] = useState(initial.reached > initial.seen ? t("surprise") : t("intro"));
   const [hop, setHop] = useState(0);
@@ -78,6 +85,7 @@ export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: bo
         {...common}
         onClick={() => {
           play("tap");
+          if (id === "gift" && !giftReady) setLine(state.stepsToNext === null ? t("allOpen") : t("steps", { n: state.stepsToNext }));
           setOpen(id);
         }}
         aria-label={t(`objects.${id}`)}
@@ -153,7 +161,80 @@ export function Room({ initial, storiesOn }: { initial: RoomState; storiesOn: bo
               <FeelingsJar feelings={state.feelings} locale={locale} onSay={setLine} />
             </CloseUp>
           ) : null}
-          {/* wardrobe, gift, pinboard and name close-ups: Task 7 */}
+          {open === "wardrobe" ? (
+            <CloseUp key="wardrobe" id="wardrobe" title={t("objects.wardrobe")} backLabel={t("back")} rtl={rtl} onClose={close}>
+              <Wardrobe
+                avatar={state.avatar}
+                reached={state.reached}
+                locale={locale}
+                onLocked={() => setLine(t("locked"))}
+                onWear={(slot, item) => {
+                  const wear = { ...(state.avatar.wear ?? {}) };
+                  if (item) wear[slot] = item;
+                  else delete wear[slot];
+                  setState((s) => ({ ...s, avatar: { ...s.avatar, wear } }));
+                  void saveRoom({ action: "wear", slot, item });
+                }}
+                onColour={(colour) => {
+                  setState((s) => ({ ...s, avatar: { ...s.avatar, colour } }));
+                  void saveRoom({ action: "colour", colour });
+                }}
+              />
+            </CloseUp>
+          ) : null}
+          {open === "gift" ? (
+            <CloseUp key="gift" id="gift" title={t("objects.gift")} backLabel={t("back")} rtl={rtl} onClose={close}>
+              <GiftBox
+                ready={giftReady}
+                stepsToNext={state.stepsToNext}
+                locale={locale}
+                onSay={setLine}
+                onOpen={async () => {
+                  const r = await saveRoom({ action: "seen" });
+                  if (!r.ok || !r.opened) return null;
+                  setState((s) => ({ ...s, seen: s.seen + 1 }));
+                  return r.opened;
+                }}
+              />
+            </CloseUp>
+          ) : null}
+          {open === "pinboard" ? (
+            <CloseUp key="pinboard" id="pinboard" title={t("objects.pinboard")} backLabel={t("back")} rtl={rtl} onClose={close}>
+              <div className={styles.likes}>
+                <LikesPicker
+                  likes={state.interests}
+                  rtl={rtl}
+                  burst={0}
+                  onCentre={(id) => setLine(ti(id))}
+                  onToggle={(id) => {
+                    const has = state.interests.includes(id);
+                    if (!has && state.interests.length >= MAX_INTERESTS) return setLine(tOnb("likesFull"));
+                    play(has ? "tap" : "pick");
+                    const interests = has ? state.interests.filter((x) => x !== id) : [...state.interests, id];
+                    setState((s) => ({ ...s, interests }));
+                    void saveRoom({ action: "interests", interests });
+                  }}
+                />
+              </div>
+            </CloseUp>
+          ) : null}
+          {open === "name" ? (
+            <CloseUp key="name" id="name" title={t("nameAsk")} backLabel={t("back")} rtl={rtl} onClose={close}>
+              <div className={styles.names}>
+                <NamePicker
+                  names={nameChoices(locale, state.parentNickname)}
+                  pickedKey={state.nicknameKey}
+                  label={t("nameAsk")}
+                  onPick={(n) => {
+                    play("pick");
+                    setState((s) => ({ ...s, nicknameKey: n.key, name: n.word }));
+                    setLine(tOnb("nameHello", { name: n.word }));
+                    void saveRoom({ action: "nickname", nickname: n.key });
+                  }}
+                />
+              </div>
+            </CloseUp>
+          ) : null}
         </AnimatePresence>
       </LayoutGroup>
     </div>
