@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useCalm } from "@/child/ui/useCalm";
-import { ArrowLeft, ArrowRight, Check, Heart, SkipForward, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, SkipForward } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Avatar } from "@/child/ui/Avatar";
 import { Mascot, type MascotPose } from "@/child/ui/Mascot";
@@ -13,10 +13,12 @@ import { SayBubble } from "@/child/ui/SayBubble";
 import { ThingButton } from "@/child/ui/ThingButton";
 import { play } from "@/child/ui/sound";
 import uiStyles from "@/child/ui/ui.module.css";
-import { INTERESTS, MAX_INTERESTS, NICKNAMES, type Avatar as AvatarChoice, type Interest } from "@/child/options";
+import { MAX_INTERESTS, type Avatar as AvatarChoice, type Interest } from "@/child/options";
 import { AssetImage } from "@/design/components/AssetImage";
 import { AVATAR_COLOURS, type AssetId } from "@/design/asset-ids";
 import { Carousel } from "./Carousel";
+import { LikesPicker } from "./LikesPicker";
+import { NamePicker, nameChoices } from "./NamePicker";
 import { Sparkles } from "./Sparkles";
 import styles from "./onboarding.module.css";
 
@@ -88,7 +90,6 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
   const [touched, setTouched] = useState(false);
   const [burst, setBurst] = useState(0);
   const [nickname, setNickname] = useState<{ key: string; word: string } | null>(null);
-  const [likeIndex, setLikeIndex] = useState(0);
   const [likes, setLikes] = useState<Interest[]>([]);
   const [mic, setMic] = useState<"ask" | "listening" | "heard" | "no">("ask");
   const [level, setLevel] = useState(0);
@@ -154,7 +155,7 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
   };
 
   // ---------- stop: name ----------
-  const names = [...(parentNickname ? [{ key: "parent", word: parentNickname }] : []), ...NICKNAMES.slice(0, parentNickname ? 5 : 6).map((n) => ({ key: n.key, word: n[locale] }))];
+  const names = nameChoices(locale, parentNickname);
   const pickName = (n: { key: string; word: string }) => {
     setNickname(n);
     setBurst((b) => b + 1);
@@ -163,8 +164,6 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
   };
 
   // ---------- stop: likes ----------
-  const centreLike = INTERESTS[likeIndex];
-  const liked = likes.includes(centreLike);
   const toggleLike = (id: Interest) => {
     if (likes.includes(id)) {
       setLikes((l) => l.filter((x) => x !== id));
@@ -344,22 +343,7 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
             ? stage(
                 "name",
                 <div className={styles.nameStop}>
-                  <ul className={styles.balloons} aria-label={t("pickName")}>
-                    {names.map((n, i) => (
-                      <li key={n.key} style={{ ["--i" as string]: i }}>
-                        <button
-                          type="button"
-                          className={styles.balloon}
-                          data-tone={i % 4}
-                          aria-pressed={nickname?.key === n.key}
-                          onClick={() => pickName(n)}
-                          data-testid={`name-${n.key}`}
-                        >
-                          {n.word}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
+                  <NamePicker names={names} pickedKey={nickname?.key ?? null} onPick={pickName} label={t("pickName")} />
                   <div className={styles.nameMe}>
                     <span className={styles.nameAvatar} key={burst} data-hop={nickname ? true : undefined}>
                       <Avatar avatar={avatar} sizes="22vmin" />
@@ -383,63 +367,7 @@ export function Onboarding({ locale, startStep, avatar: initialAvatar, talkEnabl
             ? stage(
                 "likes",
                 <div className={styles.likesStop}>
-                  <Carousel
-                    items={INTERESTS}
-                    index={likeIndex}
-                    onIndex={(i) => {
-                      setLikeIndex(i);
-                      setLine({ text: ti(INTERESTS[i]), key: "" });
-                    }}
-                    rtl={rtl}
-                    spacing={0.3}
-                    reach={2}
-                    label={t("likesLabel")}
-                    itemLabel={(id) => `${ti(id)}${likes.includes(id) ? ` (${t("picked")})` : ""}`}
-                    prevLabel={t("prevOne")}
-                    nextLabel={t("nextOne")}
-                    testId="likes-picker"
-                    render={(id, centre) => (
-                      <span className={styles.likeSlide} data-liked={likes.includes(id) || undefined}>
-                        <AssetImage id={`like_${id}` as AssetId} alt="" sizes="30vmin" className={[styles.likeArt, centre ? styles[`idle_${id}`] : ""].join(" ")} />
-                        {likes.includes(id) ? (
-                          <span className={styles.likedMark} aria-hidden>
-                            <Heart size={26} fill="currentColor" />
-                          </span>
-                        ) : null}
-                        {centre ? <Sparkles burst={liked ? burst : 0} /> : null}
-                      </span>
-                    )}
-                  />
-                  <div className={styles.likeRow}>
-                    <button type="button" className={styles.likeButton} aria-pressed={liked} onClick={() => toggleLike(centreLike)} data-testid="like-toggle">
-                      {liked ? <X size={30} strokeWidth={3} aria-hidden /> : <Heart size={30} strokeWidth={3} aria-hidden />}
-                      <span>{liked ? t("notThisOne") : t("likeIt")}</span>
-                    </button>
-                    <ul className={styles.slots} aria-label={t("yourPicks")}>
-                      {Array.from({ length: MAX_INTERESTS }, (_, i) => likes[i]).map((id, i) => (
-                        <li key={i}>
-                          <AnimatePresence mode="popLayout">
-                            {id ? (
-                              <motion.button
-                                key={id}
-                                type="button"
-                                className={styles.slotItem}
-                                aria-label={`${ti(id)}: ${t("notThisOne")}`}
-                                onClick={() => toggleLike(id)}
-                                initial={reduce ? { opacity: 0 } : { scale: 0, rotate: -20 }}
-                                animate={{ scale: 1, rotate: 0, opacity: 1 }}
-                                exit={{ scale: 0, opacity: 0 }}
-                                transition={{ type: "spring", stiffness: 380, damping: 18 }}
-                                data-testid={`picked-${id}`}
-                              >
-                                <AssetImage id={`like_${id}` as AssetId} alt="" sizes="80px" />
-                              </motion.button>
-                            ) : null}
-                          </AnimatePresence>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <LikesPicker likes={likes} onToggle={toggleLike} onCentre={(id) => setLine({ text: ti(id), key: "" })} rtl={rtl} burst={burst} />
                   <GoStone label={t("next")} onPress={() => void go({ interests: likes })} testId="onb-next">
                     <NextIcon size={44} strokeWidth={3.5} />
                   </GoStone>
