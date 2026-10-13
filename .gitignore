@@ -43,3 +43,6 @@ assets/redo/
 
 # Codex image deliveries wait here until Claude Code reviews them (Batch 6+)
 assets/incoming/
+
+# superpowers plan workspaces (ledgers, briefs)
+.superpowers/

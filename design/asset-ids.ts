@@ -28,6 +28,12 @@ const square = [
   // redesign v2 (Batch 5, docs/REDESIGN_V2.md): optional art; pages work without it
   "mascot_directing", "mascot_holding_album",
   "face_worried", "face_proud", "face_lonely", "face_jealous",
+  // My room (Batch 6, D-074, docs/superpowers/specs/2026-10-13-my-room-design.md)
+  "room_wardrobe", "room_gift_box", "room_star_shelf", "room_feelings_jar", "room_pinboard", "room_book_stack",
+  "wear_party_hat", "wear_flower_crown", "wear_wizard_hat", "wear_beanie",
+  "wear_round_glasses", "wear_star_glasses", "wear_heart_glasses", "wear_sunglasses",
+  "wear_scarf", "wear_bow_tie", "wear_flower_garland", "wear_star_medal",
+  "wear_backpack", "wear_cape", "wear_butterfly_wings", "wear_balloon",
   "story_hero_fox", "story_hero_bear", "story_hero_bunny", "story_hero_owl", "story_hero_turtle", "story_hero_dragon", "story_hero_cat", "story_hero_penguin",
   "story_place_forest", "story_place_beach", "story_place_space", "story_place_castle", "story_place_garden", "story_place_underwater",
   "story_adv_lost_toy", "story_adv_new_friend", "story_adv_big_race", "story_adv_birthday", "story_adv_storm", "story_adv_first_day",
@@ -47,8 +53,8 @@ const placeLandscape = WORLD_PLACE_IDS.map((p) => `place_${p}_map_h` as const);
 const placePortrait = WORLD_PLACE_IDS.map((p) => `place_${p}_map_v` as const);
 
 const wide = ["ui_sign_plate", "ui_say_bubble"] as const;
-const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open", "scene_talk_nook_land", "scene_story_stage_land", "scene_library_land", "scene_treasure_room_land", "ui_sticker_album_open"] as const;
-const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open", "scene_talk_nook_port", "scene_story_stage_port", "scene_library_port", "scene_treasure_room_port"] as const;
+const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open", "scene_talk_nook_land", "scene_story_stage_land", "scene_library_land", "scene_treasure_room_land", "ui_sticker_album_open", "scene_my_room_land"] as const;
+const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open", "scene_talk_nook_port", "scene_story_stage_port", "scene_library_port", "scene_treasure_room_port", "scene_my_room_port"] as const;
 
 // D-053 (owner, 2026-10-10): one character for now ("bun"), four colours, one pose. Its "yay" is a
 // code hop. The approved bean/puff bases stay in assets/ for later but are not used.
