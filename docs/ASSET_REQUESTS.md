@@ -1221,6 +1221,37 @@ Use the standard mascot prompt in docs/MASCOT.md with:
 | `mascot_directing.png` | standing side-on, one arm-flap raised and pointing forward like a friendly play director, the other on its hip | excited, sparkly eyes, big open smile |
 | `mascot_holding_album.png` | hugging a small closed purple album to its chest with both arm-flaps | proud and happy, eyes curved, warm smile |
 
+## Batch 6 (My room), written 2026-10-13 (D-074, docs/superpowers/specs/2026-10-13-my-room-design.md)
+Made with Codex from the job list `assets/requests/batch6/jobs.json` (full prompt, references, size and transparency for each file; brief: `assets/requests/batch6/CODEX.md`). Files land in `assets/incoming/batch6/` (git-ignored) and are reviewed by Claude Code before they move to `assets/approved/`. Until then the room objects and wardrobe tiles show grey `TODO(PLACEHOLDER)` boxes and the room uses the treasure-room scene.
+
+| id | Shape | References | What to draw |
+|---|---|---|---|
+| `scene_my_room_land` | 1536x1024 opaque | `scene_meadow_land` | the bedroom, landscape |
+| `scene_my_room_port` | 1024x1536 opaque | `scene_meadow_land`, `scene_my_room_land` | the bedroom, portrait (make after the landscape one) |
+| `room_wardrobe` | 1024x1024 transparent | `dock_collection` | a small rounded wooden wardrobe with its two doors slightly open and a soft lilac glow inside |
+| `room_gift_box` | 1024x1024 transparent | `dock_collection` | a big gift box in purple with a rose ribbon and a large bow, lid closed |
+| `room_star_shelf` | 1024x1024 transparent | `dock_collection` | an empty floating wooden wall shelf with two small rounded brackets |
+| `room_feelings_jar` | 1024x1024 transparent | `dock_collection` | an empty round glass jar with a cork lid and a soft warm glow inside |
+| `room_pinboard` | 1024x1024 transparent | `dock_collection` | an empty cork pinboard with a rounded wooden frame and four coloured pins in the corners |
+| `room_book_stack` | 1024x1024 transparent | `dock_collection` | a small stack of three books with blank, plain covers on a tiny round wooden table |
+| `wear_party_hat` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small striped party hat in rose and amber with a fluffy pompom on top |
+| `wear_flower_crown` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a ring of small pastel flowers and green leaves worn on top of the head, front view |
+| `wear_wizard_hat` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small purple wizard hat with a soft brim, dotted with tiny amber stars |
+| `wear_beanie` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a cosy knitted beanie in sky blue with a white pompom |
+| `wear_round_glasses` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of round glasses with purple frames and clear lenses, front view |
+| `wear_star_glasses` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of fun star-shaped glasses with amber frames, front view |
+| `wear_heart_glasses` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of heart-shaped glasses with rose frames and light pink lenses, front view |
+| `wear_sunglasses` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of rounded sunglasses with sky-blue frames and dark lilac lenses, front view |
+| `wear_scarf` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a cosy knitted scarf in amber and rose stripes, wrapped like a collar with one end hanging down |
+| `wear_bow_tie` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small purple bow tie with white polka dots |
+| `wear_flower_garland` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a soft garland of small pastel flowers hanging in a U shape like a necklace |
+| `wear_star_medal` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a round gold medal with a raised star in the middle, hanging from a short rose ribbon loop |
+| `wear_backpack` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small rounded backpack in sky blue with an amber flap, seen from the front with both straps |
+| `wear_cape` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small hero cape in rose with a gold round clasp at the top, spread open as seen from the front |
+| `wear_butterfly_wings` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of soft butterfly wings in lilac and sky blue with gentle round patterns, spread open |
+| `wear_balloon` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a single round amber balloon with a shine and a curly string |
+
+
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
@@ -1305,3 +1336,4 @@ Use the standard mascot prompt in docs/MASCOT.md with:
 | batch-4 stories (heroes, places, adventures, faces, wand, mascot_reading) | 2026-10-11 | 2026-10-12 | 2026-10-13 | All 26 approved (colleague, OpenAI image tool via Codex; reviewed by Claude Code). `story_shelf`, `scene_story_corner_*`, `story_book_*`, `story_page_paper`, `ui_story_slot` no longer needed after the redesign (D-071) |
 | ui_mic_object | 2026-10-10 | 2026-10-13 | 2026-10-13 | Redo delivered: a handheld microphone |
 | no longer needed | 2026-10-11 | | | Removed from `design/asset-ids.ts` 2026-10-13 (unused since the redesign, D-071): `story_shelf`, `scene_story_corner_land/_port`, `story_book_open`, `story_page_paper`, `story_book_cover`, `ui_story_slot` |
+| batch-6 my room | 2026-10-13 | | | 2 scenes, 6 room objects, 16 wearable items (D-074); via Codex from assets/requests/batch6/jobs.json into assets/incoming/batch6/ |

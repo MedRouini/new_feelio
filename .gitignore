@@ -40,3 +40,6 @@ assets/redo/
 
 # Local development storage when no Vercel Blob token is set (platform/storage.ts)
 .data/
+
+# Codex image deliveries wait here until Claude Code reviews them (Batch 6+)
+assets/incoming/
