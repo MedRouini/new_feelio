@@ -1,6 +1,6 @@
-/* Stories (D-070, redesign v2 D-071): the library. A warm wall (or the library scene when delivered),
-   Feelio reading on top of the shelves, the big magic button, and the child's books standing on wooden
-   shelves. No bubbles, no blur, no shadows; logical properties for Arabic. */
+/* Stories (D-070, D-071, D-075): the library. The reading table with the "make a new story" object and
+   Feelio reading, and the child's books on wooden shelves. No pills, no bubbles, no blur, no shadows;
+   logical properties for Arabic. */
 
 .shelfRoom {
   position: fixed;
@@ -8,10 +8,10 @@
   overflow: auto;
   overscroll-behavior: contain;
   display: grid;
-  align-content: start;
+  grid-template-rows: auto minmax(0, 1fr);
   justify-items: center;
-  gap: var(--s4);
-  padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + var(--s6));
+  gap: var(--s3);
+  padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + var(--s4));
   padding-inline: 16px;
   color: var(--text);
   background: #fff1dc;
@@ -28,57 +28,47 @@
     repeating-linear-gradient(90deg, #fff1dc 0 46px, #ffe8c8 46px 92px);
 }
 
-.shelfHead {
+.say { inline-size: min(100% - 2 * 72px, 760px) !important; }
+
+/* the room: the reading table on the start side, the shelves on the end side */
+.library {
+  inline-size: min(100%, 1180px);
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.4fr);
+  align-items: start;
+  gap: var(--s6);
+}
+@media (orientation: portrait) { .library { grid-template-columns: minmax(0, 1fr); gap: var(--s4); } }
+
+/* the reading table: a wooden table top under the object (flat colours) */
+.table {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
   align-items: end;
-  gap: var(--s4);
-  inline-size: min(100%, 980px);
+  gap: var(--s2);
+  padding-block-end: 26px;
+  background: linear-gradient(0deg, transparent 0 4px, #9a5f35 4px 16px, #c98b55 16px 26px, transparent 26px);
 }
-.shelfMascot { inline-size: clamp(110px, 20vmin, 180px); }
-.shelfSay { inline-size: min(100%, 560px) !important; align-self: center; }
-@media (orientation: portrait) {
-  .shelfHead { grid-template-columns: auto minmax(0, 1fr); }
-  .shelfHead > .shelfSay { inline-size: calc(100% - 64px) !important; justify-self: start; } /* clear of the exit door */
-  .shelfHead > .magic { grid-column: 1 / -1; justify-self: center; }
-}
+.make { inline-size: clamp(150px, 22vmin, 230px); }
+.reader { inline-size: clamp(90px, 14vmin, 150px); }
+@media (orientation: portrait) { .make { inline-size: 40vw; } .reader { inline-size: 26vw; } }
 
-/* the big magic button: the one primary action */
-.magic {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s3);
-  min-block-size: 88px;
-  padding-inline: var(--s6) var(--s8);
-  border-radius: var(--r-pill);
-  background: var(--accent);
-  color: var(--navy-900);
-  font-size: var(--fs-big);
-  font-weight: 700;
-  text-decoration: none;
-  border: 4px solid #e09a2a;
-  transition: transform var(--m-pop) var(--ease-spring);
-}
-.magic:active { transform: scale(0.95); }
-.magic:focus-visible { outline: var(--outline); outline-offset: 4px; }
-.magicArt { inline-size: 64px; }
-@media (prefers-reduced-motion: no-preference) {
-  .magic > :first-child { animation: twinkle 2.4s ease-in-out infinite; }
-}
-@keyframes twinkle { 0%, 100% { transform: rotate(-6deg) scale(1); } 50% { transform: rotate(8deg) scale(1.1); } }
-
-/* the books */
+/* the shelves */
+.shelves { display: grid; gap: var(--s2); min-inline-size: 0; }
+.shelvesTitle { margin: 0; font-size: var(--fs-word); color: var(--purple-500); }
 .books {
   margin: 0;
   padding: 0;
   list-style: none;
-  inline-size: min(100%, 980px);
   isolation: isolate;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(clamp(130px, 22vw, 190px), 1fr));
-  gap: clamp(20px, 4vmin, 36px) 0;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(120px, 15vw, 170px), 1fr));
+  gap: clamp(18px, 3.5vmin, 32px) 0;
   overflow-x: clip;
 }
+@media (orientation: portrait) { .books { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .books > li {
   position: relative;
   display: grid;
@@ -86,20 +76,22 @@
   padding-inline: clamp(8px, 1.5vmin, 14px);
   padding-block-end: 22px;
 }
-/* the plank: every book carries one as wide as the shelf, so a row always has a whole shelf under it
-   (the overlaps are identical, and the shelf clips the rest) */
+/* the plank: every book carries one as wide as the shelf, so a row always has a whole shelf under it */
 .books > li::after {
   content: "";
   position: absolute;
   inset-block-end: 0;
   inset-inline-start: 0;
-  inline-size: 980px;
+  inline-size: 1180px;
   block-size: 22px;
   z-index: -1;
   background: linear-gradient(0deg, #9a5f35 0 14px, #c98b55 14px 22px);
 }
-.book { display: grid; gap: var(--s2); color: var(--text); text-decoration: none; }
-.book:focus-visible { outline: var(--outline); outline-offset: 4px; border-radius: 20px; }
+.emptySpot { min-block-size: clamp(120px, 16vmin, 170px); }
+
+.book { display: grid; gap: var(--s2); color: var(--text); text-decoration: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.book:focus-visible { outline: none; }
+.book:focus-visible .cover { outline: 4px solid var(--navy-900); outline-offset: 4px; }
 .cover {
   position: relative;
   display: grid;
@@ -111,23 +103,18 @@
   overflow: hidden;
   transition: transform var(--m-pop) var(--ease-spring);
 }
-.book:active .cover { transform: scale(0.96) rotate(-1deg); }
-@media (hover: hover) { .book:hover .cover { transform: translateY(-4px) rotate(-1.5deg); } }
+:global(html[dir="rtl"]) .cover { border-radius: 22px 10px 10px 22px; }
+.book:active .cover { transform: scale(0.96); }
+@media (hover: hover) { .book:hover .cover { transform: translateY(-4px); } }
 .cover[data-tone="0"] { --tone-cover: #efcff8; --tone-spine: #614194; }
 .cover[data-tone="1"] { --tone-cover: #ffe6ba; --tone-spine: #e09a2a; }
 .cover[data-tone="2"] { --tone-cover: #ffd8e6; --tone-spine: #c4557c; }
 .cover[data-tone="3"] { --tone-cover: #d4ecff; --tone-spine: #4f8fc4; }
 .coverImg { inline-size: 100%; block-size: 100%; object-fit: cover; }
 .coverEmblem { inline-size: 46%; }
-.newBadge {
-  position: absolute;
-  inset-block-start: 8px;
-  inset-inline-end: 8px;
-  padding: 2px 10px;
-  border-radius: var(--r-pill);
-  background: var(--accent);
-  color: var(--navy-900);
-  font-size: 15px;
-  font-weight: 700;
-}
-.bookTitle { font-size: var(--fs-word); font-weight: 700; line-height: 1.2; text-align: center; text-wrap: balance; order: -1; }
+/* a new book wears a ribbon across its corner */
+.ribbon { position: absolute; inset-block-start: 0; inset-inline-end: 0; inline-size: 46%; aspect-ratio: 1; background: var(--rose-500, #c4557c); clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 100%, 0 30%, 0 0); }
+:global(html[dir="rtl"]) .ribbon { clip-path: polygon(0 0, 100% 0, 100% 30%, 30% 100%, 0 100%, 0 0); }
+@media (prefers-reduced-motion: no-preference) { .ribbon { animation: ribbon 2.4s ease-in-out infinite; } }
+@keyframes ribbon { 0%, 100% { opacity: 1; } 50% { opacity: 0.75; } }
+.bookTitle { font-size: clamp(16px, 1.6vmin + 8px, 22px); font-weight: 700; line-height: 1.2; text-align: center; text-wrap: balance; order: -1; }

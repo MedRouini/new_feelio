@@ -18,8 +18,9 @@ export default async function Stories() {
       <main data-testid="stories">
         <Shelf
           books={books.map((b) => ({ id: b.id, title: b.title, coverReady: b.coverReady, read: b.read }))}
-          canMake={refusal === null}
-          line={refusal && refusal !== "daily_cap" ? t(`refused.${refusal}`) : refusal === "daily_cap" ? t("refused.daily_cap") : books.length ? t("makeWith") : t("empty")}
+          makeState={refusal === null ? "ready" : "resting"}
+          line={refusal ? t(`refused.${refusal}`) : books.length ? t("makeWith") : t("firstStory")}
+          lineAudio={!refusal && !books.length ? "stories_firstStory" : undefined}
         />
       </main>
       <Dock active="stories" stories talk={view.features.talk} />

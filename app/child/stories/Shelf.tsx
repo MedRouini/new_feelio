@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "motion/react";
-import { WandSparkles } from "lucide-react";
-import { Mascot } from "@/child/ui/Mascot";
+import { useRouter } from "next/navigation";
+import { ActionObject } from "@/child/ui/ActionObject";
 import { Caption } from "@/child/ui/Caption";
+import { Mascot } from "@/child/ui/Mascot";
+import { play } from "@/child/ui/sound";
 import { useCalm } from "@/child/ui/useCalm";
 import uiStyles from "@/child/ui/ui.module.css";
 import { AssetImage } from "@/design/components/AssetImage";
@@ -15,53 +18,82 @@ import styles from "./stories.module.css";
 type Book = { id: string; title: string; coverReady: boolean; read: boolean };
 
 /**
- * My library (D-070, redesign v2 D-071): the child's books standing on wooden shelves (their own
- * generated cover picture, or a brand cover with the heart companion while it is being painted), newest
- * first, Feelio reading on top, and the big magic button to make a new story with Feelio. The AI notice
- * lives in the story workshop, not here (owner decision 2026-10-12).
+ * My library (D-070, D-071, D-075): the reading table with the big "make a new story" object and Feelio
+ * reading beside it, and the child's books standing on wooden shelves. New books carry a ribbon; a tapped
+ * book slides out before it opens. When a new story can't be made now, the object rests and Feelio says
+ * why; the books still open.
  */
-export function Shelf({ books, canMake, line }: { books: Book[]; canMake: boolean; line: string }) {
+export function Shelf({ books, makeState, line, lineAudio }: { books: Book[]; makeState: "ready" | "resting"; line: string; lineAudio?: string }) {
   const t = useTranslations("child.stories");
   const tOnb = useTranslations("child.onb");
   const locale = useLocale() === "ar" ? "ar" : "en";
   const calm = useCalm();
-  const wand = pickOptional(STORY_ART.wand);
+  const router = useRouter();
+  const [say, setSay] = useState(line);
+  const [opening, setOpening] = useState<string | null>(null);
+
+  const open = (id: string) => {
+    play("whoosh");
+    if (calm) return router.push(`/stories/${id}`);
+    setOpening(id);
+    setTimeout(() => router.push(`/stories/${id}`), 220);
+  };
 
   return (
     <div className={styles.shelfRoom}>
       <Library />
+      <Caption text={say} audioKey={say === line ? lineAudio : undefined} locale={locale} replayLabel={tOnb("replay")} variant="title" className={styles.say} testId="shelf-line" />
 
-      <div className={styles.shelfHead}>
-        <Mascot pose={pick(STORY_ART.reader)} label={tOnb("aiSign")} sizes="22vmin" className={styles.shelfMascot} />
-        <Caption text={line} locale={locale} replayLabel={tOnb("replay")} variant="title" className={styles.shelfSay} testId="shelf-line" />
-        {canMake ? (
-          <a className={styles.magic} href="/stories/make" data-testid="make-story">
-            {wand ? <AssetImage id={wand} alt="" sizes="64px" className={styles.magicArt} /> : <WandSparkles size={40} strokeWidth={2.4} aria-hidden />}
-            <span>{t("make")}</span>
-          </a>
-        ) : null}
+      <div className={styles.library}>
+        <section className={styles.table} aria-label={t("makeNew")}>
+          <ActionObject
+            art="ui_btn_make_story"
+            label={t("makeNew")}
+            href="/stories/make"
+            resting={makeState === "resting"}
+            onPress={() => setSay(line)}
+            sizes="(orientation: portrait) 34vw, 20vw"
+            className={styles.make}
+            testId="make-story"
+          />
+          <Mascot pose={pick(books.length ? STORY_ART.reader : (["mascot_pointing", "mascot_happy"] as const))} label={tOnb("aiSign")} sizes="16vmin" className={styles.reader} />
+        </section>
+
+        <section className={styles.shelves} aria-label={t("myBooks")}>
+          <h2 className={styles.shelvesTitle}>{t("myBooks")}</h2>
+          <ul className={styles.books} data-empty={books.length ? undefined : true}>
+            {books.length
+              ? books.map((b, i) => (
+                  <li key={b.id}>
+                    <motion.a
+                      className={styles.book}
+                      href={`/stories/${b.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        open(b.id);
+                      }}
+                      animate={opening === b.id ? { y: -18, scale: 1.08 } : { y: 0, scale: 1 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      aria-label={b.read ? b.title : `${b.title}, ${t("newBook")}`}
+                      data-testid="book"
+                    >
+                      <span className={styles.cover} data-tone={i % 4}>
+                        {b.coverReady ? (
+                          // eslint-disable-next-line @next/next/no-img-element -- the child's own picture, from private storage via our route
+                          <img src={`/api/child/stories/${b.id}/picture?n=0`} alt="" className={styles.coverImg} loading="lazy" />
+                        ) : (
+                          <AssetImage id="companion_heart" alt="" sizes="96px" className={styles.coverEmblem} />
+                        )}
+                        {!b.read ? <span className={styles.ribbon} aria-hidden data-testid="new-ribbon" /> : null}
+                      </span>
+                      <span className={styles.bookTitle}>{b.title}</span>
+                    </motion.a>
+                  </li>
+                ))
+              : [0, 1, 2].map((k) => <li key={k} className={styles.emptySpot} aria-hidden />)}
+          </ul>
+        </section>
       </div>
-
-      {books.length ? (
-        <ul className={styles.books} aria-label={t("shelfLabel")}>
-          {books.map((b, i) => (
-            <motion.li key={b.id} initial={calm ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 8) * 0.05, type: "spring", stiffness: 260, damping: 24 }}>
-              <a className={styles.book} href={`/stories/${b.id}`} data-testid="book">
-                <span className={styles.cover} data-tone={i % 4}>
-                  {b.coverReady ? (
-                    // eslint-disable-next-line @next/next/no-img-element -- the child's own picture, from private storage via our route
-                    <img src={`/api/child/stories/${b.id}/picture?n=0`} alt="" className={styles.coverImg} loading="lazy" />
-                  ) : (
-                    <AssetImage id="companion_heart" alt="" sizes="96px" className={styles.coverEmblem} />
-                  )}
-                  {!b.read ? <span className={styles.newBadge}>{t("newBook")}</span> : null}
-                </span>
-                <span className={styles.bookTitle}>{b.title}</span>
-              </a>
-            </motion.li>
-          ))}
-        </ul>
-      ) : null}
     </div>
   );
 }
