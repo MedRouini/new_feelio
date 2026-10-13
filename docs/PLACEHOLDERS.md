@@ -8,8 +8,12 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 - When you deliver a file and it's approved, it replaces the box automatically on the next build. No code change is needed.
 - To list what's still missing: `missingAssets()` in `design/assets.ts`.
 
-## Open: art
-None (2026-10-13, D-072). Every asset in `design/asset-ids.ts` is approved; `missingAssets()` returns an empty list.
+## Open: art (as of 2026-10-13, D-074)
+| Asset | Where it shows | Until it arrives |
+|---|---|---|
+| Batch 6: `scene_my_room_land/_port` | My room | The approved treasure-room scene stands in |
+| Batch 6: `room_wardrobe`, `room_gift_box`, `room_star_shelf`, `room_feelings_jar`, `room_pinboard`, `room_book_stack` | My room objects and the gift close-up | Grey `TODO(PLACEHOLDER)` boxes with the object's name |
+| Batch 6: 16 `wear_*` items | Wardrobe tiles; on the character once worn | Grey boxes in the wardrobe; nothing on the character |
 
 ## Open: functionality gaps (honest, visible, never faked)
 | Gap | Where | Why | Closes |
@@ -24,6 +28,7 @@ None (2026-10-13, D-072). Every asset in `design/asset-ids.ts` is approved; `mis
 | Crisis resources have no phone numbers | `content/safety/resources/baseline.json` | Markets not chosen; numbers must be verified per country (D-059) | When the first market is chosen |
 | Crisis card and mascot mood in voice | Proxy (client tools) | Whether a custom LLM can trigger client tools is unverified (D-004) | Milestone 5 |
 | Child-side "tell a grown-up / something felt wrong" button | none yet | Belongs on the Talk screen, where it has context (D-066) | Milestone 5 |
+| My room positions and item placements are provisional | `content/room/layout.json`, `content/room/wardrobe.json` (`provisional: true`) | Measured from the art when Batch 6 arrives | Batch 6 |
 | Parent email verification is off | `auth/server.ts` | No email provider chosen | When you pick a provider |
 
 ## Asset delivery, 2026-10-11

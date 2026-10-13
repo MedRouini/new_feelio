@@ -786,3 +786,39 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Not tested, by owner decision** (needed for a live demo). Unknowns: hero consistency across pages and style match with the brand, which were only checked with FLUX.2-dev (D-070); whether Qwen Image 2.0 accepts every parameter we send. If it refuses a request, the picture fails closed to Feelio's stand-in as before.
 - **Cost:** about $0.035 per picture (Together's listed estimate, 2026-10-13) against $0.0154 for FLUX.2-dev, so about $0.18 per story instead of $0.08. The daily cap of 3 new stories per child stays.
 - **Revisit:** switch back to FLUX.2-dev once it answers again, or run the 5-story review on Qwen Image 2.0 before keeping it.
+
+## D-074 My room replaces the collection: dress-up with unlocks, name and likes
+**Status:** accepted (owner, 2026-10-13). Spec: `docs/superpowers/specs/2026-10-13-my-room-design.md`; plan: `docs/superpowers/plans/2026-10-13-my-room.md`.
+
+**Owner decisions:**
+- The collection's layout, and putting achievements in a book, didn't make sense; the page needed to be engaging, with character and name customization. Fluidity and a perfect layout come first.
+- The page becomes **My room**, the child's bedroom (`/room`; `/collection` redirects; menu label "My room" / "غرفتي").
+- **Dress-up with unlocks:** layered wearable items.
+- **Everything counts toward unlocks.**
+- **Name:** picked again from the reviewed list, or the parent's nickname.
+- **Parents** don't see the room.
+
+**Unlocks:**
+- Points: 1 per story made, 1 per distinct feeling met (at most 8), 2 per finished level.
+- Items: 2 free, then one more every 3 points, up to 16 (`child/wardrobe.ts`, `content/room/wardrobe.json`).
+- **Unlocks never go down** (rule 12). `child_profile.rewards_reached` keeps the highest count ever reached, and `rewards_seen` how many surprises were opened (migration 0007, additive). A parent deleting a story takes nothing away.
+- No streaks, timers or daily rewards.
+
+**Server (CR-2):**
+- `POST /api/child/room` (`child/room.ts`) refuses locked, unknown and wrong-area items.
+- Names come from the list, or "parent" only when a parent nickname exists. Likes come from the list, at most 3.
+- "Seen" opens one surprise per call and never passes "reached", so a double tap can't skip one.
+
+**Data:** the only new child choice stored is `avatar.wear` (one item id per body area). It lives on the profile and is deleted with it. Nothing is typed and no model is called.
+
+**Layout and art:**
+- Object positions (`content/room/layout.json`) and item placements on the character (`wardrobe.json`) are **provisional** until Batch 6 arrives and they are measured from the art, the same method as the map stones.
+- Until then the room uses the treasure-room scene, with grey placeholder boxes for the objects and wardrobe tiles. The character shows no item without delivered art.
+- Batch 6 (24 images) is made with Codex from `assets/requests/batch6/jobs.json` into the git-ignored `assets/incoming/batch6/`, checked by `scripts/check-incoming.ts`, then reviewed before approval.
+
+**Voice:** `room_intro`, `room_surprise` and `room_locked` were generated (English, about 230 credits with one changed older line). Arabic stays captions (D-064).
+
+**Verified by running it:**
+- 140 unit and integration tests, including the room maths, the server refusals, and "a deletion never lowers reached".
+- **All 36 browser tests**, including 10 for the room: dress-up saved across a reload, the gift box opening one surprise, name and likes, Stories off, and **no overlaps at 1180×820, 1920×920 and 390×844 in English and Arabic**.
+- Screenshots reviewed.
