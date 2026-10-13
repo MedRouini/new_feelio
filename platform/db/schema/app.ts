@@ -78,7 +78,7 @@ export const childProfile = pgTable(
   (t) => [index("child_household_idx").on(t.householdId)],
 );
 
-export type AvatarChoice = { v: 1; shape: "bun" | "bean" | "puff"; colour: "amber" | "rose" | "lilac" | "sky"; companion: "heart" | "cloud" | "star" };
+export type AvatarChoice = { v: 1; shape: "bun" | "bean" | "puff"; colour: "amber" | "rose" | "lilac" | "sky"; companion: "heart" | "cloud" | "star"; wear?: Partial<Record<"head" | "face" | "neck" | "back", string>> };
 export type OnboardingState = { step: number; completedAt?: string; skipped?: boolean };
 
 export type ScheduleWindow = { days: number[]; start: string; end: string };

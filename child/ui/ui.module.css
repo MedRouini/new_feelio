@@ -181,6 +181,11 @@ html[lang="ar"] .signText { line-height: 1.25; }
 /* ---------- Avatar ---------- */
 .avatar { position: relative; display: inline-block; }
 .avatarBody { display: block; inline-size: 100%; }
+/* worn items (My room, D-074): placed by measured fractions of the character box, never mirrored.
+   Physical left/top on purpose: the character and its items are art, so they don't flip in Arabic. */
+.avatarBody { position: relative; z-index: 1; }
+.avatarWear { position: absolute; z-index: 2; translate: -50% -50%; pointer-events: none; }
+.avatarBehind { z-index: 0; }
 /* the character's "yay": a happy double hop on its one picture (D-053) */
 @media (prefers-reduced-motion: no-preference) {
   .cheer .avatarBody { animation: cheer 700ms var(--ease-spring) 2; transform-origin: 50% 100%; }

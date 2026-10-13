@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { EXPECTED_ASSETS } from "@/design/asset-ids";
-import { FREE_ITEMS, POINTS_PER_ITEM, WEAR_ITEMS, WEAR_SLOTS, itemById, rewardPoints, stepsToNext, unlockedCount, wearSchema } from "@/child/wardrobe";
+import { avatarSchema } from "@/child/options";
+import { FREE_ITEMS, POINTS_PER_ITEM, WEAR_ITEMS, WEAR_SLOTS, itemById, rewardPoints, stepsToNext, unlockedCount, wearSchema, wornLayers } from "@/child/wardrobe";
 
 describe("wardrobe data", () => {
   it("has 16 unique items, 4 per body area, each with expected art and a sane placement", () => {
@@ -52,5 +53,21 @@ describe("wearSchema", () => {
     expect(wearSchema.safeParse({}).success).toBe(true);
     expect(wearSchema.safeParse({ head: "cape" }).success).toBe(false);
     expect(wearSchema.safeParse({ tail: "cape" }).success).toBe(false);
+  });
+});
+
+describe("avatar with items", () => {
+  it("keeps version 1 records valid and accepts wear", () => {
+    expect(avatarSchema.safeParse({ v: 1, shape: "bun", colour: "amber", companion: "star" }).success).toBe(true);
+    expect(avatarSchema.safeParse({ v: 1, shape: "bun", colour: "amber", companion: "star", wear: { head: "party_hat" } }).success).toBe(true);
+    expect(avatarSchema.safeParse({ v: 1, shape: "bun", colour: "amber", companion: "star", wear: { head: "cape" } }).success).toBe(false);
+  });
+  it("splits worn items into behind and front layers, leaving out undelivered art", () => {
+    const all = () => true;
+    const l = wornLayers({ head: "party_hat", back: "cape" }, all);
+    expect(l.behind.map((i) => i.id)).toEqual(["cape"]);
+    expect(l.front.map((i) => i.id)).toEqual(["party_hat"]);
+    expect(wornLayers({ head: "party_hat" }, () => false)).toEqual({ behind: [], front: [] });
+    expect(wornLayers(undefined, all)).toEqual({ behind: [], front: [] });
   });
 });

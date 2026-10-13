@@ -51,3 +51,9 @@ export const wearSchema = z
   })
   .strict();
 export type Wear = z.infer<typeof wearSchema>;
+
+/** The worn items to draw, behind and in front of the body; items without delivered art are left out. */
+export function wornLayers(wear: Wear | undefined, delivered: (asset: AssetId) => boolean): { behind: WearItem[]; front: WearItem[] } {
+  const items = WEAR_SLOTS.map((s) => (wear?.[s] ? itemById(wear[s]!) : undefined)).filter((i): i is WearItem => !!i && delivered(i.asset));
+  return { behind: items.filter((i) => i.placement.behind), front: items.filter((i) => !i.placement.behind) };
+}
