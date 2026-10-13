@@ -4,9 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, Mic, Square, WandSparkles } from "lucide-react";
-import { Carousel } from "@/app/child/hello/Carousel";
 import { Sparkles } from "@/app/child/hello/Sparkles";
+import { ActionObject } from "@/child/ui/ActionObject";
 import { Mascot } from "@/child/ui/Mascot";
 import { Caption } from "@/child/ui/Caption";
 import { play } from "@/child/ui/sound";
@@ -18,6 +17,8 @@ import { VoiceProvider, useFeelioVoice } from "@/safety/voice-agent/useVoice";
 import type { ToolCall } from "@/safety/voice-agent/tools";
 import { SLOTS, type Slot } from "@/safety/stories/choices";
 import { STORY_ART, choiceArt } from "../art";
+import { StageCarousel } from "./StageCarousel";
+import { STEP_ICON, StepTickets } from "./StepTickets";
 import styles from "./workshop.module.css";
 
 type Item = { id: string; en: string; ar: string };
@@ -56,6 +57,25 @@ function WorkshopRoom({ lists, initial, voice }: { lists: Record<Slot, Item[]>; 
   const [making, setMaking] = useState(false);
   const [problem, setProblem] = useState<string | null>(null);
   const complete = SLOTS.every((s) => filled[s]);
+  /** Keyboard users keep their place: after a pick from the carousel, focus moves to the next step's carousel. */
+  const pickerArea = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const focusNext = useRef(false);
+  useEffect(() => {
+    if (!focusNext.current) return;
+    focusNext.current = false;
+    const id = setTimeout(() => trackRef.current?.focus({ preventScroll: true }), 350);
+    return () => clearTimeout(id);
+  }, [active]);
+  /** Phones show the step tickets as pictures only. */
+  const [compact, setCompact] = useState(false);
+  useEffect(() => {
+    const mq = matchMedia("(orientation: portrait)");
+    const on = () => setCompact(mq.matches);
+    mq.addEventListener("change", on);
+    queueMicrotask(on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
 
   const label = (c: Item) => (locale === "ar" ? c.ar : c.en);
   /** Tells Feelio about a tap while a voice talk is on (so voice and taps stay in step). */
@@ -127,11 +147,14 @@ function WorkshopRoom({ lists, initial, voice }: { lists: Record<Slot, Item[]>; 
   }
 
   const pose = making ? "mascot_making" : live && v.state === "listening" ? pick(["mascot_listening", "mascot_idle"] as const) : pick(STORY_ART.director);
-  const items = active ? lists[active] : [];
-  const centre = active ? items[index[active]] : null;
   const art = (slot: Slot, c?: Item) => (c ? pickOptional(choiceArt(slot, c.id)) : null);
 
-  /** One part of the stage: tap it to choose (or change) that part. */
+  const hallLand = pickOptional(["scene_story_stage_land"] as const);
+  const hallPort = pickOptional(["scene_story_stage_port"] as const);
+  const { place, hero, feeling, adventure } = filled;
+  const lineAudio = line === t("hello") ? "stories_hello" : line === t("ready") ? "stories_ready" : undefined;
+
+  /** One part of the stage, showing its picture (or its step icon, softly, while empty). Tap to change it. */
   const part = (slot: Slot, children: React.ReactNode) => (
     <button
       type="button"
@@ -140,22 +163,21 @@ function WorkshopRoom({ lists, initial, voice }: { lists: Record<Slot, Item[]>; 
       data-active={active === slot || undefined}
       data-filled={filled[slot] ? true : undefined}
       onClick={() => openSlot(slot)}
-      aria-label={filled[slot] ? `${t(`slots.${slot}`)}: ${label(filled[slot]!)}` : t(`slots.${slot}`)}
-      data-testid={`slot-${slot}`}
+      aria-label={filled[slot] ? t("steps.done", { slot: t(`slots.${slot}`), choice: label(filled[slot]!) }) : t(`slots.${slot}`)}
+      data-testid={`stage-${slot}`}
     >
       {children}
     </button>
   );
-
-  const hallLand = pickOptional(["scene_story_stage_land"] as const);
-  const hallPort = pickOptional(["scene_story_stage_port"] as const);
-  const place = filled.place;
-  const hero = filled.hero;
-  const feeling = filled.feeling;
-  const adventure = filled.adventure;
-  const placeArt = art("place", place);
-  const heroArt = art("hero", hero);
-  const feelingArt = art("feeling", feeling);
+  const pic = (slot: Slot, c: Item | undefined, sizes: string, cls: string) => {
+    if (!c) return <AssetImage id={STEP_ICON[slot]} alt="" sizes={sizes} className={[cls, styles.ghost].join(" ")} />;
+    const a = art(slot, c);
+    return (
+      <motion.span key={c.id} className={styles.picWrap} initial={calm ? { opacity: 0 } : { opacity: 0, y: -40, scale: 0.6 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 18 }}>
+        {a ? <AssetImage id={a} alt="" sizes={sizes} className={cls} /> : <span className={styles.picWord}>{label(c)}</span>}
+      </motion.span>
+    );
+  };
 
   return (
     <div className={styles.room} data-making={making || undefined}>
@@ -172,52 +194,36 @@ function WorkshopRoom({ lists, initial, voice }: { lists: Record<Slot, Item[]>; 
       {/* The one AI notice in stories (owner decision 2026-10-12: Talk and Story only). */}
       <p className={styles.aiLine} data-testid="ai-line">{t("aiChip")}</p>
 
-      <Caption text={line} locale={locale} replayLabel={tOnb("replay")} variant="title" className={styles.question} testId="workshop-line" />
+      <Caption text={line} audioKey={lineAudio} locale={locale} replayLabel={tOnb("replay")} variant="title" className={styles.question} testId="workshop-line" />
 
-      {/* The stage: the story being built. Place = the backdrop, hero = in the spotlight, feeling = the
-          colour of the lights, adventure = the banner. */}
+      <div className={styles.ticketRow}>
+        <StepTickets filled={filled} active={making ? null : active} locale={locale} compact={compact} onOpen={openSlot} />
+      </div>
+
+      {/* The stage shows the story being built, in pictures: the place is the set behind, the hero stands
+          in the spotlight, the feeling colours the lights (its face on the lamp), the adventure is a prop. */}
       <div className={styles.theatre}>
-        <div className={styles.stage} data-place={place && !placeArt ? place.id : undefined} data-feeling={feeling?.id}>
-          {part(
-            "place",
-            <span className={styles.backdrop}>
-              {placeArt ? <AssetImage id={placeArt} alt="" sizes="60vw" className={styles.backdropArt} /> : null}
-              <span className={styles.partLabel}>{place ? label(place) : t("slots.place")}</span>
-            </span>,
-          )}
+        <div className={styles.stage} data-place={place?.id} data-feeling={feeling?.id}>
           <span className={styles.lights} aria-hidden />
-          {part(
-            "feeling",
-            <span className={styles.lamp}>
-              {feelingArt ? <AssetImage id={feelingArt} alt="" sizes="80px" /> : null}
-              <span className={styles.partLabel}>{feeling ? label(feeling) : t("slots.feeling")}</span>
-            </span>,
-          )}
+          {part("place", <span className={styles.set}>{pic("place", place, "40vw", styles.setArt)}</span>)}
+          {part("feeling", <span className={styles.lamp}>{pic("feeling", feeling, "80px", styles.lampArt)}</span>)}
           {part(
             "hero",
-            <AnimatePresence mode="popLayout">
-              <motion.span key={hero?.id ?? "empty"} className={styles.actor} initial={calm ? { opacity: 0 } : { x: rtl ? -80 : 80, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ type: "spring", stiffness: 220, damping: 20 }}>
-                {heroArt ? <AssetImage id={heroArt} alt="" sizes="24vmin" className={styles.actorArt} /> : null}
-                <span className={styles.partLabel}>{hero ? label(hero) : t("slots.hero")}</span>
-                {hero ? <Sparkles burst={burst} /> : null}
-              </motion.span>
-            </AnimatePresence>,
-          )}
-          {part(
-            "adventure",
-            <span className={styles.banner}>
-              <span className={styles.partLabel}>{adventure ? label(adventure) : t("slots.adventure")}</span>
+            <span className={styles.actor}>
+              {pic("hero", hero, "26vmin", styles.actorArt)}
+              {hero ? <Sparkles burst={burst} /> : null}
             </span>,
           )}
+          {part("adventure", <span className={styles.prop}>{pic("adventure", adventure, "16vmin", styles.propArt)}</span>)}
           {/* the curtains: they close while the story is being written */}
           <span className={styles.curtain} data-side="start" aria-hidden />
           <span className={styles.curtain} data-side="end" aria-hidden />
         </div>
-        <Mascot pose={pose} label={tOnb("aiSign")} sizes="20vmin" className={styles.director} />
+        <Mascot pose={pose} label={tOnb("aiSign")} sizes="18vmin" className={styles.director} />
       </div>
 
-      <div className={styles.props}>
-        <AnimatePresence mode="wait">
+      <div className={styles.picker} ref={pickerArea}>
+        <AnimatePresence mode="wait" initial={false}>
           {making ? (
             <motion.div key="making" className={styles.making} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <span className={styles.beat} aria-hidden>
@@ -227,36 +233,26 @@ function WorkshopRoom({ lists, initial, voice }: { lists: Record<Slot, Item[]>; 
               </span>
             </motion.div>
           ) : active ? (
-            <motion.div key={active} className={styles.pick} initial={calm ? { opacity: 0 } : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} transition={{ type: "spring", stiffness: 300, damping: 26 }}>
-              <Carousel
-                items={items.map((c) => c.id)}
+            <motion.div key={active} className={styles.pickerInner} initial={calm ? { opacity: 0 } : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} transition={{ type: "spring", stiffness: 300, damping: 26 }}>
+              <StageCarousel
+                items={lists[active].map((c) => ({ id: c.id, word: label(c), art: pickOptional(choiceArt(active, c.id)) }))}
                 index={index[active]}
                 onIndex={(i) => setIndex((x) => ({ ...x, [active]: i }))}
-                rtl={rtl}
-                spacing={0.26}
-                reach={2}
+                onPick={(it) => {
+                  const c = lists[active].find((x) => x.id === it.id);
+                  if (!c) return;
+                  focusNext.current = !!pickerArea.current?.contains(document.activeElement);
+                  void choose(active, c);
+                }}
                 label={t(`ask.${active}`)}
-                itemLabel={(id) => label(items.find((c) => c.id === id)!)}
                 prevLabel={tOnb("prevOne")}
                 nextLabel={tOnb("nextOne")}
+                chooseLabel={t("choose")}
+                rtl={rtl}
+                selectedId={filled[active]?.id}
+                trackRef={trackRef}
                 testId="choice-picker"
-                render={(id) => {
-                  const c = items.find((x) => x.id === id)!;
-                  const a = pickOptional(choiceArt(active, id));
-                  return (
-                    <span className={styles.prop} data-slot={active} data-id={id} data-word={a ? undefined : true}>
-                      {a ? <AssetImage id={a} alt="" sizes="20vmin" className={styles.propArt} /> : null}
-                      <span className={styles.propWord}>{label(c)}</span>
-                    </span>
-                  );
-                }}
               />
-              {centre ? (
-                <button type="button" className={styles.choose} onClick={() => void choose(active, centre)} data-testid="choose-this" aria-pressed={filled[active]?.id === centre.id}>
-                  <Check size={30} strokeWidth={3} aria-hidden />
-                  <span>{t("chooseThis")}</span>
-                </button>
-              ) : null}
             </motion.div>
           ) : null}
         </AnimatePresence>
@@ -264,19 +260,11 @@ function WorkshopRoom({ lists, initial, voice }: { lists: Record<Slot, Item[]>; 
 
       <div className={styles.actions}>
         {voice && !making ? (
-          <button type="button" className={styles.talk} data-live={live || undefined} onClick={() => (live ? v.stop() : void v.start())} disabled={v.state === "connecting"} data-testid="story-voice">
-            {live ? <Square size={26} fill="currentColor" aria-hidden /> : <Mic size={28} aria-hidden />}
-            <span>{live ? t("stopTalking") : t("tellFeelio")}</span>
-          </button>
+          <ActionObject art="ui_mic_object" label={live ? t("stopTalking") : t("tellFeelio")} ready={live} loading={v.state === "connecting"} onPress={() => (live ? v.stop() : void v.start())} sizes="12vmin" className={styles.mic} testId="story-voice" />
         ) : null}
-        <AnimatePresence>
-          {complete && !making ? (
-            <motion.button key="make" type="button" className={styles.makeIt} onClick={() => void make()} initial={calm ? { opacity: 0 } : { scale: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} transition={{ type: "spring", stiffness: 380, damping: 16 }} data-testid="make-it">
-              <WandSparkles size={36} strokeWidth={2.4} aria-hidden />
-              <span>{t("makeIt")}</span>
-            </motion.button>
-          ) : null}
-        </AnimatePresence>
+        {complete ? (
+          <ActionObject art="ui_btn_curtain_rope" label={t("rope")} ready={!making} loading={making} loadingLabel={t("writing")} onPress={() => void make()} sizes="18vmin" className={styles.rope} testId="make-it" />
+        ) : null}
       </div>
       {problem ? <span className={styles.srOnly} role="status">{problem}</span> : null}
     </div>

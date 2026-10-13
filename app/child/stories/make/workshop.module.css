@@ -1,19 +1,20 @@
-/* The story theatre (redesign v2, docs/REDESIGN_V2.md). The story is built ON a stage: the place is the
-   backdrop, the hero stands in the spotlight, the feeling colours the lights, the adventure is the
-   banner. Tap any part to change it. Flat brand shapes stand in until the theatre art arrives; no
-   bubbles, no blur, no shadows. Logical properties for Arabic. */
+/* The story theatre (D-070, D-071, D-075). The story is built ON a stage, in pictures: the place is the
+   set behind, the hero stands in the spotlight, the feeling colours the lights (its face on the lamp), the
+   adventure is a prop. Step tickets show where the child is; the carousel holds the choices. No pills,
+   no blur, no shadows; logical properties for Arabic; the pictures never mirror. */
 
 .room {
   position: fixed;
   inset: 0;
   overflow: clip;
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
   grid-template-areas:
     "ai ai"
     "question question"
-    "theatre props"
+    "tickets tickets"
+    "theatre picker"
     "theatre actions";
   align-items: center;
   justify-items: center;
@@ -26,89 +27,62 @@
 @media (orientation: portrait) {
   .room {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
-    grid-template-areas: "ai" "question" "theatre" "props" "actions";
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto auto;
+    grid-template-areas: "ai" "question" "tickets" "theatre" "picker" "actions";
+    gap: var(--s2);
   }
 }
 .room > :not(.house):not([data-orient]) { position: relative; z-index: 1; }
 .room > [data-orient] { position: fixed; }
-
-/* the theatre hall: a deep plum room with a warm glow from the stage (flat brand colours) */
-.house {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 38% 55%, rgb(243 176 58 / 0.28) 0%, rgb(243 176 58 / 0) 70%),
-    linear-gradient(180deg, #2e2160 0%, #3b2a75 55%, #614194 100%);
-}
+.house { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 38% 55%, rgb(243 176 58 / 0.28) 0%, rgb(243 176 58 / 0) 70%), linear-gradient(180deg, #2e2160 0%, #3b2a75 55%, #614194 100%); }
 
 .aiLine { grid-area: ai; margin: 0; font-size: 15px; font-weight: 700; color: rgb(255 255 255 / 0.88); text-align: center; max-inline-size: calc(100vw - 2 * 84px); }
 .question { grid-area: question; }
-/* the question is set in white on the dark hall */
 .question :global(span) { color: var(--white) !important; -webkit-text-stroke-color: #3b2a75 !important; }
 
+/* ---------- step tickets ---------- */
+.ticketRow { grid-area: tickets; inline-size: 100%; display: grid; justify-items: center; }
+.tickets { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s3); }
+.ticket :global(span[class*="face"]) {
+  /* a ticket: notched at the middle of both sides */
+  clip-path: polygon(0 0, 100% 0, 100% 38%, calc(100% - 10px) 50%, 100% 62%, 100% 100%, 0 100%, 0 62%, 10px 50%, 0 38%);
+  border-radius: 14px;
+  padding-inline: var(--s4) var(--s6);
+  gap: var(--s2);
+}
+.ticketArt { inline-size: 48px; flex: none; }
+.ticketWord { font-size: clamp(15px, 1.4vmin + 8px, 20px); font-weight: 700; white-space: nowrap; max-inline-size: 11ch; overflow: hidden; text-overflow: ellipsis; }
+@media (orientation: portrait) {
+  .tickets { gap: var(--s2); flex-wrap: nowrap; }
+  .ticket :global(span[class*="face"]) { padding-inline: var(--s3); }
+  .ticketArt { inline-size: 40px; }
+}
+
 /* ---------- the stage ---------- */
-.theatre { grid-area: theatre; position: relative; inline-size: 100%; display: grid; place-items: center; min-block-size: 0; }
+.theatre { grid-area: theatre; position: relative; inline-size: 100%; block-size: 100%; min-block-size: 0; display: grid; place-items: center; }
 .stage {
   --light: 255 236 186;
   position: relative;
-  inline-size: min(100%, calc((100vh - 280px) * 1.5));
+  inline-size: min(100%, calc((100vh - 330px) * 1.5));
   aspect-ratio: 3 / 2;
   border-radius: 46% 46% 18px 18px / 22% 22% 18px 18px; /* a proscenium arch */
   border: 10px solid #614194;
   outline: 4px solid var(--accent);
   outline-offset: -14px;
   overflow: hidden;
-  background: #fff5e2;
+  background: linear-gradient(180deg, #fff5e2 0%, #fff5e2 70%, #f1d7a8 70%, #e9c890 100%);
 }
-@media (orientation: portrait) { .stage { inline-size: min(100%, 520px); aspect-ratio: 5 / 4; } }
-
-.part {
-  position: absolute;
-  border: 0;
-  padding: 0;
-  background: none;
-  color: var(--text);
-  font: inherit;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-.part:focus-visible { outline: var(--outline); outline-offset: 2px; border-radius: 16px; }
-.partLabel {
-  display: inline-block;
-  padding: 4px 14px;
-  border-radius: var(--r-pill);
-  background: rgb(255 255 255 / 0.92);
-  border: 3px dashed var(--lilac-300);
-  font-size: clamp(15px, 2.2vmin + 4px, 22px);
-  font-weight: 700;
-  line-height: 1.2;
-}
-.part[data-filled] .partLabel { border-style: solid; border-color: var(--accent); }
-.part[data-active] .partLabel { border-style: solid; border-color: var(--purple-500); background: var(--white); }
-
-/* the place: the whole backdrop */
-.part[data-part="place"] { inset: 0; z-index: 0; }
-.backdrop { position: absolute; inset: 0; display: grid; align-items: center; justify-items: end; padding: 0 11% 12%; }
-.backdropArt { position: absolute; inset: 0; inline-size: 100% !important; block-size: 100% !important; object-fit: cover; }
-.backdrop .partLabel { position: relative; font-size: clamp(13px, 1.8vmin + 4px, 18px); }
-/* until a place's picture arrives, the backdrop is that place's colours */
-.stage[data-place="forest"] .backdrop { background: linear-gradient(180deg, #d4ecff 0%, #b9e3a8 55%, #6fb46a 100%); }
-.stage[data-place="beach"] .backdrop { background: linear-gradient(180deg, #d4ecff 0%, #9fd0f0 50%, #79b1de 62%, #ffe6ba 63%, #f3d39a 100%); }
-.stage[data-place="space"] .backdrop { background: radial-gradient(circle at 75% 25%, #efcff8 0 6%, transparent 7%), linear-gradient(180deg, #2e2160 0%, #614194 100%); }
-.stage[data-place="castle"] .backdrop { background: linear-gradient(180deg, #ffd8e6 0%, #efcff8 60%, #ffffff 100%); }
-.stage[data-place="garden"] .backdrop { background: linear-gradient(180deg, #fff5e2 0%, #d8f0c4 55%, #9ccf7e 100%); }
-.stage[data-place="underwater"] .backdrop { background: linear-gradient(180deg, #9fd0f0 0%, #79b1de 55%, #4f8fc4 100%); }
+@media (orientation: portrait) { .stage { inline-size: min(100%, calc((100% ) * 1)); max-block-size: 100%; aspect-ratio: 4 / 3; } }
+/* the place's colours on the set (D-071) */
+.stage[data-place="forest"] { background: linear-gradient(180deg, #d4ecff 0%, #b9e3a8 60%, #6fb46a 100%); }
+.stage[data-place="beach"] { background: linear-gradient(180deg, #d4ecff 0%, #9fd0f0 50%, #79b1de 62%, #ffe6ba 63%, #f3d39a 100%); }
+.stage[data-place="space"] { background: radial-gradient(circle at 75% 25%, #efcff8 0 6%, transparent 7%), linear-gradient(180deg, #2e2160 0%, #614194 100%); }
+.stage[data-place="castle"] { background: linear-gradient(180deg, #ffd8e6 0%, #efcff8 60%, #ffffff 100%); }
+.stage[data-place="garden"] { background: linear-gradient(180deg, #fff5e2 0%, #d8f0c4 55%, #9ccf7e 100%); }
+.stage[data-place="underwater"] { background: linear-gradient(180deg, #9fd0f0 0%, #79b1de 55%, #4f8fc4 100%); }
 
 /* the feeling: the colour of the stage lights */
-.lights {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(ellipse 45% 70% at 50% 0%, rgb(var(--light) / 0.65) 0%, rgb(var(--light) / 0) 75%);
-  transition: background 600ms;
-}
+.lights { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse 45% 70% at 50% 0%, rgb(var(--light) / 0.7) 0%, rgb(var(--light) / 0) 75%); transition: opacity 600ms; }
 .stage[data-feeling="happy"] { --light: 255 214 120; }
 .stage[data-feeling="excited"] { --light: 255 160 200; }
 .stage[data-feeling="sad"] { --light: 140 180 235; }
@@ -117,75 +91,43 @@
 .stage[data-feeling="jealous"] { --light: 150 210 140; }
 .stage[data-feeling="proud"] { --light: 255 200 80; }
 .stage[data-feeling="lonely"] { --light: 170 190 215; }
-.part[data-part="feeling"] { z-index: 3; inset-block-start: 6%; inset-inline-start: 50%; translate: -50% 0; }
+
+/* every part is a button: tap it to change that part */
+.part { position: absolute; border: 0; padding: 0; background: none; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; display: grid; place-items: center; transition: transform 140ms var(--ease-out); }
+.part:active { transform: scale(0.96); }
+.part:focus-visible { outline: 4px solid var(--navy-900); outline-offset: 2px; border-radius: 18px; }
+.part[data-active] { outline: 4px dashed rgb(255 255 255 / 0.85); outline-offset: 4px; border-radius: 18px; }
+.picWrap { display: grid; place-items: center; inline-size: 100%; }
+.picWord { padding: 6px 14px; border-radius: 14px; background: rgb(255 255 255 / 0.92); font-weight: 700; font-size: clamp(15px, 1.6vmin + 8px, 22px); text-align: center; }
+.ghost { opacity: 0.35; }
+
+.part[data-part="place"] { z-index: 0; inset-block: 12% 26%; inset-inline: 22%; }
+.set { display: grid; place-items: center; inline-size: 100%; block-size: 100%; }
+.setArt { inline-size: min(100%, 26vmin) !important; opacity: 0.9; }
+.part[data-part="feeling"] { z-index: 3; inset-block-start: 5%; inset-inline-start: 50%; translate: -50% 0; inline-size: clamp(54px, 9vmin, 84px); }
 :global(html[dir="rtl"]) .part[data-part="feeling"] { translate: 50% 0; }
-.lamp { display: grid; justify-items: center; gap: 2px; }
-.lamp :global(img) { inline-size: clamp(44px, 8vmin, 72px); }
-
-/* the hero: in the spotlight */
-.part[data-part="hero"] { z-index: 2; inset-block-end: 24%; inset-inline-start: 50%; translate: -50% 0; }
+.lamp { inline-size: 100%; aspect-ratio: 1; border-radius: 50%; background: rgb(255 255 255 / 0.75); display: grid; place-items: center; padding: 10%; }
+.lampArt { inline-size: 100%; }
+.part[data-part="hero"] { z-index: 2; inset-block-end: 6%; inset-inline-start: 50%; translate: -50% 0; inline-size: clamp(110px, 24vmin, 210px); }
 :global(html[dir="rtl"]) .part[data-part="hero"] { translate: 50% 0; }
-.actor { position: relative; display: grid; justify-items: center; gap: 4px; }
-.actorArt { inline-size: clamp(90px, 22vmin, 190px); }
-
-/* the adventure: the banner across the front of the stage */
-.part[data-part="adventure"] { z-index: 3; inset-inline: 0; inset-block-end: 0; }
-.banner {
-  display: grid;
-  place-items: center;
-  padding: 8px 12%;
-  background: #c4557c;
-  border-block-start: 4px solid var(--accent);
-}
-.banner .partLabel { border-color: transparent; }
+.actor { position: relative; display: grid; place-items: center; inline-size: 100%; }
+.actorArt { inline-size: 100%; }
+.part[data-part="adventure"] { z-index: 2; inset-block-end: 8%; inset-inline-end: 9%; inline-size: clamp(70px, 14vmin, 130px); }
+.prop { display: grid; place-items: center; inline-size: 100%; }
+.propArt { inline-size: 100%; }
 
 /* the curtains: a little at each side, and closed while the story is being written */
-.curtain {
-  position: absolute;
-  inset-block: 0;
-  z-index: 4;
-  inline-size: 7%;
-  background: repeating-linear-gradient(90deg, #a8406a 0 14px, #c4557c 14px 30px);
-  transition: inline-size 900ms cubic-bezier(0.5, 0, 0.2, 1);
-  pointer-events: none;
-}
+.curtain { position: absolute; inset-block: 0; z-index: 4; inline-size: 7%; background: repeating-linear-gradient(90deg, #a8406a 0 14px, #c4557c 14px 30px); transition: inline-size 900ms cubic-bezier(0.5, 0, 0.2, 1); pointer-events: none; }
 .curtain[data-side="start"] { inset-inline-start: 0; }
 .curtain[data-side="end"] { inset-inline-end: 0; }
 .room[data-making] .curtain { inline-size: 51%; }
+.director { position: absolute; inset-block-end: -2%; inset-inline-start: -3%; inline-size: clamp(70px, 14vmin, 130px); z-index: 5; pointer-events: none; }
+@media (orientation: portrait) { .director { inline-size: 68px; inset-inline-start: -2%; } }
 
-.director { position: absolute; inset-block-end: -4%; inset-inline-start: -2%; inline-size: clamp(80px, 17vmin, 150px); z-index: 5; }
-
-/* ---------- choosing (the props) ---------- */
-.props { grid-area: props; inline-size: 100%; min-block-size: 0; display: grid; place-items: center; }
-.pick { inline-size: 100%; display: grid; justify-items: center; gap: var(--s3); }
-.prop { position: relative; display: grid; justify-items: center; gap: var(--s1); inline-size: 100%; }
-.propArt { inline-size: 100%; }
-.propWord { font-size: var(--fs-word); font-weight: 700; color: var(--white); }
-/* a word card while the choice's picture isn't delivered yet */
-.prop[data-word] { aspect-ratio: 1; place-items: center; border-radius: 26px; background: var(--white); border: 4px solid var(--accent); padding: 10%; }
-.prop[data-word] .propWord { color: var(--navy-900); font-size: clamp(17px, 3.2vmin, 28px); line-height: 1.15; text-align: center; text-wrap: balance; }
-.choose {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s2);
-  min-block-size: var(--touch-child);
-  padding-inline: var(--s6);
-  border: 3px solid var(--accent);
-  border-radius: var(--r-pill);
-  background: var(--accent);
-  color: var(--navy-900);
-  font: inherit;
-  font-size: var(--fs-word);
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform var(--m-pop) var(--ease-spring);
-}
-.choose[aria-pressed="true"] { background: transparent; color: var(--white); }
-.choose:active { transform: scale(0.94); }
-.choose:focus-visible { outline: var(--outline); outline-offset: 3px; }
-/* the carousel arrows and dots sit on the dark hall */
-.props :global([class*="dot"])::before { border-color: var(--white); }
-
+/* ---------- the choices ---------- */
+.picker { grid-area: picker; inline-size: 100%; min-block-size: 0; display: grid; place-items: center; }
+.pickerInner { inline-size: 100%; }
+@media (orientation: portrait) { .picker :global([data-testid="carousel-track"]) { block-size: 120px; } .picker :global([data-testid^="slide-"]) { inline-size: 112px; } }
 .making { display: grid; place-items: center; }
 .beat { display: flex; gap: clamp(10px, 2.5vmin, 22px); }
 .beatItem { inline-size: clamp(40px, 8vmin, 72px); }
@@ -197,43 +139,11 @@
 @keyframes beat { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-40%); } }
 
 /* ---------- actions ---------- */
-.actions { grid-area: actions; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--s4); min-block-size: 88px; }
-.talk {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s2);
-  min-block-size: var(--touch-child);
-  padding-inline: var(--s6);
-  border: 3px solid var(--white);
-  border-radius: var(--r-pill);
-  background: transparent;
-  color: var(--white);
-  font: inherit;
-  font-size: var(--fs-word);
-  font-weight: 700;
-  cursor: pointer;
-}
-.talk[data-live] { background: var(--white); color: var(--navy-900); }
-.talk:focus-visible { outline: 4px solid var(--white); outline-offset: 3px; }
-.makeIt {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s3);
-  min-block-size: 88px;
-  padding-inline: var(--s6) var(--s8);
-  border: 4px solid #e09a2a;
-  border-radius: var(--r-pill);
-  background: var(--accent);
-  color: var(--navy-900);
-  font: inherit;
-  font-size: var(--fs-big);
-  font-weight: 700;
-  cursor: pointer;
-}
-.makeIt:focus-visible { outline: 4px solid var(--white); outline-offset: 4px; }
-@media (prefers-reduced-motion: no-preference) {
-  .makeIt > svg { animation: twinkle 2.4s ease-in-out infinite; }
-}
-@keyframes twinkle { 0%, 100% { transform: rotate(-6deg) scale(1); } 50% { transform: rotate(8deg) scale(1.12); } }
+.actions { grid-area: actions; display: flex; flex-wrap: wrap; justify-content: center; align-items: end; gap: var(--s6); }
+.actions:empty { display: none; }
+.mic { inline-size: clamp(84px, 11vmin, 120px); }
+.rope { inline-size: clamp(100px, 15vmin, 160px); }
+.mic :global(span[class*="plate"]), .rope :global(span[class*="plate"]) { font-size: clamp(15px, 1.4vmin + 8px, 20px); }
+@media (orientation: portrait) { .mic { inline-size: 84px; } .rope { inline-size: 96px; } }
 @media (prefers-reduced-motion: reduce) { .curtain { transition: none; } }
 .srOnly { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
