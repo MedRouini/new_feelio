@@ -1,0 +1,86 @@
+/* My room (D-074). The room is a fixed scene; the character and objects sit where the art has space for
+   them (content/room/layout.json). No bubbles, no blur, no shadows; logical properties for Arabic.
+   Only transform and opacity animate. */
+
+.room { position: fixed; inset: 0; overflow: clip; color: var(--text); background: #3b2a75; }
+.room > [data-orient] { position: fixed; }
+.say { position: absolute; inset-block-start: max(10px, env(safe-area-inset-top)); inset-inline: 0; margin-inline: auto; inline-size: min(100% - 2 * 84px, 760px) !important; z-index: 3; }
+.say :global(span) { color: var(--white) !important; -webkit-text-stroke-color: #3b2a75 !important; }
+
+/* the character and name, centred on its spot */
+.me { position: absolute; z-index: 2; inset-inline-start: calc(var(--x) * 100%); inset-block-start: calc(var(--y) * 100%); inline-size: min(calc(var(--w) * 100vw), calc(var(--w) * 150vh)); translate: -50% -50%; display: grid; justify-items: center; gap: var(--s1); }
+:global(html[dir="rtl"]) .me { translate: 50% -50%; }
+.character { border: 0; padding: 0; background: none; cursor: pointer; inline-size: 100%; min-block-size: var(--touch-child); }
+.character:focus-visible, .nameButton:focus-visible, .object:focus-visible { outline: var(--outline); outline-offset: 4px; border-radius: 20px; }
+.characterInner { display: block; }
+.nameButton { border: 0; padding: 0; background: none; cursor: pointer; inline-size: 82%; min-block-size: var(--touch-child); }
+.name { inline-size: 100%; }
+.nameEmpty { display: inline-block; padding: 10px 18px; border-radius: var(--r-pill); background: var(--white); font-weight: 700; }
+.feelio { position: absolute; z-index: 2; inset-block-end: calc(var(--dock-space, 110px) + 8px); inset-inline-end: 3%; inline-size: clamp(70px, 11vmin, 120px); }
+
+/* the objects */
+.objects { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.object {
+  position: absolute;
+  inset-inline-start: calc(var(--x) * 100%);
+  inset-block-start: calc(var(--y) * 100%);
+  inline-size: max(min(calc(var(--w) * 100vw), calc(var(--w) * 150vh)), var(--touch-child));
+  translate: -50% -50%;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: scale var(--m-pop) var(--ease-spring);
+}
+:global(html[dir="rtl"]) .object { translate: 50% -50%; }
+.object:active { scale: 0.94; }
+.objectArt { inline-size: 100%; }
+.objectWord { padding: 2px 12px; border-radius: var(--r-pill); background: rgb(255 255 255 / 0.92); font-size: clamp(14px, 1.6vmin + 6px, 19px); font-weight: 700; white-space: nowrap; }
+.count { position: absolute; inset-block-start: 0; inset-inline-end: 0; min-inline-size: 30px; padding: 2px 8px; border-radius: var(--r-pill); background: var(--accent); color: var(--navy-900); font-weight: 700; text-align: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .object[data-glow] .objectArt { animation: glow 1.8s ease-in-out infinite; }
+}
+@keyframes glow { 0%, 100% { scale: 1; } 50% { scale: 1.08; } }
+
+/* portrait: character at the top, the objects as a row of big picture buttons above the dock */
+@media (orientation: portrait) {
+  .me { inset-inline-start: calc(var(--px) * 100%); inset-block-start: calc(var(--py) * 100%); inline-size: min(calc(var(--pw) * 100vw), 34vh); }
+  .objects { inset: auto 12px calc(var(--dock-space, 110px) + 10px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 8px; pointer-events: none; }
+  .object { position: relative; inset: auto; translate: none; inline-size: 100%; min-inline-size: 0; }
+  :global(html[dir="rtl"]) .object { translate: none; }
+  .objectArt { inline-size: min(64%, 11vh); }
+  .objectWord { max-inline-size: 100%; white-space: normal; text-align: center; line-height: 1.15; font-size: 14px; padding-inline: 8px; }
+  .feelio { display: none; }
+}
+
+/* close-ups */
+.closeUp { position: fixed; inset: 0; z-index: 10; display: grid; grid-template-rows: auto minmax(0, 1fr); padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + 8px); padding-inline: 16px; background: #fff8ec; overflow: clip; }
+.back { justify-self: start; display: grid; place-items: center; inline-size: var(--touch-child); block-size: var(--touch-child); border-radius: 50%; border: 3px solid var(--lilac-300); background: var(--white); color: var(--purple-500); cursor: pointer; }
+.back:focus-visible { outline: var(--outline); outline-offset: 3px; }
+.closeUpBody { min-block-size: 0; overflow: auto; overscroll-behavior: contain; display: grid; align-content: start; justify-items: center; gap: var(--s4); padding-block: var(--s2); }
+.hint { margin: 0; font-size: var(--fs-word); font-weight: 700; text-align: center; text-wrap: balance; }
+
+/* star shelf */
+.shelf { inline-size: min(100%, 900px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: var(--s4) var(--s6); }
+.shelf > .hint { grid-column: 1 / -1; }
+.shelfRow { display: grid; gap: var(--s1); padding-block-end: 18px; background: linear-gradient(0deg, #9a5f35 0 12px, #c98b55 12px 18px, transparent 18px); }
+.shelfName { margin: 0; font-size: var(--fs-word); color: var(--purple-500); }
+.stars { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 64px)); gap: 8px; }
+.star { aspect-ratio: 1; border-radius: 50%; border: 3px dashed var(--lilac-300); display: grid; place-items: center; }
+.star[data-on] { border: 0; }
+.star :global(img) { inline-size: 100%; }
+
+/* feelings jar */
+.jar { inline-size: min(100%, 720px); display: grid; gap: var(--s4); justify-items: center; }
+.bubbles { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 3vmin, 26px); inline-size: 100%; }
+.bubble { inline-size: 100%; aspect-ratio: 1; min-inline-size: var(--touch-child); border-radius: 50%; border: 3px dashed var(--lilac-300); background: transparent; display: grid; place-items: center; padding: 10%; cursor: pointer; }
+.bubble[data-on] { border: 4px solid var(--accent); background: #ffe6ba; }
+.bubble:disabled { cursor: default; }
+.bubble :global(img) { inline-size: 100%; }

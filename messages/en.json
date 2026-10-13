@@ -75,7 +75,7 @@
       "talk": "Talk",
       "stories": "Stories",
       "calm": "Calm",
-      "collection": "My collection",
+      "collection": "My room",
       "nav": "Main"
     },
     "soon": {
@@ -230,6 +230,38 @@
       "aiChip": "Feelio, an AI friend, helps write these stories",
       "tellFeelio": "Tell Feelio",
       "stopTalking": "Stop talking"
+    },
+    "room": {
+      "intro": "This is your room! Tap anything to look inside.",
+      "surprise": "A surprise is waiting in your gift box!",
+      "objects": {
+        "wardrobe": "Wardrobe",
+        "gift": "Gift box",
+        "shelf": "Star shelf",
+        "jar": "Feelings jar",
+        "pinboard": "My likes",
+        "books": "My books"
+      },
+      "back": "Back to my room",
+      "shelfEmpty": "Play in the world and stars will land here!",
+      "jarEmpty": "Feelings from your stories will glow in this jar.",
+      "starLabel": "{place}: level {n}",
+      "wearOn": "Put it on",
+      "wearOff": "Take it off",
+      "locked": "Make more stories to open this!",
+      "colours": "Colours",
+      "steps": "{n, plural, one {One more step to your next surprise!} other {# more steps to your next surprise!}}",
+      "allOpen": "You opened every surprise. Amazing!",
+      "open": "Open it!",
+      "newItem": "A new surprise: {item}!",
+      "nameAsk": "Which name do you like?",
+      "likesAsk": "What do you like?",
+      "slots": {
+        "head": "Hats",
+        "face": "Glasses",
+        "neck": "Neck",
+        "back": "Back"
+      }
     }
   },
   "parent": {
