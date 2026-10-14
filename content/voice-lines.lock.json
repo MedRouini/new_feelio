@@ -36,7 +36,21 @@
     "room_allOpen": "9c2095638109bc69",
     "stories_firstStory": "f7b2e4a6f9c6ffac",
     "stories_hello": "91fea5c70d666014",
-    "stories_ready": "bc9a15eb1b244f9c"
+    "stories_ready": "bc9a15eb1b244f9c",
+    "talk_intro": "c485e5df297ee4d7",
+    "act_breathe_intro": "ee918074d63ad1be",
+    "act_breathe_in": "40aaf4f17fa1ae9d",
+    "act_breathe_out": "526e1942ad2e6ee5",
+    "act_ground_intro": "8527a8e00a86a844",
+    "act_ground_look": "322053f65deecce8",
+    "act_ground_listen": "b348534bdb9dc0d5",
+    "act_ground_feel": "26b1e2cf8307246a",
+    "act_stretch_intro": "e4d3fcd0f609a242",
+    "act_stretch_up": "d3028a1215b969c3",
+    "act_stretch_sway": "b6b35ca9f6b259d3",
+    "act_stretch_shake": "76b3d9c02ed04f51",
+    "act_stretch_hug": "6e555ccea13846b2",
+    "act_done": "0556e9784b3c8f8e"
   },
   "ar": {}
 }

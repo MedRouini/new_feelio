@@ -1,12 +1,13 @@
 import { steerNote } from "./content";
 import { CHOICES, SLOTS, type Slot } from "./stories/choices";
 import type { AgeBand, Feature, Locale } from "./types";
+import type { Activity } from "./voice-agent/tools";
 
 // The child-safety system prompt on every generation call (SR-12), versioned. Persona from
 // brand/BRAND.md §7; boundaries from SAFETY_POLICY SR-20 to SR-25. Steer notes come from the router
 // (reviewed text), never from the child.
 
-export const SYSTEM_PROMPT_VERSION = "sys-v0.3";
+export const SYSTEM_PROMPT_VERSION = "sys-v0.4";
 
 /**
  * What the companion may know about the child, from our database only (D-068). Never free text a
@@ -23,7 +24,33 @@ export type CompanionContext = {
   secondsLeft?: number;
   /** Story workshop (D-070): what is already chosen (safe labels), by slot. */
   story?: Partial<Record<Slot, string>>;
+  /** Voice room (D-076): whether making a story is open for this child now (server check). */
+  storiesOpen?: boolean;
+  /** Voice room (D-076): the calm activity the child just finished, so Feelio can follow up once. */
+  after?: Activity | null;
 };
+
+const AFTER: Record<Activity, string> = {
+  breathing: "the breathing game (slow breaths with a cloud)",
+  grounding: "the noticing game (things to see, hear and feel)",
+  stretching: "the stretching game (gentle moves)",
+};
+
+/** The voice room's activities (D-076): offered in words, started by the child. */
+function activityGuide(c: CompanionContext): string {
+  const offers = [
+    "breathing when the child feels overwhelmed, upset or angry",
+    "grounding when the child feels worried, nervous or scared",
+    "stretching when the child feels restless, frustrated or full of wiggles",
+    c.storiesOpen ? "story when the child wants to make or imagine something" : "",
+  ].filter(Boolean);
+  return [
+    `You can offer one short activity: ${offers.join("; ")}.`,
+    "First offer it in words, as a gentle question (for example: would you like to do some slow breaths with me?). Call offer_activity only after the child says yes. If they say no, no is fine: keep listening and never push.",
+    "The activity appears on the child's screen; they tap it to start, and our talk pauses while they do it.",
+    "You are a friendly helper, not a therapist: never diagnose, never promise an activity will fix a feeling, and if a feeling is big or keeps coming back, encourage talking to a trusted grown-up.",
+  ].join("\n");
+}
 
 function storyGuide(locale: Locale, filled: Partial<Record<Slot, string>>): string {
   const lists = SLOTS.map((s) => `${s}: ${CHOICES[s].map((c) => `${c.id} = ${locale === "ar" ? c.ar : c.en}`).join("; ")}`).join("\n");
@@ -80,8 +107,10 @@ export function systemPrompt(opts: { ageBand: AgeBand; locale: Locale; feature: 
     c.secondsLeft !== undefined && c.secondsLeft < 60 ? "This talk ends in less than a minute: start saying a warm goodbye, with no new questions." : "",
     opts.mode === "story" ? storyGuide(opts.locale, c.story ?? {}) : "",
     opts.tools && opts.mode !== "story"
-      ? "You can change what the child sees with your tools: set_mascot_state when the mood changes, show_feeling_card when the child names a feeling, start_breathing only after the child agrees to a breathing game, suggest_place only when the child wants something to do. Always say your words first, then use a tool if it helps; never answer with only a tool."
+      ? "You can change what the child sees with your tools: set_mascot_state when the mood changes, show_feeling_card when the child names a feeling, offer_activity only after the child says yes to an activity you offered, suggest_place only when the child wants something to do. Always say your words first, then use a tool if it helps; never answer with only a tool."
       : "",
+    opts.tools && opts.mode !== "story" ? activityGuide(c) : "",
+    c.after && opts.mode !== "story" ? `The child just finished ${AFTER[c.after]} with you. If it fits, gently ask once how they feel now; don't repeat the activity unless they ask.` : "",
     notes.length ? `For this reply: ${notes.join(" ")}` : "",
   ]
     .filter(Boolean)

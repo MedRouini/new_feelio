@@ -36,6 +36,10 @@ const square = [
   "wear_backpack", "wear_cape", "wear_butterfly_wings", "wear_balloon",
   // story experience (Batch 7, D-075, docs/superpowers/specs/2026-10-13-story-experience-design.md)
   "ui_btn_make_story", "ui_btn_curtain_rope", "ui_btn_read_aloud", "ui_step_hero", "ui_step_place", "ui_step_adventure",
+  // voice room (Batch 8, D-076, docs/VOICE_ROOM.md): optional art; until delivered each slot uses an approved pose
+  "mascot_breathe_in", "mascot_breathe_out", "mascot_look", "mascot_hug",
+  "mascot_stretch_up", "mascot_stretch_side", "mascot_shake",
+  "ui_act_breathe", "ui_act_notice", "ui_act_stretch",
   "story_hero_fox", "story_hero_bear", "story_hero_bunny", "story_hero_owl", "story_hero_turtle", "story_hero_dragon", "story_hero_cat", "story_hero_penguin",
   "story_place_forest", "story_place_beach", "story_place_space", "story_place_castle", "story_place_garden", "story_place_underwater",
   "story_adv_lost_toy", "story_adv_new_friend", "story_adv_big_race", "story_adv_birthday", "story_adv_storm", "story_adv_first_day",

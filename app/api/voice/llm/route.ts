@@ -8,7 +8,7 @@ import { setDraftChoice, setDraftListChoice } from "@/child/stories";
 import { namedChoices, type Slot } from "@/safety/stories/choices";
 import { mapIdea } from "@/safety/stories/ideas";
 import { companionTurn, conversationOf } from "@/safety/voice";
-import type { ToolCall } from "@/safety/voice-agent/tools";
+import { afterActivity, allowedForChild, type ToolCall } from "@/safety/voice-agent/tools";
 import type { SafetyCtx } from "@/safety/types";
 
 // The safety proxy the ElevenLabs agent calls as its "custom LLM" (ARCHITECTURE §4.3, D-003, D-068). It
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
   if (!e.VOICE_ENABLED && !e.VOICE_SPIKE_ENABLED) return new Response("Not found", { status: 404 });
   if (!authorised(request)) return new Response("Unauthorized", { status: 401 });
 
-  let body: { messages?: { role: string; content: unknown }[]; tools?: { function?: { name?: string } }[]; elevenlabs_extra_body?: { feelio_session?: unknown } };
+  let body: { messages?: { role: string; content: unknown }[]; tools?: { function?: { name?: string } }[]; elevenlabs_extra_body?: { feelio_session?: unknown; feelio_after?: unknown } };
   try {
     body = await request.json();
   } catch {
@@ -50,6 +50,8 @@ export async function POST(request: NextRequest) {
 
   const extra = body.elevenlabs_extra_body?.feelio_session;
   const sessionId = typeof extra === "string" ? extra : null;
+  // The calm activity the child just finished (D-076): an id from a closed list, never words.
+  const after = afterActivity(body.elevenlabs_extra_body?.feelio_after);
   const turn = e.VOICE_ENABLED ? await proxyTurn({ sessionId, conversationId: request.headers.get("x-feelio-conversation") }) : ({ ok: false } as const);
   if (process.env.NODE_ENV !== "production") {
     // Development only, and never any words: whether a session matched and which tools ElevenLabs offered.
@@ -98,7 +100,7 @@ export async function POST(request: NextRequest) {
               // D-068: the faster output check only for the owner's adult tests; strict (D-018) for children.
               outputCheck: turn.session.adultTest ? "gated" : "strict",
               countAs: turn.session.adultTest ? "test" : undefined,
-              context: turn.context,
+              context: { ...turn.context, after },
               tools: turn.session.purpose === "story" ? "story" : "talk",
             }
           : { countAs: "test" });
@@ -111,9 +113,9 @@ export async function POST(request: NextRequest) {
             tools.push({ name: "show_safety_resources", args: { kinds: ev.resources.map((r) => r.kind) } });
             tools.push({ name: "set_mascot_state", args: { mood: ev.mascot === "empathy" ? "empathy" : "calm" } });
           }
-          // A place suggestion only for a place this child can reach (the server's world state).
+          // Only what this child can open (the server's data): a place they reached, a story when story making is open.
           if (ev.type === "tool" && (ev.call.name === "set_story_choice" || ev.call.name === "story_idea")) serverCalls.push(ev.call);
-          else if (ev.type === "tool" && !(ev.call.name === "suggest_place" && turn.ok && !turn.context.placesOpen?.includes(ev.call.args.place))) tools.push(ev.call);
+          else if (ev.type === "tool" && (!turn.ok || allowedForChild(ev.call, { placesOpen: turn.context.placesOpen ?? [], storiesOpen: turn.context.storiesOpen ?? false }))) tools.push(ev.call);
           if (ev.type === "end") {
             const t = ev.timings;
             send(`: feelio ${ev.reason} t0=${t.t0Ms.toFixed(0)} t1=${t.t1Ms?.toFixed(0)} first_token=${t.firstTokenMs?.toFixed(0)} first_release=${t.firstReleaseMs?.toFixed(0)} total=${t.totalMs.toFixed(0)}\n\n`);

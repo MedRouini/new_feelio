@@ -2,7 +2,7 @@
 
 import { ConversationProvider, useConversation } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { TOOL_ARGS, parseToolCall, type ToolCall, type ToolName } from "./tools";
+import { TOOL_ARGS, parseToolCall, type Activity, type ToolCall, type ToolName } from "./tools";
 
 // The browser side of a voice talk (D-068, D-069): the only client code that touches the ElevenLabs SDK
 // (the lint rule keeps provider SDKs under safety/). It asks our session gate for a token (every check
@@ -60,7 +60,7 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
   }, []);
 
   const start = useCallback(
-    async (placeId?: string): Promise<StartResult> => {
+    async (placeId?: string, after?: Activity | null): Promise<StartResult> => {
       if (session.current) return { ok: false, reason: "busy" };
       setState("connecting");
       setCaption(null);
@@ -102,8 +102,9 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
       conv.startSession({
         conversationToken: data.token,
         connectionType: "webrtc",
-        // Lets our proxy find this session (ElevenLabs passes it to the custom LLM as elevenlabs_extra_body).
-        customLlmExtraBody: { feelio_session: sessionId },
+        // Lets our proxy find this session (ElevenLabs passes it to the custom LLM as elevenlabs_extra_body),
+        // and tells Feelio which calm activity the child just finished (an id; the proxy checks the list, D-076).
+        customLlmExtraBody: { feelio_session: sessionId, ...(after ? { feelio_after: after } : {}) },
         clientTools,
         onConnect: ({ conversationId }) => {
           touch();

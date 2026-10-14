@@ -196,6 +196,8 @@ export async function proxyTurn(by: { sessionId?: string | null; conversationId?
     placesOpen: places.map(([id]) => id),
     levelsDone: places.reduce((n, [, v]) => n + v.completedCount, 0),
     secondsLeft,
+    // A story can be offered only when story making is open for this child now (D-076).
+    storiesOpen: s.purpose === "talk" ? (await storyGate(s.childId, now)) === null : false,
     ...(s.purpose === "story" ? { story: Object.fromEntries(Object.entries(await getDraft(s.childId)).map(([k, v]) => [k, s.locale === "ar" ? v.ar : v.en])) } : {}),
   };
   return { ok: true, stop: secondsLeft <= 5 || paused ? "time_up" : null, session: s, ctx, context, secondsLeft };

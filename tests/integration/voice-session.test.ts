@@ -62,6 +62,9 @@ describe.skipIf(!process.env.DATABASE_URL)("voice session gate (integration, syn
     expect(JSON.stringify(turn.context)).not.toContain("Secret Name");
     expect(turn.context.interests).toEqual(["space"]);
     expect(turn.context.placesOpen).toContain("home");
+    // A story is offered only when story making is open for this child now (D-076): the same server gate.
+    const { storyGate } = await import("@/child/stories");
+    expect(turn.context.storiesOpen).toBe((await storyGate(id)) === null);
 
     // Nonsense ids find nothing.
     expect((await proxyTurn({ sessionId: "not-a-uuid" })).ok).toBe(false);
@@ -71,6 +74,17 @@ describe.skipIf(!process.env.DATABASE_URL)("voice session gate (integration, syn
     expect((await proxyTurn({ sessionId: r.sessionId })).ok).toBe(false);
     const ledger = await db.select().from(s.usageLedger).where(eq(s.usageLedger.childId, id));
     expect(ledger.filter((l) => l.feature === "voice")).toHaveLength(1);
+  });
+
+  it("never offers a story when the parent has Stories off (D-076)", async () => {
+    await db.update(s.childSettings).set({ features: { talk: true, stories: false, scenarios: true } }).where(eq(s.childSettings.childId, id));
+    const r = await startVoiceSession(child);
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    const turn = await proxyTurn({ sessionId: r.sessionId });
+    expect(turn.ok && turn.context.storiesOpen).toBe(false);
+    await endVoiceSession(child, r.sessionId);
+    await db.update(s.childSettings).set({ features: { talk: true, stories: true, scenarios: true } }).where(eq(s.childSettings.childId, id));
   });
 
   it("an unended session counts until its time runs out; then the daily voice minutes stop new talks", async () => {

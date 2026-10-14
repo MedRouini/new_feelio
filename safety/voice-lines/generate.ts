@@ -31,6 +31,18 @@ function message(locale: "en" | "ar", path: string): string {
   return path.split("+").map((p) => p.split(".").reduce((o: Record<string, unknown>, k) => o[k] as Record<string, unknown>, m) as unknown as string).join(" ");
 }
 
+/** Windows sometimes holds the lock file for a moment (a scanner or an editor): retry, so no line is paid for twice. */
+async function writeWithRetry(file: string, data: string) {
+  for (let i = 0; ; i++) {
+    try {
+      return writeFileSync(file, data);
+    } catch (e) {
+      if (i >= 5) throw e;
+      await new Promise((r) => setTimeout(r, 300 * (i + 1)));
+    }
+  }
+}
+
 async function main() {
   loadEnv();
   const go = process.argv.includes("--yes");
@@ -71,7 +83,7 @@ async function main() {
     mkdirSync(join("public/audio", l.locale), { recursive: true });
     writeFileSync(join("public/audio", l.locale, `${l.key}.mp3`), Buffer.from(await res.arrayBuffer()));
     (lock[l.locale] ??= {})[l.key] = l.hash;
-    writeFileSync(LOCK, JSON.stringify(lock, null, 2) + "\n");
+    await writeWithRetry(LOCK, JSON.stringify(lock, null, 2) + "\n");
     console.log(`  ✓ ${l.locale}/${l.key}`);
   }
   console.log("Done. Listen to every line before it ships (review is required).");

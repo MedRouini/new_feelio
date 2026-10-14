@@ -3,38 +3,40 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
+import { X } from "lucide-react";
 import { useCalm } from "@/child/ui/useCalm";
-import { Mic, RotateCcw, Square, X } from "lucide-react";
 import { Mascot, type MascotPose } from "@/child/ui/Mascot";
+import { ActionObject } from "@/child/ui/ActionObject";
 import { Caption } from "@/child/ui/Caption";
-import { play } from "@/child/ui/sound";
+import { Pressable } from "@/child/ui/Pressable";
 import uiStyles from "@/child/ui/ui.module.css";
 import { AssetImage } from "@/design/components/AssetImage";
 import { isDelivered } from "@/design/assets";
-import { FEELING_FACE, LOADING_BEAT, TALK_MASCOT, pick, pickOptional, placeArrival } from "@/design/asset-slots";
+import { FEELING_FACE, LOADING_BEAT, OFFER_ART, TALK_MASCOT, pick, pickOptional, placeArrival } from "@/design/asset-slots";
+import { EMPTY_ROOM, acceptOffer, closeHelp, dismissOffer, endRun, roomPhase, withTool, type Offer, type Room } from "@/child/talkRoom";
+import type { Run } from "@/child/activities";
 import { VoiceProvider, useFeelioVoice } from "@/safety/voice-agent/useVoice";
-import type { ToolCall } from "@/safety/voice-agent/tools";
+import { TOOL_ARGS, parseToolCall, type ToolCall, type ToolName } from "@/safety/voice-agent/tools";
+import { ActivityStage } from "./ActivityStage";
 import styles from "./talk.module.css";
 
-// Talk (D-068, redesign D-069): a friendly voice room in Feelio's world, not a call screen. Feelio is the
-// hero; soft brand-colour rings breathe with whoever is speaking (the child's level while listening,
-// Feelio's while speaking); one big button; time left is an arc around it, no numbers to read. Every
-// edge (microphone refused, connection lost, silence, time up) has a kind, clear way on.
+// Talk (D-068, D-069, voice room D-076): Feelio's cosy nook. Feelio is the heart of the room and the
+// microphone object is the one thing to tap. The room shows what Feelio is doing with Feelio itself
+// (listening, thinking, talking with its mouth, feeling with the child), not with text. Feelio can
+// offer a calm activity or a story; it appears beside Feelio, and the child taps it to start. A calm
+// activity closes the talk (no voice minutes are spent) and Feelio guides it with pre-recorded lines;
+// afterwards the child can talk again, and Feelio knows which activity they just did.
 
 type Place = { id: string; name: string; open: boolean };
 type Help = { kind: string; text: string };
-type Card =
-  | { type: "feeling"; feeling: "happy" | "sad" | "angry" | "excited" }
-  | { type: "breathing"; rounds: number }
-  | { type: "place"; place: Place }
-  | { type: "help"; kinds: string[] };
 type Mood = "happy" | "excited" | "empathy" | "calm";
 
-/** One breath: in, then out (ms each). Slow enough for a young child. */
-const BREATH_MS = 4000;
 /** A mood from the companion shows this long, then Feelio follows the talk again. */
 const MOOD_MS = 8000;
+/** A feeling picture stays beside Feelio this long. */
+const FEELING_MS = 12_000;
 const MOUTH = ["mascot_speaking_closed", "mascot_speaking_half", "mascot_speaking_open"] as const;
+const ALL_TOOLS = Object.keys(TOOL_ARGS) as ToolName[];
 /** Feelio's voice sparkles: brand companions (approved art), each with its own lane, pace and size. */
 const SPARKS: { id: "companion_star" | "companion_heart" | "companion_cloud"; x: string; y?: string; d: number; s: number }[] = [
   { id: "companion_star", x: "-34%", y: "42%", d: 2.6, s: 0.9 },
@@ -42,11 +44,9 @@ const SPARKS: { id: "companion_star" | "companion_heart" | "companion_cloud"; x:
   { id: "companion_cloud", x: "0%", y: "30%", d: 2.8, s: 1 },
   { id: "companion_star", x: "17%", y: "70%", d: 3.4, s: 0.65 },
   { id: "companion_heart", x: "32%", y: "46%", d: 2.5, s: 0.85 },
-  { id: "companion_cloud", x: "-26%", y: "24%", d: 3.6, s: 0.6 },
-  { id: "companion_star", x: "26%", y: "26%", d: 3, s: 0.75 },
 ];
 
-export function TalkScreen(props: { places: Place[]; help: Help[] }) {
+export function TalkScreen(props: { places: Place[]; help: Help[]; stories: boolean }) {
   return (
     <VoiceProvider>
       <Talk {...props} />
@@ -54,48 +54,44 @@ export function TalkScreen(props: { places: Place[]; help: Help[] }) {
   );
 }
 
-function Talk({ places, help }: { places: Place[]; help: Help[] }) {
+function Talk({ places, help, stories }: { places: Place[]; help: Help[]; stories: boolean }) {
   const t = useTranslations("child.talk");
   const tOnb = useTranslations("child.onb");
   const locale = useLocale() === "ar" ? "ar" : "en";
   const reduce = useCalm();
-  const [card, setCard] = useState<Card | null>(null);
+  const [room, setRoom] = useState<Room>(EMPTY_ROOM);
   const [mood, setMood] = useState<{ mood: Mood; until: number } | null>(null);
   const [problem, setProblem] = useState<string | null>(null);
+  /** Back from an activity without talking yet: the room invites, instead of saying goodbye. */
+  const [rested, setRested] = useState(false);
   const [now, setNow] = useState(() => Date.now());
   const [mouth, setMouth] = useState(0);
 
-  const onTool = useCallback(
-    (call: ToolCall) => {
-      switch (call.name) {
-        case "set_mascot_state":
-          setMood({ mood: call.args.mood, until: Date.now() + MOOD_MS });
-          break;
-        case "show_safety_resources":
-          // Help always wins and stays until the child closes it.
-          setCard({ type: "help", kinds: call.args.kinds });
-          break;
-        case "show_feeling_card":
-          setCard((c) => (c?.type === "help" ? c : { type: "feeling", feeling: call.args.feeling }));
-          break;
-        case "start_breathing":
-          setCard((c) => (c?.type === "help" ? c : { type: "breathing", rounds: call.args.rounds }));
-          break;
-        case "suggest_place": {
-          const place = places.find((p) => p.id === call.args.place && p.open);
-          if (place) setCard((c) => (c?.type === "help" ? c : { type: "place", place }));
-          break;
-        }
-      }
-    },
-    [places],
-  );
+  const can = useRef({ places: places.filter((p) => p.open).map((p) => p.id), stories });
+  const onTool = useCallback((call: ToolCall) => {
+    if (call.name === "set_mascot_state") return setMood({ mood: call.args.mood, until: Date.now() + MOOD_MS });
+    setRoom((r) => withTool(r, call, can.current));
+  }, []);
   const voice = useFeelioVoice({ onTool });
   const { state, outputVolume, inputVolume } = voice;
   const live = state === "connecting" || state === "listening" || state === "thinking" || state === "speaking";
+  const phase = roomPhase(state, problem, room);
   const nookLand = pickOptional(["scene_talk_nook_land"] as const);
   const nookPort = pickOptional(["scene_talk_nook_port"] as const);
   const nook = nookLand && nookPort ? { land: nookLand, port: nookPort } : null;
+
+  // Development and tests only (never in a production bundle): hand the screen a tool call the way the
+  // agent would, through the same validation, so the room can be tested without spending a live call.
+  useEffect(() => {
+    if (process.env.NODE_ENV === "production") return;
+    const w = window as unknown as { __feelioTool?: (name: string, args: unknown) => boolean };
+    w.__feelioTool = (name, args) => {
+      const call = parseToolCall(name, args, ALL_TOOLS);
+      if (call) onTool(call);
+      return Boolean(call);
+    };
+    return () => void delete w.__feelioTool;
+  }, [onTool]);
 
   useEffect(() => {
     if (!voice.deadline && !mood) return;
@@ -103,12 +99,19 @@ function Talk({ places, help }: { places: Place[]; help: Help[] }) {
     return () => clearInterval(i);
   }, [voice.deadline, mood]);
 
-  // The rings breathe with the voice that is speaking: a CSS variable, set every frame, no re-render.
-  // While Feelio speaks, its mouth frames follow its voice (only when those poses are delivered).
-  const hero = useRef<HTMLDivElement>(null);
+  // A feeling picture fades after a while.
+  useEffect(() => {
+    if (!room.feeling) return;
+    const id = setTimeout(() => setRoom((r) => ({ ...r, feeling: null })), FEELING_MS);
+    return () => clearTimeout(id);
+  }, [room.feeling]);
+
+  // Whoever speaks makes the room breathe: a CSS variable set every frame, no re-render (the lamp and
+  // sparkles follow Feelio's voice; the microphone glows with the child's). Feelio's mouth follows its voice.
+  const rootRef = useRef<HTMLDivElement>(null);
   const hasMouth = MOUTH.every(isDelivered);
   useEffect(() => {
-    const el = hero.current;
+    const el = rootRef.current;
     if (!el) return;
     const listen = state === "listening";
     const speak = state === "speaking";
@@ -143,11 +146,13 @@ function Talk({ places, help }: { places: Place[]; help: Help[] }) {
   const pose: MascotPose = (() => {
     if (problem === "mic") return pick(TALK_MASCOT.listening);
     if (state === "lost") return "mascot_confused";
-    if (state === "ended") return "mascot_waving";
-    if (moodNow && state !== "connecting") return pick(TALK_MASCOT[moodNow]);
+    if (moodNow && live && state !== "connecting") return pick(TALK_MASCOT[moodNow]);
     if (state === "speaking") return hasMouth ? MOUTH[mouth] : pick(TALK_MASCOT.speaking);
     if (state === "thinking" || state === "connecting") return pick(TALK_MASCOT.connecting);
     if (state === "listening") return pick(TALK_MASCOT.listening);
+    // Feelio points at what it offered (the offer always stands to Feelio's right, never mirrored).
+    if (room.offer) return "mascot_pointing";
+    if (state === "ended" && !rested) return "mascot_waving";
     return pick(TALK_MASCOT.idle);
   })();
 
@@ -165,7 +170,7 @@ function Talk({ places, help }: { places: Place[]; help: Help[] }) {
       case "speaking":
         return voice.caption ?? t("speaking");
       case "ended":
-        return t("ended");
+        return rested ? t("intro") : t("ended");
       case "lost":
         return t("lost");
     }
@@ -174,23 +179,50 @@ function Talk({ places, help }: { places: Place[]; help: Help[] }) {
   const left = voice.deadline ? Math.max(0, (voice.deadline - now) / 1000) : null;
   const share = left !== null && voice.allowed ? left / voice.allowed : 1;
 
-  async function toggle() {
-    play("tap");
-    if (live) return voice.stop();
+  async function talk(after = room.after) {
+    if (live) return;
     setProblem(null);
-    setCard(null);
-    const r = await voice.start();
+    setRested(false);
+    setRoom((r) => ({ ...dismissOffer(r), feeling: null, after: null }));
+    const r = await voice.start(undefined, after);
     if (!r.ok) setProblem(r.reason);
   }
+  function toggle() {
+    if (live) return voice.stop();
+    void talk();
+  }
+
+  /** The child taps what Feelio offered. A calm activity closes the talk first (no voice minutes while it runs). */
+  function startOffer() {
+    if (room.offer?.kind !== "activity" || room.offer.activity === "story") return;
+    if (live) voice.stop();
+    setProblem(null);
+    setRoom((r) => acceptOffer(r, Date.now()));
+  }
+  const updateRun = useCallback((f: (r: Run) => Run) => setRoom((r) => (r.run ? { ...r, run: f(r.run) } : r)), []);
+  const exitRun = useCallback(() => {
+    setRested(true);
+    setRoom(endRun);
+  }, []);
+  function talkAfterRun() {
+    const after = room.run?.status === "done" ? room.run.activity : room.after;
+    setRoom(endRun);
+    void talk(after);
+  }
+
+  // Keyboard and screen readers: entering or leaving an activity moves focus to its main control.
+  const inActivity = phase === "activity";
+  useEffect(() => {
+    const id = requestAnimationFrame(() => (document.querySelector<HTMLElement>(`[data-testid="${inActivity ? "activity-pause" : "talk-toggle"}"]`) ?? null)?.focus({ preventScroll: true }));
+    return () => cancelAnimationFrame(id);
+  }, [inActivity]);
 
   const retry = state === "lost" || problem !== null;
-  const buttonLabel = live ? t("stop") : retry ? t("tryAgain") : state === "ended" ? t("talkAgain") : t("start");
-  const ButtonIcon = live ? Square : retry ? RotateCcw : Mic;
+  const micLabel = live ? t("stop") : retry ? t("tryAgain") : state === "ended" && !rested ? t("talkAgain") : t("start");
 
   return (
-    <div className={styles.room} data-state={problem ? "problem" : state} data-mood={moodNow ?? undefined}>
-      {/* Feelio's cosy nook (redesign v2). Its scene art drops in when delivered; until then a warm
-          dusk backdrop in flat brand colours with Feelio's lamp glow. Never a blurred picture. */}
+    <div ref={rootRef} className={styles.room} data-state={phase} data-mood={moodNow ?? undefined} data-testid="talk-room">
+      {/* Feelio's cosy nook (approved scene art); a warm dusk in flat brand colours until it is delivered. */}
       {nook ? (
         (["land", "port"] as const).map((o) => (
           <div key={o} className={uiStyles.sceneBg} data-orient={o} aria-hidden>
@@ -200,75 +232,158 @@ function Talk({ places, help }: { places: Place[]; help: Help[] }) {
       ) : (
         <div className={styles.dusk} aria-hidden />
       )}
+      {/* calm mode: the lamp dims for an activity */}
+      <div className={styles.hush} aria-hidden />
 
-      {/* The one AI notice in Talk (owner decision 2026-10-12: Talk and Story only): a quiet line, no badge. */}
+      {/* The one AI notice in Talk (owner decision 2026-10-12): a quiet line, no badge. */}
       <p className={styles.aiLine} data-testid="ai-chip">
         {t("aiChip")}
       </p>
 
-      <div ref={hero} className={styles.hero}>
-        <span className={styles.lamp} aria-hidden />
-        {/* Feelio's voice made visible: the brand companions rise from Feelio as it speaks, drift in
-            toward it while the child talks, and float lazily when nobody is speaking. */}
-        <span className={styles.sparkles} aria-hidden>
-          {SPARKS.map((sp, i) => (
-            <AssetImage key={i} id={sp.id} alt="" sizes="48px" className={styles.spark} style={{ ["--x" as string]: sp.x, ["--y" as string]: sp.y ?? "55%", ["--d" as string]: `${sp.d}s`, ["--s" as string]: sp.s }} />
-          ))}
-        </span>
-        <div className={styles.body} data-bounce={state === "speaking" && !hasMouth ? true : undefined}>
-          <Mascot pose={pose} label={tOnb("aiSign")} sizes="50vmin" className={styles.mascot} />
-          {/* the mouth frames load up front (same sizes, so the same file), so lip-sync never blinks */}
-          {hasMouth ? (
-            <span className={styles.preload} aria-hidden>
-              {MOUTH.map((id) => (
-                <AssetImage key={id} id={id} alt="" sizes="50vmin" priority />
-              ))}
-            </span>
-          ) : null}
-        </div>
-        {state === "connecting" || state === "thinking" ? (
-          <span className={styles.beat} aria-hidden>
-            {LOADING_BEAT.map((id) => (
-              <AssetImage key={id} id={id} alt="" sizes="56px" className={styles.beatItem} />
-            ))}
-          </span>
-        ) : null}
-      </div>
-
-      <Caption text={line} locale={locale} replayLabel={tOnb("replay")} variant="float" className={styles.subtitle} testId="talk-words" />
-
-      <div className={styles.controls}>
-        <span className={styles.micWrap}>
-          {left !== null ? <TimeArc share={share} late={left < 30} /> : null}
-          <button type="button" className={styles.mic} data-live={live || undefined} onClick={toggle} disabled={state === "connecting"} aria-label={buttonLabel} data-testid="talk-toggle">
-            <ButtonIcon size={44} strokeWidth={2.6} aria-hidden fill={live ? "currentColor" : "none"} />
-          </button>
-        </span>
-        <span className={styles.micLabel} aria-hidden>
-          {buttonLabel}
-        </span>
-        {left !== null ? <span className={styles.srOnly}>{t("timeLeft", { minutes: Math.floor(left / 60) })}</span> : null}
-      </div>
-
-      <AnimatePresence>
-        {card ? (
+      <AnimatePresence mode="wait" initial={false}>
+        {room.run ? (
           <motion.div
-            key={card.type === "place" ? `place-${card.place.id}` : card.type}
-            className={styles.cardLayer}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 40, scale: 0.85 }}
-            animate={{ y: 0, opacity: 1, scale: 1 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: 30, scale: 0.9 }}
-            transition={reduce ? { duration: 0.2 } : { type: "spring", stiffness: 240, damping: 26 }}
+            key="activity"
+            className={styles.layer}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.03 }}
+            transition={{ duration: reduce ? 0.15 : 0.35, ease: "easeOut" }}
           >
-            <TalkCard card={card} help={help} onClose={() => setCard(null)} />
+            <ActivityStage run={room.run} update={updateRun} onExit={exitRun} onTalk={talkAfterRun} canTalk={!problem} locale={locale} calm={reduce} />
           </motion.div>
-        ) : null}
+        ) : (
+          <motion.div
+            key="talk"
+            className={styles.layer}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.03 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
+            transition={{ duration: reduce ? 0.15 : 0.35, ease: "easeOut" }}
+          >
+            <div className={styles.stageRow}>
+              <div className={styles.feelingSpot}>
+                <AnimatePresence>
+                  {room.feeling ? (
+                    <motion.figure
+                      key={room.feeling}
+                      className={styles.feeling}
+                      initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.6, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={reduce ? { duration: 0.15 } : { type: "spring", stiffness: 260, damping: 20 }}
+                      data-testid="feeling"
+                    >
+                      <AssetImage id={pick(FEELING_FACE[room.feeling])} alt="" sizes="22vmin" className={styles.face} />
+                      <figcaption>{t(`feelings.${room.feeling}`)}</figcaption>
+                    </motion.figure>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+
+              <div className={styles.hero}>
+                <span className={styles.lamp} aria-hidden />
+                <span className={styles.sparkles} aria-hidden>
+                  {SPARKS.map((sp, i) => (
+                    <AssetImage key={i} id={sp.id} alt="" sizes="48px" className={styles.spark} style={{ ["--x" as string]: sp.x, ["--y" as string]: sp.y ?? "55%", ["--d" as string]: `${sp.d}s`, ["--s" as string]: sp.s }} />
+                  ))}
+                </span>
+                <div className={styles.body} data-bounce={state === "speaking" && !hasMouth ? true : undefined}>
+                  <Mascot pose={pose} label={tOnb("aiSign")} sizes="50vmin" className={styles.mascot} />
+                  {/* the mouth frames load up front (same sizes, so the same file), so lip-sync never blinks */}
+                  {hasMouth ? (
+                    <span className={styles.preload} aria-hidden>
+                      {MOUTH.map((id) => (
+                        <AssetImage key={id} id={id} alt="" sizes="50vmin" priority />
+                      ))}
+                    </span>
+                  ) : null}
+                </div>
+                {state === "connecting" || state === "thinking" ? (
+                  <span className={styles.beat} aria-hidden data-testid="thinking">
+                    {LOADING_BEAT.map((id) => (
+                      <AssetImage key={id} id={id} alt="" sizes="56px" className={styles.beatItem} />
+                    ))}
+                  </span>
+                ) : null}
+              </div>
+
+              <div className={styles.offerSpot}>
+                <AnimatePresence>
+                  {room.offer ? (
+                    <motion.div
+                      key={room.offer.kind === "place" ? `place-${room.offer.place}` : room.offer.activity}
+                      className={styles.offer}
+                      initial={reduce ? { opacity: 0 } : { opacity: 0, x: 40, scale: 0.8 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
+                      transition={reduce ? { duration: 0.15 } : { type: "spring", stiffness: 240, damping: 22 }}
+                    >
+                      <OfferObject offer={room.offer} places={places} onStart={startOffer} />
+                      <Pressable label={t("act.notNow")} icon={<X size={22} aria-hidden />} onPress={() => setRoom(dismissOffer)} className={styles.notNow} testId="offer-not-now" />
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            <Caption text={line} audioKey={line === t("intro") ? "talk_intro" : undefined} locale={locale} replayLabel={tOnb("replay")} variant="float" className={styles.subtitle} testId="talk-words" />
+
+            <div className={styles.controls}>
+              <span className={styles.micWrap} data-live={live || undefined}>
+                {left !== null ? <TimeArc share={share} late={left < 30} /> : null}
+                <span className={styles.micGlow} aria-hidden />
+                <ActionObject art="ui_mic_object" label={micLabel} ready={!live} loading={state === "connecting"} onPress={toggle} sizes="(orientation: portrait) 30vw, 150px" className={styles.mic} testId="talk-toggle" />
+              </span>
+              {left !== null ? <span className={styles.srOnly}>{t("timeLeft", { minutes: Math.floor(left / 60) })}</span> : null}
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
+
+      {room.help ? <HelpPanel kinds={room.help} help={help} onClose={() => setRoom(closeHelp)} /> : null}
     </div>
   );
 }
 
-/** Time left as an arc that empties around the button (amber in the last 30 seconds). No numbers. */
+/** What Feelio offered, as a big object to tap: a calm activity starts here, a story or a place is a page. */
+function OfferObject({ offer, places, onStart }: { offer: Offer; places: Place[]; onStart: () => void }) {
+  const t = useTranslations("child.talk");
+  if (offer.kind === "place") {
+    const place = places.find((p) => p.id === offer.place);
+    const art = pickOptional(placeArrival(offer.place));
+    if (!place) return null;
+    return <ActionObject art={art ?? "dock_map"} label={t("visit", { place: place.name })} href={`/place/${place.id}`} ready sizes="24vmin" className={styles.offerArt} testId="offer" />;
+  }
+  if (offer.activity === "story")
+    return <ActionObject art="ui_btn_make_story" label={t("act.offer.story")} href="/stories/make" ready sizes="24vmin" className={styles.offerArt} testId="offer" />;
+  return <ActionObject art={pick(OFFER_ART[offer.activity])} label={t(`act.offer.${offer.activity}`)} ready onPress={onStart} sizes="24vmin" className={styles.offerArt} testId="offer" />;
+}
+
+/** Who can help (the router's crisis tool, never the model's). It stays until the child closes it. */
+function HelpPanel({ kinds, help, onClose }: { kinds: string[]; help: Help[]; onClose: () => void }) {
+  const t = useTranslations("child.talk");
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => ref.current?.focus(), []);
+  return (
+    <div className={styles.helpLayer}>
+      <div ref={ref} tabIndex={-1} className={styles.help} role="alertdialog" aria-modal="true" aria-label={t("helpTitle")} data-testid="help">
+        <Mascot pose={pick(TALK_MASCOT.empathy)} label={t("helpTitle")} sizes="20vmin" className={styles.helpMascot} />
+        <h2>{t("helpTitle")}</h2>
+        <ul>
+          {help
+            .filter((h) => kinds.includes(h.kind))
+            .map((h) => (
+              <li key={h.kind}>{h.text}</li>
+            ))}
+        </ul>
+        <Pressable shape="round" label={t("close")} icon={<X size={28} aria-hidden />} onPress={onClose} className={styles.helpClose} testId="help-close" />
+      </div>
+    </div>
+  );
+}
+
+/** Time left as an arc that empties around the microphone (amber in the last 30 seconds). No numbers. */
 function TimeArc({ share, late }: { share: number; late: boolean }) {
   const r = 46;
   const c = 2 * Math.PI * r;
@@ -277,66 +392,5 @@ function TimeArc({ share, late }: { share: number; late: boolean }) {
       <circle cx="50" cy="50" r={r} className={styles.arcTrack} />
       <circle cx="50" cy="50" r={r} className={styles.arcLeft} strokeDasharray={c} strokeDashoffset={c * (1 - Math.max(0, Math.min(1, share)))} />
     </svg>
-  );
-}
-
-function TalkCard({ card, help, onClose }: { card: Card; help: Help[]; onClose: () => void }) {
-  const t = useTranslations("child.talk");
-  return (
-    <div className={styles.card} data-card={card.type} role={card.type === "help" ? "alertdialog" : "dialog"} aria-label={card.type === "help" ? t("helpTitle") : undefined}>
-      <button type="button" className={styles.close} onClick={onClose} aria-label={t("close")}>
-        <X size={28} aria-hidden />
-      </button>
-      {card.type === "feeling" ? (
-        <figure className={styles.feeling}>
-          <AssetImage id={pick(FEELING_FACE[card.feeling])} alt="" sizes="30vmin" className={styles.face} />
-          <figcaption>{t(`feelings.${card.feeling}`)}</figcaption>
-        </figure>
-      ) : null}
-      {card.type === "breathing" ? <Breathing rounds={card.rounds} onDone={onClose} /> : null}
-      {card.type === "place" ? <PlaceCard place={card.place} /> : null}
-      {card.type === "help" ? (
-        <div className={styles.help}>
-          <h2>{t("helpTitle")}</h2>
-          <ul>
-            {help
-              .filter((h) => card.kinds.includes(h.kind))
-              .map((h) => (
-                <li key={h.kind}>{h.text}</li>
-              ))}
-          </ul>
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
-function Breathing({ rounds, onDone }: { rounds: number; onDone: () => void }) {
-  const t = useTranslations("child.talk");
-  const [step, setStep] = useState(0); // even: breathe in, odd: breathe out, 2 × rounds: done
-  useEffect(() => {
-    if (step > rounds * 2) return;
-    const id = setTimeout(() => (step === rounds * 2 ? onDone() : setStep(step + 1)), step === rounds * 2 ? 2500 : BREATH_MS);
-    return () => clearTimeout(id);
-  }, [step, rounds, onDone]);
-  const done = step >= rounds * 2;
-  return (
-    <div className={styles.breathing} data-phase={done ? "done" : step % 2 === 0 ? "in" : "out"}>
-      <span className={styles.breathBall} aria-hidden>
-        <AssetImage id="companion_cloud" alt="" sizes="24vmin" />
-      </span>
-      <p aria-live="polite">{done ? t("breatheDone") : step % 2 === 0 ? t("breatheIn") : t("breatheOut")}</p>
-    </div>
-  );
-}
-
-function PlaceCard({ place }: { place: Place }) {
-  const t = useTranslations("child.talk");
-  const art = pickOptional(placeArrival(place.id));
-  return (
-    <a className={styles.place} href={`/place/${place.id}`}>
-      {art ? <AssetImage id={art} alt="" sizes="24vmin" className={styles.placeArt} /> : null}
-      <span>{t("visit", { place: place.name })}</span>
-    </a>
   );
 }

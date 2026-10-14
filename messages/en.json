@@ -143,7 +143,7 @@
       "aiChip": "Feelio is an AI, not a person",
       "start": "Talk to Feelio",
       "stop": "Stop talking",
-      "intro": "Tap the big button and say hello!",
+      "intro": "Tap the microphone and say hello!",
       "connecting": "Waking Feelio up…",
       "listening": "I'm listening…",
       "speaking": "Feelio is talking",
@@ -162,9 +162,6 @@
         "busy": "We're already talking somewhere else. Close it there first.",
         "unavailable": "I can't hear you right now. Let's try again in a little while."
       },
-      "breatheIn": "Breathe in…",
-      "breatheOut": "…and breathe out",
-      "breatheDone": "Well done! You did it.",
       "feelings": {
         "happy": "Happy",
         "sad": "Sad",
@@ -179,7 +176,45 @@
       "lost": "Oops, I lost you. Let's try again!",
       "tryAgain": "Try again",
       "talkAgain": "Talk again",
-      "ideaDeclined": "Hmm, that one doesn't fit our story. Let's pick one from the pictures!"
+      "ideaDeclined": "Hmm, that one doesn't fit our story. Let's pick one from the pictures!",
+      "act": {
+        "offer": {
+          "breathing": "Breathe with me",
+          "grounding": "Noticing game",
+          "stretching": "Stretch with me",
+          "story": "Make a story"
+        },
+        "notNow": "Not now",
+        "pause": "Pause",
+        "resume": "Keep going",
+        "next": "Next",
+        "again": "Again",
+        "stop": "Stop",
+        "back": "Back to Feelio",
+        "found": "I found one",
+        "foundAll": "Found them all!",
+        "paused": "Resting. Tap Keep going when you're ready.",
+        "breathing": {
+          "intro": "Let's breathe slowly with the cloud. Get comfy.",
+          "in": "Breathe in…",
+          "out": "…and breathe out."
+        },
+        "grounding": {
+          "intro": "Let's notice what's around us.",
+          "look": "Find three things you can see. Tap a star for each one.",
+          "listen": "Now listen. Can you hear two sounds?",
+          "feel": "Feel one thing, like your feet on the floor."
+        },
+        "stretching": {
+          "intro": "Let's stretch! You can stand up or stay sitting.",
+          "up": "Reach up high, like a tall tree.",
+          "sway": "Sway slowly, side to side.",
+          "shake": "Shake your hands. Wiggle, wiggle!",
+          "hug": "Now give yourself a big, warm hug."
+        },
+        "done": "You did it! Do you want to talk some more?",
+        "steps": "Step {n} of {total}"
+      }
     },
     "stories": {
       "title": "My stories",

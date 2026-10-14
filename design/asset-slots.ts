@@ -78,6 +78,14 @@ export const TALK_MASCOT = {
   calm: ["mascot_idle"],
 } as const satisfies Record<string, Slot>;
 
+/** Voice room (D-076): the object a child taps to start what Feelio offered (stand-ins: brand companions). */
+export const OFFER_ART = {
+  breathing: ["ui_act_breathe", "companion_cloud"],
+  grounding: ["ui_act_notice", "companion_star"],
+  stretching: ["ui_act_stretch", "companion_heart"],
+  story: ["ui_btn_make_story"],
+} as const satisfies Record<string, Slot>;
+
 /** The feeling card (`show_feeling_card`): the brand's own feeling faces. */
 export const FEELING_FACE = {
   happy: ["face_happy"],
