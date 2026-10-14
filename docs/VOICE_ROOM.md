@@ -88,7 +88,7 @@ The crisis tool is emitted by the router, never the model. Help is the one panel
 - [x] Arabic and English strings (Arabic plays captions only until an Arabic voice exists, D-064)
 - [x] Batch 8 art requests (7 mascot poses, 3 start objects) with approved stand-ins until delivered
 - [x] End-to-end test written (`tests/e2e/m9-voice-room.spec.ts`)
-- [ ] Run the end-to-end tests and review the screenshots (needs the dev server)
+- [x] Run the end-to-end tests and review the screenshots (12/12 with m5, 2026-10-14; fixed: phone layout, Feelio size on tablet, offer swap, focus on arrival)
 - [ ] Owner: re-run the agent sync with a live tunnel, so the agent knows `offer_activity`
 - [ ] Owner: a spoken test on a real device (offer → yes → activity → talk again)
 - [ ] Owner: generate Batch 8 (optional)
