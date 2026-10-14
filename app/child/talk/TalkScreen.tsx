@@ -212,9 +212,19 @@ function Talk({ places, help, stories }: { places: Place[]; help: Help[]; storie
 
   // Keyboard and screen readers: entering or leaving an activity moves focus to its main control.
   const inActivity = phase === "activity";
+  const firstRender = useRef(true);
   useEffect(() => {
-    const id = requestAnimationFrame(() => (document.querySelector<HTMLElement>(`[data-testid="${inActivity ? "activity-pause" : "talk-toggle"}"]`) ?? null)?.focus({ preventScroll: true }));
-    return () => cancelAnimationFrame(id);
+    if (firstRender.current) return void (firstRender.current = false);
+    // the layers cross-fade one after the other, so wait for the control to be there (at most ~1 s)
+    let raf = 0;
+    let tries = 0;
+    const find = () => {
+      const el = document.querySelector<HTMLElement>(`[data-testid="${inActivity ? "activity-pause" : "talk-toggle"}"]`);
+      if (el) el.focus({ preventScroll: true });
+      else if (tries++ < 60) raf = requestAnimationFrame(find);
+    };
+    raf = requestAnimationFrame(find);
+    return () => cancelAnimationFrame(raf);
   }, [inActivity]);
 
   const retry = state === "lost" || problem !== null;

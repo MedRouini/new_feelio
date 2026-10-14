@@ -1265,6 +1265,23 @@ Made with Codex from `assets/requests/batch7/jobs.json` (brief: `assets/requests
 | `ui_step_adventure` | Step ticket: adventure | a rolled-open treasure map with a dotted path and a small round compass resting on it |
 
 
+## Batch 8 (voice room: activity poses and start objects), written 2026-10-14 (D-076, docs/VOICE_ROOM.md)
+Made with Codex from `assets/requests/batch8/jobs.json` (brief: `assets/requests/batch8/CODEX.md`) into the git-ignored `assets/incoming/batch8/`, checked by `npx tsx scripts/check-incoming.ts batch8`, then reviewed by Claude Code. Every mascot pose attaches the official mascot (`brand/mascot/default/png/IMG_9937.png`) and `mascot_idle`. **Optional:** until each one is approved, the room uses an approved stand-in (listed in `design/asset-slots.ts` and `child/activities.ts`), so nothing is blocked.
+
+| id | Used for | What to draw |
+|---|---|---|
+| `mascot_breathe_in` | Breathing: breathing in | standing tall with the chest gently lifted, both stubby arms raised a little outward and upward as if slowly filling up with air; eyes softly closed in calm curved lines, a small closed peaceful smile |
+| `mascot_breathe_out` | Breathing: breathing out | standing relaxed and soft, shoulders dropped, both arms resting low and loose at its sides; eyes softly closed in calm curved lines, mouth a small round 'o' as if gently blowing out (no visible air) |
+| `mascot_look` | Noticing game: look around | one arm raised with its flat flap held just above the screen face like a sun visor, body leaning slightly to one side, curious; wide curious sparkle eyes looking to the side, small open smile |
+| `mascot_hug` | Noticing game: feel; stretching: hug | both stubby arms wrapped around its own round body in a gentle, cosy self-hug; eyes closed in happy upward arcs, warm content smile |
+| `mascot_stretch_up` | Stretching: reach up high | both arms stretched straight up high above its head on either side of the antenna, body standing tall on its toes; happy determined eyes, big open smile |
+| `mascot_stretch_side` | Stretching: sway side to side | body leaning gently to one side like a bending tree, the arm on the other side arched over its head toward the lean, the near arm resting on its side; calm happy eyes, gentle smile |
+| `mascot_shake` | Stretching: shake your hands | both arms held out to the sides, slightly bent, flaps loose as if shaking them out, knees a little bent, playful; eyes in happy upward arcs, laughing open smile |
+| `ui_act_breathe` | Voice room: start breathing with the cloud | a plump soft pastel cloud resting on a small round lilac cushion, with three tiny sparkles above it |
+| `ui_act_notice` | Voice room: start the noticing game | a chunky magnifying glass with a rounded amber handle and a sky-blue rim, a small soft amber star twinkling inside its lens |
+| `ui_act_stretch` | Voice room: start stretching | a soft exercise mat in rose and lilac stripes, half rolled up, with a small amber star resting on the flat part |
+
+
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
@@ -1351,3 +1368,4 @@ Made with Codex from `assets/requests/batch7/jobs.json` (brief: `assets/requests
 | no longer needed | 2026-10-11 | | | Removed from `design/asset-ids.ts` 2026-10-13 (unused since the redesign, D-071): `story_shelf`, `scene_story_corner_land/_port`, `story_book_open`, `story_page_paper`, `story_book_cover`, `ui_story_slot` |
 | batch-6 my room | 2026-10-13 | 2026-10-13 | 2026-10-13 | 2 scenes, 6 room objects, 16 wearable items (D-074); via Codex from assets/requests/batch6/jobs.json into assets/incoming/batch6/ | All 24 approved (reviewed by Claude Code); positions and placements measured |
 | batch-7 story experience | 2026-10-13 | 2026-10-13 | 2026-10-13 | 3 action objects + 3 step icons (D-075); via Codex from assets/requests/batch7/jobs.json into assets/incoming/batch7/ |
+| batch-8 voice room | 2026-10-14 | | | 7 mascot activity poses + 3 start objects (D-076); via Codex from assets/requests/batch8/jobs.json into assets/incoming/batch8/. Optional: stand-ins until approved |

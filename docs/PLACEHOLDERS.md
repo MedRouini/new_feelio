@@ -9,7 +9,7 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 - To list what's still missing: `missingAssets()` in `design/assets.ts`.
 
 ## Open: art
-None (2026-10-13, Batch 6 approved, D-074). Every asset in `design/asset-ids.ts` is approved.
+Batch 8 (voice room, D-076): 7 mascot activity poses and 3 start objects, **optional**. Until each is approved the room uses an approved stand-in pose or brand companion (`child/activities.ts`, `OFFER_ART` in `design/asset-slots.ts`), never a grey box. Everything else in `design/asset-ids.ts` is approved.
 
 ## Open: functionality gaps (honest, visible, never faked)
 | Gap | Where | Why | Closes |
@@ -23,6 +23,8 @@ None (2026-10-13, Batch 6 approved, D-074). Every asset in `design/asset-ids.ts`
 | Voice proxy is not bound to a child's voice session | `app/api/voice/llm/route.ts` (adult-only spike, off unless `VOICE_SPIKE_ENABLED=1`) | The session gate is Milestone 5 (D-061) | Milestone 5 |
 | Crisis resources have no phone numbers | `content/safety/resources/baseline.json` | Markets not chosen; numbers must be verified per country (D-059) | When the first market is chosen |
 | Crisis card and mascot mood in voice | Proxy (client tools) | Whether a custom LLM can trigger client tools is unverified (D-004) | Milestone 5 |
+| Voice room activities need the agent re-synced | `safety/voice-agent/sync.ts` | The live agent still lists the old tools; the proxy only sends tools the agent offered, so `offer_activity` reaches the screen after `npx tsx --env-file=.env safety/voice-agent/sync.ts --yes` with a live tunnel (D-076) | When you next open a tunnel |
+| Noticing game has no ambient sounds | `app/child/talk/ActivityStage.tsx` | No approved audio; sounds aren't in the image pipeline (D-076) | If you want them: choose a sound source |
 | Child-side "tell a grown-up / something felt wrong" button | none yet | Belongs on the Talk screen, where it has context (D-066) | Milestone 5 |
 | Parent email verification is off | `auth/server.ts` | No email provider chosen | When you pick a provider |
 

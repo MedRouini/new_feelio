@@ -722,7 +722,7 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Also found live:** ElevenLabs appends `/chat/completions` to the custom-LLM URL. A second route at that path re-exports the same handler.
 - **Context for the model:** the name only when it is a word from the reviewed list (never the parent's typed nickname); interests and places as ids; levels finished; a wind-down note in the last minute; the last 8 turns of the conversation.
 - **Client tools (verified live: a custom LLM's `tool_calls` reach the browser as client tool calls):**
-  - `set_mascot_state`, `show_feeling_card` (the brand's own feeling faces), `start_breathing`, `suggest_place` (only a place this child has reached) are offered to the model
+  - `set_mascot_state`, `show_feeling_card` (the brand's own feeling faces), `start_breathing` (replaced by `offer_activity`, D-076), `suggest_place` (only a place this child has reached) are offered to the model
   - `show_safety_resources` is emitted **only by the router** on a crisis, with the mascot calmed
   - closed argument lists, validated in the proxy and again in the browser; a tool runs only after every sentence of the turn was released; screen-only, non-blocking (`expects_response: false`)
 - **Tool-only answers:** DeepSeek sometimes answered with tools and no words (2 of 3 times on one test sentence), which correctly fell back to a reviewed line. Now that turn is asked once more with tools off, and the first tool calls are kept. Unit-tested; then 4 of 4 live turns gave real replies.
@@ -842,3 +842,37 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - wardrobe, books and gift box on the floor
   - the character on the rug, Feelio by the bed
 - **Item placements** on the character (`wardrobe.json`) were measured from each item's visible area against `avatar_bun_amber_idle`, previewed on all 16 and adjusted. Hats sit on the head, glasses on the eyes, neck items under the mouth, and back items behind the body.
+
+## D-076 Voice room: Feelio offers calm activities and stories; the app guides them
+**Status:** built (owner brief, 2026-10-14: "make Feelio an actionable emotional support agent… Do not stop after producing a proposal"). Design and tasks: docs/VOICE_ROOM.md.
+- **Interaction model (decided without asking, as the brief allows for non-blocking choices):**
+  - Feelio offers an activity in words.
+  - After the child's yes, it calls `offer_activity`, and the activity appears beside Feelio for the child to tap.
+  - The tap closes the live call, and the activity runs on the app's clock with pre-recorded lines.
+- **Why not keep the call open and let the agent guide:**
+  - The agent is turn-based: it speaks only after the child does, so it can't keep a breathing rhythm.
+  - It would spend voice minutes and credits on silence (CLAUDE.md rule 11: fixed phrases are static audio).
+  - The agent ends a call after 30 s of silence.
+  - The cost if this is wrong: a new talk starts after the activity (with the fixed AI greeting), not the same one. The proxy is told which activity just ended, so Feelio follows up.
+- **Tool:** `offer_activity` (`breathing | grounding | stretching | story`) replaces `start_breathing` (D-068).
+  - The proxy filters it per child (`allowedForChild`): a story only when `storyGate` is open, a place only when reached.
+  - The browser checks again.
+  - The calls are idempotent, stale ones are ignored, and help always wins.
+- **After-activity context:** the id travels in `customLlmExtraBody.feelio_after` and is read from a closed list (`afterActivity`). Nothing is stored.
+- **Prompt `sys-v0.4`:**
+  - offer in words, call only after a yes
+  - no is fine
+  - match the activity to the feeling
+  - not a therapist, no diagnosis, no promised fix
+  - big or recurring feelings go to a trusted grown-up
+- **Activities:**
+  - breathing: 3 × in 4 s / out 5 s, no hold
+  - noticing: a 3-2-1 grounding game, tap per thing found
+  - stretching: 4 gentle moves, sitting allowed, each skippable
+- **Shared lifecycle (pure):** start, tick, pause, resume, find, skip, restart, and progress.
+- **14 English voice lines** were generated with the existing script (Multilingual v2, Jessica, about 590 credits). Arabic is captions only until an Arabic voice exists (D-064).
+- **Development-only test hook:** `window.__feelioTool` runs a tool call through the same validation; it is not in production builds. The room can be end-to-end tested without a live call.
+- **Art:** Batch 8 (7 mascot poses, 3 start objects) is requested and optional. Until it is approved, each slot uses an approved pose or brand companion (never a drawing or a grey box).
+- **Blocked on the owner:**
+  - the agent sync with a live tunnel (the agent must be told about `offer_activity`; until then it offers the old tool list, and the proxy drops tools it wasn't offered)
+  - a spoken test on a device
