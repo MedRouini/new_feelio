@@ -212,9 +212,12 @@ function Talk({ places, help, stories }: { places: Place[]; help: Help[]; storie
 
   // Keyboard and screen readers: entering or leaving an activity moves focus to its main control.
   const inActivity = phase === "activity";
-  const firstRender = useRef(true);
+  const wasInActivity = useRef<boolean | null>(null);
   useEffect(() => {
-    if (firstRender.current) return void (firstRender.current = false);
+    // only when the child moves between the talk and an activity (not on arrival, and not on a re-run)
+    const before = wasInActivity.current;
+    wasInActivity.current = inActivity;
+    if (before === null || before === inActivity) return;
     // the layers cross-fade one after the other, so wait for the control to be there (at most ~1 s)
     let raf = 0;
     let tries = 0;
@@ -271,7 +274,7 @@ function Talk({ places, help, stories }: { places: Place[]; help: Help[]; storie
             exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
             transition={{ duration: reduce ? 0.15 : 0.35, ease: "easeOut" }}
           >
-            <div className={styles.stageRow}>
+            <div className={styles.stageRow} data-side={room.offer || room.feeling ? true : undefined}>
               <div className={styles.feelingSpot}>
                 <AnimatePresence>
                   {room.feeling ? (
@@ -319,7 +322,7 @@ function Talk({ places, help, stories }: { places: Place[]; help: Help[]; storie
               </div>
 
               <div className={styles.offerSpot}>
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {room.offer ? (
                     <motion.div
                       key={room.offer.kind === "place" ? `place-${room.offer.place}` : room.offer.activity}

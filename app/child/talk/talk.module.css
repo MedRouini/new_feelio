@@ -65,14 +65,10 @@
   align-items: center;
 }
 .stageRow > * { direction: ltr; }
+/* Feelio fills its row, never more: the AI line above and the words below stay clear */
+.stageRow > .hero { align-self: stretch; block-size: 100%; }
 :global(html[dir="rtl"]) .stageRow > * { direction: rtl; }
 .feelingSpot, .offerSpot { display: grid; place-items: center; min-block-size: 0; }
-@media (orientation: portrait) {
-  .stageRow { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
-  .hero { grid-column: 1; grid-row: 1; }
-  .feelingSpot { position: absolute; z-index: 2; inset-block-start: 0; left: 0; }
-  .offerSpot { grid-row: 2; }
-}
 
 .feeling { margin: 0; display: grid; justify-items: center; gap: var(--s1); font-size: var(--fs-word); font-weight: 700; color: var(--white); -webkit-text-stroke: 6px #3b2a75; paint-order: stroke fill; }
 .face { inline-size: clamp(84px, 18vmin, 180px); }
@@ -81,10 +77,7 @@
 .offer { display: grid; justify-items: center; gap: var(--s2); }
 .offerArt { inline-size: clamp(132px, 20vmin, 210px); }
 .notNow :global(span[class*="face"]) { min-block-size: 56px; }
-@media (orientation: portrait) {
-  .offer { grid-auto-flow: column; align-items: end; gap: var(--s3); }
-  .offerArt { inline-size: clamp(110px, 28vw, 150px); }
-}
+@media (orientation: portrait) { .offerArt { inline-size: clamp(110px, 30vw, 150px); } }
 
 /* ---------- Feelio, its lamp, and its voice ---------- */
 .hero {
@@ -219,4 +212,18 @@
   .lamp, .body { transform: none !important; transition: none; }
   .spark { opacity: 0.6; transform: translate(0, -70%) scale(var(--s)); }
   .hush, .micGlow { transition: none; }
+}
+
+/* Phones: Feelio alone stands in the middle; with a feeling or an offer the room splits, Feelio on the
+   left and the pictures on its right, where it points (after the .hero rule above, so this wins). */
+@media (orientation: portrait) {
+  .stageRow { grid-template-columns: minmax(0, 1fr); }
+  .stageRow > .hero { grid-column: 1; grid-row: 1; }
+  .stageRow > .feelingSpot, .stageRow > .offerSpot { display: none; }
+  .stageRow[data-side] { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s2); }
+  .stageRow[data-side] > .hero { grid-row: 1 / span 2; }
+  .stageRow[data-side] > .feelingSpot, .stageRow[data-side] > .offerSpot { display: grid; grid-column: 2; }
+  .stageRow[data-side] > .feelingSpot { grid-row: 1; align-self: end; }
+  .stageRow[data-side] > .offerSpot { grid-row: 2; align-self: start; }
+  .stageRow[data-side] .mascot { block-size: min(100%, 46vmin, 300px); }
 }
