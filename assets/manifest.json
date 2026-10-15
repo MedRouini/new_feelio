@@ -3634,6 +3634,239 @@
         "clean alpha, not cut off (scripts/check-incoming.ts ok)"
       ],
       "sha256": "b1e5ad218de047e58291857e7f5a553e9e3e0631a04119274c555532154848ef"
+    },
+    {
+      "id": "mascot.mascot_breathe_in",
+      "file": "assets/approved/mascot/mascot_breathe_in.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: standing tall with the chest gently lifted, both stubby arms raised a little outward and upward as if slowly filling up with air and eyes softly closed in calm curved lines, a small closed peaceful smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "brand/mascot/default/png/IMG_9937.png",
+        "assets/approved/mascot/mascot_idle.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "same character as IMG_9937 and mascot_idle: antenna orb, screen face, sparkle eyes, cheeks, belly heart, colours, proportions; not mirrored",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "1ef9d4d282de9860e637dfdb0558dbcc11bf2d858012245c473baa4e73d3c409"
+    },
+    {
+      "id": "mascot.mascot_breathe_out",
+      "file": "assets/approved/mascot/mascot_breathe_out.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: standing relaxed and soft, shoulders dropped, both arms resting low and loose at its sides and eyes softly closed in calm curved lines, mouth a small round 'o' as if gently blowing out (no visible air). Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "brand/mascot/default/png/IMG_9937.png",
+        "assets/approved/mascot/mascot_idle.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "same character as IMG_9937 and mascot_idle: antenna orb, screen face, sparkle eyes, cheeks, belly heart, colours, proportions; not mirrored",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "939b319644cca1f4c039b536057e6f9418810b1e56a8ccec40ec81f7e4bb2152"
+    },
+    {
+      "id": "mascot.mascot_look",
+      "file": "assets/approved/mascot/mascot_look.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: one arm raised with its flat flap held just above the screen face like a sun visor, body leaning slightly to one side, curious and wide curious sparkle eyes looking to the side, small open smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "brand/mascot/default/png/IMG_9937.png",
+        "assets/approved/mascot/mascot_idle.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "same character as IMG_9937 and mascot_idle: antenna orb, screen face, sparkle eyes, cheeks, belly heart, colours, proportions; not mirrored",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "dd14e13113ace59bd33217b733d122c04aa71b67958dd210c3707bdce0b2d7a2"
+    },
+    {
+      "id": "mascot.mascot_hug",
+      "file": "assets/approved/mascot/mascot_hug.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: both stubby arms wrapped around its own round body in a gentle, cosy self-hug and eyes closed in happy upward arcs, warm content smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "brand/mascot/default/png/IMG_9937.png",
+        "assets/approved/mascot/mascot_idle.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "same character as IMG_9937 and mascot_idle: antenna orb, screen face, sparkle eyes, cheeks, belly heart, colours, proportions; not mirrored",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "571f71049aabc8b17bfe669446164314103fdacc165167602e89061f84679c45"
+    },
+    {
+      "id": "mascot.mascot_stretch_up",
+      "file": "assets/approved/mascot/mascot_stretch_up.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: both arms stretched straight up high above its head on either side of the antenna, body standing tall on its toes and happy determined eyes, big open smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "brand/mascot/default/png/IMG_9937.png",
+        "assets/approved/mascot/mascot_idle.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "same character as IMG_9937 and mascot_idle: antenna orb, screen face, sparkle eyes, cheeks, belly heart, colours, proportions; not mirrored",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "fe70dff002bf5cdf2c46d773ef67979078aaeabb8a99af20753f513c8f10a274"
+    },
+    {
+      "id": "mascot.mascot_stretch_side",
+      "file": "assets/approved/mascot/mascot_stretch_side.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: body leaning gently to one side like a bending tree, the arm on the other side arched over its head toward the lean, the near arm resting on its side and calm happy eyes, gentle smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "brand/mascot/default/png/IMG_9937.png",
+        "assets/approved/mascot/mascot_idle.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "same character as IMG_9937 and mascot_idle: antenna orb, screen face, sparkle eyes, cheeks, belly heart, colours, proportions; not mirrored",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "eae0e7ee4d731a3f9ef7ceebba9595a07383444e49fe9c0942fac58634685efe"
+    },
+    {
+      "id": "mascot.mascot_shake",
+      "file": "assets/approved/mascot/mascot_shake.png",
+      "kind": "mascot",
+      "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: both arms held out to the sides, slightly bent, flaps loose as if shaking them out, knees a little bent, playful and eyes in happy upward arcs, laughing open smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "brand/mascot/default/png/IMG_9937.png",
+        "assets/approved/mascot/mascot_idle.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "same character as IMG_9937 and mascot_idle: antenna orb, screen face, sparkle eyes, cheeks, belly heart, colours, proportions; not mirrored",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "12ce3d918090db9b9db816899f208ddbb8e1690e9c1498ed202d09b7bbbb5f0b"
+    },
+    {
+      "id": "ui.ui_act_breathe",
+      "file": "assets/approved/ui/ui_act_breathe.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a plump soft pastel cloud resting on a small round lilac cushion, with three tiny sparkles above it. It must read clearly as a button-sized object at 110 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_calm.png",
+        "assets/approved/ui/ui_mic_object.png",
+        "assets/approved/ui/ui_btn_make_story.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "the object alone: no frame, button shape or background",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "6bb17ae514e60effeaed991f859079d942a112f5019f3abcedcd1428416e8c03"
+    },
+    {
+      "id": "ui.ui_act_notice",
+      "file": "assets/approved/ui/ui_act_notice.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a chunky magnifying glass with a rounded amber handle and a sky-blue rim, a small soft amber star twinkling inside its lens. It must read clearly as a button-sized object at 110 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_calm.png",
+        "assets/approved/ui/ui_mic_object.png",
+        "assets/approved/ui/ui_btn_make_story.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "the object alone: no frame, button shape or background",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "f95ed8a8805de79d3333afff168313b73ad56ed5340756b61f2eaabfa6bbc5fc"
+    },
+    {
+      "id": "ui.ui_act_stretch",
+      "file": "assets/approved/ui/ui_act_stretch.png",
+      "kind": "ui",
+      "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a soft exercise mat in rose and lilac stripes, half rolled up, with a small amber star resting on the flat part. It must read clearly as a button-sized object at 110 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 8 job list",
+      "date": "2026-10-15",
+      "chat_link": null,
+      "references": [
+        "assets/approved/ui/dock_calm.png",
+        "assets/approved/ui/ui_mic_object.png",
+        "assets/approved/ui/ui_btn_make_story.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-15",
+        "matches the requested pose or object",
+        "the object alone: no frame, button shape or background",
+        "no text, letters or numbers; no people",
+        "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
+      ],
+      "sha256": "ce30beabb44d602b862a766767b76645835ffb48e125ae8fe2fb7450ef9da1e2"
     }
   ]
 }

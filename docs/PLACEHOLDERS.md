@@ -9,7 +9,7 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 - To list what's still missing: `missingAssets()` in `design/assets.ts`.
 
 ## Open: art
-Batch 8 (voice room, D-076): 7 mascot activity poses and 3 start objects, **optional**. Until each is approved the room uses an approved stand-in pose or brand companion (`child/activities.ts`, `OFFER_ART` in `design/asset-slots.ts`), never a grey box. Everything else in `design/asset-ids.ts` is approved.
+None (2026-10-15, Batch 8 approved, D-076). Every asset in `design/asset-ids.ts` is approved.
 
 ## Open: functionality gaps (honest, visible, never faked)
 | Gap | Where | Why | Closes |

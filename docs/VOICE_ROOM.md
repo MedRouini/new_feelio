@@ -91,7 +91,7 @@ The crisis tool is emitted by the router, never the model. Help is the one panel
 - [x] Run the end-to-end tests and review the screenshots (12/12 with m5, 2026-10-14; fixed: phone layout, Feelio size on tablet, offer swap, focus on arrival)
 - [ ] Owner: re-run the agent sync with a live tunnel, so the agent knows `offer_activity`
 - [ ] Owner: a spoken test on a real device (offer → yes → activity → talk again)
-- [ ] Owner: generate Batch 8 (optional)
+- [x] Batch 8 generated (Codex) and approved, 2026-10-15: all 10 wired through their slots
 
 ## Not built (on purpose)
 - **Ambient sounds in the noticing game:** no approved audio exists, and sounds are not part of the image pipeline.
