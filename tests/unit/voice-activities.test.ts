@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { systemPrompt } from "@/safety/prompts";
-import { ACTIVITIES, MODEL_TOOLS, afterActivity, allowedForChild, parseToolCall } from "@/safety/voice-agent/tools";
+import { ACTIVITIES, MODEL_TOOLS, afterActivity, allowedForChild, parseToolCall, stillAsking } from "@/safety/voice-agent/tools";
 
 // Voice room activities (D-076): Feelio offers a calm activity or a story with one closed-list tool,
 // only after the child said yes; the proxy keeps out what this child can't open; the next talk knows
@@ -27,6 +27,14 @@ describe("offer_activity", () => {
     expect(allowedForChild(parseToolCall("suggest_place", '{"place":"park"}')!, can)).toBe(false);
     expect(allowedForChild(parseToolCall("suggest_place", '{"place":"home"}')!, can)).toBe(true);
     expect(allowedForChild(parseToolCall("set_mascot_state", '{"mood":"calm"}')!, can)).toBe(true);
+  });
+
+  it("a reply that ends with a question is still asking: its activity call waits for the child's answer", () => {
+    expect(stillAsking("That sounds like a big worry. Would you like to play a noticing game with me?")).toBe(true);
+    expect(stillAsking("هل تريد أن تلعب لعبة الانتباه معي؟")).toBe(true);
+    expect(stillAsking("Great, let's do it together.")).toBe(false);
+    expect(stillAsking("Yay! Let's breathe with the cloud. ")).toBe(false);
+    expect(stillAsking("")).toBe(false);
   });
 
   it("reads the activity the child just finished only from the closed list", () => {
@@ -58,6 +66,13 @@ describe("the companion's guidance", () => {
     expect(p).toMatch(/in the same reply/i);
     expect(p).toMatch(/noticing game/);
     expect(p).toMatch(/never say "grounding"/i);
+  });
+
+  it("knows the game starts right away and the talk waits for the child", () => {
+    const p = systemPrompt({ ...base, context: {} });
+    expect(p).toMatch(/starts right away/i);
+    expect(p).toMatch(/how they feel now/i);
+    expect(p).not.toMatch(/tap it to start/i);
   });
 
   it("never offers a story when stories aren't open for this child", () => {

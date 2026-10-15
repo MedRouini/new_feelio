@@ -8,7 +8,7 @@ import { setDraftChoice, setDraftListChoice } from "@/child/stories";
 import { namedChoices, type Slot } from "@/safety/stories/choices";
 import { mapIdea } from "@/safety/stories/ideas";
 import { companionTurn, conversationOf } from "@/safety/voice";
-import { afterActivity, allowedForChild, type ToolCall } from "@/safety/voice-agent/tools";
+import { afterActivity, allowedForChild, stillAsking, type ToolCall } from "@/safety/voice-agent/tools";
 import type { SafetyCtx } from "@/safety/types";
 
 // The safety proxy the ElevenLabs agent calls as its "custom LLM" (ARCHITECTURE §4.3, D-003, D-068). It
@@ -105,9 +105,13 @@ export async function POST(request: NextRequest) {
             }
           : { countAs: "test" });
         const tools: ToolCall[] = [];
+        let said = "";
         const serverCalls: Extract<ToolCall, { name: "set_story_choice" | "story_idea" }>[] = [];
         for await (const ev of events) {
-          if (ev.type === "say") send(chunk({ content: ev.text + " " }));
+          if (ev.type === "say") {
+            said += ev.text + " ";
+            send(chunk({ content: ev.text + " " }));
+          }
           // Crisis: the router (never the model) shows who can help, and calms the mascot.
           if (ev.type === "crisis") {
             tools.push({ name: "show_safety_resources", args: { kinds: ev.resources.map((r) => r.kind) } });
@@ -147,7 +151,8 @@ export async function POST(request: NextRequest) {
             }
           }
         }
-        for (const c of tools) send(toolChunk(c.name, c.args));
+        // Feelio still asking ("would you like…?"): the activity waits for the child's yes.
+        for (const c of tools) if (!(c.name === "offer_activity" && stillAsking(said))) send(toolChunk(c.name, c.args));
       } catch {
         // Never an error to the child: the pipeline already falls back; this is a last resort.
         send(chunk({ content: LINES[locale].trouble + " " }));

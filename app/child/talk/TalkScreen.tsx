@@ -13,7 +13,7 @@ import uiStyles from "@/child/ui/ui.module.css";
 import { AssetImage } from "@/design/components/AssetImage";
 import { isDelivered } from "@/design/assets";
 import { FEELING_FACE, LOADING_BEAT, OFFER_ART, TALK_MASCOT, pick, pickOptional, placeArrival } from "@/design/asset-slots";
-import { EMPTY_ROOM, acceptOffer, closeHelp, dismissOffer, endRun, roomPhase, withTool, type Offer, type Room } from "@/child/talkRoom";
+import { EMPTY_ROOM, acceptOffer, closeHelp, dismissOffer, endRun, roomPhase, startsByVoice, withTool, type Offer, type Room } from "@/child/talkRoom";
 import type { Run } from "@/child/activities";
 import { VoiceProvider, useFeelioVoice } from "@/safety/voice-agent/useVoice";
 import { TOOL_ARGS, parseToolCall, type ToolCall, type ToolName } from "@/safety/voice-agent/tools";
@@ -23,9 +23,10 @@ import styles from "./talk.module.css";
 // Talk (D-068, D-069, voice room D-076): Feelio's cosy nook. Feelio is the heart of the room and the
 // microphone object is the one thing to tap. The room shows what Feelio is doing with Feelio itself
 // (listening, thinking, talking with its mouth, feeling with the child), not with text. Feelio can
-// offer a calm activity or a story; it appears beside Feelio, and the child taps it to start. A calm
-// activity closes the talk (no voice minutes are spent) and Feelio guides it with pre-recorded lines;
-// afterwards the child can talk again, and Feelio knows which activity they just did.
+// offer a calm activity or a story. During a live talk, the child's yes starts the game by itself (once
+// Feelio has finished its sentence); the talk stays open with the microphone muted while the child
+// plays, Feelio's recorded lines guide the game, and then the same conversation goes on. Without a live
+// talk the offer waits beside Feelio for a tap. A story or a place is a door to tap.
 
 type Place = { id: string; name: string; open: boolean };
 type Help = { kind: string; text: string };
@@ -33,6 +34,10 @@ type Mood = "happy" | "excited" | "empathy" | "calm";
 
 /** A mood from the companion shows this long, then Feelio follows the talk again. */
 const MOOD_MS = 8000;
+/** The pause between Feelio's last word and the game starting by voice. */
+const START_BEAT_MS = 400;
+/** After a game during a live talk, the cheer plays this long before the room goes back to the talk. */
+const BACK_TO_TALK_MS = 4000;
 /** A feeling picture stays beside Feelio this long. */
 const FEELING_MS = 12_000;
 const MOUTH = ["mascot_speaking_closed", "mascot_speaking_half", "mascot_speaking_open"] as const;
@@ -192,18 +197,44 @@ function Talk({ places, help, stories }: { places: Place[]; help: Help[]; storie
     void talk();
   }
 
-  /** The child taps what Feelio offered. A calm activity closes the talk first (no voice minutes while it runs). */
+  /** The child taps what Feelio offered (a live talk stays open). */
   function startOffer() {
     if (room.offer?.kind !== "activity" || room.offer.activity === "story") return;
-    if (live) voice.stop();
     setProblem(null);
     setRoom((r) => acceptOffer(r, Date.now()));
   }
+
+  // A yes in the talk starts the game: Feelio called offer_activity after the child's yes, so it starts
+  // as soon as Feelio has finished its sentence.
+  const voiceStart = startsByVoice(room, state);
+  useEffect(() => {
+    if (!voiceStart) return;
+    // a short beat after Feelio's last word, then the game begins
+    const id = setTimeout(() => setRoom((r) => acceptOffer(r, Date.now())), START_BEAT_MS);
+    return () => clearTimeout(id);
+  }, [voiceStart]);
+
+  // While a game runs, the talk stays open but the microphone is muted: Feelio doesn't hear its own
+  // recorded guidance or the child's breathing. Back in the talk, Feelio hears the child again.
+  const { mute } = voice;
+  const playing = Boolean(room.run);
+  useEffect(() => {
+    if (live) mute(playing);
+  }, [live, playing, mute]);
+
+  // Finished during a live talk: a short cheer, then straight back to the same conversation.
+  const doneLive = live && room.run?.status === "done";
+  useEffect(() => {
+    if (!doneLive) return;
+    const id = setTimeout(() => setRoom((r) => ({ ...endRun(r), after: null })), BACK_TO_TALK_MS);
+    return () => clearTimeout(id);
+  }, [doneLive]);
   const updateRun = useCallback((f: (r: Run) => Run) => setRoom((r) => (r.run ? { ...r, run: f(r.run) } : r)), []);
   const exitRun = useCallback(() => {
     setRested(true);
-    setRoom(endRun);
-  }, []);
+    // during a live talk the conversation simply goes on (nothing to tell the next talk)
+    setRoom((r) => (live ? { ...endRun(r), after: null } : endRun(r)));
+  }, [live]);
   function talkAfterRun() {
     const after = room.run?.status === "done" ? room.run.activity : room.after;
     setRoom(endRun);
@@ -263,7 +294,7 @@ function Talk({ places, help, stories }: { places: Place[]; help: Help[]; storie
             exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.03 }}
             transition={{ duration: reduce ? 0.15 : 0.35, ease: "easeOut" }}
           >
-            <ActivityStage run={room.run} update={updateRun} onExit={exitRun} onTalk={talkAfterRun} canTalk={!problem} locale={locale} calm={reduce} />
+            <ActivityStage run={room.run} update={updateRun} onExit={exitRun} onTalk={talkAfterRun} canTalk={!live && !problem} locale={locale} calm={reduce} />
           </motion.div>
         ) : (
           <motion.div

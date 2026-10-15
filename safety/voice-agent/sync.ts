@@ -125,7 +125,9 @@ function agentBody(proxyUrl: string, secretId: string, toolIds: string[]) {
         },
       },
       tts: { model_id: TTS_MODEL, voice_id: need("ELEVENLABS_VOICE_ID_EN"), stability: 0.5, similarity_boost: 0.8, speed: 1 },
-      turn: { turn_timeout: 7, silence_end_call_timeout: 30 },
+      // 120 s of silence before the agent hangs up, so a calm game fits inside one talk (D-076); our own
+      // session limit (child/voice.ts) and the daily voice minutes still end every talk.
+      turn: { turn_timeout: 7, silence_end_call_timeout: 120 },
       conversation: {
         max_duration_seconds: MAX_DURATION_S,
         // What the app hears: audio and words for the screen, and the client tool calls. No extra data.

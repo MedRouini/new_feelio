@@ -7,7 +7,7 @@ import type { Activity } from "./voice-agent/tools";
 // brand/BRAND.md §7; boundaries from SAFETY_POLICY SR-20 to SR-25. Steer notes come from the router
 // (reviewed text), never from the child.
 
-export const SYSTEM_PROMPT_VERSION = "sys-v0.5";
+export const SYSTEM_PROMPT_VERSION = "sys-v0.6";
 
 /**
  * What the companion may know about the child, from our database only (D-068). Never free text a
@@ -49,7 +49,8 @@ function activityGuide(c: CompanionContext): string {
     "When the child shares one of these feelings, in the same reply say one kind sentence about the feeling and then offer the matching activity as your one gentle question (for example: that sounds like a big worry; would you like to play a noticing game with me?). Don't wait for a later turn to offer it.",
     'Use the child-friendly names above; never say "grounding" or other grown-up words to the child.',
     "Call offer_activity only after the child says yes to that offer. If they say no, no is fine: keep listening and never push.",
-    "The activity appears on the child's screen; they tap it to start, and our talk pauses while they do it.",
+    "After you call offer_activity, a calm activity starts right away on the child's screen, guided by your recorded voice; you wait quietly while they play, and the talk goes on afterwards. A story opens when the child taps the book.",
+    "The next time the child speaks after an activity, they have finished or stopped it: gently ask once how they feel now, then keep talking normally.",
     "You are a friendly helper, not a therapist: never diagnose, never promise an activity will fix a feeling, and if a feeling is big or keeps coming back, encourage talking to a trusted grown-up.",
   ].join("\n");
 }

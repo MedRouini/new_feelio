@@ -161,3 +161,12 @@ export function allowedForChild(call: ToolCall, can: { placesOpen: readonly stri
 export function afterActivity(value: unknown): Activity | null {
   return typeof value === "string" && (ACTIVITIES as readonly string[]).includes(value) ? (value as Activity) : null;
 }
+
+/**
+ * A reply that ends with a question is still asking (D-076): an activity call in that same reply comes
+ * before the child's answer, so the proxy holds it back. A yes in the talk starts a game by itself, so
+ * this keeps a model that jumps ahead from starting one unasked.
+ */
+export function stillAsking(said: string): boolean {
+  return /[?؟]\s*$/.test(said.trim());
+}

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ACTIVITY_STEPS, advance, find, pause, progressOf, restart, resume, skip, startRun, tick, type Run } from "@/child/activities";
-import { EMPTY_ROOM, acceptOffer, closeHelp, dismissOffer, endRun, roomPhase, withTool } from "@/child/talkRoom";
+import { EMPTY_ROOM, acceptOffer, closeHelp, dismissOffer, endRun, roomPhase, startsByVoice, withTool } from "@/child/talkRoom";
 import { parseToolCall, type ToolCall } from "@/safety/voice-agent/tools";
 
 // The voice room (D-076): the activity lifecycle (start, progress, pause, resume, skip, again, done)
@@ -153,5 +153,24 @@ describe("the room's rules for Feelio's tools", () => {
     expect(roomPhase("listening", "mic", EMPTY_ROOM)).toBe("problem");
     expect(roomPhase("lost", null, EMPTY_ROOM)).toBe("lost");
     expect(roomPhase("thinking", null, EMPTY_ROOM)).toBe("thinking");
+  });
+});
+
+describe("a yes in the talk starts the game (D-076, owner 2026-10-16)", () => {
+  const offered = (activity: string) => withTool(EMPTY_ROOM, tool("offer_activity", { activity }), can);
+
+  it("a calm activity Feelio offered during a live talk starts once Feelio has finished speaking", () => {
+    expect(startsByVoice(offered("breathing"), "listening")).toBe(true);
+    expect(startsByVoice(offered("grounding"), "thinking")).toBe(true);
+    expect(startsByVoice(offered("breathing"), "speaking")).toBe(false);
+  });
+
+  it("not without a live talk, never a story or a place, never under help or during a run", () => {
+    expect(startsByVoice(offered("breathing"), "idle")).toBe(false);
+    expect(startsByVoice(offered("breathing"), "ended")).toBe(false);
+    expect(startsByVoice(offered("story"), "listening")).toBe(false);
+    expect(startsByVoice(withTool(EMPTY_ROOM, tool("suggest_place", { place: "home" }), can), "listening")).toBe(false);
+    expect(startsByVoice(EMPTY_ROOM, "listening")).toBe(false);
+    expect(startsByVoice({ ...offered("breathing"), help: ["trusted_adult"] }, "listening")).toBe(false);
   });
 });

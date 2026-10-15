@@ -108,6 +108,7 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
         clientTools,
         onConnect: ({ conversationId }) => {
           touch();
+          conv.setMuted(false);
           setState("listening");
           void post({ action: "bind", sessionId, conversationId }).catch(() => {});
         },
@@ -129,6 +130,12 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
     },
     [conv, finish, purpose],
   );
+
+  /** Mutes the child's microphone during a game, so Feelio doesn't hear the guidance or the breathing (D-076). */
+  const setMuted = conv.setMuted;
+  const mute = useCallback((m: boolean) => {
+    if (session.current) setMuted(m);
+  }, [setMuted]);
 
   /** Tells Feelio something the child did on screen (a fact for context; Feelio doesn't answer it). */
   const context = useCallback((text: string) => conv.sendContextualUpdate(text), [conv]);
@@ -179,5 +186,5 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
   // Leaving the screen ends the talk.
   useEffect(() => () => void (session.current && post({ action: "end", sessionId: session.current }).catch(() => {})), []);
 
-  return { state, deadline, allowed, caption, quiet, start, stop, context, outputVolume: conv.getOutputVolume, inputVolume: conv.getInputVolume };
+  return { state, deadline, allowed, caption, quiet, start, stop, context, mute, outputVolume: conv.getOutputVolume, inputVolume: conv.getInputVolume };
 }

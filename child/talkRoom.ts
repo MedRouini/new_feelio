@@ -46,6 +46,17 @@ export function acceptOffer(room: Room, now: number): Room {
   return { ...room, offer: null, feeling: null, run: startRun(o.activity, now) };
 }
 
+/**
+ * A yes in the talk starts the game (owner, 2026-10-16): Feelio only calls offer_activity after the
+ * child said yes, so during a live talk a calm activity starts by itself, once Feelio has finished its
+ * sentence. Stories and places stay doors to tap (they leave the page); help always wins.
+ */
+export function startsByVoice(room: Room, voice: VoiceState): boolean {
+  const o = room.offer;
+  if (!o || o.kind !== "activity" || !isActivity(o.activity) || room.help || room.run) return false;
+  return voice === "listening" || voice === "thinking";
+}
+
 export const dismissOffer = (room: Room): Room => (room.offer ? { ...room, offer: null } : room);
 export const closeHelp = (room: Room): Room => (room.help ? { ...room, help: null } : room);
 
