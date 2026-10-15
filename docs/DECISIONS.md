@@ -876,3 +876,4 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Blocked on the owner:**
   - the agent sync with a live tunnel (the agent must be told about `offer_activity`; until then it offers the old tool list, and the proxy drops tools it wasn't offered)
   - a spoken test on a device
+- **Live test fix (2026-10-16, `sys-v0.5`):** in the owner's live test the noticing game never appeared. Replaying through the proxy showed why: Feelio comforted a worried child with no question, and offered only on a later turn, as "grounding". Feelio now comforts and offers in the same reply, using child-friendly names ("slow breaths with a cloud", "a noticing game", "some wiggly stretches", "making a story together"). Replayed after the change: 4 of 4 worried-child conversations reach the noticing game within two turns; breathing (including a "no" first) and stretching still work.

@@ -66,7 +66,7 @@ The crisis tool is emitted by the router, never the model. Help is the one panel
   - It is validated in the proxy and again in the browser.
   - It runs only after every sentence of the turn was released.
 - **Permission (server side):** a story is offered only when story making is open for this child now (`storyGate`, in `proxyTurn` as `storiesOpen`). A place is offered only when the child has reached it. Both use `allowedForChild`.
-- **What Feelio is told (`sys-v0.4`):**
+- **What Feelio is told (`sys-v0.5`):**
   - Offer in words first, then call the tool only after the child says yes.
   - No is fine; never push.
   - Pick an activity to match the feeling: overwhelmed → breathing, worried → grounding, restless → stretching, creative → story (stories only when open).

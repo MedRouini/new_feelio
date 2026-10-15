@@ -53,6 +53,13 @@ describe("the companion's guidance", () => {
     expect(p).not.toMatch(/start_breathing/);
   });
 
+  it("offers in the same reply that names the feeling, with words a child knows", () => {
+    const p = systemPrompt({ ...base, context: {} });
+    expect(p).toMatch(/in the same reply/i);
+    expect(p).toMatch(/noticing game/);
+    expect(p).toMatch(/never say "grounding"/i);
+  });
+
   it("never offers a story when stories aren't open for this child", () => {
     const p = systemPrompt({ ...base, context: { storiesOpen: false } });
     expect(p).toMatch(/offer_activity/);
