@@ -2,12 +2,14 @@ import { timingSafeEqual } from "node:crypto";
 import { type NextRequest } from "next/server";
 import ar from "@/messages/ar.json";
 import en from "@/messages/en.json";
+import { recordedLines } from "@/child/gameMemory";
 import { proxyTurn } from "@/child/voice";
 import { env } from "@/platform/env";
 import { setDraftChoice, setDraftListChoice } from "@/child/stories";
 import { namedChoices, type Slot } from "@/safety/stories/choices";
 import { mapIdea } from "@/safety/stories/ideas";
 import { companionTurn, conversationOf } from "@/safety/voice";
+import { notTalk, staysQuiet } from "@/safety/voice-agent/heard";
 import { afterActivity, allowedForChild, stillAsking, type ToolCall } from "@/safety/voice-agent/tools";
 import type { SafetyCtx } from "@/safety/types";
 
@@ -24,6 +26,8 @@ export const runtime = "nodejs";
 export const maxDuration = 30;
 
 const LINES = { en: en.child.talk, ar: ar.child.talk };
+/** Feelio's recorded game lines: heard back through the microphone, they are an echo, not the child (D-077). */
+const RECORDED = recordedLines();
 
 function authorised(request: NextRequest): boolean {
   const secret = env().VOICE_PROXY_SECRET;
@@ -45,7 +49,8 @@ export async function POST(request: NextRequest) {
   } catch {
     return new Response("Bad request", { status: 400 });
   }
-  const messages = conversationOf(body.messages ?? []);
+  // One conversation (D-077): the whole talk, without silences and echoes the agent heard earlier.
+  const messages = conversationOf(body.messages ?? [], (text) => notTalk(text, RECORDED));
   const offered = new Set((body.tools ?? []).map((t) => t.function?.name).filter(Boolean));
 
   const extra = body.elevenlabs_extra_body?.feelio_session;
@@ -90,6 +95,13 @@ export async function POST(request: NextRequest) {
         return finish();
       }
       if (!messages.length || messages[messages.length - 1].role !== "user") return finish();
+      // During a game (D-077), only the child talking gets an answer: silence, small sounds like a breath
+      // or "hmm", and Feelio's own recorded lines coming back through the microphone get none, so Feelio
+      // never talks over the game. An echo never gets an answer at all. Anything the safety rules notice
+      // always goes through the full pipeline.
+      const game = turn.ok ? turn.context.game?.now : null;
+      const playing = game?.status === "running" || game?.status === "paused";
+      if (staysQuiet(messages[messages.length - 1].content, { playing, lines: RECORDED })) return finish();
 
       const ctx: SafetyCtx = turn.ok
         ? turn.ctx
@@ -119,7 +131,7 @@ export async function POST(request: NextRequest) {
           }
           // Only what this child can open (the server's data): a place they reached, a story when story making is open.
           if (ev.type === "tool" && (ev.call.name === "set_story_choice" || ev.call.name === "story_idea")) serverCalls.push(ev.call);
-          else if (ev.type === "tool" && (!turn.ok || allowedForChild(ev.call, { placesOpen: turn.context.placesOpen ?? [], storiesOpen: turn.context.storiesOpen ?? false }))) tools.push(ev.call);
+          else if (ev.type === "tool" && (!turn.ok || allowedForChild(ev.call, { placesOpen: turn.context.placesOpen ?? [], storiesOpen: turn.context.storiesOpen ?? false, playing }))) tools.push(ev.call);
           if (ev.type === "end") {
             const t = ev.timings;
             send(`: feelio ${ev.reason} t0=${t.t0Ms.toFixed(0)} t1=${t.t1Ms?.toFixed(0)} first_token=${t.firstTokenMs?.toFixed(0)} first_release=${t.firstReleaseMs?.toFixed(0)} total=${t.totalMs.toFixed(0)}\n\n`);

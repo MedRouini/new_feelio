@@ -40,7 +40,15 @@ The crisis tool is emitted by the router, never the model. Help is the one panel
 - It clears an offer, and nothing else can appear while it is open.
 
 ## Activities
-> **Changed 2026-10-16 (owner):** during a live talk, the child's spoken yes starts the game by itself and the call stays open (microphone muted while playing), then the same conversation goes on. The tap-to-start and close-the-call text below describes the no-call case. See D-076.
+> **Changed 2026-10-16 (owner):** during a live talk, the child's spoken yes starts the game by itself and the call stays open, then the same conversation goes on. The tap-to-start and close-the-call text below describes the no-call case. See D-076.
+>
+> **Changed 2026-10-19 (owner): one conversation (D-077).** The game is part of the talk, not a second system:
+> - The microphone stays open while the child plays.
+> - Feelio is told the game's state on every turn: which game, the step's words, progress and things found, plus the games earlier in the talk.
+> - Silence, small sounds and Feelio's own recorded lines picked up by the microphone get no reply.
+> - While Feelio answers, the game waits and Feelio's words show in the caption; it goes on 0.7 s after Feelio stops.
+> - The child can ask Feelio to stop (`stop_activity`).
+> - Feelio remembers the whole talk.
 
 - **Starting one:** tapping a calm offer ends the live call. While the activity runs, it spends no voice minutes or credits.
 - **Who keeps time:** the app owns the rhythm.
@@ -93,9 +101,11 @@ The crisis tool is emitted by the router, never the model. Help is the one panel
 - [x] Run the end-to-end tests and review the screenshots (12/12 with m5, 2026-10-14; fixed: phone layout, Feelio size on tablet, offer swap, focus on arrival)
 - [ ] Owner: re-run the agent sync with a live tunnel, so the agent knows `offer_activity`
 - [ ] Owner: a spoken test on a real device (offer → yes → activity → talk again)
+- [x] One conversation (D-077): game state to Feelio, open microphone, no reply to silence or echo, the game waits while Feelio speaks, `stop_activity`, whole-talk memory, `sys-v0.7`; replay script `scripts/voice-game-replay.ts`
+- [ ] Owner: a spoken test of talking *during* a game (questions, "I want to stop", then back to the earlier topic)
 - [x] Batch 8 generated (Codex) and approved, 2026-10-15: all 10 wired through their slots
 
 ## Not built (on purpose)
 - **Ambient sounds in the noticing game:** no approved audio exists, and sounds are not part of the image pipeline.
 - **The Calm dock page** stays "coming soon" (D-055). The activities are built so it could reuse them later.
-- **Live voice guidance during an activity:** it is turn-based, so it can't keep a rhythm. It would also spend credits and hit the agent's 30-second silence timeout.
+- **Live voice guidance during an activity:** it is turn-based, so it can't keep a rhythm, and it would spend credits. The recorded lines keep the rhythm; Feelio answers the child live (D-077).

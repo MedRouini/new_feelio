@@ -22,9 +22,13 @@ const now = () => Date.now();
  * with Feelio. The run is pure state (child/activities.ts); this screen keeps its clock, plays Feelio's
  * pre-recorded line for each step, and draws the step. The rhythm is the app's, so voice and picture
  * stay together, and pausing stops both. The child can pause, skip, start again or stop at any time.
+ * During a live talk the game is part of the conversation (D-077): when Feelio answers the child, the
+ * game waits ("held") and Feelio's words show here instead of the step's.
  */
 export function ActivityStage({
   run,
+  held = false,
+  feelio = null,
   update,
   onExit,
   onTalk,
@@ -33,6 +37,10 @@ export function ActivityStage({
   calm,
 }: {
   run: Run;
+  /** Waiting while Feelio speaks (not the child's own pause). */
+  held?: boolean;
+  /** Feelio's words while it speaks (already checked by the safety proxy). */
+  feelio?: string | null;
   update: (f: (r: Run) => Run) => void;
   onExit: () => void;
   onTalk: () => void;
@@ -91,7 +99,7 @@ export function ActivityStage({
     return () => window.removeEventListener("keydown", onKey);
   }, [onExit]);
 
-  const line = paused ? t("paused") : t(step.say);
+  const line = held ? (feelio ?? t(step.say)) : paused ? t("paused") : t(step.say);
 
   return (
     <div
@@ -100,6 +108,7 @@ export function ActivityStage({
       data-activity={run.activity}
       data-kind={step.kind}
       data-status={run.status}
+      data-held={held || undefined}
       data-move={step.move}
       data-calm={calm || undefined}
       data-testid="activity"

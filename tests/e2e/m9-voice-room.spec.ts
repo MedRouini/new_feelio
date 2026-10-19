@@ -147,6 +147,24 @@ test("help always wins, and nothing stale sneaks in during an activity", async (
   await expect(page.getByTestId("feeling")).toHaveCount(0);
 });
 
+test("one conversation (D-077): Feelio can stop the game when the child asks, and the talk is back", async ({ page }) => {
+  await asChild(page, child);
+  await page.setViewportSize(SIZES.tablet);
+  await page.goto(`${APP}/talk`);
+  // nothing to stop yet
+  expect(await feelio(page, "stop_activity", {})).toBe(true);
+  await feelio(page, "offer_activity", { activity: "grounding" });
+  await page.getByTestId("offer").click();
+  await expect(page.getByTestId("activity")).toBeVisible();
+  await expect(page.getByTestId("activity")).not.toHaveAttribute("data-held");
+  // arguments are a closed (empty) list
+  expect(await feelio(page, "stop_activity", { now: true })).toBe(false);
+  await expect(page.getByTestId("activity")).toBeVisible();
+  expect(await feelio(page, "stop_activity", {})).toBe(true);
+  await expect(page.getByTestId("activity")).toHaveCount(0);
+  await expect(page.getByTestId("talk-toggle")).toBeVisible();
+});
+
 test("a story and a place are doors to their pages; a place the child hasn't reached never shows", async ({ page }) => {
   await asChild(page, child);
   await page.setViewportSize(SIZES.tablet);

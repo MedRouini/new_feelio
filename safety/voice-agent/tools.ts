@@ -19,6 +19,8 @@ export const TOOL_ARGS = {
   set_mascot_state: z.strictObject({ mood: z.enum(MASCOT_MOODS) }),
   show_feeling_card: z.strictObject({ feeling: z.enum(FEELINGS) }),
   offer_activity: z.strictObject({ activity: z.enum([...ACTIVITIES, "story"]) }),
+  /** The child wants to stop the game they are playing (D-077). */
+  stop_activity: z.strictObject({}),
   suggest_place: z.strictObject({ place: z.enum(WORLD_PLACE_IDS) }),
   show_safety_resources: z.strictObject({ kinds: z.array(z.enum(RESOURCE_KINDS)).min(1).max(RESOURCE_KINDS.length) }),
   /** Story workshop, server tools (D-070): handled by our proxy, never sent to the app. */
@@ -40,7 +42,7 @@ export type ToolName = keyof typeof TOOL_ARGS;
 export type ToolCall = { [K in ToolName]: { name: K; args: z.infer<(typeof TOOL_ARGS)[K]> } }[ToolName];
 
 /** Tools the model may choose. `show_safety_resources` is never offered: only the router emits it (crisis). */
-export const MODEL_TOOLS = ["set_mascot_state", "show_feeling_card", "offer_activity", "suggest_place"] as const satisfies readonly ToolName[];
+export const MODEL_TOOLS = ["set_mascot_state", "show_feeling_card", "offer_activity", "stop_activity", "suggest_place"] as const satisfies readonly ToolName[];
 /** In the story workshop: the mood, and the two server tools that fill the story's slots. */
 export const STORY_MODEL_TOOLS = ["set_mascot_state", "set_story_choice", "story_idea"] as const satisfies readonly ToolName[];
 /** Tools the proxy handles itself (never forwarded to ElevenLabs or the app). */
@@ -67,12 +69,16 @@ export const TOOL_DEFS: Record<ToolName, { description: string; parameters: Json
   },
   offer_activity: {
     description:
-      "Puts a short activity on the child's screen, ready for them to tap and start: breathing (slow breaths with a cloud), grounding (noticing things to see, hear and feel), stretching (gentle moves with Feelio) or story (making a story together). Call it only after you offered it in words and the child said yes.",
+      "Starts a short activity on the child's screen: breathing (slow breaths with a cloud), grounding (noticing things to see, hear and feel), stretching (gentle moves with Feelio) or story (making a story together). Call it only after you offered it in words and the child said yes.",
     parameters: {
       type: "object",
       properties: { activity: { type: "string", enum: [...ACTIVITIES, "story"], description: "breathing, grounding, stretching or story." } },
       required: ["activity"],
     },
+  },
+  stop_activity: {
+    description: "Stops the game the child is playing on the screen and goes back to talking. Call it only when the child says they want to stop the game.",
+    parameters: { type: "object", properties: {}, required: [] },
   },
   suggest_place: {
     description: "Shows a button to visit one place in Feelio's world. Use it only when the child wants something to do.",
@@ -149,9 +155,13 @@ export function parseToolCall(name: string, args: unknown, allowed: readonly Too
 
 /**
  * Whether a screen tool may reach this child (checked in the proxy, from our database): a place only
- * when the child has reached it, a story only when story making is open for them now (D-070, D-076).
+ * when the child has reached it, a story only when story making is open for them now (D-070, D-076),
+ * and during a game only a stop (D-077).
  */
-export function allowedForChild(call: ToolCall, can: { placesOpen: readonly string[]; storiesOpen: boolean }): boolean {
+export function allowedForChild(call: ToolCall, can: { placesOpen: readonly string[]; storiesOpen: boolean; playing?: boolean }): boolean {
+  // While a game is on (D-077): it can be stopped, and nothing new is offered over it.
+  if (call.name === "stop_activity") return Boolean(can.playing);
+  if (can.playing && (call.name === "offer_activity" || call.name === "suggest_place")) return false;
   if (call.name === "suggest_place") return can.placesOpen.includes(call.args.place);
   if (call.name === "offer_activity" && call.args.activity === "story") return can.storiesOpen;
   return true;

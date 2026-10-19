@@ -87,6 +87,29 @@ describe.skipIf(!process.env.DATABASE_URL)("voice session gate (integration, syn
     await db.update(s.childSettings).set({ features: { talk: true, stories: true, scenarios: true } }).where(eq(s.childSettings.childId, id));
   });
 
+  it("one conversation (D-077): the game the screen reports reaches Feelio's context, only for this child's open talk, and ends with it", async () => {
+    const { reportGame } = await import("@/child/voice");
+    const r = await startVoiceSession(child);
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(await reportGame(child, r.sessionId, { activity: "grounding", step: 1, status: "running", found: 2 })).toBe(true);
+    let turn = await proxyTurn({ sessionId: r.sessionId });
+    expect(turn.ok && turn.context.game?.now).toMatchObject({ activity: "grounding", status: "running", found: 2, of: 3 });
+    // a report that fits no real step changes nothing; another child can't report into this talk
+    expect(await reportGame(child, r.sessionId, { activity: "grounding", step: 42, status: "running", found: 0 })).toBe(true);
+    expect(await reportGame({ ...child, childId: crypto.randomUUID() }, r.sessionId, { activity: "breathing", step: 1, status: "running", found: 0 })).toBe(false);
+    await reportGame(child, r.sessionId, { activity: "grounding", step: 2, status: "stopped", found: 0 });
+    turn = await proxyTurn({ sessionId: r.sessionId });
+    expect(turn.ok && turn.context.game).toMatchObject({ now: { activity: "grounding", status: "stopped" }, earlier: [] });
+    const [row] = await db.select().from(s.voiceSession).where(eq(s.voiceSession.id, r.sessionId));
+    expect(row.game?.played).toEqual([{ activity: "grounding", outcome: "stopped" }]);
+    // kept only while the talk is open
+    await endVoiceSession(child, r.sessionId);
+    const [ended] = await db.select().from(s.voiceSession).where(eq(s.voiceSession.id, r.sessionId));
+    expect(ended.game).toBeNull();
+    expect(await reportGame(child, r.sessionId, { activity: "breathing", step: 1, status: "running", found: 0 })).toBe(false);
+  });
+
   it("an unended session counts until its time runs out; then the daily voice minutes stop new talks", async () => {
     await db.update(s.childSettings).set({ voiceDailyMinutes: 2 }).where(eq(s.childSettings.childId, id));
     const past = new Date(Date.now() - 10 * 60_000);

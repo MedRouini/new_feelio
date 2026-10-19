@@ -1,12 +1,13 @@
 import type { VoiceState } from "@/safety/voice-agent/useVoice";
 import type { Activity, Offerable, ToolCall } from "@/safety/voice-agent/tools";
 import { ACTIVITIES } from "@/safety/voice-agent/tools";
-import { startRun, type Run } from "./activities";
+import { pause, resume, startRun, type Run } from "./activities";
 
 // The voice room's rules (D-076), pure: what Feelio's screen tools may change, and which one phase the
-// room is in. Help (the router's crisis tool) always wins. An activity waits for the child to tap it.
-// While an activity runs, the talk is closed, so any tool still arriving is stale and ignored (except
-// help). The same offer twice changes nothing. What a child can open is the server's check; the screen
+// room is in. Help (the router's crisis tool) always wins. An activity starts on the child's yes (or a
+// tap). During a live talk the game and the talk are one conversation (D-077): Feelio can stop the game
+// when the child asks, the game holds while Feelio speaks, and any other tool still arriving is stale and
+// ignored (except help). The same offer twice changes nothing. What a child can open is the server's check; the screen
 // checks again with what the page was given.
 
 export type Feeling = Extract<ToolCall, { name: "show_feeling_card" }>["args"]["feeling"];
@@ -19,15 +20,19 @@ export type Room = {
   run: Run | null;
   /** The activity the child last finished, for the next talk (closed list). */
   after: Activity | null;
+  /** The game is waiting while Feelio speaks (not the child's own pause). */
+  held: boolean;
 };
 
-export const EMPTY_ROOM: Room = { offer: null, feeling: null, help: null, run: null, after: null };
+export const EMPTY_ROOM: Room = { offer: null, feeling: null, help: null, run: null, after: null, held: false };
 
 const sameOffer = (a: Offer | null, b: Offer) =>
   !!a && a.kind === b.kind && (a.kind === "activity" ? a.activity === (b as typeof a).activity : a.place === (b as typeof a).place);
 
 export function withTool(room: Room, call: ToolCall, can: { places: readonly string[]; stories: boolean }): Room {
   if (call.name === "show_safety_resources") return { ...room, help: call.args.kinds, offer: null };
+  // The child asked Feelio to stop the game (D-077).
+  if (call.name === "stop_activity") return room.run && room.run.status !== "done" ? endRun(room) : room;
   if (room.help || room.run) return room;
   if (call.name === "show_feeling_card") return room.feeling === call.args.feeling ? room : { ...room, feeling: call.args.feeling };
   let offer: Offer | null = null;
@@ -43,7 +48,7 @@ const isActivity = (a: Offerable): a is Activity => (ACTIVITIES as readonly stri
 export function acceptOffer(room: Room, now: number): Room {
   const o = room.offer;
   if (!o || o.kind !== "activity" || !isActivity(o.activity) || room.help) return room;
-  return { ...room, offer: null, feeling: null, run: startRun(o.activity, now) };
+  return { ...room, offer: null, feeling: null, run: startRun(o.activity, now), held: false };
 }
 
 /**
@@ -63,7 +68,22 @@ export const closeHelp = (room: Room): Room => (room.help ? { ...room, help: nul
 /** Back to the talk; the activity is remembered for the next talk only when the child finished it. */
 export function endRun(room: Room): Room {
   if (!room.run) return room;
-  return { ...room, run: null, after: room.run.status === "done" ? room.run.activity : room.after };
+  return { ...room, run: null, held: false, after: room.run.status === "done" ? room.run.activity : room.after };
+}
+
+/**
+ * Feelio is speaking during a game (D-077): the game waits (its clock and recorded line stop), so two
+ * voices never talk at once. Only a running game is held; a game the child paused stays theirs.
+ */
+export function hold(room: Room, now: number): Room {
+  if (!room.run || room.run.status !== "running" || room.held) return room;
+  return { ...room, run: pause(room.run, now), held: true };
+}
+
+/** Feelio finished speaking: the game goes on from where it waited. */
+export function release(room: Room, now: number): Room {
+  if (!room.held) return room;
+  return { ...room, held: false, run: room.run ? resume(room.run, now) : null };
 }
 
 export type Phase = VoiceState | "problem" | "activity";

@@ -8,6 +8,7 @@ import { localDay, safeZone } from "@/platform/time";
 import type { CompanionContext } from "@/safety/prompts";
 import type { SafetyCtx } from "@/safety/types";
 import { conversationToken, voiceConfigured } from "@/safety/voice-agent/provider";
+import { EMPTY_GAME, gameView, remember, type GameReport } from "./gameMemory";
 import { nicknameWord } from "./options";
 import { getWorldState } from "./progress";
 import { getDraft, storyGate } from "./stories";
@@ -145,12 +146,31 @@ export async function endVoiceSession(child: ChildContext, sessionId: string, no
   if (!s || s.endedAt) return;
   const ended = await db
     .update(voiceSession)
-    .set({ endedAt: now })
+    // the game memory lives only while the talk is open (D-077)
+    .set({ endedAt: now, game: null })
     .where(and(eq(voiceSession.id, s.id), isNull(voiceSession.endedAt)))
     .returning({ id: voiceSession.id });
   if (!ended.length) return;
   const seconds = usedSeconds({ ...s, endedAt: now }, now);
   await db.insert(usageLedger).values({ childId: s.childId, householdId: s.householdId, day: localDay(now, await zoneOf(s.childId)), feature: "voice", seconds, createdAt: now });
+}
+
+/**
+ * The screen reports the game the child is playing during this child's own open talk (D-077). Only a
+ * report that fits a real step of a real game is kept (child/gameMemory.ts).
+ */
+export async function reportGame(child: ChildContext, sessionId: string, report: GameReport, now = new Date()): Promise<boolean> {
+  const [s] = await db
+    .select()
+    .from(voiceSession)
+    .where(and(eq(voiceSession.id, sessionId), eq(voiceSession.childId, child.childId), isNull(voiceSession.endedAt)))
+    .limit(1);
+  if (!s || !isOpen(s, now) || s.purpose !== "talk") return false;
+  const before = s.game ?? EMPTY_GAME;
+  const after = remember(before, report);
+  if (after === before) return true;
+  await db.update(voiceSession).set({ game: after }).where(and(eq(voiceSession.id, s.id), isNull(voiceSession.endedAt)));
+  return true;
 }
 
 export type ProxyTurn =
@@ -198,6 +218,8 @@ export async function proxyTurn(by: { sessionId?: string | null; conversationId?
     secondsLeft,
     // A story can be offered only when story making is open for this child now (D-076).
     storiesOpen: s.purpose === "talk" ? (await storyGate(s.childId, now)) === null : false,
+    // The game in this talk (D-077), from the screen's closed-list reports and our own reviewed text.
+    game: s.purpose === "talk" ? gameView(s.game, s.locale) : null,
     ...(s.purpose === "story" ? { story: Object.fromEntries(Object.entries(await getDraft(s.childId)).map(([k, v]) => [k, s.locale === "ar" ? v.ar : v.en])) } : {}),
   };
   return { ok: true, stop: secondsLeft <= 5 || paused ? "time_up" : null, session: s, ctx, context, secondsLeft };

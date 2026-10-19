@@ -228,7 +228,7 @@ Manifest `display: "standalone"` (fullscreen where supported), `orientation: "an
 | `progress` | child, pack, level, scenario, completed_at | Same |
 | `collection_item` | child, item id, earned_at | Same |
 | `usage_ledger` | child, household, date, feature, seconds, tokens, credits_est | 90 days, then aggregated |
-| `voice_session` | id, child, el_conversation_id, age_band, locale, place, started/ended, seconds, end_reason. **No transcript** | 30 days |
+| `voice_session` | id, child, el_conversation_id, age_band, locale, place, started/ended, seconds, end_reason; the game during the talk (ids and numbers, cleared when the talk ends, D-077). **No transcript** | 30 days |
 | `story` | child, created, theme tag, language, 4 page texts, image refs, safety status | 90 days or until deleted (proposal) |
 | `story_image` (blob store) | generated images | Deleted with the story |
 | `safety_event` | child, category, severity, actor_class, feature, created | 90 days (policy §7) |

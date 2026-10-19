@@ -1,7 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { getChild } from "@/auth/guards";
-import { bindConversation, endVoiceSession, startVoiceSession, type VoiceRefusal } from "@/child/voice";
+import { GAME_STATUS } from "@/child/gameMemory";
+import { bindConversation, endVoiceSession, reportGame, startVoiceSession, type VoiceRefusal } from "@/child/voice";
+import { ACTIVITIES } from "@/safety/voice-agent/tools";
 import { env } from "@/platform/env";
 import { WORLD_PLACE_IDS } from "@/design/asset-ids";
 
@@ -11,6 +13,15 @@ const body = z.discriminatedUnion("action", [
   z.strictObject({ action: z.literal("start"), placeId: z.enum(WORLD_PLACE_IDS).optional(), purpose: z.enum(["talk", "story"]).optional() }),
   z.strictObject({ action: z.literal("bind"), sessionId: z.uuid(), conversationId: z.string().regex(/^[A-Za-z0-9_-]{4,128}$/) }),
   z.strictObject({ action: z.literal("end"), sessionId: z.uuid() }),
+  // The game the child is playing during the talk (D-077): closed lists and small numbers only.
+  z.strictObject({
+    action: z.literal("game"),
+    sessionId: z.uuid(),
+    activity: z.enum(ACTIVITIES),
+    step: z.number().int().min(0).max(20),
+    status: z.enum(GAME_STATUS),
+    found: z.number().int().min(0).max(10),
+  }),
 ]);
 
 const STATUS: Record<VoiceRefusal, number> = {
@@ -48,6 +59,10 @@ export async function POST(request: NextRequest) {
   }
   if (b.action === "bind") {
     const ok = await bindConversation(child, b.sessionId, b.conversationId);
+    return NextResponse.json({ ok }, { status: ok ? 200 : 409 });
+  }
+  if (b.action === "game") {
+    const ok = await reportGame(child, b.sessionId, { activity: b.activity, step: b.step, status: b.status, found: b.found });
     return NextResponse.json({ ok }, { status: ok ? 200 : 409 });
   }
   await endVoiceSession(child, b.sessionId);

@@ -11,8 +11,12 @@ import { MODEL_TOOLS, STORY_MODEL_TOOLS, modelTools, parseToolCall } from "./voi
 // One companion turn for voice or text, wired to the configured classifier and model (D-003, D-018).
 // Routes call this; they never import a provider (CLAUDE.md rule 1).
 
-/** How many earlier turns the model sees (short context: cheaper, faster, less to go wrong). */
-const HISTORY_TURNS = 8;
+/**
+ * How much of the talk the model sees (D-077): a whole talk (at most a few minutes), so Feelio remembers
+ * what the child said before, during and after a game. A character budget keeps each turn fast.
+ */
+const HISTORY_TURNS = 40;
+const HISTORY_CHARS = 8000;
 
 const together =
   (kind: "voice" | "text"): Generate =>
@@ -28,12 +32,20 @@ const together =
       onToolCall: hooks?.onToolCall,
     });
 
-/** Keeps only the child's and Feelio's recent turns; any system text from a client is dropped. */
-export function conversationOf(messages: { role: string; content: unknown }[]): Message[] {
-  return messages
+/**
+ * Keeps only the child's and Feelio's turns of this talk; any system text from a client is dropped.
+ * `drop` takes out earlier child turns that weren't the child talking (silence, an echo of Feelio's
+ * recorded lines, D-077); the last turn always stays, so the proxy can decide about it.
+ */
+export function conversationOf(messages: { role: string; content: unknown }[], drop: (text: string) => boolean = () => false): Message[] {
+  const all = messages
     .filter((m): m is { role: "user" | "assistant"; content: string } => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
-    .slice(-HISTORY_TURNS)
     .map((m) => ({ role: m.role, content: m.content.slice(0, 1000) }));
+  const kept = all.filter((m, i) => i === all.length - 1 || m.role !== "user" || !drop(m.content)).slice(-HISTORY_TURNS);
+  let chars = 0;
+  let from = kept.length;
+  while (from > 0 && chars + kept[from - 1].content.length <= HISTORY_CHARS) chars += kept[--from].content.length;
+  return kept.slice(Math.min(from, kept.length - 1));
 }
 
 export async function* companionTurn(

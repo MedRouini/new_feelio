@@ -13,9 +13,9 @@ import uiStyles from "@/child/ui/ui.module.css";
 import { AssetImage } from "@/design/components/AssetImage";
 import { isDelivered } from "@/design/assets";
 import { FEELING_FACE, LOADING_BEAT, OFFER_ART, TALK_MASCOT, pick, pickOptional, placeArrival } from "@/design/asset-slots";
-import { EMPTY_ROOM, acceptOffer, closeHelp, dismissOffer, endRun, roomPhase, startsByVoice, withTool, type Offer, type Room } from "@/child/talkRoom";
+import { EMPTY_ROOM, acceptOffer, closeHelp, dismissOffer, endRun, hold, release, roomPhase, startsByVoice, withTool, type Offer, type Room } from "@/child/talkRoom";
 import type { Run } from "@/child/activities";
-import { VoiceProvider, useFeelioVoice } from "@/safety/voice-agent/useVoice";
+import { VoiceProvider, useFeelioVoice, type GameReport } from "@/safety/voice-agent/useVoice";
 import { TOOL_ARGS, parseToolCall, type ToolCall, type ToolName } from "@/safety/voice-agent/tools";
 import { ActivityStage } from "./ActivityStage";
 import styles from "./talk.module.css";
@@ -24,9 +24,10 @@ import styles from "./talk.module.css";
 // microphone object is the one thing to tap. The room shows what Feelio is doing with Feelio itself
 // (listening, thinking, talking with its mouth, feeling with the child), not with text. Feelio can
 // offer a calm activity or a story. During a live talk, the child's yes starts the game by itself (once
-// Feelio has finished its sentence); the talk stays open with the microphone muted while the child
-// plays, Feelio's recorded lines guide the game, and then the same conversation goes on. Without a live
-// talk the offer waits beside Feelio for a tap. A story or a place is a door to tap.
+// Feelio has finished its sentence), and the game is part of the same conversation (D-077): the
+// microphone stays open, Feelio is told what is happening in the game, the game waits while Feelio
+// speaks, and the child can ask Feelio to stop it. Without a live talk the offer waits beside Feelio for
+// a tap. A story or a place is a door to tap.
 
 type Place = { id: string; name: string; open: boolean };
 type Help = { kind: string; text: string };
@@ -38,6 +39,8 @@ const MOOD_MS = 8000;
 const START_BEAT_MS = 400;
 /** After a game during a live talk, the cheer plays this long before the room goes back to the talk. */
 const BACK_TO_TALK_MS = 4000;
+/** After Feelio's last word during a game, a short beat, then the game goes on. */
+const RESUME_BEAT_MS = 700;
 /** A feeling picture stays beside Feelio this long. */
 const FEELING_MS = 12_000;
 const MOUTH = ["mascot_speaking_closed", "mascot_speaking_half", "mascot_speaking_open"] as const;
@@ -214,13 +217,30 @@ function Talk({ places, help, stories }: { places: Place[]; help: Help[]; storie
     return () => clearTimeout(id);
   }, [voiceStart]);
 
-  // While a game runs, the talk stays open but the microphone is muted: Feelio doesn't hear its own
-  // recorded guidance or the child's breathing. Back in the talk, Feelio hears the child again.
-  const { mute } = voice;
+  // One conversation (D-077): while Feelio speaks during a game, the game waits (clock and recorded line),
+  // then goes on a beat after Feelio's last word. The microphone stays open the whole time.
   const playing = Boolean(room.run);
+  const speaking = live && state === "speaking";
   useEffect(() => {
-    if (live) mute(playing);
-  }, [live, playing, mute]);
+    if (!playing) return;
+    const id = setTimeout(() => setRoom((r) => (speaking ? hold(r, Date.now()) : release(r, Date.now()))), speaking ? 0 : RESUME_BEAT_MS);
+    return () => clearTimeout(id);
+  }, [playing, speaking]);
+
+  // Feelio is told what is happening in the game (ids and numbers only), so its words fit it. A game
+  // that ends early is reported as stopped. Waiting for Feelio is not the child's pause.
+  const { game } = voice;
+  const reported = useRef<{ key: string; run: Run | null }>({ key: "", run: null });
+  useEffect(() => {
+    const { key: before, run: prev } = reported.current;
+    const run = room.run;
+    let r: GameReport | null = null;
+    if (run) r = { activity: run.activity, step: run.step, status: room.held ? "running" : run.status, found: run.found };
+    else if (prev && prev.status !== "done") r = { activity: prev.activity, step: prev.step, status: "stopped", found: prev.found };
+    const key = r ? JSON.stringify(r) : "";
+    reported.current = { key, run };
+    if (live && r && key !== before) game(r);
+  }, [live, room.run, room.held, game]);
 
   // Finished during a live talk: a short cheer, then straight back to the same conversation.
   const doneLive = live && room.run?.status === "done";
@@ -229,7 +249,16 @@ function Talk({ places, help, stories }: { places: Place[]; help: Help[]; storie
     const id = setTimeout(() => setRoom((r) => ({ ...endRun(r), after: null })), BACK_TO_TALK_MS);
     return () => clearTimeout(id);
   }, [doneLive]);
-  const updateRun = useCallback((f: (r: Run) => Run) => setRoom((r) => (r.run ? { ...r, run: f(r.run) } : r)), []);
+  const updateRun = useCallback(
+    (f: (r: Run) => Run) =>
+      setRoom((r) => {
+        if (!r.run) return r;
+        const run = f(r.run);
+        // the child's own Keep going (or Next) takes over from waiting for Feelio
+        return { ...r, run, held: r.held && run.status === "paused" };
+      }),
+    [],
+  );
   const exitRun = useCallback(() => {
     setRested(true);
     // during a live talk the conversation simply goes on (nothing to tell the next talk)
@@ -294,7 +323,7 @@ function Talk({ places, help, stories }: { places: Place[]; help: Help[]; storie
             exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.03 }}
             transition={{ duration: reduce ? 0.15 : 0.35, ease: "easeOut" }}
           >
-            <ActivityStage run={room.run} update={updateRun} onExit={exitRun} onTalk={talkAfterRun} canTalk={!live && !problem} locale={locale} calm={reduce} />
+            <ActivityStage run={room.run} held={room.held} feelio={voice.caption} update={updateRun} onExit={exitRun} onTalk={talkAfterRun} canTalk={!live && !problem} locale={locale} calm={reduce} />
           </motion.div>
         ) : (
           <motion.div

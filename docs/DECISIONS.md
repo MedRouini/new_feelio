@@ -884,3 +884,41 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - **Safety net:** a reply that ends with a question is still asking, so the proxy holds back an `offer_activity` in it (`stillAsking`). Seen once before the guard: a reply asked "would you like…?" and called the tool in the same breath.
   - Without a live talk (it ended, or was never started), the game still waits for a tap, and "Talk to Feelio" afterwards starts a new talk that knows which game was played.
   - **Replayed through the proxy:** 3 of 3 worried-child conversations ask first, then start the noticing game on "yes"; "sure" starts breathing. The provider was briefly slow (first words after more than 6 s, so the reviewed fallback line played); it recovered on its own.
+
+## D-077 One conversation: the game is part of the talk, not a second system
+**Status:** built (owner, 2026-10-19: "the game and the voice agent behave like two separate systems… game state is context for the conversation, not a separate mode").
+- **What the owner's last live call showed** (ElevenLabs transcript, 16 Oct, 71 s): the breathing game started at 26 s with the microphone muted. The agent's turn timeout then sent a silence turn ("...") every ~10 s, and Feelio answered each one over the game's recorded guidance: "How do you feel now?" in the middle of breathing, then "Is there anything you'd like to tell me about your day?".
+- **Root causes:**
+  1. Feelio knew nothing about the game: its state lived only in the browser. The only signal (`feelio_after`) was sent when a talk *started*, so it never arrived during a continuous talk, and the prompt guessed that "the next time the child speaks" meant the game was over.
+  2. The muted microphone split the two: the child's words during a game never reached Feelio, but the agent's silence pings did.
+  3. Two voices, no turn-taking: Feelio's live replies played on top of the recorded step lines.
+  4. Short memory: the proxy kept only the last 8 messages, and silence pings filled them, so the start of the talk (the worry) dropped out within a minute.
+- **The fix: one pipeline, one history:**
+  - **The game reaches Feelio on every turn.** The screen reports the game's state to our server (`POST /api/child/voice/session`, `action: "game"`: activity, step, status, things found; closed lists and small numbers, never words). The server checks it's this child's open talk and a real step of a real game (`child/gameMemory.ts`), and keeps it on the session row (`voice_session.game`, migration 0008). The proxy turns it into context: which game, the step's own words (reviewed app text), progress, found counts, and the games played earlier in this talk.
+  - **The microphone stays open.** Whatever the child says during a game goes through the same proxy, prompt and safety checks as any other turn.
+  - **What gets an answer** (`safety/voice-agent/heard.ts`): during a game, silence and small sounds ("hmm", a breath) get no reply. Feelio's own recorded lines heard back through the microphone (echo) never get one, and are dropped from the history.
+  - **Turn-taking:** while Feelio speaks during a game, the game holds (clock, animation and recorded line, `hold`/`release` in `child/talkRoom.ts`), and Feelio's words show in the game's caption. It resumes 0.7 s after Feelio's last word. The child's own pause is never overridden.
+  - **New tool `stop_activity`** (empty arguments): "I don't want to play anymore" stops the game by voice. The proxy lets it through only while a game is on, and holds new offers and places during a game.
+  - **Prompt `sys-v0.7`:**
+    - during a game: answer the way Feelio always does, in one short sentence that fits the game; explain the step if asked; invite the child back to it
+    - after a finished game: the recorded line just asked "Do you want to talk some more?"; ask once how they feel
+    - after a stopped game: no guilt
+    - always: one continuous talk; remember and refer back; short or unclear words get a warm "say a little more"; follow a change of subject; after an interruption, answer the new words
+  - **Memory:** the proxy keeps the whole talk (up to 40 messages, 8,000 characters), without silences and echoes. Every earlier child turn is redacted again before it goes to the model, not just the latest.
+- **Data:** `voice_session.game` holds ids and numbers only, and only while the talk is open: ending the talk sets it to null. No new retention.
+- **Verified by running it:**
+  - unit: 13 new (game memory, what needs an answer, the prompt, the stop tool, hold and release, history)
+  - integration: the report, the per-child check, the context, and clearing at the end
+  - end to end: m9 10/10, including a voice stop
+  - **replay through the proxy with the real model** (`scripts/voice-game-replay.ts`), 3 runs of the noticing script plus one breathing script:
+    - silence, "hmm" and an echo of the step got no reply (3/3)
+    - "what do I have to do?" got the current step (3/3)
+    - "I can see my lamp and a book!" got "two already, one more" (3/3)
+    - "I don't want to play anymore" called `stop_activity` (3/3)
+    - "can we talk about the exam again?" picked up the exam from before the game (3/3)
+    - after breathing, "what were we talking about before?" recalled "too much going on"
+- **Not verified:** a live spoken call. Unverified so far:
+  - how much of the recorded voice the microphone picks up on each device (browser echo cancellation may not cover page audio)
+  - how ElevenLabs handles a reply with no words
+  - whether a long silent noticing game reaches the 120 s silence hang-up
+- **Agent synced** with `stop_activity` (2026-10-19); the tunnel must be re-opened and the sync re-run for a live test.
