@@ -24,7 +24,7 @@ const SCRIPTS: Record<string, Beat[]> = {
     { game: { activity: "grounding", step: 0, status: "running", found: 0 } },
     { say: "...", expect: "nothing (silence during the game)" },
     { game: { activity: "grounding", step: 1, status: "running", found: 0 } },
-    { say: "Find three things you can see. Tap a star for each one.", expect: "nothing (echo of the recorded line)" },
+    { say: "Look around you. Find three things you can see, and tap a star for each one.", expect: "nothing (echo of the recorded line)" },
     { say: "hmm", expect: "nothing (a small sound)" },
     { say: "what do I have to do?", expect: "explains the step: find three things you can see" },
     { game: { activity: "grounding", step: 1, status: "running", found: 2 } },
@@ -44,7 +44,7 @@ const SCRIPTS: Record<string, Beat[]> = {
     { say: "a little better. what were we talking about before?", expect: "remembers: too much going on" },
   ],
 };
-const OFFERED = ["end_call", "set_mascot_state", "show_feeling_card", "offer_activity", "stop_activity", "suggest_place", "show_safety_resources", "show_story_choice"];
+const OFFERED = ["end_call", "skip_turn", "set_mascot_state", "show_feeling_card", "offer_activity", "stop_activity", "suggest_place", "show_safety_resources", "show_story_choice"];
 
 async function main() {
   const base = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");

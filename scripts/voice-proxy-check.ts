@@ -18,7 +18,7 @@ const TURNS = process.env.VOICE_CHECK_TURNS ? (JSON.parse(process.env.VOICE_CHEC
   "yes, can we do the breathing game",
   "I'm bored, what can I do",
 ];
-const OFFERED = ["end_call", "set_mascot_state", "show_feeling_card", "offer_activity", "stop_activity", "suggest_place", "show_safety_resources", "show_story_choice"];
+const OFFERED = ["end_call", "skip_turn", "set_mascot_state", "show_feeling_card", "offer_activity", "stop_activity", "suggest_place", "show_safety_resources", "show_story_choice"];
 
 async function main() {
   const base = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");

@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from "node:fs";
+import en from "@/messages/en.json";
 import { describe, expect, it } from "vitest";
 import { ACTIVITY_STEPS, skip, startRun } from "@/child/activities";
 import { EMPTY_GAME, gameView, recordedLines, remember, validReport, type GameReport } from "@/child/gameMemory";
@@ -52,7 +54,7 @@ describe("the game memory of a talk", () => {
     m = remember(m, rep({ activity: "stretching", step: 1, status: "stopped" }));
     m = remember(m, rep({ activity: "grounding", step: 1, found: 2 }));
     const v = gameView(m, "en")!;
-    expect(v.now).toMatchObject({ activity: "grounding", status: "running", step: "Find three things you can see. Tap a star for each one.", found: 2, of: 3 });
+    expect(v.now).toMatchObject({ activity: "grounding", status: "running", step: "Look around you. Find three things you can see, and tap a star for each one.", found: 2, of: 3 });
     expect(v.now!.progress).toEqual({ done: 0, total: 3 });
     expect(v.earlier).toEqual([{ activity: "stretching", outcome: "stopped" }]);
     expect(gameView(remember(EMPTY_GAME, rep()), "ar")!.now!.step).not.toBe("Breathe in…");
@@ -108,7 +110,7 @@ describe("Feelio knows the game (sys-v0.7)", () => {
   it("during a game: which game, the step, and how to answer the child", () => {
     const p = systemPrompt({ ...base, context: { game: view({ activity: "grounding", step: 2, found: 1 }) } });
     expect(p).toMatch(/Right now you and the child are playing the noticing game/);
-    expect(p).toMatch(/Now listen\. Can you hear two sounds\?/);
+    expect(p).toMatch(/Now be very quiet and listen\. Tap a heart for each sound you hear\./);
     expect(p).toMatch(/found 1 of 2/);
     expect(p).toMatch(/invite them back to it/);
     expect(p).toMatch(/call stop_activity/);
@@ -196,5 +198,33 @@ describe("Feelio remembers the whole talk", () => {
     expect(m.length).toBeLessThanOrEqual(40);
     expect(m.reduce((n, x) => n + x.content.length, 0)).toBeLessThanOrEqual(8000);
     expect(m.length).toBeGreaterThan(0);
+  });
+});
+
+describe("a game the child can follow (owner's live test, 2026-10-19: \"I didn't understand it\")", () => {
+  it("Feelio says how the game works as it starts it", () => {
+    const p = systemPrompt({ ...base, context: {} });
+    expect(p).toMatch(/say in one short sentence how the game works/);
+  });
+
+  it("every finding step says what to tap", () => {
+    const say = (k: string) => k.split(".").reduce<unknown>((o, x) => (o as Record<string, unknown>)[x], en.child.talk.act) as string;
+    for (const s of ACTIVITY_STEPS.grounding.filter((x) => x.kind === "find")) expect(say(s.say)).toMatch(/tap/i);
+  });
+
+  it("no timed step is shorter than its recorded line, so a line is never cut off", () => {
+    // CBR MP3 (the voice-line script's output): length from the size and the first frame's bit rate
+    const seconds = (file: string) => {
+      const b = readFileSync(file);
+      let i = b.subarray(0, 3).toString() === "ID3" ? 10 + ((b[6] << 21) | (b[7] << 14) | (b[8] << 7) | b[9]) : 0;
+      while (i < b.length && !(b[i] === 0xff && (b[i + 1] & 0xe0) === 0xe0)) i++;
+      const kbps = [0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320][(b[i + 2] >> 4) & 15];
+      return ((b.length - i) * 8) / (kbps * 1000);
+    };
+    for (const steps of Object.values(ACTIVITY_STEPS))
+      for (const s of steps) {
+        const file = `public/audio/en/${s.line}.mp3`;
+        if (s.ms && existsSync(file)) expect(seconds(file) * 1000, s.line).toBeLessThanOrEqual(s.ms);
+      }
   });
 });

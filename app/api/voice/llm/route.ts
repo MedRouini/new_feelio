@@ -87,6 +87,13 @@ export async function POST(request: NextRequest) {
         send("data: [DONE]\n\n");
         controller.close();
       };
+      // Staying quiet for a turn (D-077): ElevenLabs ends the call on a reply with no words ("custom_llm
+      // generation failed", owner's live test 2026-10-19), so a quiet turn is the agent's skip_turn tool.
+      const canSkip = offered.has("skip_turn");
+      const quiet = () => {
+        send(toolChunk("skip_turn", { reason: "waiting for the child" }));
+        finish();
+      };
 
       // No live session (or its time is up): one fixed, kind line, then the call ends. No model at all.
       if ((!turn.ok && !spike) || (turn.ok && turn.stop)) {
@@ -94,14 +101,14 @@ export async function POST(request: NextRequest) {
         send(toolChunk("end_call", { reason: "time_up" }));
         return finish();
       }
-      if (!messages.length || messages[messages.length - 1].role !== "user") return finish();
+      if (!messages.length || messages[messages.length - 1].role !== "user") return canSkip ? quiet() : finish();
       // During a game (D-077), only the child talking gets an answer: silence, small sounds like a breath
       // or "hmm", and Feelio's own recorded lines coming back through the microphone get none, so Feelio
       // never talks over the game. An echo never gets an answer at all. Anything the safety rules notice
-      // always goes through the full pipeline.
+      // always goes through the full pipeline. (An agent that can't skip a turn gets a normal answer.)
       const game = turn.ok ? turn.context.game?.now : null;
       const playing = game?.status === "running" || game?.status === "paused";
-      if (staysQuiet(messages[messages.length - 1].content, { playing, lines: RECORDED })) return finish();
+      if (canSkip && staysQuiet(messages[messages.length - 1].content, { playing, lines: RECORDED })) return quiet();
 
       const ctx: SafetyCtx = turn.ok
         ? turn.ctx

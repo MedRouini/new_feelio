@@ -922,3 +922,11 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - how ElevenLabs handles a reply with no words
   - whether a long silent noticing game reaches the 120 s silence hang-up
 - **Agent synced** with `stop_activity` (2026-10-19); the tunnel must be re-opened and the sync re-run for a live test.
+- **Owner's live test, 2026-10-19: the call dropped during the noticing game.** The ElevenLabs transcript ends `status=failed, custom_llm generation failed` right after the game started. The agent's quiet-turn ping got our "no words" reply, and ElevenLabs treats an empty reply as a failed generation and ends the call. In the browser this showed as "error reading from signal stream" and "Server error: Unknown error". Afterwards the child had to start a new talk with no memory, because it *was* a new call.
+  - **Fix:** a quiet turn is now ElevenLabs' `skip_turn` system tool (added to the agent in `sync.ts`; docs checked 2026-10-19). The proxy sends it for silence, small sounds and echoes during a game, and for a request with no child turn. An agent without `skip_turn` gets a normal answer instead, never an empty one.
+  - **Verified live:** a text-only WebSocket call to the real agent through the tunnel, the dev server and the proxy, with a game running (synthetic test child, about 40 s of voice credits). "hmm" and 12 s of silence got no reply and the call stayed open; "what do I have to do?" got the current step; "I don't want to play anymore" called `stop_activity`. ElevenLabs logged it as ended by the client, not failed.
+- **"I didn't understand it" (noticing game):** two of the three finding steps never said what to tap ("Now listen. Can you hear two sounds?"), and the game can't move on without the taps.
+  - The four lines were rewritten in English and Arabic so every step says what to do, and the English voice lines regenerated (283 credits).
+  - The intro step is now 5.5 s, so its 4.9 s line isn't cut off.
+  - A test now checks that no timed step is shorter than its recorded line.
+  - Prompt `sys-v0.8`: when Feelio starts a game, it says in one short sentence how it works ("we'll look around and find things we can see, hear and feel, and tap a picture for each one").

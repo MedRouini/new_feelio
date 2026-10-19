@@ -38,7 +38,8 @@ const breath = (): Step[] => [
 export const ACTIVITY_STEPS: Record<Activity, readonly Step[]> = {
   breathing: [{ kind: "intro", ms: 4500, say: "breathing.intro", line: "act_breathe_intro", pose: ["mascot_idle"] }, ...breath(), ...breath(), ...breath(), DONE],
   grounding: [
-    { kind: "intro", ms: 4000, say: "grounding.intro", line: "act_ground_intro", pose: ["mascot_idle"] },
+    // the intro line is about 4.9 s (2026-10-19); the step leaves room for it to finish
+    { kind: "intro", ms: 5500, say: "grounding.intro", line: "act_ground_intro", pose: ["mascot_idle"] },
     { kind: "find", ms: null, say: "grounding.look", line: "act_ground_look", pose: ["mascot_look", "mascot_pointing"], token: "companion_star", count: 3 },
     { kind: "find", ms: null, say: "grounding.listen", line: "act_ground_listen", pose: ["mascot_listening"], token: "companion_heart", count: 2 },
     { kind: "find", ms: null, say: "grounding.feel", line: "act_ground_feel", pose: ["mascot_hug", "mascot_idle"], token: "companion_cloud", count: 1 },

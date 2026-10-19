@@ -121,7 +121,12 @@ function agentBody(proxyUrl: string, secretId: string, toolIds: string[]) {
           cascade_timeout_seconds: 8,
           ignore_default_personality: true,
           tool_ids: toolIds,
-          built_in_tools: { end_call: { name: "end_call", description: "", params: { system_tool_type: "end_call" } } },
+          built_in_tools: {
+            end_call: { name: "end_call", description: "", params: { system_tool_type: "end_call" } },
+            // Feelio stays quiet for a turn (D-077): a reply with no words fails the call ("custom_llm
+            // generation failed", seen in the owner's live test 2026-10-19), so the proxy sends this instead.
+            skip_turn: { type: "system", name: "skip_turn", description: "", params: { system_tool_type: "skip_turn" } },
+          },
         },
       },
       tts: { model_id: TTS_MODEL, voice_id: need("ELEVENLABS_VOICE_ID_EN"), stability: 0.5, similarity_boost: 0.8, speed: 1 },
@@ -154,7 +159,7 @@ async function main() {
   const proxyUrl = `${publicUrl}/api/voice/llm`;
   const existing = process.env.ELEVENLABS_AGENT_ID;
 
-  console.log(`${existing ? "Update" : "Create"} agent "${AGENT_NAME}": custom LLM ${proxyUrl}, TTS ${TTS_MODEL}, ${CLIENT_TOOLS.length} client tools + end_call.`);
+  console.log(`${existing ? "Update" : "Create"} agent "${AGENT_NAME}": custom LLM ${proxyUrl}, TTS ${TTS_MODEL}, ${CLIENT_TOOLS.length} client tools + end_call + skip_turn.`);
   if (!go) {
     console.log(JSON.stringify(agentBody(proxyUrl, "<secret_id>", CLIENT_TOOLS.map((n) => `<${n}>`)), null, 2));
     console.log("Dry run. Re-run with --yes to apply.");

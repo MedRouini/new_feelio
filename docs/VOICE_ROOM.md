@@ -102,6 +102,8 @@ The crisis tool is emitted by the router, never the model. Help is the one panel
 - [ ] Owner: re-run the agent sync with a live tunnel, so the agent knows `offer_activity`
 - [ ] Owner: a spoken test on a real device (offer → yes → activity → talk again)
 - [x] One conversation (D-077): game state to Feelio, open microphone, no reply to silence or echo, the game waits while Feelio speaks, `stop_activity`, whole-talk memory, `sys-v0.7`; replay script `scripts/voice-game-replay.ts`
+- [x] A quiet turn is ElevenLabs' `skip_turn` (an empty reply ended the call, owner's test 2026-10-19); checked live over the agent's WebSocket
+- [x] The noticing game says what to tap on every step; Feelio explains each game as it starts it (`sys-v0.8`)
 - [ ] Owner: a spoken test of talking *during* a game (questions, "I want to stop", then back to the earlier topic)
 - [x] Batch 8 generated (Codex) and approved, 2026-10-15: all 10 wired through their slots
 
