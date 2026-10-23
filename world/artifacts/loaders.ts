@@ -6,7 +6,9 @@ import type { ArtifactProps } from "./types";
 // Every id here must also be in ARTIFACT_CATALOG (unit-tested).
 type Loader = () => Promise<{ default: ComponentType<ArtifactProps> }>;
 
-export const ARTIFACT_LOADERS: Record<string, Loader> = {};
+export const ARTIFACT_LOADERS: Record<string, Loader> = {
+  "home-3-tower": () => import("./scenarios/TowerArtifact"),
+};
 
 // Development builds only: this branch is removed from production bundles.
 if (process.env.NODE_ENV === "development") {

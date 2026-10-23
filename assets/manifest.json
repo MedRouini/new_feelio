@@ -3867,6 +3867,105 @@
         "clean alpha, not cut off (scripts/check-incoming.ts ok; visible art inside the frame)"
       ],
       "sha256": "ce30beabb44d602b862a766767b76645835ffb48e125ae8fe2fb7450ef9da1e2"
+    },
+    {
+      "id": "cast.cast_nori_sheet",
+      "file": "assets/approved/cast/cast_nori_sheet.png",
+      "kind": "cast",
+      "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. A character reference sheet with exactly two full-body views of the same Nori: front view on the left and three-quarter view on the right, both neutral standing poses. The two views have identical character design, clothes and colours, equal height and aligned shoe soles, ample transparent spacing between them. No labels or panels. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 9 job list",
+      "date": "2026-10-20",
+      "chat_link": null,
+      "references": [
+        "assets/approved/world/scene_my_room_land.png",
+        "assets/approved/world/scene_my_room_port.png",
+        "assets/approved/ui/like_blocks.png",
+        "assets/approved/ui/ui_act_breathe.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-23",
+        "character sheet: front and three-quarter views of the same child (identity reference for every Nori pose; not shown in the app)",
+        "no text, letters or numbers; no extra characters; not scary; no cultural or brand symbols",
+        "clean alpha, no halo on dark; not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "669f19956a1fe33ed8fb1717268bea45176cbf31bbe662b82ad3c8bae4a6e168"
+    },
+    {
+      "id": "cast.cast_nori_idle",
+      "file": "assets/approved/cast/cast_nori_idle.png",
+      "kind": "cast",
+      "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. I also attached cast_nori_sheet as the identity reference. Keep exactly the same Nori, hair shape, face, outfit, colours and proportions. Change only pose and expression. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. One full-body Nori only, standing calmly with relaxed arms and a small shy smile. Face slightly toward image-left, toward the centre when placed on the right of the stage. All three pose files use identical camera, character scale and invisible ground line: top of hair at y=112 and shoe soles at y=912 on the 1024 square, body centred at x=512. Do not draw the ground line. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 9 job list",
+      "date": "2026-10-20",
+      "chat_link": null,
+      "references": [
+        "assets/approved/cast/cast_nori_sheet.png",
+        "assets/approved/world/scene_my_room_land.png",
+        "assets/approved/world/scene_my_room_port.png",
+        "assets/approved/ui/like_blocks.png",
+        "assets/approved/ui/ui_act_breathe.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-23",
+        "matches the requested pose and expression; same child as cast_nori_sheet (hair, outfit, colours, proportions)",
+        "no text, letters or numbers; no extra characters; not scary; no cultural or brand symbols",
+        "clean alpha, no halo on dark; not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "bbe451d8f89ffd673b8d3f7d63fa343d7a4db51082e4bd1543416822c1d689ff"
+    },
+    {
+      "id": "cast.cast_nori_oops",
+      "file": "assets/approved/cast/cast_nori_oops.png",
+      "kind": "cast",
+      "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. I also attached cast_nori_sheet as the identity reference. Keep exactly the same Nori, hair shape, face, outfit, colours and proportions. Change only pose and expression. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. One full-body Nori only, both hands lifted to her mouth, eyebrows raised, a gentle surprised expression: she just bumped something by accident. No blocks or other props. Face slightly toward image-left, toward the centre when placed on the right of the stage. All three pose files use identical camera, character scale and invisible ground line: top of hair at y=112 and shoe soles at y=912 on the 1024 square, body centred at x=512. Do not draw the ground line. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 9 job list",
+      "date": "2026-10-20",
+      "chat_link": null,
+      "references": [
+        "assets/approved/cast/cast_nori_sheet.png",
+        "assets/approved/world/scene_my_room_land.png",
+        "assets/approved/world/scene_my_room_port.png",
+        "assets/approved/ui/like_blocks.png",
+        "assets/approved/ui/ui_act_breathe.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-23",
+        "matches the requested pose and expression; same child as cast_nori_sheet (hair, outfit, colours, proportions)",
+        "no text, letters or numbers; no extra characters; not scary; no cultural or brand symbols",
+        "clean alpha, no halo on dark; not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "80daa4d619868249c14ef8079b2cccf674af11d1b2beeb10e6bb4517da36c7e0"
+    },
+    {
+      "id": "cast.cast_nori_scared",
+      "file": "assets/approved/cast/cast_nori_scared.png",
+      "kind": "cast",
+      "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. I also attached cast_nori_sheet as the identity reference. Keep exactly the same Nori, hair shape, face, outfit, colours and proportions. Change only pose and expression. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. One full-body Nori only, shoulders slightly raised, hands held together near her chest, a little worried face. Mild child-level worry only, no tears, never terror. Face slightly toward image-left, toward the centre when placed on the right of the stage. All three pose files use identical camera, character scale and invisible ground line: top of hair at y=112 and shoe soles at y=912 on the 1024 square, body centred at x=512. Do not draw the ground line. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+      "tool": "OpenAI image tool via Codex (owner's account), Batch 9 job list",
+      "date": "2026-10-20",
+      "chat_link": null,
+      "references": [
+        "assets/approved/cast/cast_nori_sheet.png",
+        "assets/approved/world/scene_my_room_land.png",
+        "assets/approved/world/scene_my_room_port.png",
+        "assets/approved/ui/like_blocks.png",
+        "assets/approved/ui/ui_act_breathe.png"
+      ],
+      "approved": true,
+      "reviewed_by": "claude-code",
+      "checks": [
+        "viewed on a dark background by Claude Code, 2026-10-23",
+        "matches the requested pose and expression; same child as cast_nori_sheet (hair, outfit, colours, proportions)",
+        "no text, letters or numbers; no extra characters; not scary; no cultural or brand symbols",
+        "clean alpha, no halo on dark; not cut off (scripts/check-incoming.ts ok)"
+      ],
+      "sha256": "52380efb2b693206fd79adec60d3a66d1ab5321cbb49c1c47b383f6b53688b3f"
     }
   ]
 }

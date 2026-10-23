@@ -18,7 +18,7 @@ describe.skipIf(!process.env.DATABASE_URL)("level progress (integration, synthet
   const child = { childId: id, householdId, ageBand: "7-9" as const, locale: "en" as const, keyId: "k" };
   // all-day hours, so the test doesn't depend on the time it runs (allowed hours are tested separately)
   await db.update(s.childSettings).set({ schedule: [{ days: [0, 1, 2, 3, 4, 5, 6], start: "00:00", end: "24:00" }] }).where(eq(s.childSettings.childId, id));
-  const A = DEV_TEST_ARTIFACT; // the only artifact while none are built (NODE_ENV=test)
+  const A = DEV_TEST_ARTIFACT; // levels without a built artifact use the stand-in (NODE_ENV=test)
 
   afterAll(async () => ops.deleteAccount(res.user.id));
 
@@ -48,7 +48,8 @@ describe.skipIf(!process.env.DATABASE_URL)("level progress (integration, synthet
 
   it("the third Home level opens the Park", async () => {
     await completeArtifact(child, "home-2", A);
-    const r = await completeArtifact(child, "home-3", A);
+    expect(await completeArtifact(child, "home-3", A)).toEqual({ ok: false, reason: "not_in_level" }); // home-3 has The Tower
+    const r = await completeArtifact(child, "home-3", "home-3-tower");
     expect(r).toMatchObject({ ok: true, openedPlaceIds: ["park"] });
   });
 

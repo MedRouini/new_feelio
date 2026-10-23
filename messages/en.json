@@ -317,6 +317,53 @@
       "steps1": "One more step to your next surprise!",
       "steps2": "Two more steps to your next surprise!",
       "steps3": "Three more steps to your next surprise!"
+    },
+    "scenarios": {
+      "tower": {
+        "build": "This is my room! Let's build the tallest tower ever. Tap the blocks!",
+        "buildMore": "Higher! Tap again!",
+        "buildLast": "One more block on top!",
+        "crash": "Oh no! Nori ran in and bumped my tower. It all fell down!",
+        "feel": "I feel something big inside me. What do you think I'm feeling?",
+        "feelAngry": "Yes, I feel angry! My tummy feels hot, like a storm inside.",
+        "feelMixed": "I do feel a bit sad. And I feel angry too, like a storm inside.",
+        "feelHappy": "Hmm, not happy right now. I feel angry, like a storm inside.",
+        "choose": "My storm is so big, I can only think of stormy ideas. What should I do?",
+        "hint": "Psst! My little cloud can help me calm my storm. Tap it!",
+        "stomp": "I stomped! The blocks flew everywhere, and Nori looks scared. My storm is still here.",
+        "shout": "I shouted, go away! Nori ran off. Now I'm all alone, and still stormy.",
+        "rewind": "Go back",
+        "breathe": "Breathe with my cloud",
+        "breatheIn": "Breathe in with me, slowly…",
+        "breatheOut": "…and breathe out.",
+        "chooseCalm": "Phew! My storm is smaller now. Look, I can see more ideas!",
+        "tell": "I said: Nori, I'm upset my tower fell. Nori said sorry. It was an accident!",
+        "together": "I asked: Nori, want to build a new one together? Nori smiled!",
+        "rebuild": "Let's build it again, together. Tap the blocks!",
+        "rebuildMore": "Higher and higher!",
+        "end": "We did it! When I feel a storm inside, I breathe with my cloud first. Then I can find a kind idea.",
+        "trick": "New calm trick: Cloud Breath",
+        "journal": "Ways we found: {n} of {total}",
+        "again": "Try another way",
+        "finish": "Finish",
+        "next": "Next",
+        "faces": {
+          "angry": "Angry",
+          "sad": "Sad",
+          "worried": "Worried",
+          "happy": "Happy"
+        },
+        "cards": {
+          "stomp": "Stomp",
+          "shout": "Shout",
+          "tell": "Tell Nori",
+          "together": "Build together"
+        },
+        "nori": "Nori, my little cousin",
+        "tower": "The block tower",
+        "blocks": "The blocks",
+        "journalTitle": "Feelio's journal"
+      }
     }
   },
   "parent": {

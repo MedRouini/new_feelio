@@ -354,7 +354,7 @@
             "7-9",
             "10-12"
           ],
-          "scenarioIds": [],
+          "scenarioIds": ["home-3-tower"],
           "icon": "level_home_3"
         },
         {

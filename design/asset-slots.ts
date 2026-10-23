@@ -93,3 +93,37 @@ export const FEELING_FACE = {
   angry: ["face_angry"],
   excited: ["face_excited"],
 } as const satisfies Record<string, Slot>;
+
+/**
+ * The Tower, Home level 3 (D-078). Nori and the tower are central: until delivered they show as grey
+ * TODO(PLACEHOLDER) boxes. Choice cards are optional (a word disc until their art arrives), and so is
+ * the storm cloud. Feelio's poses and the faces are all approved already.
+ */
+export const TOWER = {
+  feelio: {
+    happy: ["mascot_happy"],
+    excited: ["mascot_excited", "mascot_happy"],
+    angry: ["mascot_feel_angry"],
+    sad: ["mascot_feel_sad"],
+    calm: ["mascot_idle"],
+    proud: ["mascot_hug", "mascot_happy"],
+    breatheIn: ["mascot_breathe_in", "mascot_idle"],
+    breatheOut: ["mascot_breathe_out", "mascot_idle"],
+  },
+  nori: {
+    idle: ["cast_nori_idle"],
+    oops: ["cast_nori_oops", "cast_nori_idle"],
+    scared: ["cast_nori_scared", "cast_nori_idle"],
+    sorry: ["cast_nori_sorry", "cast_nori_idle"],
+    happy: ["cast_nori_happy", "cast_nori_idle"],
+  },
+  tower: ["prop_tower_tall"],
+  fallen: ["prop_tower_fallen"],
+  blocks: ["prop_block_pile", "like_blocks"],
+  storm: ["fx_storm_cloud"],
+  cloud: ["ui_act_breathe", "companion_cloud"],
+  face: { angry: ["face_angry"], sad: ["face_sad"], worried: ["face_worried"], happy: ["face_happy"] },
+  card: { stomp: ["ui_choice_stomp"], shout: ["ui_choice_shout"], tell: ["ui_choice_tell"], together: ["ui_choice_together"] },
+  burst: ["ui_celebrate_burst"],
+  room: { land: ["scene_my_room_land"], port: ["scene_my_room_port"] },
+} as const;

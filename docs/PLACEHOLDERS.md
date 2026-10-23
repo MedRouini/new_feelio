@@ -9,7 +9,9 @@ Every `TODO(PLACEHOLDER)` in code or UI is listed here. A milestone with open en
 - To list what's still missing: `missingAssets()` in `design/assets.ts`.
 
 ## Open: art
-None (2026-10-15, Batch 8 approved, D-076). Every asset in `design/asset-ids.ts` is approved.
+The Tower (Home level 3, D-078), Batch 10 requested 2026-10-23 (`assets/requests/batch10/`):
+- Grey `TODO(PLACEHOLDER)` boxes until delivered: `prop_tower_tall`, `prop_tower_fallen`.
+- Optional, an approved stand-in shows meanwhile: `cast_nori_sorry` and `cast_nori_happy` (Nori idle), `prop_block_pile` (`like_blocks`), `ui_choice_stomp`, `ui_choice_shout`, `ui_choice_tell`, `ui_choice_together` (word discs), `fx_storm_cloud` (left out).
 
 ## Open: functionality gaps (honest, visible, never faked)
 | Gap | Where | Why | Closes |
@@ -17,7 +19,7 @@ None (2026-10-15, Batch 8 approved, D-076). Every asset in `design/asset-ids.ts`
 | Talk works only for adult testing | `child/voice.ts` (`not_approved` refusal) | ElevenLabs hasn't approved use by children (D-005); `VOICE_ADULT_TESTING=1` only while the owner tests | ElevenLabs approval |
 | Calm shows "coming soon" | `app/child/calm/page.tsx` (`TODO(PLACEHOLDER)`) | The calm corner (slow breathing with Feelio, static audio only) is not scheduled yet (D-055) | When you schedule it |
 | Arabic story narration | `safety/voice-lines/tts.ts` | No Arabic voice chosen yet (D-064); the button is hidden for Arabic stories | When an Arabic voice is chosen |
-| Levels say "This adventure is still being made" | `world/level/LevelPlayer.tsx` | No artifacts built yet; the catalog is empty (`world/artifacts/catalog.ts`) | Milestone 4 |
+| Levels say "This adventure is still being made" | `world/level/LevelPlayer.tsx` | Only one artifact is built (The Tower, home-3, a draft that plays in development only, D-078) | Milestone 4 |
 | Developer test artifact (dev and test runs only) | `world/artifacts/dev/DevTestArtifact.tsx` | Lets the level flow run end to end before real artifacts exist. Never in production (unit-tested) | Removed or kept as a dev tool when Milestone 4 adds real artifacts |
 | Arabic fixed voice lines are captions only | `safety/voice-lines/` | English uses Jessica (D-064). Arabic waits for the owner to choose a voice | When an Arabic voice is chosen |
 | Voice proxy is not bound to a child's voice session | `app/api/voice/llm/route.ts` (adult-only spike, off unless `VOICE_SPIKE_ENABLED=1`) | The session gate is Milestone 5 (D-061) | Milestone 5 |

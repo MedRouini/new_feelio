@@ -930,3 +930,19 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
   - The intro step is now 5.5 s, so its 4.9 s line isn't cut off.
   - A test now checks that no timed step is shorter than its recorded line.
   - Prompt `sys-v0.8`: when Feelio starts a game, it says in one short sentence how it works ("we'll look around and find things we can see, hear and feel, and tap a picture for each one").
+
+## D-078 The Tower (Home level 3): the first SEL scenario, as a draft
+- **Owner request (2026-10-19):** "let's do only one level for now so i can see the output." Built from the ★ concept in `docs/SEL_ADVENTURES.md` (Home 3, "Sharing with a brother or sister"): Feelio builds a block tower, little cousin Nori knocks it over by accident, and the child helps Feelio with the anger.
+- **Skill taught:** name the feeling, notice that a big storm leaves only stormy ideas, calm it (Cloud Breath), then pick a kind idea. CASEL self-awareness, self-management, relationship skills.
+- **Flow** (`world/artifacts/scenarios/tower.ts`, pure and unit-tested):
+  - build (4 taps) → crash → "what am I feeling?" (4 brand faces; every answer is acknowledged, none is wrong)
+  - stormy choices only (Stomp, Shout) plus the glowing cloud; after about 8 s without a tap, Feelio points to the cloud once
+  - a stormy choice shows a gentle consequence (Nori looks scared, or runs off and Feelio is alone) and a Go back button: no failure state
+  - Cloud Breath (in, out, in, out) → all four choices appear (Tell Nori, Build together, plus the stormy two)
+  - a kind choice → Nori says sorry or smiles → rebuild together → the lesson line, "New calm trick: Cloud Breath", Feelio's journal ("Ways we found: n of 4"), Try another way or Finish
+- **Privacy:** nothing the child picks is stored or sent. The journal lives only on the screen. The server records only start and complete, as for every artifact (D-056).
+- **Draft gate:** `ARTIFACT_CATALOG` entries can be `draft: true`. A draft plays only in development and test runs; production treats the level as not made yet (unit-tested). It stays a draft until the owner reviews it.
+- **Audio:** 20 English lines pre-generated (about 1,100 credits; Jessica, Multilingual v2). Arabic is captions only, as everywhere (D-064). Lines that move on by themselves stay on screen longer than their recording (unit-tested from the mp3 lengths); a Next button skips ahead.
+- **Cast:** Nori is a girl of about four (the Arabic text needs a gender; English stays neutral). Character sheet and 3 poses approved 2026-10-23 (Batch 9). The other 10 images are requested in Batch 10. Until they arrive: Nori's sorry and happy poses use her idle pose, the block pile uses `like_blocks`, the choice pictures are word discs, the storm cloud is left out, and the standing and fallen tower are grey `TODO(PLACEHOLDER)` boxes.
+- **Verified by running it:** unit tests (the flow, every line in EN and AR, line timing against the mp3s, the draft gate), lint, typecheck, and `tests/e2e/m10-tower.spec.ts` 2/2 (full English playthrough to the celebration, Arabic portrait right to left), with screenshots reviewed.
+- **Not verified:** a child playing it; the timing with the real recordings on a device. The owner's running dev server did not reload the changed files, so the E2E ran against a second copy on port 3001; restart the dev server before trying it.

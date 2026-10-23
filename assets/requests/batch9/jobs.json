@@ -1,0 +1,73 @@
+[
+  {
+    "asset_name": "cast_nori_sheet",
+    "used_for": "The Tower: Nori identity reference sheet, not shown in app",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. A character reference sheet with exactly two full-body views of the same Nori: front view on the left and three-quarter view on the right, both neutral standing poses. The two views have identical character design, clothes and colours, equal height and aligned shoe soles, ample transparent spacing between them. No labels or panels. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+    "references": [
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/world/scene_my_room_port.png",
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png"
+    ],
+    "output_path": "assets/incoming/batch9/cast_nori_sheet.png",
+    "final_path": "assets/approved/cast/cast_nori_sheet.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "cast_nori_idle",
+    "used_for": "The Tower: Nori standing calmly",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. I also attached cast_nori_sheet as the identity reference. Keep exactly the same Nori, hair shape, face, outfit, colours and proportions. Change only pose and expression. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. One full-body Nori only, standing calmly with relaxed arms and a small shy smile. Face slightly toward image-left, toward the centre when placed on the right of the stage. All three pose files use identical camera, character scale and invisible ground line: top of hair at y=112 and shoe soles at y=912 on the 1024 square, body centred at x=512. Do not draw the ground line. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+    "references": [
+      "assets/incoming/batch9/cast_nori_sheet.png",
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/world/scene_my_room_port.png",
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png"
+    ],
+    "output_path": "assets/incoming/batch9/cast_nori_idle.png",
+    "final_path": "assets/approved/cast/cast_nori_idle.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "cast_nori_oops",
+    "used_for": "The Tower: Nori accidentally bumps the tower",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. I also attached cast_nori_sheet as the identity reference. Keep exactly the same Nori, hair shape, face, outfit, colours and proportions. Change only pose and expression. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. One full-body Nori only, both hands lifted to her mouth, eyebrows raised, a gentle surprised expression: she just bumped something by accident. No blocks or other props. Face slightly toward image-left, toward the centre when placed on the right of the stage. All three pose files use identical camera, character scale and invisible ground line: top of hair at y=112 and shoe soles at y=912 on the 1024 square, body centred at x=512. Do not draw the ground line. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+    "references": [
+      "assets/incoming/batch9/cast_nori_sheet.png",
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/world/scene_my_room_port.png",
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png"
+    ],
+    "output_path": "assets/incoming/batch9/cast_nori_oops.png",
+    "final_path": "assets/approved/cast/cast_nori_oops.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "cast_nori_scared",
+    "used_for": "The Tower: Nori mildly worried after the reaction",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. I also attached cast_nori_sheet as the identity reference. Keep exactly the same Nori, hair shape, face, outfit, colours and proportions. Change only pose and expression. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. One full-body Nori only, shoulders slightly raised, hands held together near her chest, a little worried face. Mild child-level worry only, no tears, never terror. Face slightly toward image-left, toward the centre when placed on the right of the stage. All three pose files use identical camera, character scale and invisible ground line: top of hair at y=112 and shoe soles at y=912 on the 1024 square, body centred at x=512. Do not draw the ground line. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+    "references": [
+      "assets/incoming/batch9/cast_nori_sheet.png",
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/world/scene_my_room_port.png",
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png"
+    ],
+    "output_path": "assets/incoming/batch9/cast_nori_scared.png",
+    "final_path": "assets/approved/cast/cast_nori_scared.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  }
+]

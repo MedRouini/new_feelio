@@ -15,7 +15,21 @@ describe("level flow foundation (D-056)", () => {
     for (const id of Object.keys(ARTIFACT_CATALOG)) expect(ARTIFACT_LOADERS[id], id).toBeDefined();
   });
 
-  it("no real artifacts exist yet, so only the dev/test stand-in is offered (never in production)", () => {
+  it("a draft artifact (The Tower) plays in development and test only; production says the level isn't made yet", () => {
+    const home3 = world.places[0].levels[2];
+    expect(ARTIFACT_CATALOG["home-3-tower"]).toMatchObject({ kind: "scenario", draft: true });
+    expect(artifactsForLevel(home3)).toEqual(["home-3-tower"]);
+    const env = process.env as Record<string, string | undefined>;
+    const before = env.NODE_ENV;
+    env.NODE_ENV = "production";
+    try {
+      expect(artifactsForLevel(home3)).toEqual([]);
+    } finally {
+      env.NODE_ENV = before;
+    }
+  });
+
+  it("levels with no artifact built get only the dev/test stand-in (never in production)", () => {
     const level = world.places[0].levels[0];
     expect(artifactsForLevel(level)).toEqual([DEV_TEST_ARTIFACT]); // NODE_ENV is "test" here
     const env = process.env as Record<string, string | undefined>;

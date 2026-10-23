@@ -1282,6 +1282,33 @@ Made with Codex from `assets/requests/batch8/jobs.json` (brief: `assets/requests
 | `ui_act_stretch` | Voice room: start stretching | a soft exercise mat in rose and lilac stripes, half rolled up, with a small amber star resting on the flat part |
 
 
+## Batch 9 (The Tower: Nori), written 2026-10-20 (D-078, docs/SEL_ADVENTURES.md)
+Made with Codex from `assets/requests/batch9/jobs.json` (brief: `CODEX.md`) into `assets/incoming/batch9/`. Nori is the first supporting-cast character (ART_DIRECTION §9): the sheet is approved first and is the identity reference for every pose. **Approved 2026-10-23** (all four, first try).
+
+| id | Used for | status |
+|---|---|---|
+| `cast_nori_sheet` | The Tower: Nori identity reference sheet, not shown in app | approved |
+| `cast_nori_idle` | The Tower: Nori standing calmly | approved |
+| `cast_nori_oops` | The Tower: Nori accidentally bumps the tower | approved |
+| `cast_nori_scared` | The Tower: Nori mildly worried after the reaction | approved |
+
+## Batch 10 (The Tower: the rest), written 2026-10-23 (D-078)
+Made with Codex from `assets/requests/batch10/jobs.json` (brief: `CODEX.md`) into `assets/incoming/batch10/`, checked by `npx tsx scripts/check-incoming.ts batch10`, then reviewed by Claude Code. The two Nori poses attach the approved sheet and idle pose. The tower and the fallen tower block the level (grey boxes until then); the rest have approved stand-ins.
+
+| id | Used for | status |
+|---|---|---|
+| `cast_nori_sorry` | The Tower: Nori says sorry | requested |
+| `cast_nori_happy` | The Tower: Nori builds with Feelio, and the end | requested |
+| `prop_tower_tall` | The Tower: the block tower (it is revealed from the bottom up as the child taps) | requested |
+| `prop_tower_fallen` | The Tower: the tower after Nori bumps it | requested |
+| `prop_block_pile` | The Tower: the blocks the child taps to build | requested |
+| `fx_storm_cloud` | The Tower: Feelio's angry storm, floating above its head | requested |
+| `ui_choice_stomp` | The Tower: choice card "Stomp" | requested |
+| `ui_choice_shout` | The Tower: choice card "Shout" | requested |
+| `ui_choice_tell` | The Tower: choice card "Tell Nori" | requested |
+| `ui_choice_together` | The Tower: choice card "Build together" | requested |
+
+
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
@@ -1369,3 +1396,5 @@ Made with Codex from `assets/requests/batch8/jobs.json` (brief: `assets/requests
 | batch-6 my room | 2026-10-13 | 2026-10-13 | 2026-10-13 | 2 scenes, 6 room objects, 16 wearable items (D-074); via Codex from assets/requests/batch6/jobs.json into assets/incoming/batch6/ | All 24 approved (reviewed by Claude Code); positions and placements measured |
 | batch-7 story experience | 2026-10-13 | 2026-10-13 | 2026-10-13 | 3 action objects + 3 step icons (D-075); via Codex from assets/requests/batch7/jobs.json into assets/incoming/batch7/ |
 | batch-8 voice room | 2026-10-14 | 2026-10-15 | 2026-10-15 | 7 mascot activity poses + 3 start objects (D-076); via Codex from assets/requests/batch8/jobs.json into assets/incoming/batch8/. All 10 approved (reviewed by Claude Code, first try each) |
+| batch-9 the tower: Nori | 2026-10-20 | 2026-10-20 | 2026-10-23 | Nori character sheet + idle, oops, scared (D-078); via Codex. All 4 approved (reviewed by Claude Code, first try each) |
+| batch-10 the tower: the rest | 2026-10-23 | | | 2 Nori poses, tower standing and fallen, block pile, storm cloud, 4 choice pictures (D-078) |

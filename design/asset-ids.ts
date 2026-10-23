@@ -43,6 +43,10 @@ const square = [
   "story_hero_fox", "story_hero_bear", "story_hero_bunny", "story_hero_owl", "story_hero_turtle", "story_hero_dragon", "story_hero_cat", "story_hero_penguin",
   "story_place_forest", "story_place_beach", "story_place_space", "story_place_castle", "story_place_garden", "story_place_underwater",
   "story_adv_lost_toy", "story_adv_new_friend", "story_adv_big_race", "story_adv_birthday", "story_adv_storm", "story_adv_first_day",
+  // The Tower, Home level 3 (Batch 9, D-078, docs/SEL_ADVENTURES.md): Nori the little cousin, the tower, the choices
+  "cast_nori_idle", "cast_nori_oops", "cast_nori_scared", "cast_nori_sorry", "cast_nori_happy",
+  "prop_tower_tall", "prop_tower_fallen", "prop_block_pile", "fx_storm_cloud",
+  "ui_choice_stomp", "ui_choice_shout", "ui_choice_tell", "ui_choice_together",
 ] as const;
 
 // Per-place assets (Batch 3, D-056): place ids of the base world. world.json refers to these by id;
