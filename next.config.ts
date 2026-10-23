@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   // The floating dev badge covers child controls (skip, dock) in development; runtime errors still
   // open the full error overlay.
   devIndicators: false,
+  // Next.js security-upgrade notices for coding agents (`next upgrade --agent=security`).
+  experimental: { agentUpgrade: "security" },
   // next-intl request config. Set directly instead of through next-intl's plugin, which loads
   // @swc/core for an extraction feature we don't use (D-034). Must be a relative path.
   turbopack: {

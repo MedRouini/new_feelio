@@ -946,3 +946,9 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Cast:** Nori is a girl of about four (the Arabic text needs a gender; English stays neutral). Character sheet and 3 poses approved 2026-10-23 (Batch 9). The other 10 images are requested in Batch 10. Until they arrive: Nori's sorry and happy poses use her idle pose, the block pile uses `like_blocks`, the choice pictures are word discs, the storm cloud is left out, and the standing and fallen tower are grey `TODO(PLACEHOLDER)` boxes.
 - **Verified by running it:** unit tests (the flow, every line in EN and AR, line timing against the mp3s, the draft gate), lint, typecheck, and `tests/e2e/m10-tower.spec.ts` 2/2 (full English playthrough to the celebration, Arabic portrait right to left), with screenshots reviewed.
 - **Not verified:** a child playing it; the timing with the real recordings on a device. The owner's running dev server did not reload the changed files, so the E2E ran against a second copy on port 3001; restart the dev server before trying it.
+
+## D-079 Next.js 16.4.0 → 16.4.3 (security patch)
+- **Why:** the dev server reported that Next.js 16.4.0 is affected by a published security advisory (npm advisory database, checked 2026-10-23); the owner asked for the upgrade.
+- **How:** `next upgrade --agent=security` chose 16.4.3 (same major, no codemods). `next` and `eslint-config-next` pinned to 16.4.3; the lockfile changes only Next.js packages. `experimental.agentUpgrade: "security"` set in `next.config.ts` as the upgrade tool asks (it only controls these upgrade notices; it was already the default).
+- **Not done:** the tool's usage report to Vercel (sends data to a third party; CLAUDE.md asks first). No pull request: the GitHub CLI isn't installed.
+- **Verified by running it:** `next --version` 16.4.3, lint, typecheck, 211 unit and integration tests, production build, E2E `m10-tower` 2/2 against the upgraded dev server.
