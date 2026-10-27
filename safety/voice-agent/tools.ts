@@ -10,11 +10,17 @@ import { CHOICE_IDS } from "../stories/choices";
 export const MASCOT_MOODS = ["happy", "excited", "empathy", "calm"] as const;
 export const FEELINGS = ["happy", "sad", "angry", "excited"] as const;
 export const RESOURCE_KINDS = ["trusted_adult", "emergency_number", "child_helpline", "crisis_line", "report_exploitation"] as const;
+/** The calm activities of the voice room (D-076); "story" opens the story theatre instead. */
+export const ACTIVITIES = ["breathing", "grounding", "stretching"] as const;
+export type Activity = (typeof ACTIVITIES)[number];
+export type Offerable = Activity | "story";
 
 export const TOOL_ARGS = {
   set_mascot_state: z.strictObject({ mood: z.enum(MASCOT_MOODS) }),
   show_feeling_card: z.strictObject({ feeling: z.enum(FEELINGS) }),
-  start_breathing: z.strictObject({ rounds: z.number().int().min(1).max(3) }),
+  offer_activity: z.strictObject({ activity: z.enum([...ACTIVITIES, "story"]) }),
+  /** The child wants to stop the game they are playing (D-077). */
+  stop_activity: z.strictObject({}),
   suggest_place: z.strictObject({ place: z.enum(WORLD_PLACE_IDS) }),
   show_safety_resources: z.strictObject({ kinds: z.array(z.enum(RESOURCE_KINDS)).min(1).max(RESOURCE_KINDS.length) }),
   /** Story workshop, server tools (D-070): handled by our proxy, never sent to the app. */
@@ -36,7 +42,7 @@ export type ToolName = keyof typeof TOOL_ARGS;
 export type ToolCall = { [K in ToolName]: { name: K; args: z.infer<(typeof TOOL_ARGS)[K]> } }[ToolName];
 
 /** Tools the model may choose. `show_safety_resources` is never offered: only the router emits it (crisis). */
-export const MODEL_TOOLS = ["set_mascot_state", "show_feeling_card", "start_breathing", "suggest_place"] as const satisfies readonly ToolName[];
+export const MODEL_TOOLS = ["set_mascot_state", "show_feeling_card", "offer_activity", "stop_activity", "suggest_place"] as const satisfies readonly ToolName[];
 /** In the story workshop: the mood, and the two server tools that fill the story's slots. */
 export const STORY_MODEL_TOOLS = ["set_mascot_state", "set_story_choice", "story_idea"] as const satisfies readonly ToolName[];
 /** Tools the proxy handles itself (never forwarded to ElevenLabs or the app). */
@@ -61,13 +67,18 @@ export const TOOL_DEFS: Record<ToolName, { description: string; parameters: Json
       required: ["feeling"],
     },
   },
-  start_breathing: {
-    description: "Starts a short, calm breathing game on the child's screen (breathe in, breathe out). Offer it when the child feels upset, worried or angry, and only if they say yes.",
+  offer_activity: {
+    description:
+      "Starts a short activity on the child's screen: breathing (slow breaths with a cloud), grounding (noticing things to see, hear and feel), stretching (gentle moves with Feelio) or story (making a story together). Call it only after you offered it in words and the child said yes.",
     parameters: {
       type: "object",
-      properties: { rounds: { type: "integer", minimum: 1, maximum: 3, description: "How many slow breaths, 1 to 3." } },
-      required: ["rounds"],
+      properties: { activity: { type: "string", enum: [...ACTIVITIES, "story"], description: "breathing, grounding, stretching or story." } },
+      required: ["activity"],
     },
+  },
+  stop_activity: {
+    description: "Stops the game the child is playing on the screen and goes back to talking. Call it only when the child says they want to stop the game.",
+    parameters: { type: "object", properties: {}, required: [] },
   },
   suggest_place: {
     description: "Shows a button to visit one place in Feelio's world. Use it only when the child wants something to do.",
@@ -140,4 +151,32 @@ export function parseToolCall(name: string, args: unknown, allowed: readonly Too
   }
   const parsed = TOOL_ARGS[name as ToolName].safeParse(value);
   return parsed.success ? ({ name, args: parsed.data } as ToolCall) : null;
+}
+
+/**
+ * Whether a screen tool may reach this child (checked in the proxy, from our database): a place only
+ * when the child has reached it, a story only when story making is open for them now (D-070, D-076),
+ * and during a game only a stop (D-077).
+ */
+export function allowedForChild(call: ToolCall, can: { placesOpen: readonly string[]; storiesOpen: boolean; playing?: boolean }): boolean {
+  // While a game is on (D-077): it can be stopped, and nothing new is offered over it.
+  if (call.name === "stop_activity") return Boolean(can.playing);
+  if (can.playing && (call.name === "offer_activity" || call.name === "suggest_place")) return false;
+  if (call.name === "suggest_place") return can.placesOpen.includes(call.args.place);
+  if (call.name === "offer_activity" && call.args.activity === "story") return can.storiesOpen;
+  return true;
+}
+
+/** The calm activity the child just finished, as the app reports it for the next talk: closed list only. */
+export function afterActivity(value: unknown): Activity | null {
+  return typeof value === "string" && (ACTIVITIES as readonly string[]).includes(value) ? (value as Activity) : null;
+}
+
+/**
+ * A reply that ends with a question is still asking (D-076): an activity call in that same reply comes
+ * before the child's answer, so the proxy holds it back. A yes in the talk starts a game by itself, so
+ * this keeps a model that jumps ahead from starting one unasked.
+ */
+export function stillAsking(said: string): boolean {
+  return /[?؟]\s*$/.test(said.trim());
 }

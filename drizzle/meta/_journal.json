@@ -50,6 +50,20 @@
       "when": 1791743967838,
       "tag": "0006_stories",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791901299343,
+      "tag": "0007_greedy_deathbird",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1792431290160,
+      "tag": "0008_voice_game",
+      "breakpoints": true
     }
   ]
 }

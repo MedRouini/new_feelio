@@ -167,8 +167,8 @@ export async function* respond(ctx: SafetyCtx, messages: Message[], opts: Respon
   });
 
   const steer0 = t0.action.type === "steer" ? t0.action.notes : [];
-  // The child's words go to the model redacted (no personal information).
-  const history = messages.map((m, i) => (i === messages.length - 1 && m.role === "user" ? { ...m, content: t0.redacted } : m));
+  // The child's words go to the model redacted (no personal information), earlier turns of the talk too.
+  const history = messages.map((m, i) => (m.role !== "user" ? m : { ...m, content: i === messages.length - 1 ? t0.redacted : checkInputT0(m.content).redacted }));
   const turn = { count: 0, blocked: null as Decision | null, broken: false };
   const calls: { name: string; args: string }[] = [];
 

@@ -20,7 +20,7 @@ const START: Entry[] = [
 const MAIN: Entry = { id: "map", href: "/", art: "dock_map" };
 const END: Entry[] = [
   { id: "calm", href: "/calm", art: "dock_calm" },
-  { id: "collection", href: "/collection", art: "dock_collection" },
+  { id: "collection", href: "/room", art: "dock_collection" },
 ];
 
 /**

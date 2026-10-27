@@ -1,0 +1,80 @@
+[
+  {
+    "asset_name": "ui_btn_make_story",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a magic wand with an amber star on top, hovering over an open storybook whose blank pages glow softly, with three tiny sparkles. It must read clearly as a button-sized object at 96 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_stories.png",
+      "assets/approved/ui/ui_story_wand.png"
+    ],
+    "output_path": "assets/incoming/batch7/ui_btn_make_story.png",
+    "final_path": "assets/approved/ui/ui_btn_make_story.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_btn_curtain_rope",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a thick golden theatre curtain rope hanging straight down, ending in a big fluffy golden tassel, with two tiny sparkles beside it. It must read clearly as a button-sized object at 96 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_stories.png",
+      "assets/approved/ui/ui_mic_object.png"
+    ],
+    "output_path": "assets/incoming/batch7/ui_btn_curtain_rope.png",
+    "final_path": "assets/approved/ui/ui_btn_curtain_rope.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_btn_read_aloud",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a friendly golden gramophone-style speaker horn with three soft rounded sound waves coming out of it. It must read clearly as a button-sized object at 96 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_stories.png",
+      "assets/approved/ui/ui_mic_object.png"
+    ],
+    "output_path": "assets/incoming/batch7/ui_btn_read_aloud.png",
+    "final_path": "assets/approved/ui/ui_btn_read_aloud.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_step_hero",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single small icon picture: a shining golden star wearing a tiny rose cape, standing proudly. Very simple and bold, easy to recognise at 56 px. Centred, filling about 80% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_stories.png",
+      "assets/approved/ui/ui_story_wand.png"
+    ],
+    "output_path": "assets/incoming/batch7/ui_step_hero.png",
+    "final_path": "assets/approved/ui/ui_step_hero.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_step_place",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single small icon picture: a tiny painted stage backdrop on a small wooden stand, showing rolling green hills and a round sun. Very simple and bold, easy to recognise at 56 px. Centred, filling about 80% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_stories.png",
+      "assets/approved/ui/ui_story_wand.png"
+    ],
+    "output_path": "assets/incoming/batch7/ui_step_place.png",
+    "final_path": "assets/approved/ui/ui_step_place.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_step_adventure",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game icons from the same app; match their style, outline and glossy finish exactly. A single small icon picture: a rolled-open treasure map with a dotted path and a small round compass resting on it. Very simple and bold, easy to recognise at 56 px. Centred, filling about 80% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_stories.png",
+      "assets/approved/ui/ui_story_wand.png"
+    ],
+    "output_path": "assets/incoming/batch7/ui_step_adventure.png",
+    "final_path": "assets/approved/ui/ui_step_adventure.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  }
+]

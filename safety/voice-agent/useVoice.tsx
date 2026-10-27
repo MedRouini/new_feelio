@@ -2,7 +2,7 @@
 
 import { ConversationProvider, useConversation } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { TOOL_ARGS, parseToolCall, type ToolCall, type ToolName } from "./tools";
+import { TOOL_ARGS, parseToolCall, type Activity, type ToolCall, type ToolName } from "./tools";
 
 // The browser side of a voice talk (D-068, D-069): the only client code that touches the ElevenLabs SDK
 // (the lint rule keeps provider SDKs under safety/). It asks our session gate for a token (every check
@@ -12,6 +12,8 @@ import { TOOL_ARGS, parseToolCall, type ToolCall, type ToolName } from "./tools"
 
 export type VoiceState = "idle" | "connecting" | "listening" | "thinking" | "speaking" | "ended" | "lost";
 export type StartResult = { ok: true } | { ok: false; reason: string };
+/** The game the child is playing during the talk (D-077): closed lists and small numbers, never words. */
+export type GameReport = { activity: Activity; step: number; status: "running" | "paused" | "done" | "stopped"; found: number };
 
 const ALL_TOOLS = Object.keys(TOOL_ARGS) as ToolName[];
 /** After this long with nobody speaking, the screen shows a soft "I'm here when you're ready". */
@@ -39,6 +41,8 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
   const [caption, setCaption] = useState<string | null>(null);
   const [quiet, setQuiet] = useState(false);
   const session = useRef<string | null>(null);
+  /** Game reports go one after another, so the server never keeps an older one. */
+  const reports = useRef<Promise<unknown>>(Promise.resolve());
   const lastActivity = useRef(0);
   const toolRef = useRef(onTool);
   useEffect(() => {
@@ -60,7 +64,7 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
   }, []);
 
   const start = useCallback(
-    async (placeId?: string): Promise<StartResult> => {
+    async (placeId?: string, after?: Activity | null): Promise<StartResult> => {
       if (session.current) return { ok: false, reason: "busy" };
       setState("connecting");
       setCaption(null);
@@ -102,11 +106,13 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
       conv.startSession({
         conversationToken: data.token,
         connectionType: "webrtc",
-        // Lets our proxy find this session (ElevenLabs passes it to the custom LLM as elevenlabs_extra_body).
-        customLlmExtraBody: { feelio_session: sessionId },
+        // Lets our proxy find this session (ElevenLabs passes it to the custom LLM as elevenlabs_extra_body),
+        // and tells Feelio which calm activity the child just finished (an id; the proxy checks the list, D-076).
+        customLlmExtraBody: { feelio_session: sessionId, ...(after ? { feelio_after: after } : {}) },
         clientTools,
         onConnect: ({ conversationId }) => {
           touch();
+          conv.setMuted(false);
           setState("listening");
           void post({ action: "bind", sessionId, conversationId }).catch(() => {});
         },
@@ -129,6 +135,16 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
     [conv, finish, purpose],
   );
 
+  /**
+   * Tells our server what is happening in the game, so Feelio's next words fit it (D-077). The talk
+   * stays one conversation: the microphone stays open and the proxy decides what needs an answer.
+   */
+  const game = useCallback((r: GameReport) => {
+    const sessionId = session.current;
+    if (!sessionId) return;
+    reports.current = reports.current.then(() => post({ action: "game", sessionId, ...r })).catch(() => undefined);
+  }, []);
+
   /** Tells Feelio something the child did on screen (a fact for context; Feelio doesn't answer it). */
   const context = useCallback((text: string) => conv.sendContextualUpdate(text), [conv]);
 
@@ -147,7 +163,7 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
   // While listening, the microphone level tells the screen what is happening (locally, nothing is sent
   // by this): the child speaking keeps the quiet hint away and clears the old caption; a pause after
   // speech means Feelio is thinking. A soft hint shows after a quiet while (ElevenLabs ends the call
-  // itself after 30 s of silence).
+  // itself after 120 s of silence).
   const getInput = conv.getInputVolume;
   useEffect(() => {
     if (state !== "listening" && state !== "thinking") return;
@@ -178,5 +194,5 @@ export function useFeelioVoice({ onTool, purpose = "talk" }: { onTool: (call: To
   // Leaving the screen ends the talk.
   useEffect(() => () => void (session.current && post({ action: "end", sessionId: session.current }).catch(() => {})), []);
 
-  return { state, deadline, allowed, caption, quiet, start, stop, context, outputVolume: conv.getOutputVolume, inputVolume: conv.getInputVolume };
+  return { state, deadline, allowed, caption, quiet, start, stop, context, game, outputVolume: conv.getOutputVolume, inputVolume: conv.getInputVolume };
 }

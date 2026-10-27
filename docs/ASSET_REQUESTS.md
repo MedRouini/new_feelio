@@ -139,7 +139,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon for style and three small brand characters (a heart, a cloud and a star with cute faces). A single game icon, centred, filling about 80% of the frame, no tile or background shape: a rounded keepsake box in soft rose (#FFD8E6 with #C4557C trim), lid open, with the three attached characters peeking out happily, kept identical to the attachments in shape, colour and face. Chunky, rounded, easy to read at small size, same glossy finish as the attached icon. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No text, no letters, no numbers, no logos, no watermark, no other characters.
 
-### dock_calm   status: redo (2026-10-11): The three lilac breath swirls read as question marks ("?"), which a child can take as "something is wrong" or as a symbol to read.
+### dock_calm   status: approved (2026-10-13; the 2026-10-11 redo reason, swirls reading as "?", is fixed)
 - Used in: phone-style dock, "Calm" button (the calm corner: slow breathing with Feelio)
 - Purpose: icon for a quiet, calming place
 - Size and ratio: 1024×1024 square
@@ -233,7 +233,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot, an approved pose of it, and its official happy face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing, arm-flaps lifted slightly outward and open as if saying "yay", body leaning a little to one side] and [FACE: the attached happy face, eyes slightly curved with joy]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_excited   status: requested
+### mascot_excited   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: map (tapping the mascot or an unlocked place, new place unlocked)
 - Purpose: big positive reaction. Never used in crisis or sad moments (`docs/MASCOT.md`)
 - Size and ratio: 1024×1024 square
@@ -339,7 +339,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: head and body tilted slightly to one side, one arm-flap raised and cupped near the side of the screen face as if listening carefully, leaning in a little toward the viewer] and [FACE: attentive open sparkle eyes, eyebrows gently raised, a small closed soft smile]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no sound waves, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_thinking   status: requested
+### mascot_thinking   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Talk screen, between the end of the child's speech and the first reply audio
 - Purpose: covers the latency gap with a readable "thinking" state
 - Size and ratio: 1024×1024 square
@@ -349,7 +349,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot and an approved pose of it. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing, one arm-flap raised to touch the bottom edge of its screen face like a hand on the chin, the antenna orb glowing a little brighter] and [FACE: eyes looking up and to the side, a small round "o" mouth, thoughtful and calm]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no thought bubble, no symbols, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_speaking_half   status: requested
+### mascot_speaking_half   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Talk screen while the agent speaks; the **base frame** for the three mouth frames (generate this one first)
 - Purpose: speaking pose with a half-open mouth
 - Size and ratio: 1024×1024 square
@@ -359,7 +359,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Create an image. I attached the official mascot, an approved pose of it, and its official happy face. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, heart on the belly, stubby arms and feet. Change only the pose and expression: [POSE: standing facing the viewer, one arm-flap raised a little in a friendly explaining gesture, the other relaxed] and [FACE: warm open sparkle eyes, mouth half open as if in the middle of saying a word]. Full body, centred, transparent background PNG (plain white if transparency fails), 1024×1024, no ground shadow, no speech bubble, no props, no text, no letters, no other characters. Flat 2D vector-style illustration for a children's mobile game, gentle glossy highlights, friendly kawaii style; not 3D, not photorealistic. No logos, no watermark.
 
-### mascot_speaking_closed   status: requested
+### mascot_speaking_closed   status: approved (2026-10-13, owner decision: kept although the body is not pixel-aligned with `mascot_speaking_half`; retrying gave the same result)
 - Used in: Talk screen mouth frame at low output volume
 - Purpose: lip-sync frame (swapped by audio level in code)
 - Size and ratio: 1024×1024 square, **pixel-aligned with `mascot_speaking_half`**
@@ -369,7 +369,7 @@ Claude Code adds a batch per milestone. Each entry has a ready-to-paste prompt, 
 - Prompt (paste into ChatGPT):
   > Edit the attached image. Same pose and body as the attached pose image, only the mouth changes: closed, a small soft smile. Keep everything else exactly identical: same size, same position in the frame, same eyes, cheeks, colours and highlights. Transparent background PNG (plain white if transparency fails), 1024×1024. No text, no letters, no other changes.
 
-### mascot_speaking_open   status: requested
+### mascot_speaking_open   status: approved (2026-10-13, owner decision: kept although the body is not pixel-aligned with `mascot_speaking_half`; retrying gave the same result)
 - Used in: Talk screen mouth frame at high output volume
 - Purpose: lip-sync frame
 - Size and ratio: 1024×1024 square, **pixel-aligned with `mascot_speaking_half`**
@@ -487,7 +487,7 @@ Generate **after** approving the plan. Five groups, **one ChatGPT chat per group
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved game icon; match its style, outline and glossy finish. A single small cosy wooden door with a round top, a little golden key hanging from a hook beside it and a tiny round window, soft purple (#614194) door frame. Chunky and simple, easy to recognise at 64 px. Centred, filling about 80% of the frame, no ground shadow. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### ui_mic_object   status: redo (2026-10-11): The amber holder with two side handles on a round base reads as a trophy cup, not a microphone; a 5-year-old must recognise it as a mic at a glance.
+### ui_mic_object   status: approved (2026-10-13; the 2026-10-11 redo reason, reading as a trophy, is fixed)
 - Used in: Onboarding stop 4 and the Talk screen: the big friendly microphone
 - Purpose: A tappable microphone object
 - Size and ratio: 1024x1024 square
@@ -694,7 +694,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Wide 3:2 landscape game map, opaque (no transparency needed). I attached our approved world map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. This is the inside map of one place, the Home: a cosy family house with a garden, seen from above: the front door with a doormat, a dining table visible on a sunny patio, a small toy corner on a rug under a tree, a bedroom window with curtains, and a garden gate leading out to the lawn. A single wide, smooth light-beige path enters at the middle of the left edge and leaves at the middle of the right edge, winding gently up and down. Along the path are exactly 5 large, flat, EMPTY round stone pads (the same stone pads as on the attached map), evenly spaced, with nothing standing on them and open space around each pad. Leave a calm, mostly plain strip at the very top for a name sign. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### place_home_map_v   status: redo (2026-10-11): not delivered. "Cozy Cottage Garden Pathway.png" came back landscape (1536x1024) and shows the house from outside, while the approved landscape Home map shows the inside; kept in assets/redo/
+### place_home_map_v   status: approved (2026-10-13; portrait, the inside of the house; stones measured)
 - Used in: Place map of Home (portrait): `/place/home`
 - Purpose: The Home's own map; its 5 level stones sit on the pads
 - Size and ratio: 1024x1536 portrait
@@ -804,7 +804,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 
 ### Group 5: Park, School, Club and Market place maps (one chat; P2)
 
-### place_park_map_h   status: requested (2026-10-11, D-056)
+### place_park_map_h   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Place map of Park (landscape): `/place/park`
 - Purpose: The Park's own map; its 5 level stones sit on the pads
 - Size and ratio: 1536x1024 landscape
@@ -814,7 +814,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Wide 3:2 landscape game map, opaque (no transparency needed). I attached our approved world map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. This is the inside map of one place, the Park: a sunny park seen from above: a swing set under a big tree, a calm pond with lily pads and a little wooden bridge, an open lawn with a small goal for ball games, a picnic blanket area and a quiet bench under a tree. A single wide, smooth light-beige path enters at the middle of the left edge and leaves at the middle of the right edge, winding gently up and down. Along the path are exactly 5 large, flat, EMPTY round stone pads (the same stone pads as on the attached map), evenly spaced, with nothing standing on them and open space around each pad. Leave a calm, mostly plain strip at the very top for a name sign. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### place_park_map_v   status: requested (2026-10-11, D-056)
+### place_park_map_v   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Place map of Park (portrait): `/place/park`
 - Purpose: The Park's own map; its 5 level stones sit on the pads
 - Size and ratio: 1024x1536 portrait
@@ -824,7 +824,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Tall 2:3 portrait game map, opaque (no transparency needed). I attached our approved world map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. This is the inside map of one place, the Park: a sunny park seen from above: a swing set under a big tree, a calm pond with lily pads and a little wooden bridge, an open lawn with a small goal for ball games, a picnic blanket area and a quiet bench under a tree. A single wide, smooth light-beige path enters at the middle of the bottom edge and leaves at the middle of the top edge, winding gently left and right. Along the path are exactly 5 large, flat, EMPTY round stone pads (the same stone pads as on the attached map), evenly spaced, with nothing standing on them and open space around each pad. Leave a calm, mostly plain strip at the very top for a name sign. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### place_school_map_h   status: requested (2026-10-11, D-056)
+### place_school_map_h   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Place map of School (landscape): `/place/school`
 - Purpose: The School's own map; its 5 level stones sit on the pads
 - Size and ratio: 1536x1024 landscape
@@ -834,7 +834,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Wide 3:2 landscape game map, opaque (no transparency needed). I attached our approved world map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. This is the inside map of one place, the School: a friendly school yard seen from above: the school entrance with a clock, a classroom window with desks inside, a playground with a slide, a reading corner bench with books, and a few small trees. A single wide, smooth light-beige path enters at the middle of the left edge and leaves at the middle of the right edge, winding gently up and down. Along the path are exactly 5 large, flat, EMPTY round stone pads (the same stone pads as on the attached map), evenly spaced, with nothing standing on them and open space around each pad. Leave a calm, mostly plain strip at the very top for a name sign. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### place_school_map_v   status: requested (2026-10-11, D-056)
+### place_school_map_v   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Place map of School (portrait): `/place/school`
 - Purpose: The School's own map; its 5 level stones sit on the pads
 - Size and ratio: 1024x1536 portrait
@@ -844,7 +844,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Tall 2:3 portrait game map, opaque (no transparency needed). I attached our approved world map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. This is the inside map of one place, the School: a friendly school yard seen from above: the school entrance with a clock, a classroom window with desks inside, a playground with a slide, a reading corner bench with books, and a few small trees. A single wide, smooth light-beige path enters at the middle of the bottom edge and leaves at the middle of the top edge, winding gently left and right. Along the path are exactly 5 large, flat, EMPTY round stone pads (the same stone pads as on the attached map), evenly spaced, with nothing standing on them and open space around each pad. Leave a calm, mostly plain strip at the very top for a name sign. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### place_club_map_h   status: requested (2026-10-11, D-056)
+### place_club_map_h   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Place map of Club (landscape): `/place/club`
 - Purpose: The Club's own map; its 5 level stones sit on the pads
 - Size and ratio: 1536x1024 landscape
@@ -854,7 +854,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Wide 3:2 landscape game map, opaque (no transparency needed). I attached our approved world map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. This is the inside map of one place, the Club: a colourful activity club seen from above: a music corner with drums, an art corner with an easel, a small sports yard, a group circle of cushions, and a little stage with curtains. A single wide, smooth light-beige path enters at the middle of the left edge and leaves at the middle of the right edge, winding gently up and down. Along the path are exactly 5 large, flat, EMPTY round stone pads (the same stone pads as on the attached map), evenly spaced, with nothing standing on them and open space around each pad. Leave a calm, mostly plain strip at the very top for a name sign. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### place_club_map_v   status: requested (2026-10-11, D-056)
+### place_club_map_v   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Place map of Club (portrait): `/place/club`
 - Purpose: The Club's own map; its 5 level stones sit on the pads
 - Size and ratio: 1024x1536 portrait
@@ -864,7 +864,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Tall 2:3 portrait game map, opaque (no transparency needed). I attached our approved world map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. This is the inside map of one place, the Club: a colourful activity club seen from above: a music corner with drums, an art corner with an easel, a small sports yard, a group circle of cushions, and a little stage with curtains. A single wide, smooth light-beige path enters at the middle of the bottom edge and leaves at the middle of the top edge, winding gently left and right. Along the path are exactly 5 large, flat, EMPTY round stone pads (the same stone pads as on the attached map), evenly spaced, with nothing standing on them and open space around each pad. Leave a calm, mostly plain strip at the very top for a name sign. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### place_market_map_h   status: requested (2026-10-11, D-056)
+### place_market_map_h   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Place map of Market (landscape): `/place/market`
 - Purpose: The Market's own map; its 5 level stones sit on the pads
 - Size and ratio: 1536x1024 landscape
@@ -874,7 +874,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Wide 3:2 landscape game map, opaque (no transparency needed). I attached our approved world map: match its art style, colours, camera angle (soft three-quarter top-down), lighting from the top-left and level of detail exactly. This is the inside map of one place, the Market: a friendly outdoor market seen from above: fruit and vegetable stalls with striped awnings, a toy stall, a small flower stall, a fountain in a little square, and a short queue area with soft rope posts. A single wide, smooth light-beige path enters at the middle of the left edge and leaves at the middle of the right edge, winding gently up and down. Along the path are exactly 5 large, flat, EMPTY round stone pads (the same stone pads as on the attached map), evenly spaced, with nothing standing on them and open space around each pad. Leave a calm, mostly plain strip at the very top for a name sign. No people, no animals, no characters. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters.
 
-### place_market_map_v   status: requested (2026-10-11, D-056)
+### place_market_map_v   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Place map of Market (portrait): `/place/market`
 - Purpose: The Market's own map; its 5 level stones sit on the pads
 - Size and ratio: 1024x1536 portrait
@@ -886,7 +886,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 
 ### Group 6: Park, School, Club and Market arrival pictures and level icons (one chat per place; P2)
 
-### loading_place_park   status: requested (2026-10-11, D-056)
+### loading_place_park   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Loading scene while the Park map opens (above the hopping mascot)
 - Purpose: Shows the child where they are going while the Park loads
 - Size and ratio: 1024x1024 square
@@ -896,7 +896,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached our approved map and an approved icon; match their style. A single friendly object picture, centred, filling about 80% of the frame, no scene and no background shape: a friendly park entrance: a rounded arch of leaves and flowers over a path, with a small bush on each side. Welcoming and calm. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_park_1   status: requested (2026-10-11, D-056)
+### level_park_1   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Park place map, above level 1's stone ("Waiting for a turn")
 - Purpose: Shows what level 1 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -906,7 +906,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a wooden swing hanging from a tree branch. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_park_2   status: requested (2026-10-11, D-056)
+### level_park_2   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Park place map, above level 2's stone ("Calming down by the pond")
 - Purpose: Shows what level 2 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -916,7 +916,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a small round pond with lily pads and one pink water flower. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_park_3   status: requested (2026-10-11, D-056)
+### level_park_3   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Park place map, above level 3's stone ("Losing a game")
 - Purpose: Shows what level 3 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -926,7 +926,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a soft ball in front of a small goal net. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_park_4   status: requested (2026-10-11, D-056)
+### level_park_4   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Park place map, above level 4's stone ("Sharing a picnic")
 - Purpose: Shows what level 4 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -936,7 +936,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a picnic basket on a checked blanket with two apples. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_park_5   status: requested (2026-10-11, D-056)
+### level_park_5   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Park place map, above level 5's stone ("Helping someone who is sad")
 - Purpose: Shows what level 5 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -946,7 +946,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a small park bench with a soft pink heart floating above it. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### loading_place_school   status: requested (2026-10-11, D-056)
+### loading_place_school   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Loading scene while the School map opens (above the hopping mascot)
 - Purpose: Shows the child where they are going while the School loads
 - Size and ratio: 1024x1024 square
@@ -956,7 +956,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached our approved map and an approved icon; match their style. A single friendly object picture, centred, filling about 80% of the frame, no scene and no background shape: the friendly double doors of a school entrance with a round clock above them and two small bushes. Welcoming and calm. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_school_1   status: requested (2026-10-11, D-056)
+### level_school_1   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: School place map, above level 1's stone ("The first day")
 - Purpose: Shows what level 1 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -966,7 +966,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a new school bag with a ribbon tied on it. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_school_2   status: requested (2026-10-11, D-056)
+### level_school_2   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: School place map, above level 2's stone ("Nervous about a test")
 - Purpose: Shows what level 2 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -976,7 +976,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a pencil lying on a blank sheet of paper on a small desk (the paper is completely blank). Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_school_3   status: requested (2026-10-11, D-056)
+### level_school_3   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: School place map, above level 3's stone ("Feeling left out")
 - Purpose: Shows what level 3 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -986,7 +986,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: one small chair standing a little apart from a cosy circle of chairs. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_school_4   status: requested (2026-10-11, D-056)
+### level_school_4   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: School place map, above level 4's stone ("Making a friend")
 - Purpose: Shows what level 4 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -996,7 +996,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: two kites flying side by side with their strings crossing. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_school_5   status: requested (2026-10-11, D-056)
+### level_school_5   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: School place map, above level 5's stone ("Arguing with a friend")
 - Purpose: Shows what level 5 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1006,7 +1006,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: two block towers next to each other, one leaning, with a small calm cloud above. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### loading_place_club   status: requested (2026-10-11, D-056)
+### loading_place_club   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Loading scene while the Club map opens (above the hopping mascot)
 - Purpose: Shows the child where they are going while the Club loads
 - Size and ratio: 1024x1024 square
@@ -1016,7 +1016,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached our approved map and an approved icon; match their style. A single friendly object picture, centred, filling about 80% of the frame, no scene and no background shape: a small stage with soft curtains just opening and bunting above it. Welcoming and calm. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_club_1   status: requested (2026-10-11, D-056)
+### level_club_1   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Club place map, above level 1's stone ("Joining a group")
 - Purpose: Shows what level 1 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1026,7 +1026,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a circle of soft floor cushions with one cushion slightly apart, inviting. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_club_2   status: requested (2026-10-11, D-056)
+### level_club_2   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Club place map, above level 2's stone ("Taking turns in music")
 - Purpose: Shows what level 2 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1036,7 +1036,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a small drum and a xylophone side by side. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_club_3   status: requested (2026-10-11, D-056)
+### level_club_3   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Club place map, above level 3's stone ("Hearing feedback on art")
 - Purpose: Shows what level 3 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1046,7 +1046,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: an easel with a canvas showing a simple sun and a paint palette (no letters). Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_club_4   status: requested (2026-10-11, D-056)
+### level_club_4   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Club place map, above level 4's stone ("Losing as a team")
 - Purpose: Shows what level 4 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1056,7 +1056,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a soft ball and two small team flags without any symbols. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_club_5   status: requested (2026-10-11, D-056)
+### level_club_5   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Club place map, above level 5's stone ("Stage fright")
 - Purpose: Shows what level 5 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1066,7 +1066,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a microphone on a stand in front of small stage curtains. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### loading_place_market   status: requested (2026-10-11, D-056)
+### loading_place_market   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Loading scene while the Market map opens (above the hopping mascot)
 - Purpose: Shows the child where they are going while the Market loads
 - Size and ratio: 1024x1024 square
@@ -1076,7 +1076,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached our approved map and an approved icon; match their style. A single friendly object picture, centred, filling about 80% of the frame, no scene and no background shape: the striped awning of a friendly market stall with fruit baskets underneath. Welcoming and calm. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_market_1   status: requested (2026-10-11, D-056)
+### level_market_1   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Market place map, above level 1's stone ("Waiting in line")
 - Purpose: Shows what level 1 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1086,7 +1086,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: two soft rope posts with a rope between them, like a small queue line. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_market_2   status: requested (2026-10-11, D-056)
+### level_market_2   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Market place map, above level 2's stone ("Wanting something you can't have")
 - Purpose: Shows what level 2 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1096,7 +1096,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a shiny toy car behind a shop window. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_market_3   status: requested (2026-10-11, D-056)
+### level_market_3   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Market place map, above level 3's stone ("Feeling lost")
 - Purpose: Shows what level 3 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1106,7 +1106,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a round friendly compass with a heart instead of a needle tip. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_market_4   status: requested (2026-10-11, D-056)
+### level_market_4   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Market place map, above level 4's stone ("Being honest")
 - Purpose: Shows what level 4 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1116,7 +1116,7 @@ New folders: `assets/approved/place/` (place maps and arrival pictures) and `ass
 - Prompt (paste into ChatGPT):
   > Create an image. Square 1:1, transparent background. I attached an approved icon; match its style exactly. A single game icon object, centred, filling about 80% of the frame, no tile or background shape: a small coin purse next to a red apple. Chunky, rounded, easy to read at small size. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no extra characters. No people.
 
-### level_market_5   status: requested (2026-10-11, D-056)
+### level_market_5   status: approved (2026-10-13, reviewed by Claude Code; made by a colleague with the OpenAI image tool via Codex)
 - Used in: Market place map, above level 5's stone ("Being kind")
 - Purpose: Shows what level 5 is about, so a child who can't read can recognise it
 - Size and ratio: 1024x1024 square
@@ -1221,6 +1221,97 @@ Use the standard mascot prompt in docs/MASCOT.md with:
 | `mascot_directing.png` | standing side-on, one arm-flap raised and pointing forward like a friendly play director, the other on its hip | excited, sparkly eyes, big open smile |
 | `mascot_holding_album.png` | hugging a small closed purple album to its chest with both arm-flaps | proud and happy, eyes curved, warm smile |
 
+## Batch 6 (My room), written 2026-10-13 (D-074, docs/superpowers/specs/2026-10-13-my-room-design.md)
+Made with Codex from the job list `assets/requests/batch6/jobs.json` (full prompt, references, size and transparency for each file; brief: `assets/requests/batch6/CODEX.md`). Files land in `assets/incoming/batch6/` (git-ignored) and are reviewed by Claude Code before they move to `assets/approved/`. Until then the room objects and wardrobe tiles show grey `TODO(PLACEHOLDER)` boxes and the room uses the treasure-room scene.
+
+| id | Shape | References | What to draw |
+|---|---|---|---|
+| `scene_my_room_land` | 1536x1024 opaque | `scene_meadow_land` | the bedroom, landscape |
+| `scene_my_room_port` | 1024x1536 opaque | `scene_meadow_land`, `scene_my_room_land` | the bedroom, portrait (make after the landscape one) |
+| `room_wardrobe` | 1024x1024 transparent | `dock_collection` | a small rounded wooden wardrobe with its two doors slightly open and a soft lilac glow inside |
+| `room_gift_box` | 1024x1024 transparent | `dock_collection` | a big gift box in purple with a rose ribbon and a large bow, lid closed |
+| `room_star_shelf` | 1024x1024 transparent | `dock_collection` | an empty floating wooden wall shelf with two small rounded brackets |
+| `room_feelings_jar` | 1024x1024 transparent | `dock_collection` | an empty round glass jar with a cork lid and a soft warm glow inside |
+| `room_pinboard` | 1024x1024 transparent | `dock_collection` | an empty cork pinboard with a rounded wooden frame and four coloured pins in the corners |
+| `room_book_stack` | 1024x1024 transparent | `dock_collection` | a small stack of three books with blank, plain covers on a tiny round wooden table |
+| `wear_party_hat` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small striped party hat in rose and amber with a fluffy pompom on top |
+| `wear_flower_crown` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a ring of small pastel flowers and green leaves worn on top of the head, front view |
+| `wear_wizard_hat` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small purple wizard hat with a soft brim, dotted with tiny amber stars |
+| `wear_beanie` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a cosy knitted beanie in sky blue with a white pompom |
+| `wear_round_glasses` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of round glasses with purple frames and clear lenses, front view |
+| `wear_star_glasses` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of fun star-shaped glasses with amber frames, front view |
+| `wear_heart_glasses` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of heart-shaped glasses with rose frames and light pink lenses, front view |
+| `wear_sunglasses` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of rounded sunglasses with sky-blue frames and dark lilac lenses, front view |
+| `wear_scarf` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a cosy knitted scarf in amber and rose stripes, wrapped like a collar with one end hanging down |
+| `wear_bow_tie` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small purple bow tie with white polka dots |
+| `wear_flower_garland` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a soft garland of small pastel flowers hanging in a U shape like a necklace |
+| `wear_star_medal` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a round gold medal with a raised star in the middle, hanging from a short rose ribbon loop |
+| `wear_backpack` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small rounded backpack in sky blue with an amber flap, seen from the front with both straps |
+| `wear_cape` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a small hero cape in rose with a gold round clasp at the top, spread open as seen from the front |
+| `wear_butterfly_wings` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a pair of soft butterfly wings in lilac and sky blue with gentle round patterns, spread open |
+| `wear_balloon` | 1024x1024 transparent | `avatar_bun_amber_idle`, `dock_collection` | a single round amber balloon with a shine and a curly string |
+
+
+## Batch 7 (story experience: action objects and step icons), written 2026-10-13 (D-075, docs/superpowers/specs/2026-10-13-story-experience-design.md)
+Made with Codex from `assets/requests/batch7/jobs.json` (brief: `assets/requests/batch7/CODEX.md`) into the git-ignored `assets/incoming/batch7/`, checked by `npx tsx scripts/check-incoming.ts batch7`, then reviewed by Claude Code. The feeling step uses the approved brand face `face_happy`.
+
+| id | Used for | What to draw |
+|---|---|---|
+| `ui_btn_make_story` | Library: make a new story | a magic wand with an amber star on top, hovering over an open storybook whose blank pages glow softly, with three tiny sparkles |
+| `ui_btn_curtain_rope` | Theatre: pull to make the story | a thick golden theatre curtain rope hanging straight down, ending in a big fluffy golden tassel, with two tiny sparkles beside it |
+| `ui_btn_read_aloud` | Storybook: read it to me | a friendly golden gramophone-style speaker horn with three soft rounded sound waves coming out of it |
+| `ui_step_hero` | Step ticket: hero | a shining golden star wearing a tiny rose cape, standing proudly |
+| `ui_step_place` | Step ticket: place | a tiny painted stage backdrop on a small wooden stand, showing rolling green hills and a round sun |
+| `ui_step_adventure` | Step ticket: adventure | a rolled-open treasure map with a dotted path and a small round compass resting on it |
+
+
+## Batch 8 (voice room: activity poses and start objects), written 2026-10-14 (D-076, docs/VOICE_ROOM.md)
+Made with Codex from `assets/requests/batch8/jobs.json` (brief: `assets/requests/batch8/CODEX.md`) into the git-ignored `assets/incoming/batch8/`, checked by `npx tsx scripts/check-incoming.ts batch8`, then reviewed by Claude Code. Every mascot pose attaches the official mascot (`brand/mascot/default/png/IMG_9937.png`) and `mascot_idle`. **Optional:** until each one is approved, the room uses an approved stand-in (listed in `design/asset-slots.ts` and `child/activities.ts`), so nothing is blocked.
+
+| id | Used for | What to draw |
+|---|---|---|
+| `mascot_breathe_in` | Breathing: breathing in | standing tall with the chest gently lifted, both stubby arms raised a little outward and upward as if slowly filling up with air; eyes softly closed in calm curved lines, a small closed peaceful smile |
+| `mascot_breathe_out` | Breathing: breathing out | standing relaxed and soft, shoulders dropped, both arms resting low and loose at its sides; eyes softly closed in calm curved lines, mouth a small round 'o' as if gently blowing out (no visible air) |
+| `mascot_look` | Noticing game: look around | one arm raised with its flat flap held just above the screen face like a sun visor, body leaning slightly to one side, curious; wide curious sparkle eyes looking to the side, small open smile |
+| `mascot_hug` | Noticing game: feel; stretching: hug | both stubby arms wrapped around its own round body in a gentle, cosy self-hug; eyes closed in happy upward arcs, warm content smile |
+| `mascot_stretch_up` | Stretching: reach up high | both arms stretched straight up high above its head on either side of the antenna, body standing tall on its toes; happy determined eyes, big open smile |
+| `mascot_stretch_side` | Stretching: sway side to side | body leaning gently to one side like a bending tree, the arm on the other side arched over its head toward the lean, the near arm resting on its side; calm happy eyes, gentle smile |
+| `mascot_shake` | Stretching: shake your hands | both arms held out to the sides, slightly bent, flaps loose as if shaking them out, knees a little bent, playful; eyes in happy upward arcs, laughing open smile |
+| `ui_act_breathe` | Voice room: start breathing with the cloud | a plump soft pastel cloud resting on a small round lilac cushion, with three tiny sparkles above it |
+| `ui_act_notice` | Voice room: start the noticing game | a chunky magnifying glass with a rounded amber handle and a sky-blue rim, a small soft amber star twinkling inside its lens |
+| `ui_act_stretch` | Voice room: start stretching | a soft exercise mat in rose and lilac stripes, half rolled up, with a small amber star resting on the flat part |
+
+
+## Batch 9 (The Tower: Nori), written 2026-10-20 (D-078, docs/SEL_ADVENTURES.md)
+Made with Codex from `assets/requests/batch9/jobs.json` (brief: `CODEX.md`) into `assets/incoming/batch9/`. Nori is the first supporting-cast character (ART_DIRECTION §9): the sheet is approved first and is the identity reference for every pose. **Approved 2026-10-23** (all four, first try).
+
+| id | Used for | status |
+|---|---|---|
+| `cast_nori_sheet` | The Tower: Nori identity reference sheet, not shown in app | approved |
+| `cast_nori_idle` | The Tower: Nori standing calmly | approved |
+| `cast_nori_oops` | The Tower: Nori accidentally bumps the tower | approved |
+| `cast_nori_scared` | The Tower: Nori mildly worried after the reaction | approved |
+
+## Batch 10 (The Tower: the rest), written 2026-10-23 (D-078)
+Made with Codex from `assets/requests/batch10/jobs.json` (brief: `CODEX.md`) into `assets/incoming/batch10/`, checked by `npx tsx scripts/check-incoming.ts batch10`, then reviewed by Claude Code. The two Nori poses attach the approved sheet and idle pose. The tower and the fallen tower block the level (grey boxes until then); the rest have approved stand-ins.
+
+| id | Used for | status |
+|---|---|---|
+| `cast_nori_sorry` | The Tower: Nori says sorry | requested |
+| `cast_nori_happy` | The Tower: Nori builds with Feelio, and the end | requested |
+| `prop_tower_tall` | The Tower: the block tower (it is revealed from the bottom up as the child taps) | requested |
+| `prop_tower_fallen` | The Tower: the tower after Nori bumps it | requested |
+| `prop_block_pile` | The Tower: the blocks the child taps to build | requested |
+| `fx_storm_cloud` | The Tower: Feelio's angry storm, floating above its head | requested |
+| `ui_choice_stomp` | The Tower: choice card "Stomp" | requested |
+| `ui_choice_shout` | The Tower: choice card "Shout" | requested |
+| `ui_choice_tell` | The Tower: choice card "Tell Nori" | requested |
+| `ui_choice_together` | The Tower: choice card "Build together" | requested |
+
+
+## Batch 11 (film sample "The Tower"), written 2026-10-23 (D-080)
+Made with Codex from `assets/requests/batch11/jobs.json` (brief: `CODEX.md`) into `assets/incoming/batch11/`, checked by `npx tsx scripts/check-incoming.ts batch11`, then reviewed by Claude Code. 12 full illustrated frames (1536×1024, with background): 01 build, 02 proud, 03 Nori runs, 04 bump, 05 fallen, 06 storm, a1 shout, a2 alone, b1 breathe, b2 talk, b3 together, end cheer. References: the official mascot, the matching Feelio pose, frame 01 (room and light), and for Nori frames the Nori sheet and pose (at most 5, the tool's limit). **All 12 approved 2026-10-24**, saved in `assets/approved/film/`.
+
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
@@ -1243,7 +1334,7 @@ Use the standard mascot prompt in docs/MASCOT.md with:
 | node_completed | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | mascot_head_happy | 2026-10-10 | 2026-10-10 | 2026-10-10 | P1. Approved |
 | mascot_happy | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |
-| mascot_excited | 2026-10-10 | | | P2. Optional now: `mascot_feel_excited` covers the map tap reaction; generate the hop version only if you want more motion |
+| mascot_excited | 2026-10-10 | 2026-10-12 | 2026-10-13 | P2. Optional now: `mascot_feel_excited` covers the map tap reaction; generate the hop version only if you want more motion |
 | mascot_waving | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |
 | mascot_idle_blink | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |
 | ring_current | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2. Approved |
@@ -1253,13 +1344,13 @@ Use the standard mascot prompt in docs/MASCOT.md with:
 | mascot_feel_sad | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2b, face swap on mascot_idle. Approved |
 | mascot_feel_angry | 2026-10-10 | 2026-10-10 | 2026-10-10 | P2b, face swap on mascot_idle; naming only. Approved |
 | mascot_listening | 2026-10-10 | | | P3 (voice) |
-| mascot_thinking | 2026-10-10 | | | P3 (voice) |
-| mascot_speaking_half | 2026-10-10 | | | P3 (voice), base for the mouth frames |
-| mascot_speaking_closed | 2026-10-10 | | | P3 (voice) |
-| mascot_speaking_open | 2026-10-10 | | | P3 (voice) |
-| dock_calm | 2026-10-10 | | | Dock, 5th button (D-055) |
+| mascot_thinking | 2026-10-10 | 2026-10-12 | 2026-10-13 | P3 (voice) |
+| mascot_speaking_half | 2026-10-10 | 2026-10-12 | 2026-10-13 | P3 (voice), base for the mouth frames |
+| mascot_speaking_closed | 2026-10-10 | 2026-10-12 | 2026-10-13 | P3 (voice). Kept by owner decision 2026-10-13 (body not pixel-aligned; retry gave the same) |
+| mascot_speaking_open | 2026-10-10 | 2026-10-12 | 2026-10-13 | P3 (voice). Kept by owner decision 2026-10-13 (body not pixel-aligned; retry gave the same) |
+| dock_calm | 2026-10-10 | 2026-10-13 | 2026-10-13 | Dock, 5th button (D-055) (redo delivered) |
 | place_home_map_h | 2026-10-11 | 2026-10-11 | approved | Batch 3, P1 (D-056); stones measured, backdrop #ca9e76 |
-| place_home_map_v | 2026-10-11 | | | Batch 3, P1 (D-056) |
+| place_home_map_v | 2026-10-11 | 2026-10-13 | 2026-10-13 | Batch 3, P1 (D-056) (redo delivered; stones measured) |
 | node_in_progress | 2026-10-11 | | | Batch 3, P1 (D-056) |
 | ui_celebrate_burst | 2026-10-11 | | | Batch 3, P1 (D-056) |
 | loading_place_home | 2026-10-11 | | | Batch 3, P1 (D-056) |
@@ -1269,36 +1360,45 @@ Use the standard mascot prompt in docs/MASCOT.md with:
 | level_home_4 | 2026-10-11 | | | Batch 3, P1 (D-056) |
 | level_home_5 | 2026-10-11 | | | Batch 3, P1 (D-056) |
 | mascot_making | 2026-10-11 | | | Batch 3, P1 (D-056) |
-| place_park_map_h | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| place_park_map_v | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| loading_place_park | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_park_1 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_park_2 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_park_3 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_park_4 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_park_5 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| place_school_map_h | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| place_school_map_v | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| loading_place_school | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_school_1 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_school_2 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_school_3 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_school_4 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_school_5 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| place_club_map_h | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| place_club_map_v | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| loading_place_club | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_club_1 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_club_2 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_club_3 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_club_4 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_club_5 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| place_market_map_h | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| place_market_map_v | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| loading_place_market | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_market_1 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_market_2 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_market_3 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_market_4 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| level_market_5 | 2026-10-11 | | | Batch 3, P2 (D-056) |
-| batch-5 redesign v2 | 2026-10-12 | | | 4 scenes (land + port), sticker album, 2 mascot poses (D-071). Optional: pages use flat brand colours until approved |
+| place_park_map_h | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| place_park_map_v | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| loading_place_park | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_park_1 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_park_2 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_park_3 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_park_4 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_park_5 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| place_school_map_h | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| place_school_map_v | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| loading_place_school | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_school_1 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_school_2 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_school_3 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_school_4 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_school_5 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| place_club_map_h | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| place_club_map_v | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| loading_place_club | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_club_1 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_club_2 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_club_3 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_club_4 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_club_5 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| place_market_map_h | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| place_market_map_v | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| loading_place_market | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_market_1 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_market_2 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_market_3 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_market_4 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| level_market_5 | 2026-10-11 | 2026-10-12 | 2026-10-13 | Batch 3, P2 (D-056) |
+| batch-5 redesign v2 | 2026-10-12 | 2026-10-12 | 2026-10-13 | 4 scenes (land + port), sticker album, 2 mascot poses (D-071). Optional: pages use flat brand colours until approved |
+| batch-4 stories (heroes, places, adventures, faces, wand, mascot_reading) | 2026-10-11 | 2026-10-12 | 2026-10-13 | All 26 approved (colleague, OpenAI image tool via Codex; reviewed by Claude Code). `story_shelf`, `scene_story_corner_*`, `story_book_*`, `story_page_paper`, `ui_story_slot` no longer needed after the redesign (D-071) |
+| ui_mic_object | 2026-10-10 | 2026-10-13 | 2026-10-13 | Redo delivered: a handheld microphone |
+| no longer needed | 2026-10-11 | | | Removed from `design/asset-ids.ts` 2026-10-13 (unused since the redesign, D-071): `story_shelf`, `scene_story_corner_land/_port`, `story_book_open`, `story_page_paper`, `story_book_cover`, `ui_story_slot` |
+| batch-6 my room | 2026-10-13 | 2026-10-13 | 2026-10-13 | 2 scenes, 6 room objects, 16 wearable items (D-074); via Codex from assets/requests/batch6/jobs.json into assets/incoming/batch6/ | All 24 approved (reviewed by Claude Code); positions and placements measured |
+| batch-7 story experience | 2026-10-13 | 2026-10-13 | 2026-10-13 | 3 action objects + 3 step icons (D-075); via Codex from assets/requests/batch7/jobs.json into assets/incoming/batch7/ |
+| batch-8 voice room | 2026-10-14 | 2026-10-15 | 2026-10-15 | 7 mascot activity poses + 3 start objects (D-076); via Codex from assets/requests/batch8/jobs.json into assets/incoming/batch8/. All 10 approved (reviewed by Claude Code, first try each) |
+| batch-9 the tower: Nori | 2026-10-20 | 2026-10-20 | 2026-10-23 | Nori character sheet + idle, oops, scared (D-078); via Codex. All 4 approved (reviewed by Claude Code, first try each) |
+| batch-10 the tower: the rest | 2026-10-23 | | | 2 Nori poses, tower standing and fallen, block pile, storm cloud, 4 choice pictures (D-078) |
+| batch-11 film sample | 2026-10-23 | 2026-10-24 | 2026-10-24 | 12 full film frames for the interactive-film sample (D-080); via Codex from assets/requests/batch11/jobs.json into assets/incoming/batch11/ | All 12 approved (reviewed by Claude Code); frames 01–02 first try, 03–12 redone with up to 5 references |

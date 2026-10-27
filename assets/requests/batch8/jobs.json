@@ -1,0 +1,145 @@
+[
+  {
+    "asset_name": "mascot_breathe_in",
+    "used_for": "Breathing: breathing in",
+    "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: standing tall with the chest gently lifted, both stubby arms raised a little outward and upward as if slowly filling up with air and eyes softly closed in calm curved lines, a small closed peaceful smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_idle.png"
+    ],
+    "output_path": "assets/incoming/batch8/mascot_breathe_in.png",
+    "final_path": "assets/approved/mascot/mascot_breathe_in.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "mascot_breathe_out",
+    "used_for": "Breathing: breathing out",
+    "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: standing relaxed and soft, shoulders dropped, both arms resting low and loose at its sides and eyes softly closed in calm curved lines, mouth a small round 'o' as if gently blowing out (no visible air). Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_idle.png"
+    ],
+    "output_path": "assets/incoming/batch8/mascot_breathe_out.png",
+    "final_path": "assets/approved/mascot/mascot_breathe_out.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "mascot_look",
+    "used_for": "Noticing game: look around",
+    "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: one arm raised with its flat flap held just above the screen face like a sun visor, body leaning slightly to one side, curious and wide curious sparkle eyes looking to the side, small open smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_idle.png"
+    ],
+    "output_path": "assets/incoming/batch8/mascot_look.png",
+    "final_path": "assets/approved/mascot/mascot_look.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "mascot_hug",
+    "used_for": "Noticing game: feel; stretching: hug",
+    "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: both stubby arms wrapped around its own round body in a gentle, cosy self-hug and eyes closed in happy upward arcs, warm content smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_idle.png"
+    ],
+    "output_path": "assets/incoming/batch8/mascot_hug.png",
+    "final_path": "assets/approved/mascot/mascot_hug.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "mascot_stretch_up",
+    "used_for": "Stretching: reach up high",
+    "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: both arms stretched straight up high above its head on either side of the antenna, body standing tall on its toes and happy determined eyes, big open smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_idle.png"
+    ],
+    "output_path": "assets/incoming/batch8/mascot_stretch_up.png",
+    "final_path": "assets/approved/mascot/mascot_stretch_up.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "mascot_stretch_side",
+    "used_for": "Stretching: sway side to side",
+    "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: body leaning gently to one side like a bending tree, the arm on the other side arched over its head toward the lean, the near arm resting on its side and calm happy eyes, gentle smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_idle.png"
+    ],
+    "output_path": "assets/incoming/batch8/mascot_stretch_side.png",
+    "final_path": "assets/approved/mascot/mascot_stretch_side.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "mascot_shake",
+    "used_for": "Stretching: shake your hands",
+    "prompt": "Create an image. I attached the official mascot and its approved idle pose. Keep this exact character: same design, proportions, colours, glossy kawaii vector style, antenna with amber orb, dark blue screen face with sparkle eyes, pink cheeks, pale heart on the belly, stubby arms and feet, amber top melting into rose and purple feet. Change only the pose and expression: both arms held out to the sides, slightly bent, flaps loose as if shaking them out, knees a little bent, playful and eyes in happy upward arcs, laughing open smile. Full body, centred, filling about 85% of the frame, nothing cut off (the antenna orb and both feet fully inside). Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails), no ground shadow, no props, no motion lines, no air puffs, no text, no letters, no numbers, no logos, no watermark, no other characters.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_idle.png"
+    ],
+    "output_path": "assets/incoming/batch8/mascot_shake.png",
+    "final_path": "assets/approved/mascot/mascot_shake.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_act_breathe",
+    "used_for": "Voice room: start breathing with the cloud",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a plump soft pastel cloud resting on a small round lilac cushion, with three tiny sparkles above it. It must read clearly as a button-sized object at 110 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/dock_calm.png",
+      "assets/approved/ui/ui_mic_object.png",
+      "assets/approved/ui/ui_btn_make_story.png"
+    ],
+    "output_path": "assets/incoming/batch8/ui_act_breathe.png",
+    "final_path": "assets/approved/ui/ui_act_breathe.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_act_notice",
+    "used_for": "Voice room: start the noticing game",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a chunky magnifying glass with a rounded amber handle and a sky-blue rim, a small soft amber star twinkling inside its lens. It must read clearly as a button-sized object at 110 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/dock_calm.png",
+      "assets/approved/ui/ui_mic_object.png",
+      "assets/approved/ui/ui_btn_make_story.png"
+    ],
+    "output_path": "assets/incoming/batch8/ui_act_notice.png",
+    "final_path": "assets/approved/ui/ui_act_notice.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_act_stretch",
+    "used_for": "Voice room: start stretching",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single tappable game object: a soft exercise mat in rose and lilac stripes, half rolled up, with a small amber star resting on the flat part. It must read clearly as a button-sized object at 110 px: bold, simple, chunky shapes. Centred, filling about 82% of the frame, no ground shadow, no background shape, no frame. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/dock_calm.png",
+      "assets/approved/ui/ui_mic_object.png",
+      "assets/approved/ui/ui_btn_make_story.png"
+    ],
+    "output_path": "assets/incoming/batch8/ui_act_stretch.png",
+    "final_path": "assets/approved/ui/ui_act_stretch.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  }
+]

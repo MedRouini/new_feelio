@@ -1,0 +1,217 @@
+[
+  {
+    "asset_name": "film_tower_01_build",
+    "used_for": "Film sample \"The Tower\": Act 1: Feelio builds the tower (wide)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nTHIS SHOT: Wide shot of the whole room, morning sunlight through the window. Feelio stands on the rug next to a very tall, slightly wobbly tower of blocks (about twice Feelio's height), carefully placing the triangle roof block on top with both arm-flaps, tongue poking out a little in concentration, eyes focused and happy.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_idle.png",
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/mascot/mascot_happy.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_01_build.png",
+    "final_path": "assets/approved/film/film_tower_01_build.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_02_proud",
+    "used_for": "Film sample \"The Tower\": Act 1: Feelio is proud (medium close)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nTHIS SHOT: Medium close shot from a low angle: Feelio beaming with pride, arm-flaps raised in a little ta-da, sparkle eyes shining, the tall finished block tower rising behind it. Warm golden light.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_idle.png",
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/mascot/mascot_excited.png",
+      "assets/approved/mascot/mascot_happy.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_02_proud.png",
+    "final_path": "assets/approved/film/film_tower_02_proud.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_03_nori_runs",
+    "used_for": "Film sample \"The Tower\": Act 1: Nori runs in (medium)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Medium shot: the bedroom door on one side has just swung open and Nori runs in, excited and happy, arms out, mid-step, looking at the tower with wonder. Feelio stands by the tall tower, turning toward her, surprised. The tower is between them.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_happy.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_idle.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_03_nori_runs.png",
+    "final_path": "assets/approved/film/film_tower_03_nori_runs.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_04_bump",
+    "used_for": "Film sample \"The Tower\": Act 1: the bump (action)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Dynamic action shot: Nori has tripped on the edge of the rug and bumped the tower; the blocks are in mid-air, tumbling apart in a soft arc. Nori's eyes are wide, arms flung forward. Feelio's eyes and mouth are wide open in shock, arm-flaps up. Gentle, comic, not dangerous: nobody is hurt.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_feel_sad.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_oops.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_04_bump.png",
+    "final_path": "assets/approved/film/film_tower_04_bump.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_05_fallen",
+    "used_for": "Film sample \"The Tower\": Act 1: the tower is gone (wide)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Wide shot, a quiet moment after: blocks scattered across the rug and floor. Nori sits on the floor, both hands over her mouth, eyes worried (oops). Feelio stands frozen among the scattered blocks, staring at them, shoulders drooping.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_feel_sad.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_oops.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_05_fallen.png",
+    "final_path": "assets/approved/film/film_tower_05_fallen.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_06_storm",
+    "used_for": "Film sample \"The Tower\": Act 1: Feelio's storm, the choice moment (close-up)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Close-up on Feelio: angry face (frowning sparkle eyes, small angry symbol near the antenna like in the attached angry pose), arm-flaps clenched tight, body puffed up and slightly reddish-warm. Behind and above Feelio a soft, puffy dark-lilac storm cloud shape fills the background like its feeling made visible. The room light has turned dim and stormy purple. Big feeling, but not scary.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_feel_angry.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/mascot/mascot_idle.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_06_storm.png",
+    "final_path": "assets/approved/film/film_tower_06_storm.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_a1_shout",
+    "used_for": "Film sample \"The Tower\": Choice A: Feelio shouts (medium)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Medium shot: Feelio, angry, leaning forward with its mouth wide open in a shout (no sound lines, no text) and arm-flaps thrown up. Nori, sitting among the scattered blocks, shrinks back with her hands near her chest, eyes teary and scared. Dim purple stormy light.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_feel_angry.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_scared.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_a1_shout.png",
+    "final_path": "assets/approved/film/film_tower_a1_shout.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_a2_alone",
+    "used_for": "Film sample \"The Tower\": Choice A: Feelio is alone (wide)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Wide shot from high up: the bedroom door is half open and the room is empty except for Feelio, standing alone among the scattered blocks, looking down, sad and lonely, arm-flaps hanging. Nori is gone. Cool, dim evening light. Quiet and sad, not scary.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_feel_sad.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/mascot/mascot_idle.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_a2_alone.png",
+    "final_path": "assets/approved/film/film_tower_a2_alone.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_b1_breathe",
+    "used_for": "Film sample \"The Tower\": Choice B: Feelio breathes (medium)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Medium shot: Feelio standing tall with eyes softly closed, chest and belly gently lifted, breathing in slowly. A soft swirl of pale lilac and sky-blue mist circles around Feelio, and the stormy cloud behind it is shrinking and turning light. Nori, sitting on the floor nearby, watches with curious, worried eyes. The light is turning warm again.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_breathe_in.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_scared.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_b1_breathe.png",
+    "final_path": "assets/approved/film/film_tower_b1_breathe.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_b2_talk",
+    "used_for": "Film sample \"The Tower\": Choice B: Feelio talks to Nori (medium two-shot)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Medium two-shot at the characters' eye level: Feelio has come down close to Nori and speaks to her gently, one arm-flap reaching toward her, a calm kind face. Nori looks up at Feelio, sorry and relieved, a tiny shy smile starting. Scattered blocks around them. Soft warm light.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_happy.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_oops.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_b2_talk.png",
+    "final_path": "assets/approved/film/film_tower_b2_talk.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_b3_together",
+    "used_for": "Film sample \"The Tower\": Choice B: building together (medium)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Medium shot: Feelio and Nori kneel side by side on the rug building a new block tower together, laughing; Nori holds up a block to put on top while Feelio steadies the tower with both arm-flaps. Bright, happy warm light.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_excited.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_idle.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_b3_together.png",
+    "final_path": "assets/approved/film/film_tower_b3_together.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "film_tower_end_cheer",
+    "used_for": "Film sample \"The Tower\": Ending: the new tower (wide)",
+    "prompt": "Create an image. Landscape 3:2, 1536x1024, one complete illustrated film frame from a gentle animated children's film (a full picture with its background, not transparent). I attached reference images; use them exactly as described below.\nTHE ROOM: the attached bedroom picture is the set. Keep the same room: the same window with purple curtains, bed with pink patchwork quilt, bedside table with lamp and flowers, pink round rug and wooden floor, the same colours and soft light. Show it from the camera angle described for this shot.\nFEELIO: the attached official mascot and its approved poses show the hero, Feelio. Keep this exact character: same design, proportions and colours, glossy kawaii vector style, antenna with an amber orb, dark blue screen face with big sparkle eyes, pink cheeks, a pale heart on the belly, stubby arm-flaps and small feet, amber top melting into rose and purple feet. Never mirror, simplify or redesign it. Only its pose and expression change, as described.\nNORI: the attached character sheet shows Nori, a small girl about four years old: warm medium-brown skin, dark brown rounded chin-length bob with a side-swept fringe, big dark brown eyes, pink cheeks, plain short-sleeved lilac tunic, lilac leggings, rose slip-on shoes. Keep her exactly the same.\nSCALE: Feelio and Nori are about the same height (Feelio's antenna orb reaches the top of Nori's head). Toy blocks are chunky and about the size of Feelio's hand.\nBLOCKS: plain rounded toy blocks in rose, sky blue, amber, green and lilac, with a small lilac triangle roof block. No letters, numbers or pictures on any block.\nSTYLE: Flat 2D vector-style illustration for a children's film, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, warm cinematic lighting, expressive faces and body language; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF. Culturally neutral.\nFRAMING: leave a little extra space around the edges (the app slowly pans and zooms over the picture). Characters fully inside the frame unless the shot says close-up.\nNo text, no letters, no numbers, no logos, no watermark, no speech bubbles, no subtitles, no other characters or people, nothing scary.\nCONTINUITY: one attached image is frame 01 of this same film (Feelio building the tower in this room). Match it exactly: the same room and light, the same block colours and shapes, and Feelio's look and size in the room.\nTHIS SHOT: Wide warm shot, late golden afternoon light: a new, slightly crooked but very cheerful block tower stands on the rug. Feelio and Nori stand on either side of it, cheering with their arms up, big happy smiles. A few small soft sparkles in the air.",
+    "references": [
+      "brand/mascot/default/png/IMG_9937.png",
+      "assets/approved/mascot/mascot_excited.png",
+      "assets/incoming/batch11/film_tower_01_build.png",
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_idle.png"
+    ],
+    "output_path": "assets/incoming/batch11/film_tower_end_cheer.png",
+    "final_path": "assets/approved/film/film_tower_end_cheer.png",
+    "size": "1536x1024",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  }
+]

@@ -1,0 +1,307 @@
+[
+  {
+    "asset_name": "scene_my_room_land",
+    "prompt": "Create an image. Opaque PNG, 1536x1024 landscape. I attached our approved meadow scene: match its art style, colours, light and level of detail exactly. A cosy, calm child's bedroom seen from the front at the child's eye level: a soft round rug in the middle with open floor space for a character standing on it; an empty floor corner on the left for a wardrobe; an empty wall space on the left for a pinboard; an empty wall space on the right for a shelf; an empty floor spot on the right; a small round bedside table near the rug on the left; a window with soft daylight and a bed with a quilt at the far back. Keep these floor and wall spaces empty: our app places objects there. Keep the middle calm and open. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/world/scene_meadow_land.png"
+    ],
+    "output_path": "assets/incoming/batch6/scene_my_room_land.png",
+    "final_path": "assets/approved/world/scene_my_room_land.png",
+    "width": 1536,
+    "height": 1024,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "scene_my_room_port",
+    "prompt": "Create an image. Opaque PNG, 1024x1536 portrait (taller than wide). I attached two images: first our approved meadow scene (match its art style exactly), second the same bedroom in landscape. Recompose that same bedroom into portrait, keeping the room, furniture, colours and light: the rug in the lower middle with open floor for a character, the bed and window at the back, and empty floor along the bottom. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/world/scene_meadow_land.png",
+      "assets/incoming/batch6/scene_my_room_land.png"
+    ],
+    "output_path": "assets/incoming/batch6/scene_my_room_port.png",
+    "final_path": "assets/approved/world/scene_my_room_port.png",
+    "width": 1024,
+    "height": 1536,
+    "transparent_background": false
+  },
+  {
+    "asset_name": "room_wardrobe",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: a small rounded wooden wardrobe with its two doors slightly open and a soft lilac glow inside. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/room_wardrobe.png",
+    "final_path": "assets/approved/ui/room_wardrobe.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "room_gift_box",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: a big gift box in purple with a rose ribbon and a large bow, lid closed. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/room_gift_box.png",
+    "final_path": "assets/approved/ui/room_gift_box.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "room_star_shelf",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: an empty floating wooden wall shelf with two small rounded brackets. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/room_star_shelf.png",
+    "final_path": "assets/approved/ui/room_star_shelf.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "room_feelings_jar",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: an empty round glass jar with a cork lid and a soft warm glow inside. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/room_feelings_jar.png",
+    "final_path": "assets/approved/ui/room_feelings_jar.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "room_pinboard",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: an empty cork pinboard with a rounded wooden frame and four coloured pins in the corners. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/room_pinboard.png",
+    "final_path": "assets/approved/ui/room_pinboard.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "room_book_stack",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached an approved game icon; match its style, outline and glossy finish exactly. A single object: a small stack of three books with blank, plain covers on a tiny round wooden table. Centred, filling about 85% of the frame, no ground shadow, no background shape. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/room_book_stack.png",
+    "final_path": "assets/approved/ui/room_book_stack.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_party_hat",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small striped party hat in rose and amber with a fluffy pompom on top. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_party_hat.png",
+    "final_path": "assets/approved/ui/wear_party_hat.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_flower_crown",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a ring of small pastel flowers and green leaves worn on top of the head, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_flower_crown.png",
+    "final_path": "assets/approved/ui/wear_flower_crown.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_wizard_hat",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small purple wizard hat with a soft brim, dotted with tiny amber stars. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_wizard_hat.png",
+    "final_path": "assets/approved/ui/wear_wizard_hat.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_beanie",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a cosy knitted beanie in sky blue with a white pompom. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_beanie.png",
+    "final_path": "assets/approved/ui/wear_beanie.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_round_glasses",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of round glasses with purple frames and clear lenses, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_round_glasses.png",
+    "final_path": "assets/approved/ui/wear_round_glasses.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_star_glasses",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of fun star-shaped glasses with amber frames, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_star_glasses.png",
+    "final_path": "assets/approved/ui/wear_star_glasses.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_heart_glasses",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of heart-shaped glasses with rose frames and light pink lenses, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_heart_glasses.png",
+    "final_path": "assets/approved/ui/wear_heart_glasses.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_sunglasses",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of rounded sunglasses with sky-blue frames and dark lilac lenses, front view. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_sunglasses.png",
+    "final_path": "assets/approved/ui/wear_sunglasses.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_scarf",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a cosy knitted scarf in amber and rose stripes, wrapped like a collar with one end hanging down. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_scarf.png",
+    "final_path": "assets/approved/ui/wear_scarf.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_bow_tie",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small purple bow tie with white polka dots. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_bow_tie.png",
+    "final_path": "assets/approved/ui/wear_bow_tie.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_flower_garland",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a soft garland of small pastel flowers hanging in a U shape like a necklace. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_flower_garland.png",
+    "final_path": "assets/approved/ui/wear_flower_garland.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_star_medal",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a round gold medal with a raised star in the middle, hanging from a short rose ribbon loop. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_star_medal.png",
+    "final_path": "assets/approved/ui/wear_star_medal.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_backpack",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small rounded backpack in sky blue with an amber flap, seen from the front with both straps. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_backpack.png",
+    "final_path": "assets/approved/ui/wear_backpack.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_cape",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a small hero cape in rose with a gold round clasp at the top, spread open as seen from the front. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_cape.png",
+    "final_path": "assets/approved/ui/wear_cape.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_butterfly_wings",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a pair of soft butterfly wings in lilac and sky blue with gentle round patterns, spread open. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_butterfly_wings.png",
+    "final_path": "assets/approved/ui/wear_butterfly_wings.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "wear_balloon",
+    "prompt": "Create an image. Square 1:1, 1024x1024, transparent background PNG (plain white if transparency fails). I attached two images: first our round character, second an approved game icon. Draw ONLY a wearable item for this character, front view, sized and styled so it would fit the attached character: a single round amber balloon with a shine and a curly string. Do not draw the character or any body. Centred, filling about 80% of the frame, no ground shadow, no background shape. Match the icon's style, outline and glossy finish. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. No text, no letters, no numbers, no logos, no watermark, no people.",
+    "references": [
+      "assets/approved/avatar/avatar_bun_amber_idle.png",
+      "assets/approved/ui/dock_collection.png"
+    ],
+    "output_path": "assets/incoming/batch6/wear_balloon.png",
+    "final_path": "assets/approved/ui/wear_balloon.png",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  }
+]

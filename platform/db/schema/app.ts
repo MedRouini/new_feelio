@@ -12,6 +12,7 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { session, user } from "./auth";
+import type { GameMemory } from "@/child/gameMemory";
 
 // Data minimisation (CR-6): store only what a feature needs. Every table has a
 // retention period and a deletion path; see docs/ARCHITECTURE.md §7 and platform/retention.ts.
@@ -73,12 +74,16 @@ export const childProfile = pgTable(
     nicknameKey: text("nickname_key"),
     interests: text("interests").array().notNull().default([]),
     onboarding: jsonb("onboarding").$type<OnboardingState>().notNull().default({ step: 0 }),
+    // My room (D-074): the highest unlock count ever reached (never goes down) and how many unlocks the
+    // child has watched open. Deleted with the profile.
+    rewardsReached: integer("rewards_reached").notNull().default(0),
+    rewardsSeen: integer("rewards_seen").notNull().default(0),
     createdAt: createdAt(),
   },
   (t) => [index("child_household_idx").on(t.householdId)],
 );
 
-export type AvatarChoice = { v: 1; shape: "bun" | "bean" | "puff"; colour: "amber" | "rose" | "lilac" | "sky"; companion: "heart" | "cloud" | "star" };
+export type AvatarChoice = { v: 1; shape: "bun" | "bean" | "puff"; colour: "amber" | "rose" | "lilac" | "sky"; companion: "heart" | "cloud" | "star"; wear?: Partial<Record<"head" | "face" | "neck" | "back", string>> };
 export type OnboardingState = { step: number; completedAt?: string; skipped?: boolean };
 
 export type ScheduleWindow = { days: number[]; start: string; end: string };
@@ -202,6 +207,11 @@ export const voiceSession = pgTable(
     adultTest: boolean("adult_test").notNull().default(false),
     /** What the talk is for: free talk, or making a story with Feelio (D-070). */
     purpose: text("purpose", { enum: ["talk", "story"] }).notNull().default("talk"),
+    /**
+     * The game during this talk (D-077): ids and numbers from closed lists, never words. Kept only while
+     * the talk is open; ending the talk clears it.
+     */
+    game: jsonb("game").$type<GameMemory>(),
     startedAt: timestamp("started_at", { withTimezone: true }).notNull().defaultNow(),
     endedAt: timestamp("ended_at", { withTimezone: true }),
   },

@@ -75,7 +75,7 @@
       "talk": "Talk",
       "stories": "Stories",
       "calm": "Calm",
-      "collection": "My collection",
+      "collection": "My room",
       "nav": "Main"
     },
     "soon": {
@@ -143,7 +143,7 @@
       "aiChip": "Feelio is an AI, not a person",
       "start": "Talk to Feelio",
       "stop": "Stop talking",
-      "intro": "Tap the big button and say hello!",
+      "intro": "Tap the microphone and say hello!",
       "connecting": "Waking Feelio up…",
       "listening": "I'm listening…",
       "speaking": "Feelio is talking",
@@ -162,9 +162,6 @@
         "busy": "We're already talking somewhere else. Close it there first.",
         "unavailable": "I can't hear you right now. Let's try again in a little while."
       },
-      "breatheIn": "Breathe in…",
-      "breatheOut": "…and breathe out",
-      "breatheDone": "Well done! You did it.",
       "feelings": {
         "happy": "Happy",
         "sad": "Sad",
@@ -179,7 +176,45 @@
       "lost": "Oops, I lost you. Let's try again!",
       "tryAgain": "Try again",
       "talkAgain": "Talk again",
-      "ideaDeclined": "Hmm, that one doesn't fit our story. Let's pick one from the pictures!"
+      "ideaDeclined": "Hmm, that one doesn't fit our story. Let's pick one from the pictures!",
+      "act": {
+        "offer": {
+          "breathing": "Breathe with me",
+          "grounding": "Noticing game",
+          "stretching": "Stretch with me",
+          "story": "Make a story"
+        },
+        "notNow": "Not now",
+        "pause": "Pause",
+        "resume": "Keep going",
+        "next": "Next",
+        "again": "Again",
+        "stop": "Stop",
+        "back": "Back to Feelio",
+        "found": "I found one",
+        "foundAll": "Found them all!",
+        "paused": "Resting. Tap Keep going when you're ready.",
+        "breathing": {
+          "intro": "Let's breathe slowly with the cloud. Get comfy.",
+          "in": "Breathe in…",
+          "out": "…and breathe out."
+        },
+        "grounding": {
+          "intro": "Let's play the noticing game! We'll look, listen and feel, one at a time.",
+          "look": "Look around you. Find three things you can see, and tap a star for each one.",
+          "listen": "Now be very quiet and listen. Tap a heart for each sound you hear.",
+          "feel": "Now feel one thing, like your feet on the floor. Then tap the cloud."
+        },
+        "stretching": {
+          "intro": "Let's stretch! You can stand up or stay sitting.",
+          "up": "Reach up high, like a tall tree.",
+          "sway": "Sway slowly, side to side.",
+          "shake": "Shake your hands. Wiggle, wiggle!",
+          "hug": "Now give yourself a big, warm hug."
+        },
+        "done": "You did it! Do you want to talk some more?",
+        "steps": "Step {n} of {total}"
+      }
     },
     "stories": {
       "title": "My stories",
@@ -196,7 +231,7 @@
         "adventure": "What happens in the story?"
       },
       "nice": "{choice}! Great choice!",
-      "ready": "Our story is ready to make! Tap the magic button.",
+      "ready": "Our story is ready! Pull the golden rope to make it.",
       "slots": {
         "hero": "Hero",
         "place": "Place",
@@ -229,7 +264,106 @@
       "stopReading": "Stop reading",
       "aiChip": "Feelio, an AI friend, helps write these stories",
       "tellFeelio": "Tell Feelio",
-      "stopTalking": "Stop talking"
+      "stopTalking": "Stop talking",
+      "choose": "Choose",
+      "steps": {
+        "label": "Your story so far",
+        "done": "{slot}: {choice}",
+        "now": "{slot}: choose now",
+        "next": "{slot}: next"
+      },
+      "rope": "Make my story!",
+      "makeNew": "Make a new story",
+      "myBooks": "My books",
+      "firstStory": "Let's make your very first story!",
+      "openBook": "Open",
+      "readAloud": "Read it to me",
+      "stop": "Stop",
+      "bookmark": "Page {n}",
+      "home": "Back to my books",
+      "resting": "Not right now"
+    },
+    "room": {
+      "intro": "This is your room! Tap anything to look inside.",
+      "surprise": "A surprise is waiting in your gift box!",
+      "objects": {
+        "wardrobe": "Wardrobe",
+        "gift": "Gift box",
+        "shelf": "Star shelf",
+        "jar": "Feelings jar",
+        "pinboard": "My likes",
+        "books": "My books"
+      },
+      "back": "Back to my room",
+      "shelfEmpty": "Play in the world and stars will land here!",
+      "jarEmpty": "Feelings from your stories will glow in this jar.",
+      "starLabel": "{place}: level {n}",
+      "wearOn": "Put it on",
+      "wearOff": "Take it off",
+      "locked": "Keep playing to open this!",
+      "colours": "Colours",
+      "steps": "{n, plural, one {One more step to your next surprise!} other {# more steps to your next surprise!}}",
+      "allOpen": "You opened every surprise. Amazing!",
+      "open": "Open it!",
+      "newItem": "A new surprise: {item}!",
+      "nameAsk": "Which name do you like?",
+      "likesAsk": "What do you like?",
+      "slots": {
+        "head": "Hats",
+        "face": "Glasses",
+        "neck": "Neck",
+        "back": "Back"
+      },
+      "steps1": "One more step to your next surprise!",
+      "steps2": "Two more steps to your next surprise!",
+      "steps3": "Three more steps to your next surprise!"
+    },
+    "scenarios": {
+      "tower": {
+        "build": "This is my room! Let's build the tallest tower ever. Tap the blocks!",
+        "buildMore": "Higher! Tap again!",
+        "buildLast": "One more block on top!",
+        "crash": "Oh no! Nori ran in and bumped my tower. It all fell down!",
+        "feel": "I feel something big inside me. What do you think I'm feeling?",
+        "feelAngry": "Yes, I feel angry! My tummy feels hot, like a storm inside.",
+        "feelMixed": "I do feel a bit sad. And I feel angry too, like a storm inside.",
+        "feelHappy": "Hmm, not happy right now. I feel angry, like a storm inside.",
+        "choose": "My storm is so big, I can only think of stormy ideas. What should I do?",
+        "hint": "Psst! My little cloud can help me calm my storm. Tap it!",
+        "stomp": "I stomped! The blocks flew everywhere, and Nori looks scared. My storm is still here.",
+        "shout": "I shouted, go away! Nori ran off. Now I'm all alone, and still stormy.",
+        "rewind": "Go back",
+        "breathe": "Breathe with my cloud",
+        "breatheIn": "Breathe in with me, slowly…",
+        "breatheOut": "…and breathe out.",
+        "chooseCalm": "Phew! My storm is smaller now. Look, I can see more ideas!",
+        "tell": "I said: Nori, I'm upset my tower fell. Nori said sorry. It was an accident!",
+        "together": "I asked: Nori, want to build a new one together? Nori smiled!",
+        "rebuild": "Let's build it again, together. Tap the blocks!",
+        "rebuildMore": "Higher and higher!",
+        "end": "We did it! When I feel a storm inside, I breathe with my cloud first. Then I can find a kind idea.",
+        "trick": "New calm trick: Cloud Breath",
+        "journal": "Ways we found: {n} of {total}",
+        "again": "Try another way",
+        "finish": "Finish",
+        "next": "Next",
+        "faces": {
+          "angry": "Angry",
+          "sad": "Sad",
+          "worried": "Worried",
+          "happy": "Happy"
+        },
+        "cards": {
+          "stomp": "Stomp",
+          "shout": "Shout",
+          "tell": "Tell Nori",
+          "together": "Build together"
+        },
+        "nori": "Nori, my little cousin",
+        "tower": "The block tower",
+        "blocks": "The blocks",
+        "journalTitle": "Feelio's journal"
+      }
     }
   },
   "parent": {

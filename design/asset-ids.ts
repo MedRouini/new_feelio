@@ -24,13 +24,29 @@ const square = [
   // level flow and loading (Batch 3, D-056, docs/LEVEL_FLOW.md)
   "node_in_progress", "ui_celebrate_burst", "mascot_making",
   // stories (Batch 4, D-070, docs/STORIES.md): optional art; screens work without it
-  "mascot_reading", "ui_story_slot", "ui_story_wand",
+  "mascot_reading", "ui_story_wand",
   // redesign v2 (Batch 5, docs/REDESIGN_V2.md): optional art; pages work without it
   "mascot_directing", "mascot_holding_album",
   "face_worried", "face_proud", "face_lonely", "face_jealous",
+  // My room (Batch 6, D-074, docs/superpowers/specs/2026-10-13-my-room-design.md)
+  "room_wardrobe", "room_gift_box", "room_star_shelf", "room_feelings_jar", "room_pinboard", "room_book_stack",
+  "wear_party_hat", "wear_flower_crown", "wear_wizard_hat", "wear_beanie",
+  "wear_round_glasses", "wear_star_glasses", "wear_heart_glasses", "wear_sunglasses",
+  "wear_scarf", "wear_bow_tie", "wear_flower_garland", "wear_star_medal",
+  "wear_backpack", "wear_cape", "wear_butterfly_wings", "wear_balloon",
+  // story experience (Batch 7, D-075, docs/superpowers/specs/2026-10-13-story-experience-design.md)
+  "ui_btn_make_story", "ui_btn_curtain_rope", "ui_btn_read_aloud", "ui_step_hero", "ui_step_place", "ui_step_adventure",
+  // voice room (Batch 8, D-076, docs/VOICE_ROOM.md): optional art; until delivered each slot uses an approved pose
+  "mascot_breathe_in", "mascot_breathe_out", "mascot_look", "mascot_hug",
+  "mascot_stretch_up", "mascot_stretch_side", "mascot_shake",
+  "ui_act_breathe", "ui_act_notice", "ui_act_stretch",
   "story_hero_fox", "story_hero_bear", "story_hero_bunny", "story_hero_owl", "story_hero_turtle", "story_hero_dragon", "story_hero_cat", "story_hero_penguin",
   "story_place_forest", "story_place_beach", "story_place_space", "story_place_castle", "story_place_garden", "story_place_underwater",
   "story_adv_lost_toy", "story_adv_new_friend", "story_adv_big_race", "story_adv_birthday", "story_adv_storm", "story_adv_first_day",
+  // The Tower, Home level 3 (Batch 9, D-078, docs/SEL_ADVENTURES.md): Nori the little cousin, the tower, the choices
+  "cast_nori_idle", "cast_nori_oops", "cast_nori_scared", "cast_nori_sorry", "cast_nori_happy",
+  "prop_tower_tall", "prop_tower_fallen", "prop_block_pile", "fx_storm_cloud",
+  "ui_choice_stomp", "ui_choice_shout", "ui_choice_tell", "ui_choice_together",
 ] as const;
 
 // Per-place assets (Batch 3, D-056): place ids of the base world. world.json refers to these by id;
@@ -47,8 +63,11 @@ const placeLandscape = WORLD_PLACE_IDS.map((p) => `place_${p}_map_h` as const);
 const placePortrait = WORLD_PLACE_IDS.map((p) => `place_${p}_map_v` as const);
 
 const wide = ["ui_sign_plate", "ui_say_bubble"] as const;
-const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open", "story_book_open", "story_shelf", "scene_story_corner_land", "scene_talk_nook_land", "scene_story_stage_land", "scene_library_land", "scene_treasure_room_land", "ui_sticker_album_open"] as const;
-const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open", "story_page_paper", "story_book_cover", "scene_story_corner_port", "scene_talk_nook_port", "scene_story_stage_port", "scene_library_port", "scene_treasure_room_port"] as const;
+// Film sample "The Tower" (Batch 11, 2026-10-24): full illustrated film frames, 3:2
+const film = ["film_tower_01_build", "film_tower_02_proud", "film_tower_03_nori_runs", "film_tower_04_bump", "film_tower_05_fallen", "film_tower_06_storm", "film_tower_a1_shout", "film_tower_a2_alone", "film_tower_b1_breathe", "film_tower_b2_talk", "film_tower_b3_together", "film_tower_end_cheer"] as const;
+export type FilmFrameId = (typeof film)[number];
+const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open", "scene_talk_nook_land", "scene_story_stage_land", "scene_library_land", "scene_treasure_room_land", "ui_sticker_album_open", "scene_my_room_land"] as const;
+const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open", "scene_talk_nook_port", "scene_story_stage_port", "scene_library_port", "scene_treasure_room_port", "scene_my_room_port"] as const;
 
 // D-053 (owner, 2026-10-10): one character for now ("bun"), four colours, one pose. Its "yay" is a
 // code hop. The approved bean/puff bases stay in assets/ for later but are not used.
@@ -68,6 +87,7 @@ export type AssetId =
   | (typeof square)[number]
   | (typeof wide)[number]
   | (typeof landscape)[number]
+  | FilmFrameId
   | (typeof portrait)[number]
   | AvatarAssetId
   | PlaceSquareId
@@ -78,6 +98,7 @@ export const EXPECTED_ASSETS: Record<AssetId, AssetShape> = Object.fromEntries([
   ...square.map((id) => [id, "square"]),
   ...wide.map((id) => [id, "wide"]),
   ...landscape.map((id) => [id, "landscape"]),
+  ...film.map((id) => [id, "landscape"]),
   ...portrait.map((id) => [id, "portrait"]),
   ...avatars.map((id) => [id, "square"]),
   ...placeSquare.map((id) => [id, "square"]),

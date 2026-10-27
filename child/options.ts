@@ -1,6 +1,7 @@
 import { z } from "zod";
 import nicknames from "@/content/nicknames.json";
 import { AVATAR_COLOURS, AVATAR_SHAPES } from "@/design/asset-ids";
+import { wearSchema } from "./wardrobe";
 
 // Fixed vocabularies for onboarding (ONBOARDING.md). Shared by the client UI and the server validator,
 // so nothing outside these lists can ever be stored. Nothing here is personal data.
@@ -21,6 +22,8 @@ export const avatarSchema = z.object({
   shape: z.enum(AVATAR_SHAPES),
   colour: z.enum(AVATAR_COLOURS),
   companion: z.enum(COMPANIONS),
+  /** Worn items (My room, D-074); absent on records from before it. */
+  wear: wearSchema.optional(),
 });
 export type Avatar = z.infer<typeof avatarSchema>;
 export const DEFAULT_AVATAR: Avatar = { v: 1, shape: "bun", colour: "amber", companion: "star" };
@@ -29,7 +32,8 @@ export const DEFAULT_AVATAR: Avatar = { v: 1, shape: "bun", colour: "amber", com
 export const onboardingUpdateSchema = z
   .object({
     step: z.number().int().min(0).max(ONBOARDING_STEPS),
-    avatar: avatarSchema.optional(),
+    /** Onboarding sets colour and shape only; worn items change only through My room (D-074). */
+    avatar: avatarSchema.omit({ wear: true }).optional(),
     /** A key from the nickname list, or "parent" to use the nickname the parent typed. */
     nickname: z.union([z.enum(NICKNAME_KEYS as [string, ...string[]]), z.literal("parent")]).optional(),
     interests: z.array(z.enum(INTERESTS)).max(MAX_INTERESTS).optional(),

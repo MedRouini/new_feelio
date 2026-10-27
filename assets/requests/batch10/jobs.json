@@ -1,0 +1,166 @@
+[
+  {
+    "asset_name": "cast_nori_sorry",
+    "used_for": "The Tower: Nori says sorry",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. I also attached cast_nori_sheet as the identity reference. Keep exactly the same Nori, hair shape, face, outfit, colours and proportions. Change only pose and expression. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. One full-body Nori only, standing with her hands clasped in front of her, head tilted a little, a soft apologetic look: eyebrows gently raised, small hopeful sorry smile. Face slightly toward image-left, toward the centre when placed on the right of the stage. All Nori pose files use identical camera, character scale and invisible ground line: top of hair at y=112 and shoe soles at y=912 on the 1024 square, body centred at x=512. Do not draw the ground line. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+    "references": [
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_idle.png",
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/ui/like_blocks.png"
+    ],
+    "output_path": "assets/incoming/batch10/cast_nori_sorry.png",
+    "final_path": "assets/approved/cast/cast_nori_sorry.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "cast_nori_happy",
+    "used_for": "The Tower: Nori builds with Feelio, and the end",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved Feelio assets for style only: match their rounded shapes, line weight, palette and gentle glossy finish; do not copy any objects or mascot features from them. I also attached cast_nori_sheet as the identity reference. Keep exactly the same Nori, hair shape, face, outfit, colours and proportions. Change only pose and expression. Nori is a small girl about four years old, round and cute, warm medium-brown skin, a recognisable dark brown rounded chin-length bob with a single curved side-swept fringe, big friendly dark brown eyes, soft pink cheeks, a plain short-sleeved lilac tunic and matching lilac leggings, simple soft rose slip-on shoes. No hair accessories or clothing decoration. One full-body Nori only, happy and excited, holding one chunky toy block (amber, rounded, like the attached block picture) up in both hands as if offering it, a big open happy smile, eyes in happy arcs. Face slightly toward image-left, toward the centre when placed on the right of the stage. All Nori pose files use identical camera, character scale and invisible ground line: top of hair at y=112 and shoe soles at y=912 on the 1024 square, body centred at x=512. Do not draw the ground line. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights on characters, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Entire hair, hands and both shoes fully inside the canvas. Real transparent background, no white box, no checkerboard, no halo, no canvas drop shadow, no ground shadow, no floor, no props, no frame, no motion lines. Do not draw, redraw or include the Feelio mascot or its screen face, antenna or belly heart. No flags, no religious symbols, no brand clothing, nothing scary or violent, no emoji, no numbers. No text, no letters, no logos, no watermark, no extra characters.",
+    "references": [
+      "assets/approved/cast/cast_nori_sheet.png",
+      "assets/approved/cast/cast_nori_idle.png",
+      "assets/approved/world/scene_my_room_land.png",
+      "assets/approved/ui/like_blocks.png"
+    ],
+    "output_path": "assets/incoming/batch10/cast_nori_happy.png",
+    "final_path": "assets/approved/cast/cast_nori_happy.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "prop_tower_tall",
+    "used_for": "The Tower: the block tower (it is revealed from the bottom up as the child taps)",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A tall, slightly wobbly toy tower made of exactly the chunky rounded blocks in the attached block picture (same colours: rose, sky blue, amber, green, lilac), about seven blocks stacked straight up in one column, with a small lilac triangle roof block on top. The tower is narrow and tall and stands on the bottom of the frame: the bottom block touches y=980 and the roof reaches about y=60, centred at x=512. Seen from the front at the same camera angle as the attached room. Centred, filling about 60% of the frame, nothing cut off. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Real transparent background, no white box, no checkerboard, no halo, no ground shadow, no floor, no frame, no background shape. Do not draw the Feelio mascot. No flags, no religious symbols, nothing scary or violent, no emoji. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png",
+      "assets/approved/ui/dock_calm.png",
+      "assets/approved/world/scene_my_room_land.png"
+    ],
+    "output_path": "assets/incoming/batch10/prop_tower_tall.png",
+    "final_path": "assets/approved/world/prop_tower_tall.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "prop_tower_fallen",
+    "used_for": "The Tower: the tower after Nori bumps it",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved game objects from the same app; match their style, outline and glossy finish exactly. The same chunky rounded toy blocks (rose, sky blue, amber, green, lilac, and the small lilac triangle roof block) lying tumbled in a low, loose pile on the floor after a tower fell over, a few blocks a little apart. Nothing broken, nothing sad or scary: just toppled toys. The pile sits on the bottom of the frame (lowest block at y=980), wide and low, seen from the front at the same camera angle as the attached room. Centred, filling about 80% of the frame, nothing cut off. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Real transparent background, no white box, no checkerboard, no halo, no ground shadow, no floor, no frame, no background shape. Do not draw the Feelio mascot. No flags, no religious symbols, nothing scary or violent, no emoji. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png",
+      "assets/approved/ui/dock_calm.png",
+      "assets/approved/world/scene_my_room_land.png"
+    ],
+    "output_path": "assets/incoming/batch10/prop_tower_fallen.png",
+    "final_path": "assets/approved/world/prop_tower_fallen.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "prop_block_pile",
+    "used_for": "The Tower: the blocks the child taps to build",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A small neat heap of five chunky rounded toy blocks (rose, sky blue, amber, green, lilac) waiting to be stacked, inviting to tap. It must read clearly as a button-sized object at 110 px. Centred, filling about 80% of the frame, nothing cut off. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Real transparent background, no white box, no checkerboard, no halo, no ground shadow, no floor, no frame, no background shape. Do not draw the Feelio mascot. No flags, no religious symbols, nothing scary or violent, no emoji. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png",
+      "assets/approved/ui/dock_calm.png"
+    ],
+    "output_path": "assets/incoming/batch10/prop_block_pile.png",
+    "final_path": "assets/approved/world/prop_block_pile.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "fx_storm_cloud",
+    "used_for": "The Tower: Feelio's angry storm, floating above its head",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A small puffy storm cloud in soft grey-lilac with a darker purple underside, one tiny rounded amber zigzag spark under it and two small rain drops in sky blue. Cute, soft and gentle, not scary; it shows a big feeling, not danger. Centred, filling about 75% of the frame, nothing cut off. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Real transparent background, no white box, no checkerboard, no halo, no ground shadow, no floor, no frame, no background shape. Do not draw the Feelio mascot. No flags, no religious symbols, nothing scary or violent, no emoji. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png",
+      "assets/approved/ui/dock_calm.png"
+    ],
+    "output_path": "assets/incoming/batch10/fx_storm_cloud.png",
+    "final_path": "assets/approved/world/fx_storm_cloud.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_choice_stomp",
+    "used_for": "The Tower: choice card \"Stomp\"",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single round-friendly picture for a choice card that a 5-year-old understands at a glance at 120 px: one big cartoon stomping footprint shape in rose, with three small toy blocks flying up around it and little soft amber impact marks. Not violent. Bold, simple, chunky shapes. Centred, filling about 80% of the frame, nothing cut off. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Real transparent background, no white box, no checkerboard, no halo, no ground shadow, no floor, no frame, no background shape. Do not draw the Feelio mascot. No flags, no religious symbols, nothing scary or violent, no emoji. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png",
+      "assets/approved/ui/dock_calm.png"
+    ],
+    "output_path": "assets/incoming/batch10/ui_choice_stomp.png",
+    "final_path": "assets/approved/ui/ui_choice_stomp.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_choice_shout",
+    "used_for": "The Tower: choice card \"Shout\"",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single round-friendly picture for a choice card that a 5-year-old understands at a glance at 120 px: a chunky toy megaphone in amber and rose with three bold rounded zigzag sound lines coming out of it in purple. Not scary. Bold, simple, chunky shapes. Centred, filling about 80% of the frame, nothing cut off. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Real transparent background, no white box, no checkerboard, no halo, no ground shadow, no floor, no frame, no background shape. Do not draw the Feelio mascot. No flags, no religious symbols, nothing scary or violent, no emoji. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png",
+      "assets/approved/ui/dock_calm.png"
+    ],
+    "output_path": "assets/incoming/batch10/ui_choice_shout.png",
+    "final_path": "assets/approved/ui/ui_choice_shout.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_choice_tell",
+    "used_for": "The Tower: choice card \"Tell Nori\"",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single round-friendly picture for a choice card that a 5-year-old understands at a glance at 120 px: two soft rounded empty speech bubbles, one rose and one sky blue, overlapping a little, with a small amber heart between them. The bubbles are completely empty. Bold, simple, chunky shapes. Centred, filling about 80% of the frame, nothing cut off. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Real transparent background, no white box, no checkerboard, no halo, no ground shadow, no floor, no frame, no background shape. Do not draw the Feelio mascot. No flags, no religious symbols, nothing scary or violent, no emoji. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png",
+      "assets/approved/ui/dock_calm.png"
+    ],
+    "output_path": "assets/incoming/batch10/ui_choice_tell.png",
+    "final_path": "assets/approved/ui/ui_choice_tell.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  },
+  {
+    "asset_name": "ui_choice_together",
+    "used_for": "The Tower: choice card \"Build together\"",
+    "prompt": "Create an image. Square 1:1, 1024x1024, real transparent background PNG. I attached approved game objects from the same app; match their style, outline and glossy finish exactly. A single round-friendly picture for a choice card that a 5-year-old understands at a glance at 120 px: two chunky toy blocks, one rose and one sky blue, stacked neatly on a third amber block, with a small heart and two tiny sparkles above them. Bold, simple, chunky shapes. Centred, filling about 80% of the frame, nothing cut off. Flat 2D vector-style illustration for a children's mobile game, soft pastel gradients, clean rounded shapes, gentle glossy highlights, minimal shading, friendly kawaii style; not 3D, not photorealistic. Palette: amber #F3B03A, rose #C4557C, purple #614194, sky blue #79B1DE, with tints #FFE6BA, #FFD8E6, #EFCFF8, #D4ECFF, plus fresh natural greens. Culturally neutral. Real transparent background, no white box, no checkerboard, no halo, no ground shadow, no floor, no frame, no background shape. Do not draw the Feelio mascot. No flags, no religious symbols, nothing scary or violent, no emoji. No text, no letters, no numbers, no logos, no watermark, no people, no faces.",
+    "references": [
+      "assets/approved/ui/like_blocks.png",
+      "assets/approved/ui/ui_act_breathe.png",
+      "assets/approved/ui/dock_calm.png"
+    ],
+    "output_path": "assets/incoming/batch10/ui_choice_together.png",
+    "final_path": "assets/approved/ui/ui_choice_together.png",
+    "size": "1024x1024",
+    "width": 1024,
+    "height": 1024,
+    "transparent_background": true
+  }
+]

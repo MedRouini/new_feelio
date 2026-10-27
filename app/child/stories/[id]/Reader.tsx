@@ -3,7 +3,10 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
-import { BookOpen, ChevronLeft, ChevronRight, Home, Square, Star, Volume2, WandSparkles } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, Home, Star } from "lucide-react";
+import { ActionObject } from "@/child/ui/ActionObject";
+import { ChoiceDisc } from "@/child/ui/ChoiceDisc";
+import { Pressable } from "@/child/ui/Pressable";
 import { Mascot, type MascotPose } from "@/child/ui/Mascot";
 import { play } from "@/child/ui/sound";
 import { useCalm } from "@/child/ui/useCalm";
@@ -108,6 +111,12 @@ export function Reader({ book, narration }: { book: Book; narration: boolean }) 
     [at, turn, calm],
   );
 
+  const jump = (to: number) => {
+    if (turn || to === at) return;
+    play("step");
+    setAt(to);
+  };
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") go(rtl ? -1 : 1);
@@ -136,10 +145,7 @@ export function Reader({ book, narration }: { book: Book; narration: boolean }) 
         end: (
           <div className={styles.coverText}>
             <h1 className={styles.title}>{book.title}</h1>
-            <button type="button" className={styles.open} onClick={() => go(1)} data-testid="open-book">
-              <BookOpen size={30} aria-hidden />
-              <span>{t("open")}</span>
-            </button>
+            <Pressable tone="primary" label={t("openBook")} icon={<BookOpen size={30} aria-hidden />} onPress={() => go(1)} className={styles.open} testId="open-book" />
           </div>
         ),
       };
@@ -157,21 +163,15 @@ export function Reader({ book, narration }: { book: Book; narration: boolean }) 
             <ul className={styles.answers}>
               {book.question.answers.map((a, k) => (
                 <li key={k}>
-                  <button type="button" className={styles.answer} aria-pressed={answer === k} onClick={() => (play("pick"), setAnswer(k))}>
-                    {a}
+                  <button type="button" className={styles.answer} aria-pressed={answer === k} onClick={() => (play("pick"), setAnswer(k))} data-testid={`answer-${k}`}>
+                    <ChoiceDisc word={a} selected={answer === k} size="sm" />
                   </button>
                 </li>
               ))}
             </ul>
             <div className={styles.endActions}>
-              <a className={styles.endLink} href="/stories/make">
-                <WandSparkles size={24} aria-hidden />
-                {t("another")}
-              </a>
-              <a className={styles.endLink} href="/stories">
-                <Home size={24} aria-hidden />
-                {t("shelf")}
-              </a>
+              <ActionObject art="ui_btn_make_story" label={t("another")} href="/stories/make" sizes="14vmin" className={styles.another} testId="make-another" />
+              <Pressable label={t("home")} href="/stories" icon={<Home size={26} aria-hidden />} testId="end-home" />
             </div>
           </div>
         ),
@@ -187,11 +187,6 @@ export function Reader({ book, narration }: { book: Book; narration: boolean }) 
           <div className={styles.pageFoot}>
             <Mascot pose={moodPose(page.feelio)} label={tOnb("aiSign")} sizes="96px" className={styles.narrator} />
             {narration ? <ReadToMe storyId={book.id} page={i} /> : null}
-            <span className={styles.stars} aria-label={t("pageOf", { n: i, total: 4 })}>
-              {[1, 2, 3, 4].map((s) => (
-                <Star key={s} size={18} data-on={s <= i || undefined} fill={s <= i ? "currentColor" : "none"} aria-hidden />
-              ))}
-            </span>
           </div>
         </div>
       ),
@@ -205,14 +200,18 @@ export function Reader({ book, narration }: { book: Book; narration: boolean }) 
   return (
     <div className={styles.room}>
       <Library />
-      <a className={styles.back} href="/stories" aria-label={t("shelf")}>
-        <Home size={30} aria-hidden />
-      </a>
+      <Pressable shape="round" href="/stories" label={t("home")} icon={<Home size={30} aria-hidden />} className={styles.back} testId="book-home" />
+
+      <nav className={styles.bookmarks} aria-label={t("pageOf", { n: Math.min(Math.max(shown, 1), 4), total: 4 })}>
+        {Array.from({ length: LAST + 1 }, (_, n) => (
+          <button key={n} type="button" className={styles.tab} aria-current={shown === n ? "page" : undefined} aria-label={n === 0 ? t("openBook") : n === LAST ? t("theEnd") : t("bookmark", { n })} onClick={() => jump(n)} data-testid={`bookmark-${n}`}>
+            {n === 0 ? <BookOpen size={22} aria-hidden /> : n === LAST ? <Star size={22} aria-hidden /> : <span aria-hidden>{n}</span>}
+          </button>
+        ))}
+      </nav>
 
       <div className={styles.bookWrap} onPointerDown={onDown} onPointerUp={onUp} data-turning={turn ? true : undefined} data-testid="book-wrap">
-        <button type="button" className={styles.arrow} data-side="start" onClick={() => go(-1)} disabled={at === 0} aria-label={t("prevPage")}>
-          <Prev size={40} strokeWidth={3} aria-hidden />
-        </button>
+        <Pressable shape="round" label={t("prevPage")} icon={<Prev size={38} strokeWidth={3} aria-hidden />} onPress={() => go(-1)} disabled={at === 0} className={styles.corner} testId="prev-page" />
 
         {wide ? (
           <Spread faces={faces} at={at} turn={turn} rtl={rtl} calm={calm} />
@@ -235,9 +234,7 @@ export function Reader({ book, narration }: { book: Book; narration: boolean }) 
           </div>
         )}
 
-        <button type="button" className={styles.arrow} data-side="end" onClick={() => go(1)} disabled={at === LAST} aria-label={t("nextPage")} data-testid="next-page">
-          <Next size={40} strokeWidth={3} aria-hidden />
-        </button>
+        <Pressable shape="round" label={t("nextPage")} icon={<Next size={38} strokeWidth={3} aria-hidden />} onPress={() => go(1)} disabled={at === LAST} className={styles.corner} testId="next-page" />
       </div>
     </div>
   );
@@ -346,9 +343,15 @@ function ReadToMe({ storyId, page }: { storyId: string; page: number }) {
   }
   if (state === "refused") return null;
   return (
-    <button type="button" className={styles.readToMe} onClick={() => void toggle()} aria-pressed={state === "playing"} data-loading={state === "loading" || undefined} data-testid="read-to-me">
-      {state === "playing" ? <Square size={22} fill="currentColor" aria-hidden /> : <Volume2 size={26} aria-hidden />}
-      <span>{state === "playing" ? t("stopReading") : t("readToMe")}</span>
-    </button>
+    <ActionObject
+      art="ui_btn_read_aloud"
+      label={state === "playing" ? t("stop") : t("readAloud")}
+      ready={state === "playing"}
+      loading={state === "loading"}
+      onPress={() => void toggle()}
+      sizes="96px"
+      className={styles.readAloud}
+      testId="read-to-me"
+    />
   );
 }

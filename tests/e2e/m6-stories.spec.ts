@@ -36,16 +36,16 @@ test("workshop: four slots by tapping, then the magic button appears (nothing ma
   await expect(page.getByTestId("make-it")).toHaveCount(0);
   const ask = { hero: "Who is the hero of our story?", place: "Where does the story happen?", feeling: "How does our hero feel in the adventure?", adventure: "What happens in the story?" };
   for (const slot of ["hero", "place", "feeling", "adventure"] as const) {
-    await expect(page.getByTestId(`slot-${slot}`)).toHaveAttribute("data-active", "true");
+    await expect(page.getByTestId(`slot-${slot}`)).toHaveAttribute("aria-current", "step");
     await expect(page.getByTestId("choice-picker")).toHaveAttribute("aria-label", ask[slot]); // this slot's picker has arrived
     await page.getByTestId("choose-this").click();
-    await expect(page.getByTestId(`slot-${slot}`)).toHaveAttribute("data-filled", "true");
+    await expect(page.getByTestId(`slot-${slot}`)).toHaveAttribute("data-selected");
   }
   await expect(page.getByTestId("make-it")).toBeVisible();
   await page.screenshot({ path: `${SHOTS}/workshop-ready.png` });
   // Tapping a filled slot opens it again to change it.
   await page.getByTestId("slot-hero").click();
-  await expect(page.getByTestId("slot-hero")).toHaveAttribute("data-active", "true");
+  await expect(page.getByTestId("slot-hero")).toHaveAttribute("aria-current", "step");
 });
 
 for (const [name, viewport, reduce] of [["spread", LANDSCAPE, false], ["phone-reduced", PORTRAIT, true]] as const) {
@@ -84,28 +84,4 @@ test("Stories off: the bookshelf and the workshop don't exist for this child", a
   await expect(page).toHaveURL(`${APP}/`);
   await page.goto(`${APP}/stories/make`);
   await expect(page).toHaveURL(`${APP}/`);
-});
-
-test("collection: the album shows the child's book and the feeling they met (D-071)", async ({ page }) => {
-  await page.setViewportSize(LANDSCAPE);
-  const f = fixture({ locale: "en", onboarded: true, stories: true, story: true });
-  await asChild(page, f);
-  await page.goto(`${APP}/collection`);
-  await expect(page.getByTestId("collection")).toBeVisible();
-  await expect(page.getByTestId("page-stars")).toBeVisible();
-  await expect(page.getByTestId("star")).toHaveCount(0); // no levels finished yet: only friendly empty spots
-  await page.getByTestId("album-books").click();
-  await expect(page.getByTestId("album-book")).toHaveCount(1);
-  await expect(page.getByTestId("album-book")).toHaveAttribute("href", `/stories/${f.storyId}`);
-  await page.getByTestId("album-feelings").click();
-  await expect(page.getByTestId("feeling-met")).toHaveCount(1); // the fixture story is about feeling worried
-  await page.screenshot({ path: `${SHOTS}/collection-feelings.png` });
-});
-
-test("collection: no books page when the parent has Stories off", async ({ page }) => {
-  await page.setViewportSize(LANDSCAPE);
-  await asChild(page, fixture({ locale: "en", onboarded: true, stories: false, story: true }));
-  await page.goto(`${APP}/collection`);
-  await expect(page.getByTestId("album-stars")).toBeVisible();
-  await expect(page.getByTestId("album-books")).toHaveCount(0);
 });

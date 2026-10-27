@@ -1,0 +1,170 @@
+/* The Tower (D-078). A full-screen scene in Feelio's room: the line on the sign plate at the top,
+   Feelio, the tower and Nori in a row, and the one thing to do now at the bottom. Logical properties,
+   so the row flips for Arabic; the art itself is never mirrored. */
+
+.tower {
+  position: fixed;
+  inset: 0;
+  z-index: 10; /* under the level's leave button (20) */
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  justify-items: center;
+  gap: 8px;
+  padding: max(96px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
+  overflow: hidden;
+  color: var(--navy-900);
+}
+
+.bg { position: absolute; inset: 0; z-index: -1; }
+.bg[data-orient="port"] { display: none; }
+@media (orientation: portrait) {
+  .bg[data-orient="land"] { display: none; }
+  .bg[data-orient="port"] { display: block; }
+}
+.bgImg {
+  display: block;
+  inline-size: 100% !important;
+  block-size: 100% !important;
+  max-width: none !important;
+  object-fit: cover;
+  aspect-ratio: auto !important;
+  border-radius: 0;
+}
+
+.caption[data-variant] { inline-size: min(440px, 100%, 52vh); }
+
+/* ---------- the row: Feelio, the tower, Nori ---------- */
+.stage {
+  inline-size: min(1000px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: end;
+  justify-items: center;
+  min-block-size: 0;
+  block-size: 100%;
+}
+@media (orientation: portrait) {
+  .stage { grid-template-columns: 1fr 1fr; grid-template-areas: "tower tower" "feelio nori"; row-gap: 4px; }
+  .towerSpot { grid-area: tower; }
+  .feelio { grid-area: feelio; }
+  .nori { grid-area: nori; }
+}
+
+.feelio { position: relative; inline-size: min(26vmin, 30vh, 240px); }
+.mascot { inline-size: 100%; }
+.feelio[data-mood="angry"] .mascot { animation: rumble 0.5s ease-in-out infinite; }
+.storm {
+  position: absolute;
+  inset-block-start: -18%;
+  inset-inline-start: 15%;
+  inline-size: 70%;
+  animation: drift 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.towerSpot { position: relative; inline-size: min(22vmin, 26vh, 200px); }
+.towerGhost { opacity: 0.18; filter: grayscale(1); }
+.towerReveal {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transition: clip-path 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.towerImg, .towerGhost, .fallen { display: block; inline-size: 100%; }
+[data-beat="crash"] .fallen { animation: tumble 0.5s ease-out; }
+
+.nori { inline-size: min(20vmin, 24vh, 180px); min-block-size: 1px; }
+.noriImg { display: block; inline-size: 100%; animation: arrive 0.45s ease-out; }
+.nori[data-pose="scared"] .noriImg { animation: shiver 0.4s ease-in-out 3; }
+
+/* ---------- what to do now ---------- */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  min-block-size: 96px;
+}
+
+.blocks { inline-size: min(18vmin, 20vh, 150px); }
+
+.faces, .choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.face, .choice {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  min-inline-size: var(--touch-child, 72px);
+  padding: 6px;
+  border: 0;
+  border-radius: 20px;
+  background: none;
+  color: var(--navy-900);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  animation: arrive 0.35s ease-out backwards;
+}
+.face:active, .choice:active { transform: scale(0.94); }
+.faceImg { display: block; inline-size: min(13vmin, 16vh, 100px); }
+.choice { inline-size: min(17vmin, 20vh, 132px); }
+.faceWord, .choiceWord { font-size: 1.05rem; padding: 0 8px; border-radius: 999px; background: color-mix(in srgb, white 85%, transparent); }
+.choice:nth-child(2) { animation-delay: 0.15s; }
+.choice:nth-child(3) { animation-delay: 0.3s; }
+.choice:nth-child(4) { animation-delay: 0.45s; }
+
+.cloud { inline-size: min(17vmin, 20vh, 132px); animation: glow 1.6s ease-in-out infinite alternate; }
+
+.breath { inline-size: min(24vmin, 22vh, 200px); }
+.breathImg { display: block; inline-size: 100%; transition: transform 4s ease-in-out; }
+.breath[data-phase="in"] .breathImg { transform: scale(1.25); }
+.breath[data-phase="out"] .breathImg { transform: scale(0.85); }
+
+.end { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 12px; }
+.endRow { flex-basis: 100%; }
+.trick {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: color-mix(in srgb, white 85%, transparent);
+  font-weight: 900;
+  font-size: 1.15rem;
+}
+.trickImg { inline-size: min(10vmin, 56px); position: relative; }
+.burst { position: absolute; inset-inline-start: -10px; inline-size: min(20vmin, 110px); opacity: 0.8; pointer-events: none; }
+.journal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, white 70%, transparent);
+  font-weight: 800;
+}
+.endRow { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+:global(html[dir="rtl"]) .flip { transform: scaleX(-1); }
+
+@keyframes rumble { 0%, 100% { translate: 0 0; } 25% { translate: -2px 1px; } 75% { translate: 2px -1px; } }
+@keyframes drift { from { translate: -4px 0; } to { translate: 4px -3px; } }
+@keyframes tumble { from { transform: rotate(-8deg) translateY(-20%); opacity: 0.4; } to { transform: none; opacity: 1; } }
+@keyframes arrive { from { opacity: 0; transform: translateY(12px) scale(0.92); } to { opacity: 1; transform: none; } }
+@keyframes shiver { 0%, 100% { translate: 0 0; } 50% { translate: 3px 0; } }
+@keyframes glow { from { filter: drop-shadow(0 0 4px rgb(255 255 255 / 0.6)); } to { filter: drop-shadow(0 0 20px rgb(255 255 255 / 1)); } }
+
+/* Reduced motion: no shaking, drifting or breathing scale; changes become cuts. */
+.tower[data-calm] *, .tower[data-calm] *::before { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .tower * { animation: none !important; transition-duration: 0.01s !important; }
+}
+
+/* Phones in portrait: the characters sit side by side under the tower, so they can be larger. */
+@media (orientation: portrait) {
+  .feelio { inline-size: min(40vw, 24vh, 240px); }
+  .nori { inline-size: min(32vw, 20vh, 180px); }
+  .towerSpot { inline-size: min(36vw, 20vh, 200px); }
+}

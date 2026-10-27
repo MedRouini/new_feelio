@@ -1,0 +1,50 @@
+/* Action objects (D-075): illustrated objects for the big actions. Only transform and opacity animate;
+   the ready halo is an opacity animation on a flat amber disc behind the art (no blur, no shadow). */
+.action {
+  position: relative;
+  display: inline-grid;
+  justify-items: center;
+  gap: 4px;
+  min-inline-size: 96px;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--navy-900);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.object { position: relative; display: block; inline-size: 100%; transition: transform 140ms var(--ease-out); }
+.object::before { content: ""; position: absolute; inset: 8%; border-radius: 50%; background: radial-gradient(circle, rgb(243 176 58 / 0.6), rgb(243 176 58 / 0) 70%); opacity: 0; }
+.art { position: relative; inline-size: 100%; }
+.action:active .object { transform: scale(0.92); }
+.action:focus-visible { outline: none; }
+.action:focus-visible .plate { outline: 4px solid var(--navy-900); outline-offset: 4px; }
+.plate {
+  padding: 6px 14px;
+  border-radius: 14px 14px 14px 4px;
+  background: var(--white);
+  border: 3px solid var(--accent);
+  font-size: var(--fs-word);
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  text-wrap: balance;
+}
+:global(html[dir="rtl"]) .plate { border-radius: 14px 14px 4px 14px; }
+.moon { position: absolute; inset-block-start: 4%; inset-inline-end: 4%; display: grid; place-items: center; inline-size: 34px; block-size: 34px; border-radius: 50%; background: var(--purple-500); color: var(--white); }
+.action[data-resting] .art { opacity: 0.55; }
+.action[data-loading] { cursor: progress; }
+.action[data-ready] .object::before { opacity: 0.85; }
+@media (prefers-reduced-motion: no-preference) {
+  .object { animation: breathe 3.2s ease-in-out infinite; }
+  .object[data-pop] { animation: pop 380ms var(--ease-spring); }
+  .action[data-ready] .object::before { animation: halo 1.6s ease-in-out infinite; }
+  .action[data-loading] .object { animation: wobble 900ms ease-in-out infinite; }
+}
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+@keyframes pop { 0% { transform: scale(0.88); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
+@keyframes halo { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+@keyframes wobble { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }

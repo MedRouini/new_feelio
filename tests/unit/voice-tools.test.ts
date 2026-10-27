@@ -33,7 +33,7 @@ describe("voice client tools", () => {
   it("accepts only allowlisted names with valid closed-list arguments", () => {
     expect(parseToolCall("set_mascot_state", '{"mood":"happy"}')).toEqual({ name: "set_mascot_state", args: { mood: "happy" } });
     expect(parseToolCall("set_mascot_state", '{"mood":"furious"}')).toBeNull();
-    expect(parseToolCall("start_breathing", '{"rounds":9}')).toBeNull();
+    expect(parseToolCall("offer_activity", '{"activity":"skydiving"}')).toBeNull();
     expect(parseToolCall("suggest_place", '{"place":"casino"}')).toBeNull();
     expect(parseToolCall("show_feeling_card", '{"feeling":"sad","extra":"x"}')).toBeNull();
     expect(parseToolCall("open_url", '{"url":"https://example.test"}')).toBeNull();

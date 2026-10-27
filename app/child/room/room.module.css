@@ -1,0 +1,142 @@
+/* My room (D-074). The room is a fixed scene; the character and objects sit where the art has space for
+   them (content/room/layout.json). No bubbles, no blur, no shadows; logical properties for Arabic.
+   Only transform and opacity animate. */
+
+/* the spare space around the stage continues the room: wall, skirting and floor colours measured from
+   the edges of the art (like the place maps' backdrop, D-054); nothing drawn */
+.room {
+  position: fixed;
+  inset: 0;
+  overflow: clip;
+  color: var(--text);
+  background: linear-gradient(180deg, #fde1d3 0%, #fde1d3 41%, #eec6eb 44%, #e8c1e9 56%, #f09951 62%, #f19553 100%);
+}
+@media (orientation: portrait) {
+  .room { background: linear-gradient(180deg, #fcbc84 0%, #fde1c9 18%, #fde1c9 30%, #edc7e9 35%, #f3d4c7 45%, #fdb759 52%, #f19449 100%); }
+}
+
+/* the stage: the whole room picture, as large as fits, centred; everything on it is placed in fractions
+   of the picture, so it stays on its furniture at every size (physical left/top: the art never mirrors) */
+.stage { position: absolute; inset: 0; margin: auto; inline-size: min(100vw, 150vh); block-size: min(100vh, 66.667vw); }
+@media (orientation: portrait) { .stage { inline-size: min(100vw, 66.667vh); block-size: min(100vh, 150vw); } }
+.stageImg { position: absolute; inset: 0; inline-size: 100% !important; block-size: 100% !important; max-width: none !important; }
+.stagePort { display: none; }
+@media (orientation: portrait) { .stageLand { display: none; } .stagePort { display: block; } }
+.say { position: absolute; inset-block-start: max(10px, env(safe-area-inset-top)); inset-inline: 0; margin-inline: auto; inline-size: min(100% - 2 * 84px, 760px) !important; z-index: 3; }
+.say :global(span) { color: var(--white) !important; -webkit-text-stroke-color: #3b2a75 !important; }
+
+/* the character and name, centred on its spot */
+/* positions are on the room art, which never mirrors: physical left/top on purpose (text still flows RTL) */
+.me { position: absolute; z-index: 2; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); inline-size: calc(var(--w) * 100%); translate: -50% -50%; display: grid; justify-items: center; gap: var(--s1); }
+.character { border: 0; padding: 0; background: none; cursor: pointer; inline-size: 100%; min-block-size: var(--touch-child); }
+.character:focus-visible, .nameButton:focus-visible, .object:focus-visible { outline: var(--outline); outline-offset: 4px; border-radius: 20px; }
+.characterInner { display: block; }
+.nameButton { border: 0; padding: 0; background: none; cursor: pointer; inline-size: 82%; min-block-size: var(--touch-child); }
+.name { inline-size: 100%; }
+.nameEmpty { display: inline-block; padding: 10px 18px; border-radius: var(--r-pill); background: var(--white); font-weight: 700; }
+.feelio { position: absolute; z-index: 2; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); inline-size: calc(var(--w) * 100%); translate: -50% -50%; }
+
+/* the objects */
+.objects { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.object {
+  position: absolute;
+  left: calc(var(--x) * 100%);
+  top: calc(var(--y) * 100%);
+  inline-size: max(calc(var(--w) * 100%), var(--touch-child));
+  translate: -50% -50%;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: scale var(--m-pop) var(--ease-spring);
+}
+.object:active { scale: 0.94; }
+.objectArt { inline-size: 100%; }
+.objectWord { padding: 2px 12px; border-radius: var(--r-pill); background: rgb(255 255 255 / 0.92); font-size: clamp(14px, 1.6vmin + 6px, 19px); font-weight: 700; white-space: nowrap; }
+.count { position: absolute; inset-block-start: 0; inset-inline-end: 0; min-inline-size: 30px; padding: 2px 8px; border-radius: var(--r-pill); background: var(--accent); color: var(--navy-900); font-weight: 700; text-align: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .object[data-glow] .objectArt { animation: glow 1.8s ease-in-out infinite; }
+}
+@keyframes glow { 0%, 100% { scale: 1; } 50% { scale: 1.08; } }
+
+/* portrait: character at the top, the objects as a row of big picture buttons above the dock */
+@media (orientation: portrait) {
+  .me { left: calc(var(--px) * 100%); top: calc(var(--py) * 100%); inline-size: min(calc(var(--pw) * 100%), 34vh); }
+  .objects { position: fixed; inset: auto 12px calc(var(--dock-space, 110px) + 10px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 8px; pointer-events: none; }
+  .object { position: relative; inset: auto; left: auto; top: auto; translate: none; inline-size: 100%; min-inline-size: 0; }
+  .objectArt { inline-size: min(64%, 11vh); }
+  .objectWord { max-inline-size: 100%; white-space: normal; text-align: center; line-height: 1.15; font-size: 14px; padding-inline: 8px; }
+  .feelio { display: none; }
+}
+
+/* close-ups */
+.closeUp { position: fixed; inset: 0; z-index: 10; display: grid; grid-template-rows: auto minmax(0, 1fr); padding-block: max(12px, env(safe-area-inset-top)) calc(var(--dock-space, 110px) + 8px); padding-inline: 16px; background: #fff8ec; overflow: clip; }
+.back { justify-self: start; display: grid; place-items: center; inline-size: var(--touch-child); block-size: var(--touch-child); border-radius: 50%; border: 3px solid var(--lilac-300); background: var(--white); color: var(--purple-500); cursor: pointer; }
+.back:focus-visible { outline: var(--outline); outline-offset: 3px; }
+.closeUpBody { min-block-size: 0; overflow: auto; overscroll-behavior: contain; display: grid; align-content: start; justify-items: center; gap: var(--s4); padding-block: var(--s2); }
+.hint { margin: 0; font-size: var(--fs-word); font-weight: 700; text-align: center; text-wrap: balance; }
+
+/* star shelf */
+.shelf { inline-size: min(100%, 900px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: var(--s4) var(--s6); }
+.shelf > .hint { grid-column: 1 / -1; }
+.shelfRow { display: grid; gap: var(--s1); padding-block-end: 18px; background: linear-gradient(0deg, #9a5f35 0 12px, #c98b55 12px 18px, transparent 18px); }
+.shelfName { margin: 0; font-size: var(--fs-word); color: var(--purple-500); }
+.stars { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 64px)); gap: 8px; }
+.star { aspect-ratio: 1; border-radius: 50%; border: 3px dashed var(--lilac-300); display: grid; place-items: center; }
+.star[data-on] { border: 0; }
+.star :global(img) { inline-size: 100%; }
+
+/* feelings jar */
+.jar { inline-size: min(100%, 720px); display: grid; gap: var(--s4); justify-items: center; }
+.bubbles { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 3vmin, 26px); inline-size: 100%; }
+.bubble { inline-size: 100%; aspect-ratio: 1; min-inline-size: var(--touch-child); border-radius: 50%; border: 3px dashed var(--lilac-300); background: transparent; display: grid; place-items: center; padding: 10%; cursor: pointer; }
+.bubble[data-on] { border: 4px solid var(--accent); background: #ffe6ba; }
+.bubble:disabled { cursor: default; }
+.bubble :global(img) { inline-size: 100%; }
+
+/* wardrobe */
+.wardrobe { inline-size: min(100%, 1100px); display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); gap: var(--s6); align-items: start; }
+.mirror { display: grid; place-items: center; }
+.mirrorMe { display: block; inline-size: min(100%, 360px); }
+@media (orientation: portrait) {
+  .wardrobe { grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+  .mirror { position: sticky; inset-block-start: 0; z-index: 1; background: #fff8ec; }
+  .mirrorMe { inline-size: 40vw; }
+}
+.rails { display: grid; gap: var(--s3); }
+/* on wide screens the five rails sit in two columns so all of them fit without scrolling */
+@media (orientation: landscape) and (min-width: 900px) { .rails { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s3) var(--s4); } .tiles { gap: 8px; } }
+.rail { display: grid; gap: var(--s1); }
+.railName { margin: 0; font-size: var(--fs-word); color: var(--purple-500); }
+.tiles { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.tile { position: relative; inline-size: 100%; aspect-ratio: 1; min-block-size: var(--touch-child); display: grid; place-items: center; padding: 10%; border-radius: 22px; border: 3px solid var(--lilac-300); background: var(--white); cursor: pointer; transition: scale var(--m-pop) var(--ease-spring); }
+.tile:active { scale: 0.94; }
+.tile:focus-visible { outline: var(--outline); outline-offset: 3px; }
+.tile[aria-pressed="true"] { border: 4px solid var(--accent); background: #ffe6ba; }
+.tile[data-locked] .tileArt { opacity: 0.25; filter: grayscale(1); }
+.tileArt { inline-size: 100%; }
+.tileLock { position: absolute; inset-block-start: 6px; inset-inline-end: 6px; color: var(--purple-500); }
+
+/* gift box */
+.gift { display: grid; justify-items: center; gap: var(--s4); }
+.giftBox { position: relative; inline-size: min(60vmin, 360px); }
+.giftItem { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.giftBurst { position: absolute; inline-size: 120%; }
+.giftItemArt { position: relative; inline-size: 60%; }
+.fill { margin: 0; padding: 0; list-style: none; display: flex; gap: 14px; }
+.fill li { inline-size: 34px; block-size: 34px; border-radius: 50%; border: 3px dashed var(--lilac-300); }
+.fill li[data-on] { border: 0; background: var(--accent); }
+.openIt { display: inline-flex; align-items: center; gap: var(--s3); min-block-size: 88px; padding-inline: var(--s6) var(--s8); border: 4px solid #e09a2a; border-radius: var(--r-pill); background: var(--accent); color: var(--navy-900); font: inherit; font-size: var(--fs-big); font-weight: 700; cursor: pointer; }
+.openIt:disabled { opacity: 0.6; }
+.openIt:focus-visible { outline: var(--outline); outline-offset: 4px; }
+
+/* likes and names reuse the onboarding pickers inside the close-up */
+.likes { inline-size: min(100%, 760px); display: grid; justify-items: center; gap: var(--s4); }
+.names { inline-size: min(100%, 760px); }

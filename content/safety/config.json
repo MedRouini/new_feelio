@@ -47,10 +47,10 @@
   "images": {
     "generator": {
       "provider": "together",
-      "model": "black-forest-labs/FLUX.2-dev",
+      "model": "Qwen/Qwen-Image-2.0",
       "width": 1024,
       "height": 768,
-      "steps": 28,
+      "steps": 0,
       "timeoutMs": 60000
     },
     "checker": {

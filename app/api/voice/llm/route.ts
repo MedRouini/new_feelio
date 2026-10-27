@@ -2,13 +2,15 @@ import { timingSafeEqual } from "node:crypto";
 import { type NextRequest } from "next/server";
 import ar from "@/messages/ar.json";
 import en from "@/messages/en.json";
+import { recordedLines } from "@/child/gameMemory";
 import { proxyTurn } from "@/child/voice";
 import { env } from "@/platform/env";
 import { setDraftChoice, setDraftListChoice } from "@/child/stories";
 import { namedChoices, type Slot } from "@/safety/stories/choices";
 import { mapIdea } from "@/safety/stories/ideas";
 import { companionTurn, conversationOf } from "@/safety/voice";
-import type { ToolCall } from "@/safety/voice-agent/tools";
+import { notTalk, staysQuiet } from "@/safety/voice-agent/heard";
+import { afterActivity, allowedForChild, stillAsking, type ToolCall } from "@/safety/voice-agent/tools";
 import type { SafetyCtx } from "@/safety/types";
 
 // The safety proxy the ElevenLabs agent calls as its "custom LLM" (ARCHITECTURE §4.3, D-003, D-068). It
@@ -24,6 +26,8 @@ export const runtime = "nodejs";
 export const maxDuration = 30;
 
 const LINES = { en: en.child.talk, ar: ar.child.talk };
+/** Feelio's recorded game lines: heard back through the microphone, they are an echo, not the child (D-077). */
+const RECORDED = recordedLines();
 
 function authorised(request: NextRequest): boolean {
   const secret = env().VOICE_PROXY_SECRET;
@@ -39,17 +43,20 @@ export async function POST(request: NextRequest) {
   if (!e.VOICE_ENABLED && !e.VOICE_SPIKE_ENABLED) return new Response("Not found", { status: 404 });
   if (!authorised(request)) return new Response("Unauthorized", { status: 401 });
 
-  let body: { messages?: { role: string; content: unknown }[]; tools?: { function?: { name?: string } }[]; elevenlabs_extra_body?: { feelio_session?: unknown } };
+  let body: { messages?: { role: string; content: unknown }[]; tools?: { function?: { name?: string } }[]; elevenlabs_extra_body?: { feelio_session?: unknown; feelio_after?: unknown } };
   try {
     body = await request.json();
   } catch {
     return new Response("Bad request", { status: 400 });
   }
-  const messages = conversationOf(body.messages ?? []);
+  // One conversation (D-077): the whole talk, without silences and echoes the agent heard earlier.
+  const messages = conversationOf(body.messages ?? [], (text) => notTalk(text, RECORDED));
   const offered = new Set((body.tools ?? []).map((t) => t.function?.name).filter(Boolean));
 
   const extra = body.elevenlabs_extra_body?.feelio_session;
   const sessionId = typeof extra === "string" ? extra : null;
+  // The calm activity the child just finished (D-076): an id from a closed list, never words.
+  const after = afterActivity(body.elevenlabs_extra_body?.feelio_after);
   const turn = e.VOICE_ENABLED ? await proxyTurn({ sessionId, conversationId: request.headers.get("x-feelio-conversation") }) : ({ ok: false } as const);
   if (process.env.NODE_ENV !== "production") {
     // Development only, and never any words: whether a session matched and which tools ElevenLabs offered.
@@ -80,6 +87,13 @@ export async function POST(request: NextRequest) {
         send("data: [DONE]\n\n");
         controller.close();
       };
+      // Staying quiet for a turn (D-077): ElevenLabs ends the call on a reply with no words ("custom_llm
+      // generation failed", owner's live test 2026-10-19), so a quiet turn is the agent's skip_turn tool.
+      const canSkip = offered.has("skip_turn");
+      const quiet = () => {
+        send(toolChunk("skip_turn", { reason: "waiting for the child" }));
+        finish();
+      };
 
       // No live session (or its time is up): one fixed, kind line, then the call ends. No model at all.
       if ((!turn.ok && !spike) || (turn.ok && turn.stop)) {
@@ -87,7 +101,14 @@ export async function POST(request: NextRequest) {
         send(toolChunk("end_call", { reason: "time_up" }));
         return finish();
       }
-      if (!messages.length || messages[messages.length - 1].role !== "user") return finish();
+      if (!messages.length || messages[messages.length - 1].role !== "user") return canSkip ? quiet() : finish();
+      // During a game (D-077), only the child talking gets an answer: silence, small sounds like a breath
+      // or "hmm", and Feelio's own recorded lines coming back through the microphone get none, so Feelio
+      // never talks over the game. An echo never gets an answer at all. Anything the safety rules notice
+      // always goes through the full pipeline. (An agent that can't skip a turn gets a normal answer.)
+      const game = turn.ok ? turn.context.game?.now : null;
+      const playing = game?.status === "running" || game?.status === "paused";
+      if (canSkip && staysQuiet(messages[messages.length - 1].content, { playing, lines: RECORDED })) return quiet();
 
       const ctx: SafetyCtx = turn.ok
         ? turn.ctx
@@ -98,22 +119,26 @@ export async function POST(request: NextRequest) {
               // D-068: the faster output check only for the owner's adult tests; strict (D-018) for children.
               outputCheck: turn.session.adultTest ? "gated" : "strict",
               countAs: turn.session.adultTest ? "test" : undefined,
-              context: turn.context,
+              context: { ...turn.context, after },
               tools: turn.session.purpose === "story" ? "story" : "talk",
             }
           : { countAs: "test" });
         const tools: ToolCall[] = [];
+        let said = "";
         const serverCalls: Extract<ToolCall, { name: "set_story_choice" | "story_idea" }>[] = [];
         for await (const ev of events) {
-          if (ev.type === "say") send(chunk({ content: ev.text + " " }));
+          if (ev.type === "say") {
+            said += ev.text + " ";
+            send(chunk({ content: ev.text + " " }));
+          }
           // Crisis: the router (never the model) shows who can help, and calms the mascot.
           if (ev.type === "crisis") {
             tools.push({ name: "show_safety_resources", args: { kinds: ev.resources.map((r) => r.kind) } });
             tools.push({ name: "set_mascot_state", args: { mood: ev.mascot === "empathy" ? "empathy" : "calm" } });
           }
-          // A place suggestion only for a place this child can reach (the server's world state).
+          // Only what this child can open (the server's data): a place they reached, a story when story making is open.
           if (ev.type === "tool" && (ev.call.name === "set_story_choice" || ev.call.name === "story_idea")) serverCalls.push(ev.call);
-          else if (ev.type === "tool" && !(ev.call.name === "suggest_place" && turn.ok && !turn.context.placesOpen?.includes(ev.call.args.place))) tools.push(ev.call);
+          else if (ev.type === "tool" && (!turn.ok || allowedForChild(ev.call, { placesOpen: turn.context.placesOpen ?? [], storiesOpen: turn.context.storiesOpen ?? false, playing }))) tools.push(ev.call);
           if (ev.type === "end") {
             const t = ev.timings;
             send(`: feelio ${ev.reason} t0=${t.t0Ms.toFixed(0)} t1=${t.t1Ms?.toFixed(0)} first_token=${t.firstTokenMs?.toFixed(0)} first_release=${t.firstReleaseMs?.toFixed(0)} total=${t.totalMs.toFixed(0)}\n\n`);
@@ -145,7 +170,8 @@ export async function POST(request: NextRequest) {
             }
           }
         }
-        for (const c of tools) send(toolChunk(c.name, c.args));
+        // Feelio still asking ("would you like…?"): the activity waits for the child's yes.
+        for (const c of tools) if (!(c.name === "offer_activity" && stillAsking(said))) send(toolChunk(c.name, c.args));
       } catch {
         // Never an error to the child: the pipeline already falls back; this is a last resort.
         send(chunk({ content: LINES[locale].trouble + " " }));

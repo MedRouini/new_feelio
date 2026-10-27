@@ -81,7 +81,8 @@ export async function applyOnboardingUpdate(child: ChildContext, u: OnboardingUp
   await db
     .update(childProfile)
     .set({
-      ...(u.avatar || (skip && !p.avatar) ? { avatar: u.avatar ?? DEFAULT_AVATAR } : {}),
+      // Worn items are kept as they are: only My room's route (which checks unlocks) changes them.
+      ...(u.avatar || (skip && !p.avatar) ? { avatar: { ...(u.avatar ?? DEFAULT_AVATAR), ...(p.avatar?.wear ? { wear: p.avatar.wear } : {}) } } : {}),
       ...(u.nickname ? { nicknameKey: u.nickname } : {}),
       ...(u.interests ? { interests: u.interests } : {}),
       onboarding: {

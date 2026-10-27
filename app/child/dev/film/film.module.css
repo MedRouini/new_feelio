@@ -1,0 +1,128 @@
+/* THROWAWAY SPIKE (v2): the film frame. A 3:2 illustrated picture, letterboxed on any screen. */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #120b22;
+  overflow: hidden;
+}
+.frame {
+  position: relative;
+  inline-size: min(100vw, calc(100vh * 3 / 2));
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000;
+}
+.shaker, .layer, .camera { position: absolute; inset: 0; }
+.camera { transform-origin: 50% 50%; }
+.bg { position: absolute; inset: 0; inline-size: 100% !important; block-size: 100% !important; max-width: none !important; object-fit: cover; aspect-ratio: auto !important; border-radius: 0; }
+.img { display: block; inline-size: 100%; }
+.burst { position: absolute; left: 39%; top: 18%; inline-size: 22%; pointer-events: none; }
+
+.storm {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 30% 40%, rgb(97 65 148 / 0.2), rgb(40 20 70 / 0.95));
+  mix-blend-mode: multiply;
+  opacity: 0;
+}
+.bars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(#000 0 9%, transparent 9% 91%, #000 91%);
+  opacity: 0;
+}
+
+.sub {
+  position: absolute;
+  inset-inline: 8%;
+  bottom: 11%;
+  margin: 0;
+  text-align: center;
+  font-weight: 800;
+  font-size: clamp(16px, 2.4vw, 30px);
+  line-height: 1.25;
+  color: #fff;
+  paint-order: stroke;
+  -webkit-text-stroke: 6px #2a1648;
+  text-wrap: balance;
+  animation: subIn 0.25s ease-out;
+}
+@keyframes subIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+[data-phase="choice"] .sub, [data-phase="rewind"] .sub { bottom: auto; top: 11%; }
+
+.poster {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  background: rgb(18 11 34 / 0.55);
+  color: #fff;
+}
+.poster[data-end] { background: rgb(18 11 34 / 0.35); }
+.title { margin: 0; font-size: clamp(32px, 6vw, 72px); font-weight: 900; paint-order: stroke; -webkit-text-stroke: 8px #614194; }
+.note { margin: 0; font-size: 14px; opacity: 0.8; }
+.play {
+  display: grid;
+  place-items: center;
+  inline-size: 112px;
+  block-size: 112px;
+  border: 0;
+  border-radius: 50%;
+  background: #f3b03a;
+  color: #2a1648;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #c4557c;
+}
+.play:active { transform: translateY(4px); box-shadow: 0 2px 0 #c4557c; }
+
+.choices {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 12%;
+  display: flex;
+  justify-content: center;
+  gap: 4%;
+}
+.card {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 6px;
+  inline-size: 26%;
+  padding: 10px 10px 14px;
+  border: 5px solid #fff;
+  border-radius: 24px;
+  background: linear-gradient(#efcff8, #ffe6ba);
+  color: #2a1648;
+  font: inherit;
+  font-weight: 900;
+  font-size: clamp(14px, 1.9vw, 24px);
+  cursor: pointer;
+  box-shadow: 0 6px 0 #614194;
+}
+.card[data-wide] { inline-size: 36%; padding: 18px; }
+.card:active { transform: translateY(4px); box-shadow: 0 2px 0 #614194; }
+.cardImg { inline-size: 62%; }
+
+.warm {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, rgb(255 214 140 / 0.35), rgb(255 170 120 / 0.15) 60%, transparent);
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 60%, rgb(0 0 0 / 0.35));
+}
+.frame[data-rewinding] .shaker { filter: grayscale(0.7) contrast(1.2) hue-rotate(-20deg) blur(1px); }

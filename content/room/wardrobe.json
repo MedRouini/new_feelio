@@ -1,0 +1,244 @@
+{
+  "items": [
+    {
+      "id": "party_hat",
+      "slot": "head",
+      "asset": "wear_party_hat",
+      "en": "Party hat",
+      "ar": "قبعة الحفلة",
+      "placement": {
+        "x": 0.5,
+        "y": 0.045,
+        "w": 0.351,
+        "rotate": -8,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "round_glasses",
+      "slot": "face",
+      "asset": "wear_round_glasses",
+      "en": "Round glasses",
+      "ar": "نظارة مستديرة",
+      "placement": {
+        "x": 0.5,
+        "y": 0.473,
+        "w": 0.609,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "scarf",
+      "slot": "neck",
+      "asset": "wear_scarf",
+      "en": "Cosy scarf",
+      "ar": "وشاح دافئ",
+      "placement": {
+        "x": 0.487,
+        "y": 0.796,
+        "w": 0.64,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "backpack",
+      "slot": "back",
+      "asset": "wear_backpack",
+      "en": "Backpack",
+      "ar": "حقيبة ظهر",
+      "placement": {
+        "x": 0.84,
+        "y": 0.498,
+        "w": 0.463,
+        "rotate": 10,
+        "behind": true
+      },
+      "provisional": false
+    },
+    {
+      "id": "flower_crown",
+      "slot": "head",
+      "asset": "wear_flower_crown",
+      "en": "Flower crown",
+      "ar": "تاج الزهور",
+      "placement": {
+        "x": 0.5,
+        "y": 0.201,
+        "w": 0.639,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "star_glasses",
+      "slot": "face",
+      "asset": "wear_star_glasses",
+      "en": "Star glasses",
+      "ar": "نظارة النجوم",
+      "placement": {
+        "x": 0.5,
+        "y": 0.464,
+        "w": 0.648,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "bow_tie",
+      "slot": "neck",
+      "asset": "wear_bow_tie",
+      "en": "Bow tie",
+      "ar": "ربطة فراشة",
+      "placement": {
+        "x": 0.5,
+        "y": 0.66,
+        "w": 0.277,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "cape",
+      "slot": "back",
+      "asset": "wear_cape",
+      "en": "Hero cape",
+      "ar": "عباءة البطل",
+      "placement": {
+        "x": 0.5,
+        "y": 0.572,
+        "w": 1.03,
+        "rotate": 0,
+        "behind": true
+      },
+      "provisional": false
+    },
+    {
+      "id": "wizard_hat",
+      "slot": "head",
+      "asset": "wear_wizard_hat",
+      "en": "Wizard hat",
+      "ar": "قبعة الساحر",
+      "placement": {
+        "x": 0.499,
+        "y": 0.054,
+        "w": 0.532,
+        "rotate": -6,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "heart_glasses",
+      "slot": "face",
+      "asset": "wear_heart_glasses",
+      "en": "Heart glasses",
+      "ar": "نظارة القلوب",
+      "placement": {
+        "x": 0.5,
+        "y": 0.478,
+        "w": 0.614,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "flower_garland",
+      "slot": "neck",
+      "asset": "wear_flower_garland",
+      "en": "Flower garland",
+      "ar": "عقد الزهور",
+      "placement": {
+        "x": 0.5,
+        "y": 0.692,
+        "w": 0.619,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "butterfly_wings",
+      "slot": "back",
+      "asset": "wear_butterfly_wings",
+      "en": "Butterfly wings",
+      "ar": "أجنحة فراشة",
+      "placement": {
+        "x": 0.5,
+        "y": 0.471,
+        "w": 1.108,
+        "rotate": 0,
+        "behind": true
+      },
+      "provisional": false
+    },
+    {
+      "id": "beanie",
+      "slot": "head",
+      "asset": "wear_beanie",
+      "en": "Warm beanie",
+      "ar": "قبعة صوف",
+      "placement": {
+        "x": 0.5,
+        "y": 0.038,
+        "w": 0.754,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "sunglasses",
+      "slot": "face",
+      "asset": "wear_sunglasses",
+      "en": "Sunglasses",
+      "ar": "نظارة شمسية",
+      "placement": {
+        "x": 0.5,
+        "y": 0.476,
+        "w": 0.614,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "star_medal",
+      "slot": "neck",
+      "asset": "wear_star_medal",
+      "en": "Star medal",
+      "ar": "ميدالية النجمة",
+      "placement": {
+        "x": 0.5,
+        "y": 0.714,
+        "w": 0.261,
+        "rotate": 0,
+        "behind": false
+      },
+      "provisional": false
+    },
+    {
+      "id": "balloon",
+      "slot": "back",
+      "asset": "wear_balloon",
+      "en": "Balloon",
+      "ar": "بالون",
+      "placement": {
+        "x": 0.9,
+        "y": 0.407,
+        "w": 0.431,
+        "rotate": 6,
+        "behind": true
+      },
+      "provisional": false
+    }
+  ]
+}

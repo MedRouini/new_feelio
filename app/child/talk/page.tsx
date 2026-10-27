@@ -30,7 +30,7 @@ export default async function Talk() {
     <>
       <Heartbeat />
       <main data-testid="talk">
-        <TalkScreen places={places} help={help} />
+        <TalkScreen places={places} help={help} stories={view.features.stories} />
       </main>
       <Dock active="talk" stories={view.features.stories} talk />
     </>

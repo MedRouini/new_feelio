@@ -722,7 +722,7 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Also found live:** ElevenLabs appends `/chat/completions` to the custom-LLM URL. A second route at that path re-exports the same handler.
 - **Context for the model:** the name only when it is a word from the reviewed list (never the parent's typed nickname); interests and places as ids; levels finished; a wind-down note in the last minute; the last 8 turns of the conversation.
 - **Client tools (verified live: a custom LLM's `tool_calls` reach the browser as client tool calls):**
-  - `set_mascot_state`, `show_feeling_card` (the brand's own feeling faces), `start_breathing`, `suggest_place` (only a place this child has reached) are offered to the model
+  - `set_mascot_state`, `show_feeling_card` (the brand's own feeling faces), `start_breathing` (replaced by `offer_activity`, D-076), `suggest_place` (only a place this child has reached) are offered to the model
   - `show_safety_resources` is emitted **only by the router** on a crisis, with the mascot calmed
   - closed argument lists, validated in the proxy and again in the browser; a tool runs only after every sentence of the turn was released; screen-only, non-blocking (`expects_response: false`)
 - **Tool-only answers:** DeepSeek sometimes answered with tools and no words (2 of 3 times on one test sentence), which correctly fell back to a reviewed line. Now that turn is asked once more with tools off, and the first tool calls are kept. Unit-tested; then 4 of 4 live turns gave real replies.
@@ -768,3 +768,194 @@ Each entry: **status** (proposed / accepted / blocked / deferred), the decision,
 - **Data:** the collection reads only what other features already store (level progress, the child's stories and their chosen feeling); nothing new is kept (CR-6). The books page is hidden when the parent has Stories off.
 - **Art:** each page uses its scene once both orientations are approved (`scene_talk_nook`, `scene_story_stage`, `scene_library`, `scene_treasure_room`, plus `ui_sticker_album_open`, `mascot_directing`, `mascot_holding_album`); until then flat brand colours and shapes, never a grey box or a blurred picture.
 - **Not in this step:** the Calm sky and the night meadow for resting (proposal items 4).
+
+## D-072 Batch 3–5 art delivered through a colleague's fork; reviewed here, not merged
+**Status:** accepted (owner, 2026-10-13).
+- **Source:** a colleague forked the repo (`Minyar-Meksi/new_feelio`, commit `0560529`) and generated 74 files with the OpenAI image tool via Codex, using our approved files as references (prompts and references kept in each manifest entry). The fork also added a `tmp/` folder (a vendored PDF library, compiled Python, generation scripts) and marked its own files approved (`reviewed_by: codex`).
+- **What we took:** only the 74 image files, on a review branch. Not the `tmp/` folder and not the fork's manifest. Every file was viewed on a dark background and checked against the ASSET_PROTOCOL rejection list (writing, mascot drift, people, style, halo, cropping, subject, safety, frame alignment), plus measured size, alpha and edge contact.
+- **Result:** 72 approved, logged with `reviewed_by: claude-code`. Notes: the School maps have tiny blurry chalkboard and poster marks inside a classroom window (no legible letters, kept); `level_school_3`'s "one chair apart" reads only weakly (kept). **2 sent back:** `mascot_speaking_closed` and `_open` were regenerated as whole pictures, so the body shifts against `mascot_speaking_half` and would shimmer when Talk swaps frames. New instructions: edit only the mouth with ChatGPT's Select brush. Talk shows the happy pose while speaking until they arrive.
+- **Place maps:** the stones of the 8 new maps were measured from the art (stone-top colour, five ellipses per map, ordered as the levels go) and the path points moved onto them; each map's spare-space colour was measured from its edges. `provisional` is now false for every map except Home portrait (still a redo). Screenshots confirm the code-drawn stones sit on the painted ones in both orientations.
+- **Layout fixes the art needed:** the album art keeps its 3:2 shape with the pages set inside its painted page area (one flat page on phones, where the landscape art would stretch); the Talk button label is outlined so it reads on the nook scene.
+- **Test fixture:** `completedLevels` marks levels finished so later places can be opened in tests and screenshots.
+- **Follow-up (owner, 2026-10-13):** the two mouth frames are **kept**: the owner retried and got the same result, and accepted the slight body shift. All three frames are preloaded on Talk so lip-sync never blinks. The last three redos arrived and passed (`dock_calm`: a cloud with breath lines, no "?" swirls; `ui_mic_object`: a handheld mic, no trophy; `place_home_map_v`: portrait, the inside of the house, stones measured, so no map is provisional any more). The seven Batch 4 ids the redesign made unnecessary were removed from `design/asset-ids.ts`. No expected asset is missing.
+
+## D-073 Story pictures temporarily on Qwen Image 2.0 (FLUX.2-dev not answering)
+**Status:** accepted (owner, 2026-10-13), temporary.
+- **Why:** on 2026-10-13 Together's `black-forest-labs/FLUX.2-dev` stopped answering (no reply within 3 minutes; no incident on Together's status feed), while other Together image models answered in seconds. Story covers and pages failed as "unavailable" after two 60-second attempts.
+- **Change:** `content/safety/config.json` → `images.generator.model: "Qwen/Qwen-Image-2.0"`, `steps: 0` (the request then leaves `steps` out and the model uses its default; Together's docs don't list which parameters this model accepts). Size, seed, the prompt template, the provider's NSFW checker and our vision check (Qwen3.5-9B) are unchanged: every picture still passes both checks.
+- **Not tested, by owner decision** (needed for a live demo). Unknowns: hero consistency across pages and style match with the brand, which were only checked with FLUX.2-dev (D-070); whether Qwen Image 2.0 accepts every parameter we send. If it refuses a request, the picture fails closed to Feelio's stand-in as before.
+- **Cost:** about $0.035 per picture (Together's listed estimate, 2026-10-13) against $0.0154 for FLUX.2-dev, so about $0.18 per story instead of $0.08. The daily cap of 3 new stories per child stays.
+- **Revisit:** switch back to FLUX.2-dev once it answers again, or run the 5-story review on Qwen Image 2.0 before keeping it.
+
+## D-074 My room replaces the collection: dress-up with unlocks, name and likes
+**Status:** accepted (owner, 2026-10-13). Spec: `docs/superpowers/specs/2026-10-13-my-room-design.md`; plan: `docs/superpowers/plans/2026-10-13-my-room.md`.
+
+**Owner decisions:**
+- The collection's layout, and putting achievements in a book, didn't make sense; the page needed to be engaging, with character and name customization. Fluidity and a perfect layout come first.
+- The page becomes **My room**, the child's bedroom (`/room`; `/collection` redirects; menu label "My room" / "غرفتي").
+- **Dress-up with unlocks:** layered wearable items.
+- **Everything counts toward unlocks.**
+- **Name:** picked again from the reviewed list, or the parent's nickname.
+- **Parents** don't see the room.
+
+**Unlocks:**
+- Points: 1 per story made, 1 per distinct feeling met (at most 8), 2 per finished level.
+- Items: 2 free, then one more every 3 points, up to 16 (`child/wardrobe.ts`, `content/room/wardrobe.json`).
+- **Unlocks never go down** (rule 12). `child_profile.rewards_reached` keeps the highest count ever reached, and `rewards_seen` how many surprises were opened (migration 0007, additive). A parent deleting a story takes nothing away.
+- No streaks, timers or daily rewards.
+
+**Server (CR-2):**
+- `POST /api/child/room` (`child/room.ts`) refuses locked, unknown and wrong-area items.
+- Names come from the list, or "parent" only when a parent nickname exists. Likes come from the list, at most 3.
+- "Seen" opens one surprise per call and never passes "reached", so a double tap can't skip one.
+
+**Data:** the only new child choice stored is `avatar.wear` (one item id per body area). It lives on the profile and is deleted with it. Nothing is typed and no model is called.
+
+**Layout and art:**
+- Object positions (`content/room/layout.json`) and item placements on the character (`wardrobe.json`) are **provisional** until Batch 6 arrives and they are measured from the art, the same method as the map stones.
+- Until then the room uses the treasure-room scene, with grey placeholder boxes for the objects and wardrobe tiles. The character shows no item without delivered art.
+- Batch 6 (24 images) is made with Codex from `assets/requests/batch6/jobs.json` into the git-ignored `assets/incoming/batch6/`, checked by `scripts/check-incoming.ts`, then reviewed before approval.
+
+**Voice:** `room_intro`, `room_surprise` and `room_locked` were generated (English, about 230 credits with one changed older line). Arabic stays captions (D-064).
+
+**Verified by running it:**
+- 140 unit and integration tests, including the room maths, the server refusals, and "a deletion never lowers reached".
+- **All 36 browser tests**, including 10 for the room: dress-up saved across a reload, the gift box opening one surprise, name and likes, Stories off, and **no overlaps at 1180×820, 1920×920 and 390×844 in English and Arabic**.
+- Screenshots reviewed.
+- **Final review (fresh reviewer, 2026-10-13), fixed with failing tests first:**
+  - Onboarding can no longer set worn items, which had bypassed the unlock check.
+  - Wear and colour are written in place with jsonb in one statement, and the browser queues saves, so quick taps never revert.
+  - An unknown or renamed item id is dropped instead of resetting the character.
+  - The locked line is neutral ("Keep playing") and spoken; step counts and "all open" have fixed voice lines.
+  - Room positions are physical, because the room art never mirrors in Arabic.
+- **Deferred minors** (in the ledger):
+  - The character's accessible name falls back to Feelio's AI label when no name is set.
+  - A refused "parent" name isn't rolled back.
+  - The gift box stays lit when another tab opened the surprise.
+  - Wardrobe tiles unlock from "reached", not "seen".
+  - No wardrobe sparkle yet.
+  - Each write loads up to 60 story rows.
+  - The room route has no screen-time check, the same as onboarding.
+- **Batch 6 approved (24, by Codex from the job list).** The room is now a **stage**: the whole room picture, as large as fits and always fully visible, with spare space filled by the wall, skirting and floor colours measured from the art's edges. Every object is placed in fractions of that picture (`content/room/layout.json`, measured 2026-10-13), so it stays on its furniture at every size:
+  - pinboard and shelf on the wall panels
+  - feelings jar on the bedside table
+  - wardrobe, books and gift box on the floor
+  - the character on the rug, Feelio by the bed
+- **Item placements** on the character (`wardrobe.json`) were measured from each item's visible area against `avatar_bun_amber_idle`, previewed on all 16 and adjusted. Hats sit on the head, glasses on the eyes, neck items under the mouth, and back items behind the body.
+
+## D-076 Voice room: Feelio offers calm activities and stories; the app guides them
+**Status:** built (owner brief, 2026-10-14: "make Feelio an actionable emotional support agent… Do not stop after producing a proposal"). Design and tasks: docs/VOICE_ROOM.md.
+- **Interaction model (decided without asking, as the brief allows for non-blocking choices):**
+  - Feelio offers an activity in words.
+  - After the child's yes, it calls `offer_activity`, and the activity appears beside Feelio for the child to tap.
+  - The tap closes the live call, and the activity runs on the app's clock with pre-recorded lines.
+- **Why not keep the call open and let the agent guide:**
+  - The agent is turn-based: it speaks only after the child does, so it can't keep a breathing rhythm.
+  - It would spend voice minutes and credits on silence (CLAUDE.md rule 11: fixed phrases are static audio).
+  - The agent ends a call after 30 s of silence.
+  - The cost if this is wrong: a new talk starts after the activity (with the fixed AI greeting), not the same one. The proxy is told which activity just ended, so Feelio follows up.
+- **Tool:** `offer_activity` (`breathing | grounding | stretching | story`) replaces `start_breathing` (D-068).
+  - The proxy filters it per child (`allowedForChild`): a story only when `storyGate` is open, a place only when reached.
+  - The browser checks again.
+  - The calls are idempotent, stale ones are ignored, and help always wins.
+- **After-activity context:** the id travels in `customLlmExtraBody.feelio_after` and is read from a closed list (`afterActivity`). Nothing is stored.
+- **Prompt `sys-v0.4`:**
+  - offer in words, call only after a yes
+  - no is fine
+  - match the activity to the feeling
+  - not a therapist, no diagnosis, no promised fix
+  - big or recurring feelings go to a trusted grown-up
+- **Activities:**
+  - breathing: 3 × in 4 s / out 5 s, no hold
+  - noticing: a 3-2-1 grounding game, tap per thing found
+  - stretching: 4 gentle moves, sitting allowed, each skippable
+- **Shared lifecycle (pure):** start, tick, pause, resume, find, skip, restart, and progress.
+- **14 English voice lines** were generated with the existing script (Multilingual v2, Jessica, about 590 credits). Arabic is captions only until an Arabic voice exists (D-064).
+- **Development-only test hook:** `window.__feelioTool` runs a tool call through the same validation; it is not in production builds. The room can be end-to-end tested without a live call.
+- **Art:** Batch 8 (7 mascot poses, 3 start objects) is requested and optional. Until it is approved, each slot uses an approved pose or brand companion (never a drawing or a grey box).
+- **Blocked on the owner:**
+  - the agent sync with a live tunnel (the agent must be told about `offer_activity`; until then it offers the old tool list, and the proxy drops tools it wasn't offered)
+  - a spoken test on a device
+- **Live test fix (2026-10-16, `sys-v0.5`):** in the owner's live test the noticing game never appeared. Replaying through the proxy showed why: Feelio comforted a worried child with no question, and offered only on a later turn, as "grounding". Feelio now comforts and offers in the same reply, using child-friendly names ("slow breaths with a cloud", "a noticing game", "some wiggly stretches", "making a story together"). Replayed after the change: 4 of 4 worried-child conversations reach the noticing game within two turns; breathing (including a "no" first) and stretching still work.
+- **Owner change (2026-10-16): one continuous conversation.** "The option of playing a game [should happen] from just voice… the voice agent shouldn't stop." This replaces the tap-to-start / close-the-call model above:
+  - During a live talk, the child's yes starts a calm game by itself, 400 ms after Feelio's last word (`startsByVoice`). Stories and places stay doors to tap, because they leave the page.
+  - The call stays open. The child's microphone is muted while they play, so Feelio doesn't hear its recorded guidance or the breathing. After the game, a 4 s cheer, then the same conversation goes on, and the next time the child speaks Feelio asks once how they feel (`sys-v0.6`).
+  - The agent now hangs up after 120 s of silence instead of 30 (`silence_end_call_timeout`; turn timeout still 7 s, range 1–30 per the conversation-flow docs, checked 2026-10-16). Our 240 s session limit and the daily voice minutes still end every talk. **Cost:** a game now uses voice minutes (about 35–60 s each).
+  - **Safety net:** a reply that ends with a question is still asking, so the proxy holds back an `offer_activity` in it (`stillAsking`). Seen once before the guard: a reply asked "would you like…?" and called the tool in the same breath.
+  - Without a live talk (it ended, or was never started), the game still waits for a tap, and "Talk to Feelio" afterwards starts a new talk that knows which game was played.
+  - **Replayed through the proxy:** 3 of 3 worried-child conversations ask first, then start the noticing game on "yes"; "sure" starts breathing. The provider was briefly slow (first words after more than 6 s, so the reviewed fallback line played); it recovered on its own.
+
+## D-077 One conversation: the game is part of the talk, not a second system
+**Status:** built (owner, 2026-10-19: "the game and the voice agent behave like two separate systems… game state is context for the conversation, not a separate mode").
+- **What the owner's last live call showed** (ElevenLabs transcript, 16 Oct, 71 s): the breathing game started at 26 s with the microphone muted. The agent's turn timeout then sent a silence turn ("...") every ~10 s, and Feelio answered each one over the game's recorded guidance: "How do you feel now?" in the middle of breathing, then "Is there anything you'd like to tell me about your day?".
+- **Root causes:**
+  1. Feelio knew nothing about the game: its state lived only in the browser. The only signal (`feelio_after`) was sent when a talk *started*, so it never arrived during a continuous talk, and the prompt guessed that "the next time the child speaks" meant the game was over.
+  2. The muted microphone split the two: the child's words during a game never reached Feelio, but the agent's silence pings did.
+  3. Two voices, no turn-taking: Feelio's live replies played on top of the recorded step lines.
+  4. Short memory: the proxy kept only the last 8 messages, and silence pings filled them, so the start of the talk (the worry) dropped out within a minute.
+- **The fix: one pipeline, one history:**
+  - **The game reaches Feelio on every turn.** The screen reports the game's state to our server (`POST /api/child/voice/session`, `action: "game"`: activity, step, status, things found; closed lists and small numbers, never words). The server checks it's this child's open talk and a real step of a real game (`child/gameMemory.ts`), and keeps it on the session row (`voice_session.game`, migration 0008). The proxy turns it into context: which game, the step's own words (reviewed app text), progress, found counts, and the games played earlier in this talk.
+  - **The microphone stays open.** Whatever the child says during a game goes through the same proxy, prompt and safety checks as any other turn.
+  - **What gets an answer** (`safety/voice-agent/heard.ts`): during a game, silence and small sounds ("hmm", a breath) get no reply. Feelio's own recorded lines heard back through the microphone (echo) never get one, and are dropped from the history.
+  - **Turn-taking:** while Feelio speaks during a game, the game holds (clock, animation and recorded line, `hold`/`release` in `child/talkRoom.ts`), and Feelio's words show in the game's caption. It resumes 0.7 s after Feelio's last word. The child's own pause is never overridden.
+  - **New tool `stop_activity`** (empty arguments): "I don't want to play anymore" stops the game by voice. The proxy lets it through only while a game is on, and holds new offers and places during a game.
+  - **Prompt `sys-v0.7`:**
+    - during a game: answer the way Feelio always does, in one short sentence that fits the game; explain the step if asked; invite the child back to it
+    - after a finished game: the recorded line just asked "Do you want to talk some more?"; ask once how they feel
+    - after a stopped game: no guilt
+    - always: one continuous talk; remember and refer back; short or unclear words get a warm "say a little more"; follow a change of subject; after an interruption, answer the new words
+  - **Memory:** the proxy keeps the whole talk (up to 40 messages, 8,000 characters), without silences and echoes. Every earlier child turn is redacted again before it goes to the model, not just the latest.
+- **Data:** `voice_session.game` holds ids and numbers only, and only while the talk is open: ending the talk sets it to null. No new retention.
+- **Verified by running it:**
+  - unit: 13 new (game memory, what needs an answer, the prompt, the stop tool, hold and release, history)
+  - integration: the report, the per-child check, the context, and clearing at the end
+  - end to end: m9 10/10, including a voice stop
+  - **replay through the proxy with the real model** (`scripts/voice-game-replay.ts`), 3 runs of the noticing script plus one breathing script:
+    - silence, "hmm" and an echo of the step got no reply (3/3)
+    - "what do I have to do?" got the current step (3/3)
+    - "I can see my lamp and a book!" got "two already, one more" (3/3)
+    - "I don't want to play anymore" called `stop_activity` (3/3)
+    - "can we talk about the exam again?" picked up the exam from before the game (3/3)
+    - after breathing, "what were we talking about before?" recalled "too much going on"
+- **Not verified:** a live spoken call. Unverified so far:
+  - how much of the recorded voice the microphone picks up on each device (browser echo cancellation may not cover page audio)
+  - how ElevenLabs handles a reply with no words
+  - whether a long silent noticing game reaches the 120 s silence hang-up
+- **Agent synced** with `stop_activity` (2026-10-19); the tunnel must be re-opened and the sync re-run for a live test.
+- **Owner's live test, 2026-10-19: the call dropped during the noticing game.** The ElevenLabs transcript ends `status=failed, custom_llm generation failed` right after the game started. The agent's quiet-turn ping got our "no words" reply, and ElevenLabs treats an empty reply as a failed generation and ends the call. In the browser this showed as "error reading from signal stream" and "Server error: Unknown error". Afterwards the child had to start a new talk with no memory, because it *was* a new call.
+  - **Fix:** a quiet turn is now ElevenLabs' `skip_turn` system tool (added to the agent in `sync.ts`; docs checked 2026-10-19). The proxy sends it for silence, small sounds and echoes during a game, and for a request with no child turn. An agent without `skip_turn` gets a normal answer instead, never an empty one.
+  - **Verified live:** a text-only WebSocket call to the real agent through the tunnel, the dev server and the proxy, with a game running (synthetic test child, about 40 s of voice credits). "hmm" and 12 s of silence got no reply and the call stayed open; "what do I have to do?" got the current step; "I don't want to play anymore" called `stop_activity`. ElevenLabs logged it as ended by the client, not failed.
+- **"I didn't understand it" (noticing game):** two of the three finding steps never said what to tap ("Now listen. Can you hear two sounds?"), and the game can't move on without the taps.
+  - The four lines were rewritten in English and Arabic so every step says what to do, and the English voice lines regenerated (283 credits).
+  - The intro step is now 5.5 s, so its 4.9 s line isn't cut off.
+  - A test now checks that no timed step is shorter than its recorded line.
+  - Prompt `sys-v0.8`: when Feelio starts a game, it says in one short sentence how it works ("we'll look around and find things we can see, hear and feel, and tap a picture for each one").
+
+## D-078 The Tower (Home level 3): the first SEL scenario, as a draft
+- **Owner request (2026-10-19):** "let's do only one level for now so i can see the output." Built from the ★ concept in `docs/SEL_ADVENTURES.md` (Home 3, "Sharing with a brother or sister"): Feelio builds a block tower, little cousin Nori knocks it over by accident, and the child helps Feelio with the anger.
+- **Skill taught:** name the feeling, notice that a big storm leaves only stormy ideas, calm it (Cloud Breath), then pick a kind idea. CASEL self-awareness, self-management, relationship skills.
+- **Flow** (`world/artifacts/scenarios/tower.ts`, pure and unit-tested):
+  - build (4 taps) → crash → "what am I feeling?" (4 brand faces; every answer is acknowledged, none is wrong)
+  - stormy choices only (Stomp, Shout) plus the glowing cloud; after about 8 s without a tap, Feelio points to the cloud once
+  - a stormy choice shows a gentle consequence (Nori looks scared, or runs off and Feelio is alone) and a Go back button: no failure state
+  - Cloud Breath (in, out, in, out) → all four choices appear (Tell Nori, Build together, plus the stormy two)
+  - a kind choice → Nori says sorry or smiles → rebuild together → the lesson line, "New calm trick: Cloud Breath", Feelio's journal ("Ways we found: n of 4"), Try another way or Finish
+- **Privacy:** nothing the child picks is stored or sent. The journal lives only on the screen. The server records only start and complete, as for every artifact (D-056).
+- **Draft gate:** `ARTIFACT_CATALOG` entries can be `draft: true`. A draft plays only in development and test runs; production treats the level as not made yet (unit-tested). It stays a draft until the owner reviews it.
+- **Audio:** 20 English lines pre-generated (about 1,100 credits; Jessica, Multilingual v2). Arabic is captions only, as everywhere (D-064). Lines that move on by themselves stay on screen longer than their recording (unit-tested from the mp3 lengths); a Next button skips ahead.
+- **Cast:** Nori is a girl of about four (the Arabic text needs a gender; English stays neutral). Character sheet and 3 poses approved 2026-10-23 (Batch 9). The other 10 images are requested in Batch 10. Until they arrive: Nori's sorry and happy poses use her idle pose, the block pile uses `like_blocks`, the choice pictures are word discs, the storm cloud is left out, and the standing and fallen tower are grey `TODO(PLACEHOLDER)` boxes.
+- **Verified by running it:** unit tests (the flow, every line in EN and AR, line timing against the mp3s, the draft gate), lint, typecheck, and `tests/e2e/m10-tower.spec.ts` 2/2 (full English playthrough to the celebration, Arabic portrait right to left), with screenshots reviewed.
+- **Not verified:** a child playing it; the timing with the real recordings on a device. The owner's running dev server did not reload the changed files, so the E2E ran against a second copy on port 3001; restart the dev server before trying it.
+
+## D-079 Next.js 16.4.0 → 16.4.3 (security patch)
+- **Why:** the dev server reported that Next.js 16.4.0 is affected by a published security advisory (npm advisory database, checked 2026-10-23); the owner asked for the upgrade.
+- **How:** `next upgrade --agent=security` chose 16.4.3 (same major, no codemods). `next` and `eslint-config-next` pinned to 16.4.3; the lockfile changes only Next.js packages. `experimental.agentUpgrade: "security"` set in `next.config.ts` as the upgrade tool asks (it only controls these upgrade notices; it was already the default).
+- **Not done:** the tool's usage report to Vercel (sends data to a third party; CLAUDE.md asks first). No pull request: the GitHub CLI isn't installed.
+- **Verified by running it:** `next --version` 16.4.3, lint, typecheck, 211 unit and integration tests, production build, E2E `m10-tower` 2/2 against the upgraded dev server.
+
+## D-080 SEL levels as interactive illustrated films: a throwaway sample of The Tower
+- **Owner direction (2026-10-23):** the tap-game Tower (D-078) is "not what I'm thinking". A level should be like an animated "choose your own adventure" film with our characters. A first puppet version (cut-out characters moved over a room) was rejected as not real or expressive enough; the owner chose full illustrated shots.
+- **Sample:** `app/child/dev/film/` at `/dev/film`, development only (production returns 404). 12 full 1536×1024 frames (Batch 11, made with Codex from the official mascot, the Nori sheet and the approved room), each with a slow camera move, cross-fades, a storm tint and a warm light, 21 recorded lines (Feelio: Jessica; Nori: a stand-in ElevenLabs voice, about 755 credits) with subtitles. One choice after the storm: Shout (Feelio ends up alone, then Rewind and try again) or Breathe (calm, sorry, build together, the lesson line). No failure state; nothing the child picks is stored or sent.
+- **Status:** throwaway. English only, hard-coded, no tests, not in the level catalog. The D-078 tap-game draft stays in the repo until the owner decides; Batch 10 (its art) is on hold and probably obsolete.
+- **Verified by running it (2026-10-24):** typecheck, lint, a headless browser playthrough of both branches, the rewind and the ending with no errors, screenshots reviewed. **Not verified:** the voices in sync with the pictures (the test browser had no sound), a child watching it.
+- **Open for the owner:** is this the format? Then: a written design for film levels as data (shots, lines, choices), Arabic, Nori's voice, and the per-level art and credit cost.

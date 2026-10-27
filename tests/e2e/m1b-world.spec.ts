@@ -83,6 +83,7 @@ for (const locale of ["en", "ar"] as const) {
       if (locale === "en") {
         await expect(page.getByTestId("onboarding")).toHaveAttribute("data-stop", "mic");
         await expect(page.getByTestId("mic")).toHaveCount(1);
+        await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-5-mic.png` });
         await page.getByTestId("mic-later").click();
       }
 
@@ -97,10 +98,10 @@ for (const locale of ["en", "ar"] as const) {
       await page.waitForTimeout(1500);
       await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-4-map.png` });
 
-      // Collection shows the chosen character and name.
+      // My room shows the chosen character and name.
       await page.getByTestId("dock-collection").click();
-      await expect(page.getByTestId("collection")).toBeVisible();
-      await expect(page.getByTestId("child-name")).toContainText(locale === "ar" ? "ليلى" : "Pip");
+      await expect(page.getByTestId("room")).toBeVisible();
+      await expect(page.getByTestId("room-name")).toContainText(locale === "ar" ? "ليلى" : "Pip");
       await page.screenshot({ path: `${SHOTS}/${locale}-${orient}-5-collection.png` });
     });
   }
