@@ -63,6 +63,9 @@ const placeLandscape = WORLD_PLACE_IDS.map((p) => `place_${p}_map_h` as const);
 const placePortrait = WORLD_PLACE_IDS.map((p) => `place_${p}_map_v` as const);
 
 const wide = ["ui_sign_plate", "ui_say_bubble"] as const;
+// Film sample "The Tower" (Batch 11, 2026-10-24): full illustrated film frames, 3:2
+const film = ["film_tower_01_build", "film_tower_02_proud", "film_tower_03_nori_runs", "film_tower_04_bump", "film_tower_05_fallen", "film_tower_06_storm", "film_tower_a1_shout", "film_tower_a2_alone", "film_tower_b1_breathe", "film_tower_b2_talk", "film_tower_b3_together", "film_tower_end_cheer"] as const;
+export type FilmFrameId = (typeof film)[number];
 const landscape = ["global_horizental", "global_horizontal_ar", "scene_meadow_land", "scene_meadow_land_open", "scene_talk_nook_land", "scene_story_stage_land", "scene_library_land", "scene_treasure_room_land", "ui_sticker_album_open", "scene_my_room_land"] as const;
 const portrait = ["global_vertical", "global_vertical_ar", "scene_meadow_port", "scene_meadow_port_open", "scene_talk_nook_port", "scene_story_stage_port", "scene_library_port", "scene_treasure_room_port", "scene_my_room_port"] as const;
 
@@ -84,6 +87,7 @@ export type AssetId =
   | (typeof square)[number]
   | (typeof wide)[number]
   | (typeof landscape)[number]
+  | FilmFrameId
   | (typeof portrait)[number]
   | AvatarAssetId
   | PlaceSquareId
@@ -94,6 +98,7 @@ export const EXPECTED_ASSETS: Record<AssetId, AssetShape> = Object.fromEntries([
   ...square.map((id) => [id, "square"]),
   ...wide.map((id) => [id, "wide"]),
   ...landscape.map((id) => [id, "landscape"]),
+  ...film.map((id) => [id, "landscape"]),
   ...portrait.map((id) => [id, "portrait"]),
   ...avatars.map((id) => [id, "square"]),
   ...placeSquare.map((id) => [id, "square"]),

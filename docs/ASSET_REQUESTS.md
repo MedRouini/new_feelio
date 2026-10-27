@@ -1309,6 +1309,9 @@ Made with Codex from `assets/requests/batch10/jobs.json` (brief: `CODEX.md`) int
 | `ui_choice_together` | The Tower: choice card "Build together" | requested |
 
 
+## Batch 11 (film sample "The Tower"), written 2026-10-23 (D-080)
+Made with Codex from `assets/requests/batch11/jobs.json` (brief: `CODEX.md`) into `assets/incoming/batch11/`, checked by `npx tsx scripts/check-incoming.ts batch11`, then reviewed by Claude Code. 12 full illustrated frames (1536×1024, with background): 01 build, 02 proud, 03 Nori runs, 04 bump, 05 fallen, 06 storm, a1 shout, a2 alone, b1 breathe, b2 talk, b3 together, end cheer. References: the official mascot, the matching Feelio pose, frame 01 (room and light), and for Nori frames the Nori sheet and pose (at most 5, the tool's limit). **All 12 approved 2026-10-24**, saved in `assets/approved/film/`.
+
 ## Log
 | id | requested | delivered | approved | notes |
 |---|---|---|---|---|
@@ -1398,3 +1401,4 @@ Made with Codex from `assets/requests/batch10/jobs.json` (brief: `CODEX.md`) int
 | batch-8 voice room | 2026-10-14 | 2026-10-15 | 2026-10-15 | 7 mascot activity poses + 3 start objects (D-076); via Codex from assets/requests/batch8/jobs.json into assets/incoming/batch8/. All 10 approved (reviewed by Claude Code, first try each) |
 | batch-9 the tower: Nori | 2026-10-20 | 2026-10-20 | 2026-10-23 | Nori character sheet + idle, oops, scared (D-078); via Codex. All 4 approved (reviewed by Claude Code, first try each) |
 | batch-10 the tower: the rest | 2026-10-23 | | | 2 Nori poses, tower standing and fallen, block pile, storm cloud, 4 choice pictures (D-078) |
+| batch-11 film sample | 2026-10-23 | 2026-10-24 | 2026-10-24 | 12 full film frames for the interactive-film sample (D-080); via Codex from assets/requests/batch11/jobs.json into assets/incoming/batch11/ | All 12 approved (reviewed by Claude Code); frames 01–02 first try, 03–12 redone with up to 5 references |
